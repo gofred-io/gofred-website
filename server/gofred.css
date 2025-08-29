@@ -22,3 +22,11 @@
 .gf-icon-button:active {
     background-color: #E8E8E8;
 }
+
+.gf-link {
+    text-decoration: none;
+}
+
+.gf-link:hover {
+    color: #0000EE;
+}

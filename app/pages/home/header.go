@@ -56,6 +56,9 @@ func menuButton() widget.Widget {
 		iconbutton.OnClick(func(this widget.Widget) {
 			fmt.Println("hamburger menu clicked")
 		}),
+		iconbutton.Style(
+			iconbutton.Fill("#003B73"),
+		),
 	)
 }
 
@@ -100,9 +103,8 @@ func discussionsLink() widget.Widget {
 				),
 			},
 		),
-		link.OnClick(func(this widget.Widget) {
-			fmt.Println("discussions clicked")
-		}),
+		link.Href("https://github.com/gofred-io/gofred/pulls"),
+		link.NewTab(true),
 	)
 }
 
@@ -125,18 +127,17 @@ func githubLink() widget.Widget {
 				),
 			},
 		),
-		link.OnClick(func(this widget.Widget) {
-			fmt.Println("github clicked")
-		}),
+		link.Href("https://github.com/gofred-io/gofred"),
+		link.NewTab(true),
 	)
 }
 
 func themeToggleButton() widget.Widget {
 	currentTheme := theme.Listenable()
 	return listenable.Builder(currentTheme, func() widget.Widget {
-		themeIcon := icondata.MoonWaningCrescent
+		themeIcon := icondata.WhiteBalanceSunny
 		if theme.Get() == theme.ThemeDark {
-			themeIcon = icondata.WhiteBalanceSunny
+			themeIcon = icondata.MoonWaningCrescent
 		}
 
 		return iconbutton.New(
