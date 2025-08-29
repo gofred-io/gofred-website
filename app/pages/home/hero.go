@@ -31,7 +31,7 @@ func hero() widget.Widget {
 		container.Style(
 			container.Background(
 				style.Background{
-					Color: "#003B73",
+					Color: "#2B799B",
 				},
 			),
 			container.Flex(1),

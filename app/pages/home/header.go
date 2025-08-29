@@ -91,7 +91,7 @@ func documentationLink() widget.Widget {
 		text.New(
 			"Docs",
 			text.Style(
-				text.Font(text.Size(16), text.Color("#003B73"), text.Weight("500")),
+				text.Font(text.Size(16), text.Color("#2B799B"), text.Weight("500")),
 			),
 		),
 		link.Href("/docs"),
@@ -105,7 +105,7 @@ func discussionsLink() widget.Widget {
 				text.New(
 					"Discussions",
 					text.Style(
-						text.Font(text.Size(16), text.Color("#003B73"), text.Weight("500")),
+						text.Font(text.Size(16), text.Color("#2B799B"), text.Weight("500")),
 					),
 				),
 				icon.New(
@@ -113,6 +113,7 @@ func discussionsLink() widget.Widget {
 					icon.Style(
 						icon.Width(18),
 						icon.Height(18),
+						icon.Fill("#2B799B"),
 					),
 				),
 			},
@@ -129,7 +130,7 @@ func githubLink() widget.Widget {
 				text.New(
 					"GitHub",
 					text.Style(
-						text.Font(text.Size(16), text.Color("#003B73"), text.Weight("500")),
+						text.Font(text.Size(16), text.Color("#2B799B"), text.Weight("500")),
 					),
 				),
 				icon.New(
@@ -137,6 +138,7 @@ func githubLink() widget.Widget {
 					icon.Style(
 						icon.Width(18),
 						icon.Height(18),
+						icon.Fill("#2B799B"),
 					),
 				),
 			},
@@ -157,7 +159,7 @@ func themeToggleButton() widget.Widget {
 		return iconbutton.New(
 			themeIcon,
 			iconbutton.Style(
-				iconbutton.Fill("#003B73"),
+				iconbutton.Fill("#2B799B"),
 			),
 			iconbutton.OnClick(func(this widget.Widget) {
 				if theme.Get() == theme.ThemeLight {
