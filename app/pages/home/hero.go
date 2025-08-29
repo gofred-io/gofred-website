@@ -409,6 +409,7 @@ func sampleCode() widget.Widget {
 				Left:   16,
 				Right:  16,
 			}),
+			container.MaxWidth(540),
 		),
 	)
 }
