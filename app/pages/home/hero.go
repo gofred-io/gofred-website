@@ -426,6 +426,9 @@ func cta() widget.Widget {
 				button.Style(
 					button.Width(100),
 				),
+				button.OnClick(func(this widget.Widget) {
+					widget.Context().Navigate("/docs#getting-started")
+				}),
 			),
 			button.New(
 				row.New(
@@ -453,11 +456,14 @@ func cta() widget.Widget {
 				button.Style(
 					button.Background(
 						style.Background{
-							Color: "#111621",
+							Color: "#151b23",
 						},
 					),
 					button.Width(100),
 				),
+				button.OnClick(func(this widget.Widget) {
+					widget.Context().OpenLink("https://github.com/gofred-io/gofred")
+				}),
 			),
 		},
 		row.MainAxisAlignment(style.JustifyContentTypeStart),
