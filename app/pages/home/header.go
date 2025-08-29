@@ -26,6 +26,8 @@ func header() widget.Widget {
 				logo(),
 				title(),
 				spacer.New(),
+				documentationLink(),
+				spacer.New(spacer.Width(8)),
 				discussionsLink(),
 				spacer.New(spacer.Width(8)),
 				githubLink(),
@@ -81,6 +83,18 @@ func title() widget.Widget {
 			),
 			text.UserSelect(style.UserSelectTypeNone),
 		),
+	)
+}
+
+func documentationLink() widget.Widget {
+	return link.New(
+		text.New(
+			"Docs",
+			text.Style(
+				text.Font(text.Size(16), text.Color("#003B73"), text.Weight("500")),
+			),
+		),
+		link.Href("/docs"),
 	)
 }
 
