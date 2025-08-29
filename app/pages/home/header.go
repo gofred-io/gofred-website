@@ -166,6 +166,7 @@ func themeToggleButton() widget.Widget {
 					theme.Set(theme.ThemeLight)
 				}
 			}),
+			iconbutton.Tooltip("Toggle theme"),
 		)
 	})
 }
