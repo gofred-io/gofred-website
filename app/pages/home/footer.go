@@ -4,6 +4,7 @@ import (
 	"github.com/gofred-io/gofred/container"
 	iconbutton "github.com/gofred-io/gofred/icon_button"
 	icondata "github.com/gofred-io/gofred/icon_data"
+	"github.com/gofred-io/gofred/link"
 	"github.com/gofred-io/gofred/row"
 	"github.com/gofred-io/gofred/style"
 	"github.com/gofred-io/gofred/text"
@@ -34,28 +35,43 @@ func footer() widget.Widget {
 }
 
 func socials() widget.Widget {
-	twitterButton := iconbutton.New(
-		icondata.Twitter,
-		iconbutton.Style(
-			iconbutton.Fill("#FFFFFF"),
+	twitterButton := link.New(
+		iconbutton.New(
+			icondata.Twitter,
+			iconbutton.Style(
+				iconbutton.Fill("#FFFFFF"),
+			),
+			iconbutton.Tooltip("Follow us on Twitter"),
+			iconbutton.Class("footer-icon-button"),
 		),
-		iconbutton.Tooltip("Follow us on Twitter"),
+		link.Href("#"),
+		link.NewTab(true),
 	)
 
-	youtubeButton := iconbutton.New(
-		icondata.Youtube,
-		iconbutton.Style(
-			iconbutton.Fill("#FFFFFF"),
+	youtubeButton := link.New(
+		iconbutton.New(
+			icondata.Youtube,
+			iconbutton.Style(
+				iconbutton.Fill("#FFFFFF"),
+			),
+			iconbutton.Tooltip("Subscribe to our YouTube channel"),
+			iconbutton.Class("footer-icon-button"),
 		),
-		iconbutton.Tooltip("Subscribe to our YouTube channel"),
+		link.Href("#"),
+		link.NewTab(true),
 	)
 
-	instagramButton := iconbutton.New(
-		icondata.Instagram,
-		iconbutton.Style(
-			iconbutton.Fill("#FFFFFF"),
+	instagramButton := link.New(
+		iconbutton.New(
+			icondata.Instagram,
+			iconbutton.Style(
+				iconbutton.Fill("#FFFFFF"),
+			),
+			iconbutton.Tooltip("Follow us on Instagram"),
+			iconbutton.Class("footer-icon-button"),
 		),
-		iconbutton.Tooltip("Follow us on Instagram"),
+		link.Href("#"),
+		link.NewTab(true),
 	)
 
 	return row.New(
@@ -81,13 +97,20 @@ func copyright() widget.Widget {
 }
 
 func githubButton() widget.Widget {
+	githubButton := link.New(
+		iconbutton.New(
+			icondata.GitHub,
+			iconbutton.Style(iconbutton.Fill("#FFFFFF")),
+			iconbutton.Tooltip("Check out our GitHub repository"),
+			iconbutton.Class("footer-icon-button"),
+		),
+		link.Href("https://github.com/gofred-io/gofred-website"),
+		link.NewTab(true),
+	)
+
 	return row.New(
 		[]widget.Widget{
-			iconbutton.New(
-				icondata.GitHub,
-				iconbutton.Style(iconbutton.Fill("#FFFFFF")),
-				iconbutton.Tooltip("Check out our GitHub repository"),
-			),
+			githubButton,
 		},
 		row.MainAxisAlignment(style.JustifyContentTypeEnd),
 		row.CrossAxisAlignment(style.AlignItemsTypeCenter),

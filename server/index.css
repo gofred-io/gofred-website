@@ -2,3 +2,11 @@ div#root {
     font-family: 'Ubuntu', sans-serif;
     background-color: #FFFFFF;
 }
+
+.footer-icon-button:hover {
+    background-color: transparent;
+}
+
+.footer-icon-button:active {
+    background-color: transparent;
+}
