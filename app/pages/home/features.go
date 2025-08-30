@@ -4,6 +4,7 @@ import (
 	"github.com/gofred-io/gofred/center"
 	"github.com/gofred-io/gofred/column"
 	"github.com/gofred-io/gofred/container"
+	"github.com/gofred-io/gofred/grid"
 	"github.com/gofred-io/gofred/icon"
 	icondata "github.com/gofred-io/gofred/icon_data"
 	"github.com/gofred-io/gofred/row"
@@ -46,37 +47,18 @@ func featureTitle() widget.Widget {
 func featureList() widget.Widget {
 	return center.New(
 		container.New(
-			column.New(
+			grid.New(
 				[]widget.Widget{
-					row.New(
-						[]widget.Widget{
-							featureItem1(),
-							featureItem2(),
-						},
-						row.Gap(48),
-						row.MainAxisAlignment(style.JustifyContentTypeStart),
-						row.CrossAxisAlignment(style.AlignItemsTypeStart),
-					),
-					row.New(
-						[]widget.Widget{
-							featureItem3(),
-							featureItem4(),
-						},
-						row.Gap(48),
-						row.MainAxisAlignment(style.JustifyContentTypeStart),
-						row.CrossAxisAlignment(style.AlignItemsTypeStart),
-					),
-					row.New(
-						[]widget.Widget{
-							featureItem5(),
-							featureItem6(),
-						},
-						row.Gap(48),
-						row.MainAxisAlignment(style.JustifyContentTypeStart),
-						row.CrossAxisAlignment(style.AlignItemsTypeStart),
-					),
+					featureItem1(),
+					featureItem2(),
+					featureItem3(),
+					featureItem4(),
+					featureItem5(),
+					featureItem6(),
 				},
-				column.Gap(48),
+				grid.ColumnCount(3),
+				grid.ColumnGap(48),
+				grid.RowGap(48),
 			),
 			container.Style(
 				container.WidthP(0.75),
@@ -95,6 +77,7 @@ func featureItem1() widget.Widget {
 					text.New("No JavaScript Required", text.Style(text.Font(text.Size(20), text.Color("#000000"), text.Weight("500")), text.LineHeight(1.5))),
 				},
 				row.Gap(8),
+				row.Flex(0),
 			),
 			text.New(
 				"Write modern, reactive web applications entirely in Go. Gofred handles the WebAssembly layer so you can focus on building features — not managing JS interop.",
@@ -114,6 +97,7 @@ func featureItem2() widget.Widget {
 					text.New("High Performance", text.Style(text.Font(text.Size(20), text.Color("#000000"), text.Weight("500")), text.LineHeight(1.5))),
 				},
 				row.Gap(8),
+				row.Flex(0),
 			),
 			text.New(
 				"Leverages Go’s speed and efficiency, compiled to WebAssembly for near-native browser performance.",
@@ -133,6 +117,7 @@ func featureItem3() widget.Widget {
 					text.New("Declarative & Reactive", text.Style(text.Font(text.Size(20), text.Color("#000000"), text.Weight("500")), text.LineHeight(1.5))),
 				},
 				row.Gap(8),
+				row.Flex(0),
 			),
 			text.New(
 				"Inspired by React and Flutter, define your UI with simple Go interfaces. State changes automatically update the DOM — no manual wiring needed.",
@@ -152,6 +137,7 @@ func featureItem4() widget.Widget {
 					text.New("Responsive by Design", text.Style(text.Font(text.Size(20), text.Color("#000000"), text.Weight("500")), text.LineHeight(1.5))),
 				},
 				row.Gap(8),
+				row.Flex(0),
 			),
 			text.New(
 				"Gofred makes it simple to build layouts that adapt to any device size, ensuring great user experiences everywhere.",
@@ -171,6 +157,7 @@ func featureItem5() widget.Widget {
 					text.New("Extensible & Flexible", text.Style(text.Font(text.Size(20), text.Color("#000000"), text.Weight("500")), text.LineHeight(1.5))),
 				},
 				row.Gap(8),
+				row.Flex(0),
 			),
 			text.New(
 				"Use pure Go for core logic, but still extend with HTML, CSS, and JS when you need fine-grained control.",
@@ -190,6 +177,7 @@ func featureItem6() widget.Widget {
 					text.New("Built for Go Developers", text.Style(text.Font(text.Size(20), text.Color("#000000"), text.Weight("500")), text.LineHeight(1.5))),
 				},
 				row.Gap(8),
+				row.Flex(0),
 			),
 			text.New(
 				"No need to switch languages — build full web applications using the same patterns and tooling you already know in Go.",
