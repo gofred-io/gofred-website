@@ -46,7 +46,6 @@ if ('instantiateStreaming' in WebAssembly) {
 class HTMLPushStateAnchorElement extends HTMLAnchorElement {
   constructor() {
     super();
-    console.log('HTMLPushStateAnchorElement');
   }
 
   connectedCallback() {
