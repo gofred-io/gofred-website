@@ -1,12 +1,15 @@
 package main
 
 import (
+	"fmt"
 	"io/fs"
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"sync/atomic"
 	"time"
@@ -24,6 +27,10 @@ var (
 		ReadBufferSize:  1024,
 		WriteBufferSize: 1024,
 	}
+	localURL       string
+	netURL         string
+	colorSuccess   = 32
+	colorCompiling = 33
 )
 
 type wsMsg struct {
@@ -34,7 +41,26 @@ func main() {
 	go watch()
 	go runWebsockerServer()
 
-	http.ListenAndServe(":3000", http.FileServer(http.Dir("./server")))
+	addr, err := net.Listen("tcp", ":0")
+	if err != nil {
+		log.Printf("error: %v", err)
+	}
+	defer addr.Close()
+
+	port := addr.Addr().(*net.TCPAddr).Port
+	localURL = fmt.Sprintf("http://localhost:%d", port)
+
+	// find the IP address of the machine
+	ip, err := net.LookupIP("localhost")
+	if err != nil {
+		log.Printf("error: %v", err)
+	}
+	netURL = fmt.Sprintf("http://%s:%d", ip[0].String(), port)
+
+	printSuccessMessage()
+
+	openURL(localURL)
+	log.Fatal(http.Serve(addr, http.FileServer(http.Dir("./server"))))
 }
 
 func runWebsockerServer() {
@@ -122,8 +148,11 @@ func watch() {
 			log.Printf("error: %v", err)
 		case <-ticker.C:
 			if hasChanged.CompareAndSwap(true, false) {
-				log.Printf("detected changes, rebuilding...")
+				removeLines(6)
+				printCompilingMessage()
 				build()
+				removeLines(1)
+				printSuccessMessage()
 				chReload <- struct{}{}
 			}
 		}
@@ -139,4 +168,59 @@ func build() {
 	if err != nil {
 		log.Printf("error: %v", err)
 	}
+}
+
+// openURL opens the specified URL in the default browser of the user.
+func openURL(url string) error {
+	var cmd string
+	var args []string
+
+	switch runtime.GOOS {
+	case "windows":
+		cmd = "cmd"
+		args = []string{"/c", "start"}
+	case "darwin":
+		cmd = "open"
+		args = []string{url}
+	default: // "linux", "freebsd", "openbsd", "netbsd"
+		// Check if running under WSL
+		if isWSL() {
+			// Use 'cmd.exe /c start' to open the URL in the default Windows browser
+			cmd = "cmd.exe"
+			args = []string{"/c", "start", url}
+		} else {
+			// Use xdg-open on native Linux environments
+			cmd = "xdg-open"
+			args = []string{url}
+		}
+	}
+	if len(args) > 1 {
+		// args[0] is used for 'start' command argument, to prevent issues with URLs starting with a quote
+		args = append(args[:1], append([]string{""}, args[1:]...)...)
+	}
+	return exec.Command(cmd, args...).Start()
+}
+
+// isWSL checks if the Go program is running inside Windows Subsystem for Linux
+func isWSL() bool {
+	releaseData, err := exec.Command("uname", "-r").Output()
+	if err != nil {
+		return false
+	}
+	return strings.Contains(strings.ToLower(string(releaseData)), "microsoft")
+}
+
+func printSuccessMessage() {
+	fmt.Printf("\x1b[%dmCompiled successfully!\x1b[0m\n\n", colorSuccess)
+	fmt.Printf("Open your browser and go to:\n\n")
+	fmt.Printf("   Local: %s\n", localURL)
+	fmt.Printf("   Network: %s\n", netURL)
+}
+
+func printCompilingMessage() {
+	fmt.Printf("\x1b[%dmCompiling...\x1b[0m\n", colorCompiling)
+}
+
+func removeLines(n int) {
+	fmt.Print(strings.Repeat("\033[1A\033[K", n))
 }
