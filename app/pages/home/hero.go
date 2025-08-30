@@ -4,6 +4,7 @@ import (
 	"github.com/gofred-io/gofred/button"
 	"github.com/gofred-io/gofred/column"
 	"github.com/gofred-io/gofred/container"
+	"github.com/gofred-io/gofred/grid"
 	"github.com/gofred-io/gofred/icon"
 	icondata "github.com/gofred-io/gofred/icon_data"
 	"github.com/gofred-io/gofred/link"
@@ -416,12 +417,13 @@ func sampleCode() widget.Widget {
 			breakpoint.All(0.5),
 			breakpoint.XS(1.0),
 			breakpoint.SM(1.0),
+			breakpoint.MD(0.75),
 		),
 	)
 }
 
 func cta() widget.Widget {
-	return row.New(
+	return grid.New(
 		[]widget.Widget{
 			link.New(
 				button.New(
@@ -435,6 +437,7 @@ func cta() widget.Widget {
 						button.Width(100),
 					),
 				),
+				link.Href("#"),
 				link.Href("/docs#getting-started"),
 			),
 			link.New(
@@ -474,9 +477,11 @@ func cta() widget.Widget {
 				link.NewTab(true),
 			),
 		},
-		row.MainAxisAlignment(style.JustifyContentTypeStart),
-		row.CrossAxisAlignment(style.AlignItemsTypeStart),
-		row.Gap(8),
-		row.Flex(0),
+		grid.ColumnGap(8),
+		grid.RowGap(8),
+		grid.ColumnCount(
+			breakpoint.All(2),
+			breakpoint.XS(1),
+		),
 	)
 }

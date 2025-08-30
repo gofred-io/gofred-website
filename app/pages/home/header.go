@@ -24,8 +24,7 @@ func header() widget.Widget {
 		row.New(
 			[]widget.Widget{
 				menuButton(),
-				logo(),
-				title(),
+				logoTitle(),
 				spacer.New(),
 				documentationLink(),
 				spacer.New(spacer.Width(8)),
@@ -66,6 +65,19 @@ func menuButton() widget.Widget {
 			breakpoint.XS(true),
 			breakpoint.SM(true),
 		),
+	)
+}
+
+func logoTitle() widget.Widget {
+	return link.New(
+		row.New(
+			[]widget.Widget{
+				logo(),
+				title(),
+			},
+			row.Gap(8),
+		),
+		link.Href("/"),
 	)
 }
 

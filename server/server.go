@@ -60,7 +60,19 @@ func main() {
 	printSuccessMessage()
 
 	openURL(localURL)
-	log.Fatal(http.Serve(addr, http.FileServer(http.Dir("./server"))))
+
+	rootDir := "./server"
+	//log.Fatal(http.Serve(addr, http.FileServer(http.Dir("./server"))))
+	log.Fatal(http.Serve(addr, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// if the file is not found, serve the index.html file
+		if _, err := os.Stat(rootDir + r.URL.Path); os.IsNotExist(err) {
+			http.ServeFile(w, r, rootDir+"/index.html")
+			return
+		}
+
+		http.FileServer(http.Dir(rootDir)).ServeHTTP(w, r)
+		w.Header().Set("Content-Security-Policy", "script-src 'self' 'unsafe-inline'; default-src 'self'")
+	})))
 }
 
 func runWebsockerServer() {
