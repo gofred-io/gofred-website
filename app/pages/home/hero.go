@@ -10,6 +10,7 @@ import (
 	"github.com/gofred-io/gofred/row"
 	"github.com/gofred-io/gofred/spacer"
 	"github.com/gofred-io/gofred/style"
+	"github.com/gofred-io/gofred/style/breakpoint"
 	"github.com/gofred-io/gofred/text"
 	"github.com/gofred-io/gofred/widget"
 )
@@ -397,7 +398,6 @@ func sampleCode() widget.Widget {
 					Color: "#282A36",
 				},
 			),
-			container.WidthP(0.5),
 			container.Height(240),
 			container.Border(
 				style.Border{
@@ -411,6 +411,11 @@ func sampleCode() widget.Widget {
 				Right:  16,
 			}),
 			container.MaxWidth(540),
+		),
+		container.WidthP(
+			breakpoint.All(0.5),
+			breakpoint.XS(1.0),
+			breakpoint.SM(1.0),
 		),
 	)
 }

@@ -69,8 +69,10 @@ func featureList() widget.Widget {
 				grid.RowGap(48),
 			),
 			container.Style(
-				container.WidthP(0.75),
 				container.MaxWidth(960),
+			),
+			container.WidthP(
+				breakpoint.All(0.75),
 			),
 		),
 	)
@@ -86,6 +88,7 @@ func featureItem1() widget.Widget {
 				},
 				row.Gap(8),
 				row.Flex(0),
+				row.CrossAxisAlignment(style.AlignItemsTypeCenter),
 			),
 			text.New(
 				"Write modern, reactive web applications entirely in Go. Gofred handles the WebAssembly layer so you can focus on building features — not managing JS interop.",
@@ -106,6 +109,7 @@ func featureItem2() widget.Widget {
 				},
 				row.Gap(8),
 				row.Flex(0),
+				row.CrossAxisAlignment(style.AlignItemsTypeCenter),
 			),
 			text.New(
 				"Leverages Go’s speed and efficiency, compiled to WebAssembly for near-native browser performance.",
@@ -126,6 +130,7 @@ func featureItem3() widget.Widget {
 				},
 				row.Gap(8),
 				row.Flex(0),
+				row.CrossAxisAlignment(style.AlignItemsTypeCenter),
 			),
 			text.New(
 				"Inspired by React and Flutter, define your UI with simple Go interfaces. State changes automatically update the DOM — no manual wiring needed.",
@@ -166,6 +171,7 @@ func featureItem5() widget.Widget {
 				},
 				row.Gap(8),
 				row.Flex(0),
+				row.CrossAxisAlignment(style.AlignItemsTypeCenter),
 			),
 			text.New(
 				"Use pure Go for core logic, but still extend with HTML, CSS, and JS when you need fine-grained control.",
@@ -186,6 +192,7 @@ func featureItem6() widget.Widget {
 				},
 				row.Gap(8),
 				row.Flex(0),
+				row.CrossAxisAlignment(style.AlignItemsTypeCenter),
 			),
 			text.New(
 				"No need to switch languages — build full web applications using the same patterns and tooling you already know in Go.",

@@ -26,6 +26,10 @@
     cursor: not-allowed;
 }
 
+.gf-hidden {
+    display: none !important;
+}
+
 .gf-icon {
     display: inline-block;
     width: 24px;

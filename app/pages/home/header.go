@@ -14,6 +14,7 @@ import (
 	"github.com/gofred-io/gofred/row"
 	"github.com/gofred-io/gofred/spacer"
 	"github.com/gofred-io/gofred/style"
+	"github.com/gofred-io/gofred/style/breakpoint"
 	"github.com/gofred-io/gofred/text"
 	"github.com/gofred-io/gofred/widget"
 )
@@ -61,6 +62,10 @@ func menuButton() widget.Widget {
 		iconbutton.Style(
 			iconbutton.Fill("#003B73"),
 		),
+		iconbutton.Visible(
+			breakpoint.XS(true),
+			breakpoint.SM(true),
+		),
 	)
 }
 
@@ -87,64 +92,85 @@ func title() widget.Widget {
 }
 
 func documentationLink() widget.Widget {
-	return link.New(
-		text.New(
-			"Docs",
-			text.Style(
-				text.Font(text.Size(16), text.Color("#2B799B"), text.Weight("500")),
+	return container.New(
+		link.New(
+			text.New(
+				"Docs",
+				text.Style(
+					text.Font(text.Size(16), text.Color("#2B799B"), text.Weight("500")),
+				),
 			),
+			link.Href("/docs"),
 		),
-		link.Href("/docs"),
+		container.Visible(
+			breakpoint.All(true),
+			breakpoint.XS(false),
+			breakpoint.SM(false),
+		),
 	)
 }
 
 func discussionsLink() widget.Widget {
-	return link.New(
-		row.New(
-			[]widget.Widget{
-				text.New(
-					"Discussions",
-					text.Style(
-						text.Font(text.Size(16), text.Color("#2B799B"), text.Weight("500")),
+	return container.New(
+		link.New(
+			row.New(
+				[]widget.Widget{
+					text.New(
+						"Discussions",
+						text.Style(
+							text.Font(text.Size(16), text.Color("#2B799B"), text.Weight("500")),
+						),
 					),
-				),
-				icon.New(
-					icondata.OpenInNew,
-					icon.Style(
-						icon.Width(18),
-						icon.Height(18),
-						icon.Fill("#2B799B"),
+					icon.New(
+						icondata.OpenInNew,
+						icon.Style(
+							icon.Width(18),
+							icon.Height(18),
+							icon.Fill("#2B799B"),
+						),
 					),
-				),
-			},
+				},
+			),
+			link.Href("https://github.com/gofred-io/gofred/pulls"),
+			link.NewTab(true),
 		),
-		link.Href("https://github.com/gofred-io/gofred/pulls"),
-		link.NewTab(true),
+		container.Visible(
+			breakpoint.All(true),
+			breakpoint.XS(false),
+			breakpoint.SM(false),
+		),
 	)
 }
 
 func githubLink() widget.Widget {
-	return link.New(
-		row.New(
-			[]widget.Widget{
-				text.New(
-					"GitHub",
-					text.Style(
-						text.Font(text.Size(16), text.Color("#2B799B"), text.Weight("500")),
+	return container.New(
+		link.New(
+			row.New(
+				[]widget.Widget{
+					text.New(
+						"GitHub",
+						text.Style(
+							text.Font(text.Size(16), text.Color("#2B799B"), text.Weight("500")),
+						),
 					),
-				),
-				icon.New(
-					icondata.OpenInNew,
-					icon.Style(
-						icon.Width(18),
-						icon.Height(18),
-						icon.Fill("#2B799B"),
+					icon.New(
+						icondata.OpenInNew,
+						icon.Style(
+							icon.Width(18),
+							icon.Height(18),
+							icon.Fill("#2B799B"),
+						),
 					),
-				),
-			},
+				},
+			),
+			link.Href("https://github.com/gofred-io/gofred"),
+			link.NewTab(true),
 		),
-		link.Href("https://github.com/gofred-io/gofred"),
-		link.NewTab(true),
+		container.Visible(
+			breakpoint.All(true),
+			breakpoint.XS(false),
+			breakpoint.SM(false),
+		),
 	)
 }
 
