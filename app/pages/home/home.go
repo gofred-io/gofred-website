@@ -20,7 +20,7 @@ func New() widget.Widget {
 					container.Height(widget.Context().ClientHeight()),
 				),
 			),
-			container.New(widget.Nil, container.Style(container.Height(100))),
+			features(),
 		},
 	)
 }
