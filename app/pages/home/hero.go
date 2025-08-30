@@ -6,6 +6,7 @@ import (
 	"github.com/gofred-io/gofred/container"
 	"github.com/gofred-io/gofred/icon"
 	icondata "github.com/gofred-io/gofred/icon_data"
+	"github.com/gofred-io/gofred/link"
 	"github.com/gofred-io/gofred/row"
 	"github.com/gofred-io/gofred/spacer"
 	"github.com/gofred-io/gofred/style"
@@ -417,54 +418,55 @@ func sampleCode() widget.Widget {
 func cta() widget.Widget {
 	return row.New(
 		[]widget.Widget{
-			button.New(
-				text.New(
-					"Get Started",
-					text.Style(
-						text.Font(text.Size(14), text.Color("#FFFFFF"), text.Weight("500"), text.Family("Ubuntu")),
+			link.New(
+				button.New(
+					text.New(
+						"Get Started",
+						text.Style(
+							text.Font(text.Size(14), text.Color("#FFFFFF"), text.Weight("500"), text.Family("Ubuntu")),
+						),
+					),
+					button.Style(
+						button.Width(100),
 					),
 				),
-				button.Style(
-					button.Width(100),
-				),
-				button.OnClick(func(this widget.Widget) {
-					widget.Context().Navigate("/docs#getting-started")
-				}),
+				link.Href("/docs#getting-started"),
 			),
-			button.New(
-				row.New(
-					[]widget.Widget{
-						icon.New(
-							icondata.GitHub,
-							icon.Style(
-								icon.Fill("#FFFFFF"),
-								icon.Height(16),
-								icon.Width(16),
+			link.New(
+				button.New(
+					row.New(
+						[]widget.Widget{
+							icon.New(
+								icondata.GitHub,
+								icon.Style(
+									icon.Fill("#FFFFFF"),
+									icon.Height(16),
+									icon.Width(16),
+								),
 							),
-						),
-						text.New(
-							"GitHub",
-							text.Style(
-								text.Font(text.Size(14), text.Color("#FFFFFF"), text.Weight("500"), text.Family("Ubuntu")),
+							text.New(
+								"GitHub",
+								text.Style(
+									text.Font(text.Size(14), text.Color("#FFFFFF"), text.Weight("500"), text.Family("Ubuntu")),
+								),
 							),
-						),
-					},
-					row.MainAxisAlignment(style.JustifyContentTypeCenter),
-					row.CrossAxisAlignment(style.AlignItemsTypeCenter),
-					row.Gap(6),
-					row.Flex(0),
-				),
-				button.Style(
-					button.Background(
-						style.Background{
-							Color: "#151b23",
 						},
+						row.MainAxisAlignment(style.JustifyContentTypeCenter),
+						row.CrossAxisAlignment(style.AlignItemsTypeCenter),
+						row.Gap(6),
+						row.Flex(0),
 					),
-					button.Width(100),
+					button.Style(
+						button.Background(
+							style.Background{
+								Color: "#151b23",
+							},
+						),
+						button.Width(100),
+					),
 				),
-				button.OnClick(func(this widget.Widget) {
-					widget.Context().OpenLink("https://github.com/gofred-io/gofred")
-				}),
+				link.Href("https://github.com/gofred-io/gofred"),
+				link.NewTab(true),
 			),
 		},
 		row.MainAxisAlignment(style.JustifyContentTypeStart),
