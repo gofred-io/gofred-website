@@ -9,6 +9,7 @@ import (
 	icondata "github.com/gofred-io/gofred/icon_data"
 	"github.com/gofred-io/gofred/row"
 	"github.com/gofred-io/gofred/style"
+	"github.com/gofred-io/gofred/style/breakpoint"
 	"github.com/gofred-io/gofred/text"
 	"github.com/gofred-io/gofred/widget"
 )
@@ -56,7 +57,14 @@ func featureList() widget.Widget {
 					featureItem5(),
 					featureItem6(),
 				},
-				grid.ColumnCount(3),
+				grid.ColumnCount(
+					breakpoint.XS(1),
+					breakpoint.SM(1),
+					breakpoint.MD(2),
+					breakpoint.LG(3),
+					breakpoint.XL(3),
+					breakpoint.XXL(6),
+				),
 				grid.ColumnGap(48),
 				grid.RowGap(48),
 			),
