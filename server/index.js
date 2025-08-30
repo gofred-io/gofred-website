@@ -16,7 +16,8 @@ function createWebsocketClient() {
   socket.onopen = () => {
   }
   socket.onclose = () => {
-    console.log("disconnected from websocket server");
+    console.log("disconnected from websocket server, reconnecting...");
+    createWebsocketClient();
   }
   socket.onerror = (event) => {
     console.log("error: ", event);
