@@ -6,8 +6,7 @@ const WASM_URL = 'main.wasm';
 var wasm;
 
 function createWebsocketClient() {
-  console.log("creating websocket client");
-  const socket = new WebSocket('ws://localhost:3001/ws');
+  const socket = new WebSocket(`ws://localhost:${window.env.LIVE_PORT}/ws`);
   socket.onmessage = (event) => {
     const msg = JSON.parse(event.data);
     if (msg.cmd === "reload") {
@@ -15,7 +14,6 @@ function createWebsocketClient() {
     }
   }
   socket.onopen = () => {
-    console.log("connected to websocket server");
   }
   socket.onclose = () => {
     console.log("disconnected from websocket server");

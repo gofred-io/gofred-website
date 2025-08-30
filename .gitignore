@@ -1,1 +1,2 @@
 **/*.wasm
+server/env.js

@@ -43,7 +43,7 @@ func main() {
 
 	addr, err := net.Listen("tcp", ":0")
 	if err != nil {
-		log.Printf("error: %v", err)
+		log.Fatalf("error: %v", err)
 	}
 	defer addr.Close()
 
@@ -102,7 +102,16 @@ func runWebsockerServer() {
 		}
 	})
 
-	http.ListenAndServe(":3001", nil)
+	addr, err := net.Listen("tcp", ":0")
+	if err != nil {
+		log.Fatalf("error: %v", err)
+	}
+	defer addr.Close()
+
+	port := addr.Addr().(*net.TCPAddr).Port
+	writeEnvJS(port)
+
+	http.Serve(addr, nil)
 }
 
 func watch() {
@@ -223,4 +232,19 @@ func printCompilingMessage() {
 
 func removeLines(n int) {
 	fmt.Print(strings.Repeat("\033[1A\033[K", n))
+}
+
+func writeEnvJS(port int) {
+	var (
+		content = strings.Builder{}
+	)
+
+	content.WriteString("window.env = {\n")
+	content.WriteString(fmt.Sprintf("\tLIVE_PORT: %d\n", port))
+	content.WriteString("}\n")
+
+	err := os.WriteFile("server/env.js", []byte(content.String()), 0644)
+	if err != nil {
+		log.Fatalf("error: %v", err)
+	}
 }
