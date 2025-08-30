@@ -21,6 +21,7 @@ func New() widget.Widget {
 				),
 			),
 			features(),
+			footer(),
 		},
 	)
 }

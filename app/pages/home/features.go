@@ -23,10 +23,10 @@ func features() widget.Widget {
 		),
 		container.Style(
 			container.Padding(style.Padding{
-				Top:    32,
-				Bottom: 32,
-				Left:   32,
-				Right:  32,
+				Top:    64,
+				Bottom: 64,
+				Left:   64,
+				Right:  64,
 			}),
 		),
 	)
