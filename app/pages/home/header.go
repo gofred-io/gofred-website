@@ -1,12 +1,11 @@
 package home
 
 import (
-	"fmt"
-
 	"github.com/gofred-io/gofred-website/app/theme"
 
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/container"
+	"github.com/gofred-io/gofred/foundation/drawer"
 	"github.com/gofred-io/gofred/foundation/icon"
 	icondata "github.com/gofred-io/gofred/foundation/icon/icon_data"
 	iconbutton "github.com/gofred-io/gofred/foundation/icon_button"
@@ -18,6 +17,12 @@ import (
 	"github.com/gofred-io/gofred/listenable"
 	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/widget"
+)
+
+var (
+	leftDrawer = drawer.New(
+		drawer.Width(breakpoint.All(250)),
+	)
 )
 
 func header() widget.BaseWidget {
@@ -49,8 +54,8 @@ func header() widget.BaseWidget {
 func menuButton() widget.BaseWidget {
 	return iconbutton.New(
 		icondata.Menu,
-		iconbutton.OnClick(func(this widget.BaseWidget) {
-			fmt.Println("hamburger menu clicked")
+		iconbutton.OnClick(func(this widget.BaseWidget, e widget.Event) {
+			leftDrawer.Show()
 		}),
 		iconbutton.Fill("#003B73"),
 		iconbutton.Tooltip("Menu"),
@@ -186,7 +191,7 @@ func themeToggleButton() widget.BaseWidget {
 		return iconbutton.New(
 			themeIcon,
 			iconbutton.Fill("#2B799B"),
-			iconbutton.OnClick(func(this widget.BaseWidget) {
+			iconbutton.OnClick(func(this widget.BaseWidget, e widget.Event) {
 				if theme.Get() == theme.ThemeLight {
 					theme.Set(theme.ThemeDark)
 				} else {
