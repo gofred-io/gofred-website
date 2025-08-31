@@ -22,9 +22,9 @@ func footer() widget.BaseWidget {
 			},
 			row.Flex(1),
 		),
-		options.BackgroundColor("#23395B"),
-		options.Padding(breakpoint.All(16)),
-		options.Flex(1),
+		container.BackgroundColor("#23395B"),
+		container.Padding(breakpoint.All(16)),
+		container.Flex(1),
 	)
 }
 
@@ -32,34 +32,34 @@ func socials() widget.BaseWidget {
 	twitterButton := link.New(
 		iconbutton.New(
 			icondata.Twitter,
-			options.Fill("#FFFFFF"),
-			options.Tooltip("Follow us on Twitter"),
-			options.Class("footer-icon-button"),
+			iconbutton.Fill("#FFFFFF"),
+			iconbutton.Tooltip("Follow us on Twitter"),
+			iconbutton.Class("footer-icon-button"),
 		),
-		options.Href("#"),
-		options.NewTab(true),
+		link.Href("#"),
+		link.NewTab(true),
 	)
 
 	youtubeButton := link.New(
 		iconbutton.New(
 			icondata.Youtube,
-			options.Fill("#FFFFFF"),
-			options.Tooltip("Subscribe to our YouTube channel"),
-			options.Class("footer-icon-button"),
+			iconbutton.Fill("#FFFFFF"),
+			iconbutton.Tooltip("Subscribe to our YouTube channel"),
+			iconbutton.Class("footer-icon-button"),
 		),
-		options.Href("#"),
-		options.NewTab(true),
+		link.Href("#"),
+		link.NewTab(true),
 	)
 
 	instagramButton := link.New(
 		iconbutton.New(
 			icondata.Instagram,
-			options.Fill("#FFFFFF"),
-			options.Tooltip("Follow us on Instagram"),
-			options.Class("footer-icon-button"),
+			iconbutton.Fill("#FFFFFF"),
+			iconbutton.Tooltip("Follow us on Instagram"),
+			iconbutton.Class("footer-icon-button"),
 		),
-		options.Href("#"),
-		options.NewTab(true),
+		link.Href("#"),
+		link.NewTab(true),
 	)
 
 	return row.New(
@@ -77,7 +77,7 @@ func socials() widget.BaseWidget {
 func copyright() widget.BaseWidget {
 	return row.New(
 		[]widget.BaseWidget{
-			text.New("Copyright © 2025 Gofred", options.FontSize(14), options.FontColor("#FFFFFF"), options.FontWeight("400")),
+			text.New("Copyright © 2025 Gofred", text.FontSize(14), text.FontColor("#FFFFFF"), text.FontWeight("400")),
 		},
 		row.MainAxisAlignment(options.AxisAlignmentTypeCenter),
 		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
@@ -90,12 +90,12 @@ func githubButton() widget.BaseWidget {
 	githubButton := link.New(
 		iconbutton.New(
 			icondata.GitHub,
-			options.Fill("#FFFFFF"),
-			options.Tooltip("Check out our GitHub repository"),
-			options.Class("footer-icon-button"),
+			iconbutton.Fill("#FFFFFF"),
+			iconbutton.Tooltip("Check out our GitHub repository"),
+			iconbutton.Class("footer-icon-button"),
 		),
-		options.Href("https://github.com/gofred-io/gofred-website"),
-		options.NewTab(true),
+		link.Href("https://github.com/gofred-io/gofred-website"),
+		link.NewTab(true),
 	)
 
 	return row.New(

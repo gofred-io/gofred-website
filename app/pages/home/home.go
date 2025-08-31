@@ -4,7 +4,6 @@ import (
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/column"
 	"github.com/gofred-io/gofred/container"
-	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/widget"
 )
 
@@ -19,8 +18,8 @@ func New() widget.BaseWidget {
 					},
 					column.Flex(1),
 				),
-				options.Height(breakpoint.All(widget.Context().ClientHeight())),
-				options.Flex(1),
+				container.Height(breakpoint.All(widget.Context().ClientHeight())),
+				container.Flex(1),
 			),
 			features(),
 			footer(),

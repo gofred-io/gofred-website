@@ -38,22 +38,22 @@ func header() widget.BaseWidget {
 			row.Flex(1),
 			row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 		),
-		options.Height(breakpoint.All(44)),
-		options.BackgroundColor("#FFFFFF"),
-		options.PaddingV(breakpoint.All(8)),
-		options.PaddingH(breakpoint.All(16)),
+		container.Height(breakpoint.All(44)),
+		container.BackgroundColor("#FFFFFF"),
+		container.PaddingV(breakpoint.All(8)),
+		container.PaddingH(breakpoint.All(16)),
 	)
 }
 
 func menuButton() widget.BaseWidget {
 	return iconbutton.New(
 		icondata.Menu,
-		options.OnClick(func(this widget.BaseWidget) {
+		iconbutton.OnClick(func(this widget.BaseWidget) {
 			fmt.Println("hamburger menu clicked")
 		}),
-		options.Fill("#003B73"),
-		options.Tooltip("Menu"),
-		options.Visible(
+		iconbutton.Fill("#003B73"),
+		iconbutton.Tooltip("Menu"),
+		iconbutton.Visible(
 			breakpoint.XS(true),
 			breakpoint.SM(true),
 		),
@@ -70,25 +70,25 @@ func logoTitle() widget.BaseWidget {
 			row.Gap(8),
 			row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 		),
-		options.Href("/"),
+		link.Href("/"),
 	)
 }
 
 func logo() widget.BaseWidget {
 	return image.New(
 		"img/gofred.png",
-		options.Width(breakpoint.All(32)),
-		options.Height(breakpoint.All(32)),
+		image.Width(breakpoint.All(32)),
+		image.Height(breakpoint.All(32)),
 	)
 }
 
 func title() widget.BaseWidget {
 	return text.New(
 		"gofred",
-		options.FontSize(20),
-		options.FontColor("#003B73"),
-		options.FontWeight("500"),
-		options.UserSelect(options.UserSelectTypeNone),
+		text.FontSize(20),
+		text.FontColor("#003B73"),
+		text.FontWeight("500"),
+		text.UserSelect(options.UserSelectTypeNone),
 	)
 }
 
@@ -97,14 +97,14 @@ func documentationLink() widget.BaseWidget {
 		link.New(
 			text.New(
 				"Docs",
-				options.FontSize(16),
-				options.FontColor("#2B799B"),
-				options.FontWeight("500"),
-				options.UserSelect(options.UserSelectTypeNone),
+				text.FontSize(16),
+				text.FontColor("#2B799B"),
+				text.FontWeight("500"),
+				text.UserSelect(options.UserSelectTypeNone),
 			),
-			options.Href("/docs"),
+			link.Href("/docs"),
 		),
-		options.Visible(
+		container.Visible(
 			breakpoint.All(true),
 			breakpoint.XS(false),
 			breakpoint.SM(false),
@@ -119,23 +119,23 @@ func discussionsLink() widget.BaseWidget {
 				[]widget.BaseWidget{
 					text.New(
 						"Discussions",
-						options.FontSize(16),
-						options.FontColor("#2B799B"),
-						options.FontWeight("500"),
-						options.UserSelect(options.UserSelectTypeNone),
+						text.FontSize(16),
+						text.FontColor("#2B799B"),
+						text.FontWeight("500"),
+						text.UserSelect(options.UserSelectTypeNone),
 					),
 					icon.New(
 						icondata.OpenInNew,
-						options.Width(breakpoint.All(18)),
-						options.Height(breakpoint.All(18)),
-						options.Fill("#2B799B"),
+						icon.Width(breakpoint.All(18)),
+						icon.Height(breakpoint.All(18)),
+						icon.Fill("#2B799B"),
 					),
 				},
 			),
-			options.Href("https://github.com/gofred-io/gofred/pulls"),
-			options.NewTab(true),
+			link.Href("https://github.com/gofred-io/gofred/pulls"),
+			link.NewTab(true),
 		),
-		options.Visible(
+		container.Visible(
 			breakpoint.All(true),
 			breakpoint.XS(false),
 			breakpoint.SM(false),
@@ -150,23 +150,23 @@ func githubLink() widget.BaseWidget {
 				[]widget.BaseWidget{
 					text.New(
 						"GitHub",
-						options.FontSize(16),
-						options.FontColor("#2B799B"),
-						options.FontWeight("500"),
-						options.UserSelect(options.UserSelectTypeNone),
+						text.FontSize(16),
+						text.FontColor("#2B799B"),
+						text.FontWeight("500"),
+						text.UserSelect(options.UserSelectTypeNone),
 					),
 					icon.New(
 						icondata.OpenInNew,
-						options.Width(breakpoint.All(18)),
-						options.Height(breakpoint.All(18)),
-						options.Fill("#2B799B"),
+						icon.Width(breakpoint.All(18)),
+						icon.Height(breakpoint.All(18)),
+						icon.Fill("#2B799B"),
 					),
 				},
 			),
-			options.Href("https://github.com/gofred-io/gofred"),
-			options.NewTab(true),
+			link.Href("https://github.com/gofred-io/gofred"),
+			link.NewTab(true),
 		),
-		options.Visible(
+		container.Visible(
 			breakpoint.All(true),
 			breakpoint.XS(false),
 			breakpoint.SM(false),
@@ -184,15 +184,15 @@ func themeToggleButton() widget.BaseWidget {
 
 		return iconbutton.New(
 			themeIcon,
-			options.Fill("#2B799B"),
-			options.OnClick(func(this widget.BaseWidget) {
+			iconbutton.Fill("#2B799B"),
+			iconbutton.OnClick(func(this widget.BaseWidget) {
 				if theme.Get() == theme.ThemeLight {
 					theme.Set(theme.ThemeDark)
 				} else {
 					theme.Set(theme.ThemeLight)
 				}
 			}),
-			options.Tooltip("Toggle theme"),
+			iconbutton.Tooltip("Toggle theme"),
 		)
 	})
 }
