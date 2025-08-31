@@ -21,7 +21,8 @@ func features() widget.BaseWidget {
 				featureTitle(),
 				featureList(),
 			},
-			options.RowGap(32),
+			column.Gap(32),
+			column.Flex(1),
 		),
 		options.Padding(breakpoint.All(64)),
 	)
@@ -76,9 +77,8 @@ func featureItem1() widget.BaseWidget {
 					icon.New(icondata.RocketLaunchOutline, options.Fill("#000000"), options.Width(breakpoint.All(28)), options.Height(breakpoint.All(28))),
 					text.New("No JavaScript Required", options.FontSize(20), options.FontColor("#000000"), options.FontWeight("500"), options.LineHeight(1.5)),
 				},
-				options.ColumnGap(8),
-				options.Flex(0),
-				options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+				row.Gap(8),
+				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 			),
 			text.New(
 				"Write modern, reactive web applications entirely in Go. Gofred handles the WebAssembly layer so you can focus on building features — not managing JS interop.",
@@ -88,7 +88,7 @@ func featureItem1() widget.BaseWidget {
 				options.LineHeight(1.5),
 			),
 		},
-		options.RowGap(8),
+		column.Gap(8),
 	)
 }
 
@@ -100,9 +100,8 @@ func featureItem2() widget.BaseWidget {
 					icon.New(icondata.LightningBoltOutline, options.Fill("#000000"), options.Width(breakpoint.All(28)), options.Height(breakpoint.All(28))),
 					text.New("High Performance", options.FontSize(20), options.FontColor("#000000"), options.FontWeight("500"), options.LineHeight(1.5)),
 				},
-				options.ColumnGap(8),
-				options.Flex(0),
-				options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+				row.Gap(8),
+				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 			),
 			text.New(
 				"Leverages Go’s speed and efficiency, compiled to WebAssembly for near-native browser performance.",
@@ -112,7 +111,7 @@ func featureItem2() widget.BaseWidget {
 				options.LineHeight(1.5),
 			),
 		},
-		options.RowGap(8),
+		column.Gap(8),
 	)
 }
 
@@ -124,9 +123,8 @@ func featureItem3() widget.BaseWidget {
 					icon.New(icondata.PaletteOutline, options.Fill("#000000"), options.Width(breakpoint.All(28)), options.Height(breakpoint.All(28))),
 					text.New("Declarative & Reactive", options.FontSize(20), options.FontColor("#000000"), options.FontWeight("500"), options.LineHeight(1.5)),
 				},
-				options.ColumnGap(8),
-				options.Flex(0),
-				options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+				row.Gap(8),
+				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 			),
 			text.New(
 				"Inspired by React and Flutter, define your UI with simple Go interfaces. State changes automatically update the DOM — no manual wiring needed.",
@@ -136,7 +134,7 @@ func featureItem3() widget.BaseWidget {
 				options.LineHeight(1.5),
 			),
 		},
-		options.RowGap(8),
+		column.Gap(8),
 	)
 }
 
@@ -148,9 +146,8 @@ func featureItem4() widget.BaseWidget {
 					icon.New(icondata.Cellphone, options.Fill("#000000"), options.Width(breakpoint.All(28)), options.Height(breakpoint.All(28))),
 					text.New("Responsive by Design", options.FontSize(20), options.FontColor("#000000"), options.FontWeight("500"), options.LineHeight(1.5)),
 				},
-				options.ColumnGap(8),
-				options.Flex(0),
-				options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+				row.Gap(8),
+				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 			),
 			text.New(
 				"Gofred makes it simple to build layouts that adapt to any device size, ensuring great user experiences everywhere.",
@@ -160,7 +157,7 @@ func featureItem4() widget.BaseWidget {
 				options.LineHeight(1.5),
 			),
 		},
-		options.RowGap(8),
+		column.Gap(8),
 	)
 }
 
@@ -172,9 +169,8 @@ func featureItem5() widget.BaseWidget {
 					icon.New(icondata.PowerPlugOutline, options.Fill("#000000"), options.Width(breakpoint.All(28)), options.Height(breakpoint.All(28))),
 					text.New("Extensible & Flexible", options.FontSize(20), options.FontColor("#000000"), options.FontWeight("500"), options.LineHeight(1.5)),
 				},
-				options.ColumnGap(8),
-				options.Flex(0),
-				options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+				row.Gap(8),
+				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 			),
 			text.New(
 				"Use pure Go for core logic, but still extend with HTML, CSS, and JS when you need fine-grained control.",
@@ -184,7 +180,7 @@ func featureItem5() widget.BaseWidget {
 				options.LineHeight(1.5),
 			),
 		},
-		options.RowGap(8),
+		column.Gap(8),
 	)
 }
 
@@ -196,9 +192,8 @@ func featureItem6() widget.BaseWidget {
 					icon.New(icondata.Tools, options.Fill("#000000"), options.Width(breakpoint.All(28)), options.Height(breakpoint.All(28))),
 					text.New("Built for Go Developers", options.FontSize(20), options.FontColor("#000000"), options.FontWeight("500"), options.LineHeight(1.5)),
 				},
-				options.ColumnGap(8),
-				options.Flex(0),
-				options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+				row.Gap(8),
+				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 			),
 			text.New(
 				"No need to switch languages — build full web applications using the same patterns and tooling you already know in Go.",
@@ -208,6 +203,6 @@ func featureItem6() widget.BaseWidget {
 				options.LineHeight(1.5),
 			),
 		},
-		options.RowGap(8),
+		column.Gap(8),
 	)
 }

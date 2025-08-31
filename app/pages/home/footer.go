@@ -20,9 +20,11 @@ func footer() widget.BaseWidget {
 				copyright(),
 				githubButton(),
 			},
+			row.Flex(1),
 		),
 		options.BackgroundColor("#23395B"),
 		options.Padding(breakpoint.All(16)),
+		options.Flex(1),
 	)
 }
 
@@ -66,9 +68,9 @@ func socials() widget.BaseWidget {
 			youtubeButton,
 			instagramButton,
 		},
-		options.MainAxisAlignment(options.AxisAlignmentTypeStart),
-		options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-		options.ColumnGap(8),
+		row.MainAxisAlignment(options.AxisAlignmentTypeStart),
+		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		row.Gap(8),
 	)
 }
 
@@ -77,9 +79,10 @@ func copyright() widget.BaseWidget {
 		[]widget.BaseWidget{
 			text.New("Copyright © 2025 Gofred", options.FontSize(14), options.FontColor("#FFFFFF"), options.FontWeight("400")),
 		},
-		options.MainAxisAlignment(options.AxisAlignmentTypeCenter),
-		options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-		options.ColumnGap(8),
+		row.MainAxisAlignment(options.AxisAlignmentTypeCenter),
+		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		row.Gap(8),
+		row.Flex(1),
 	)
 }
 
@@ -99,8 +102,8 @@ func githubButton() widget.BaseWidget {
 		[]widget.BaseWidget{
 			githubButton,
 		},
-		options.MainAxisAlignment(options.AxisAlignmentTypeEnd),
-		options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-		options.ColumnGap(8),
+		row.MainAxisAlignment(options.AxisAlignmentTypeEnd),
+		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		row.Gap(8),
 	)
 }
