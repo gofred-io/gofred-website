@@ -1,6 +1,7 @@
 package home
 
 import (
+	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/center"
 	"github.com/gofred-io/gofred/column"
 	"github.com/gofred-io/gofred/container"
@@ -9,7 +10,6 @@ import (
 	icondata "github.com/gofred-io/gofred/icon_data"
 	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/row"
-	"github.com/gofred-io/gofred/style/breakpoint"
 	"github.com/gofred-io/gofred/text"
 	"github.com/gofred-io/gofred/widget"
 )

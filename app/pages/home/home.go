@@ -1,10 +1,10 @@
 package home
 
 import (
+	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/column"
 	"github.com/gofred-io/gofred/container"
 	"github.com/gofred-io/gofred/options"
-	"github.com/gofred-io/gofred/style/breakpoint"
 	"github.com/gofred-io/gofred/widget"
 )
 

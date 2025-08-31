@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/gofred-io/gofred-website/app/theme"
+	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/container"
 	"github.com/gofred-io/gofred/icon"
 	iconbutton "github.com/gofred-io/gofred/icon_button"
@@ -14,7 +15,6 @@ import (
 	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/row"
 	"github.com/gofred-io/gofred/spacer"
-	"github.com/gofred-io/gofred/style/breakpoint"
 	"github.com/gofred-io/gofred/text"
 	"github.com/gofred-io/gofred/widget"
 )

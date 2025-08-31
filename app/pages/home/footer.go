@@ -1,13 +1,13 @@
 package home
 
 import (
+	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/container"
 	iconbutton "github.com/gofred-io/gofred/icon_button"
 	icondata "github.com/gofred-io/gofred/icon_data"
 	"github.com/gofred-io/gofred/link"
 	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/row"
-	"github.com/gofred-io/gofred/style/breakpoint"
 	"github.com/gofred-io/gofred/text"
 	"github.com/gofred-io/gofred/widget"
 )

@@ -1,6 +1,7 @@
 package home
 
 import (
+	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/button"
 	"github.com/gofred-io/gofred/column"
 	"github.com/gofred-io/gofred/container"
@@ -11,7 +12,6 @@ import (
 	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/row"
 	"github.com/gofred-io/gofred/spacer"
-	"github.com/gofred-io/gofred/style/breakpoint"
 	"github.com/gofred-io/gofred/text"
 	"github.com/gofred-io/gofred/widget"
 )
