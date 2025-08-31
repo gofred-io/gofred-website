@@ -5,6 +5,6 @@ import (
 	"github.com/gofred-io/gofred/widget"
 )
 
-func New() widget.Widget {
+func New() widget.BaseWidget {
 	return text.New("Page not found")
 }

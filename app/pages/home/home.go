@@ -3,22 +3,22 @@ package home
 import (
 	"github.com/gofred-io/gofred/column"
 	"github.com/gofred-io/gofred/container"
+	"github.com/gofred-io/gofred/options"
+	"github.com/gofred-io/gofred/style/breakpoint"
 	"github.com/gofred-io/gofred/widget"
 )
 
-func New() widget.Widget {
+func New() widget.BaseWidget {
 	return column.New(
-		[]widget.Widget{
+		[]widget.BaseWidget{
 			container.New(
 				column.New(
-					[]widget.Widget{
+					[]widget.BaseWidget{
 						header(),
 						hero(),
 					},
 				),
-				container.Style(
-					container.Height(widget.Context().ClientHeight()),
-				),
+				options.Height(breakpoint.All(widget.Context().ClientHeight())),
 			),
 			features(),
 			footer(),

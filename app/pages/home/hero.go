@@ -8,18 +8,18 @@ import (
 	"github.com/gofred-io/gofred/icon"
 	icondata "github.com/gofred-io/gofred/icon_data"
 	"github.com/gofred-io/gofred/link"
+	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/row"
 	"github.com/gofred-io/gofred/spacer"
-	"github.com/gofred-io/gofred/style"
 	"github.com/gofred-io/gofred/style/breakpoint"
 	"github.com/gofred-io/gofred/text"
 	"github.com/gofred-io/gofred/widget"
 )
 
-func hero() widget.Widget {
+func hero() widget.BaseWidget {
 	return container.New(
 		column.New(
-			[]widget.Widget{
+			[]widget.BaseWidget{
 				heroTitle(),
 				heroSubtitle(),
 				spacer.New(spacer.Height(8)),
@@ -27,362 +27,324 @@ func hero() widget.Widget {
 				spacer.New(spacer.Height(8)),
 				cta(),
 			},
-			column.Gap(16),
-			column.CrossAxisAlignment(style.AlignItemsTypeCenter),
-			column.MainAxisAlignment(style.JustifyContentTypeCenter),
+			options.RowGap(16),
+			options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+			options.MainAxisAlignment(options.AxisAlignmentTypeCenter),
 		),
-		container.Style(
-			container.Background(
-				style.Background{
-					Color: "#2B799B",
-				},
-			),
-			container.Flex(1),
-			container.Padding(style.Padding{
-				Top:    32,
-				Bottom: 32,
-				Left:   32,
-				Right:  32,
-			}),
-		),
+
+		options.BackgroundColor("#2B799B"),
+		options.Flex(1),
+		options.Padding(breakpoint.All(32)),
 	)
 }
 
-func heroTitle() widget.Widget {
+func heroTitle() widget.BaseWidget {
 	return text.New(
 		"Build responsive web apps in Go – no JavaScript required",
-		text.Style(
-			text.Font(text.Size(24), text.Color("#FFFFFF"), text.Weight("600")),
-		),
+		options.FontSize(24),
+		options.FontColor("#FFFFFF"),
+		options.FontWeight("600"),
+		options.UserSelect(options.UserSelectTypeNone),
 	)
 }
 
-func heroSubtitle() widget.Widget {
+func heroSubtitle() widget.BaseWidget {
 	return text.New(
 		"Write modern, reactive web applications with WebAssembly using only Go.",
-		text.Style(
-			text.Font(text.Size(18), text.Color("#FFFFFF"), text.Weight("400")),
-		),
+		options.FontSize(18),
+		options.FontColor("#FFFFFF"),
+		options.FontWeight("400"),
+		options.UserSelect(options.UserSelectTypeNone),
 	)
 }
 
-func sampleCode() widget.Widget {
+func sampleCode() widget.BaseWidget {
 	closeButton := container.New(
 		widget.Nil,
-		container.Style(
-			container.Background(
-				style.Background{
-					Color: "#FF5F58",
-				},
-			),
-			container.Height(16),
-			container.Width(16),
-			container.Border(
-				style.Border{
-					Radius: 8,
-				},
-			),
-		),
+		options.BackgroundColor("#FF5F58"),
+		options.Height(breakpoint.All(16)),
+		options.Width(breakpoint.All(16)),
+		options.BorderRadius(8),
 	)
 
 	fullScreenButton := container.New(
 		widget.Nil,
-		container.Style(
-			container.Background(
-				style.Background{
-					Color: "#FFBD2E",
-				},
-			),
-			container.Height(16),
-			container.Width(16),
-			container.Border(
-				style.Border{
-					Radius: 8,
-				},
-			),
-		),
+		options.BackgroundColor("#FFBD2E"),
+		options.Height(breakpoint.All(16)),
+		options.Width(breakpoint.All(16)),
+		options.BorderRadius(8),
 	)
 
 	minimizeButton := container.New(
 		widget.Nil,
-		container.Style(
-			container.Background(
-				style.Background{
-					Color: "#28C941",
-				},
-			),
-			container.Height(16),
-			container.Width(16),
-			container.Border(
-				style.Border{
-					Radius: 8,
-				},
-			),
-		),
+		options.BackgroundColor("#28C941"),
+		options.Height(breakpoint.All(16)),
+		options.Width(breakpoint.All(16)),
+		options.BorderRadius(8),
 	)
 
 	windowTitle := text.New(
 		"main.go",
-		text.Style(
-			text.Font(text.Size(16), text.Color("#FFFFFF"), text.Weight("500")),
-			text.UserSelect(style.UserSelectTypeNone),
-		),
+		options.FontSize(16),
+		options.FontColor("#FFFFFF"),
+		options.FontWeight("500"),
+		options.UserSelect(options.UserSelectTypeNone),
 	)
 
 	titleBar := row.New(
-		[]widget.Widget{
+		[]widget.BaseWidget{
 			row.New(
-				[]widget.Widget{
+				[]widget.BaseWidget{
 					closeButton,
 					fullScreenButton,
 					minimizeButton,
 				},
-				row.MainAxisAlignment(style.JustifyContentTypeStart),
-				row.CrossAxisAlignment(style.AlignItemsTypeStart),
-				row.Gap(8),
+				options.MainAxisAlignment(options.AxisAlignmentTypeStart),
+				options.CrossAxisAlignment(options.AxisAlignmentTypeStart),
+				options.ColumnGap(8),
 			),
 			windowTitle,
 			spacer.New(),
 		},
-		row.MainAxisAlignment(style.JustifyContentTypeStart),
-		row.CrossAxisAlignment(style.AlignItemsTypeStart),
-		row.Gap(8),
-		row.Flex(0),
+		options.MainAxisAlignment(options.AxisAlignmentTypeStart),
+		options.CrossAxisAlignment(options.AxisAlignmentTypeStart),
+		options.ColumnGap(8),
+		options.Flex(0),
 	)
 
 	packageName := row.New(
-		[]widget.Widget{
+		[]widget.BaseWidget{
 			text.New(
 				"package",
-				text.Style(
-					text.Font(text.Size(14), text.Color("#4F8CBF"), text.Weight("400")),
-					text.UserSelect(style.UserSelectTypeNone),
-				),
+				options.FontSize(14),
+				options.FontColor("#4F8CBF"),
+				options.FontWeight("400"),
+				options.UserSelect(options.UserSelectTypeNone),
 			),
 			text.New(
 				"main",
-				text.Style(
-					text.Font(text.Size(14), text.Color("#49B8A2"), text.Weight("400")),
-					text.UserSelect(style.UserSelectTypeNone),
-				),
+				options.FontSize(14),
+				options.FontColor("#49B8A2"),
+				options.FontWeight("400"),
+				options.UserSelect(options.UserSelectTypeNone),
 			),
 		},
-		row.MainAxisAlignment(style.JustifyContentTypeStart),
-		row.CrossAxisAlignment(style.AlignItemsTypeStart),
-		row.Gap(6),
-		row.Flex(0),
+		options.MainAxisAlignment(options.AxisAlignmentTypeStart),
+		options.CrossAxisAlignment(options.AxisAlignmentTypeStart),
+		options.ColumnGap(6),
+		options.Flex(0),
 	)
 
 	imports := column.New(
-		[]widget.Widget{
+		[]widget.BaseWidget{
 			row.New(
-				[]widget.Widget{
+				[]widget.BaseWidget{
 					text.New(
 						"import",
-						text.Style(
-							text.Font(text.Size(14), text.Color("#AD77A8"), text.Weight("400")),
-							text.UserSelect(style.UserSelectTypeNone),
-						),
+						options.FontSize(14),
+						options.FontColor("#AD77A8"),
+						options.FontWeight("400"),
+						options.UserSelect(options.UserSelectTypeNone),
 					),
 					text.New(
 						"(",
-						text.Style(
-							text.Font(text.Size(14), text.Color("#E0BD04"), text.Weight("400")),
-							text.UserSelect(style.UserSelectTypeNone),
-						),
+						options.FontSize(14),
+						options.FontColor("#E0BD04"),
+						options.FontWeight("400"),
+						options.UserSelect(options.UserSelectTypeNone),
 					),
 				},
-				row.MainAxisAlignment(style.JustifyContentTypeStart),
-				row.CrossAxisAlignment(style.AlignItemsTypeStart),
-				row.Gap(6),
-				row.Flex(0),
+				options.MainAxisAlignment(options.AxisAlignmentTypeStart),
+				options.CrossAxisAlignment(options.AxisAlignmentTypeStart),
+				options.ColumnGap(6),
+				options.Flex(0),
 			),
 			row.New(
-				[]widget.Widget{
+				[]widget.BaseWidget{
 					spacer.New(spacer.Width(6)),
 					text.New(
 						"\"github.com/gofred-io/gofred-website/app\"",
-						text.Style(
-							text.Font(text.Size(14), text.Color("#B9836D"), text.Weight("400")),
-							text.UserSelect(style.UserSelectTypeNone),
-						),
+						options.FontSize(14),
+						options.FontColor("#B9836D"),
+						options.FontWeight("400"),
+						options.UserSelect(options.UserSelectTypeNone),
 					),
 				},
-				row.MainAxisAlignment(style.JustifyContentTypeStart),
-				row.CrossAxisAlignment(style.AlignItemsTypeStart),
-				row.Gap(6),
-				row.Flex(0),
+				options.MainAxisAlignment(options.AxisAlignmentTypeStart),
+				options.CrossAxisAlignment(options.AxisAlignmentTypeStart),
+				options.ColumnGap(6),
+				options.Flex(0),
 			),
 			row.New(
-				[]widget.Widget{
+				[]widget.BaseWidget{
 					spacer.New(spacer.Width(6)),
 					text.New(
 						"\"github.com/gofred-io/gofred/application\"",
-						text.Style(
-							text.Font(text.Size(14), text.Color("#B9836D"), text.Weight("400")),
-							text.UserSelect(style.UserSelectTypeNone),
-						),
+						options.FontSize(14),
+						options.FontColor("#B9836D"),
+						options.FontWeight("400"),
+						options.UserSelect(options.UserSelectTypeNone),
 					),
 				},
-				row.MainAxisAlignment(style.JustifyContentTypeStart),
-				row.CrossAxisAlignment(style.AlignItemsTypeStart),
-				row.Gap(6),
-				row.Flex(0),
+				options.MainAxisAlignment(options.AxisAlignmentTypeStart),
+				options.CrossAxisAlignment(options.AxisAlignmentTypeStart),
+				options.ColumnGap(6),
+				options.Flex(0),
 			),
 			row.New(
-				[]widget.Widget{
+				[]widget.BaseWidget{
 					text.New(
 						")",
-						text.Style(
-							text.Font(text.Size(14), text.Color("#E0BD04"), text.Weight("400")),
-							text.UserSelect(style.UserSelectTypeNone),
-						),
+						options.FontSize(14),
+						options.FontColor("#E0BD04"),
+						options.FontWeight("400"),
+						options.UserSelect(options.UserSelectTypeNone),
 					),
 				},
 			),
 		},
-		column.MainAxisAlignment(style.JustifyContentTypeStart),
-		column.CrossAxisAlignment(style.AlignItemsTypeStart),
-		column.Gap(6),
+		options.MainAxisAlignment(options.AxisAlignmentTypeStart),
+		options.CrossAxisAlignment(options.AxisAlignmentTypeStart),
+		options.ColumnGap(6),
 	)
 
 	mainFunc := column.New(
-		[]widget.Widget{
+		[]widget.BaseWidget{
 			row.New(
-				[]widget.Widget{
+				[]widget.BaseWidget{
 					text.New(
 						"func",
-						text.Style(
-							text.Font(text.Size(14), text.Color("#4F8CBF"), text.Weight("400")),
-							text.UserSelect(style.UserSelectTypeNone),
-						),
+						options.FontSize(14),
+						options.FontColor("#4F8CBF"),
+						options.FontWeight("400"),
+						options.UserSelect(options.UserSelectTypeNone),
 					),
 					row.New(
-						[]widget.Widget{
+						[]widget.BaseWidget{
 							text.New(
 								"main",
-								text.Style(
-									text.Font(text.Size(14), text.Color("#DCDCAA"), text.Weight("400")),
-									text.UserSelect(style.UserSelectTypeNone),
-								),
+								options.FontSize(14),
+								options.FontColor("#DCDCAA"),
+								options.FontWeight("400"),
+								options.UserSelect(options.UserSelectTypeNone),
 							),
 							text.New(
 								"()",
-								text.Style(
-									text.Font(text.Size(14), text.Color("#E0BD04"), text.Weight("400")),
-									text.UserSelect(style.UserSelectTypeNone),
-								),
+								options.FontSize(14),
+								options.FontColor("#E0BD04"),
+								options.FontWeight("400"),
+								options.UserSelect(options.UserSelectTypeNone),
 							),
 						},
-						row.MainAxisAlignment(style.JustifyContentTypeStart),
-						row.CrossAxisAlignment(style.AlignItemsTypeStart),
-						row.Flex(0),
+						options.MainAxisAlignment(options.AxisAlignmentTypeStart),
+						options.CrossAxisAlignment(options.AxisAlignmentTypeStart),
+						options.Flex(0),
 					),
 					text.New(
 						"{",
-						text.Style(
-							text.Font(text.Size(14), text.Color("#E0BD04"), text.Weight("400")),
-							text.UserSelect(style.UserSelectTypeNone),
-						),
+						options.FontSize(14),
+						options.FontColor("#E0BD04"),
+						options.FontWeight("400"),
+						options.UserSelect(options.UserSelectTypeNone),
 					),
 				},
-				row.MainAxisAlignment(style.JustifyContentTypeStart),
-				row.CrossAxisAlignment(style.AlignItemsTypeStart),
-				row.Gap(6),
-				row.Flex(0),
+				options.MainAxisAlignment(options.AxisAlignmentTypeStart),
+				options.CrossAxisAlignment(options.AxisAlignmentTypeStart),
+				options.ColumnGap(6),
+				options.Flex(0),
 			),
 			row.New(
-				[]widget.Widget{
+				[]widget.BaseWidget{
 					spacer.New(spacer.Width(6)),
 					row.New(
-						[]widget.Widget{
+						[]widget.BaseWidget{
 							text.New(
 								"application",
-								text.Style(
-									text.Font(text.Size(14), text.Color("#8AD1DE"), text.Weight("400")),
-									text.UserSelect(style.UserSelectTypeNone),
-								),
+								options.FontSize(14),
+								options.FontColor("#8AD1DE"),
+								options.FontWeight("400"),
+								options.UserSelect(options.UserSelectTypeNone),
 							),
 							text.New(
 								".",
-								text.Style(
-									text.Font(text.Size(14), text.Color("#BCBCBC"), text.Weight("400")),
-									text.UserSelect(style.UserSelectTypeNone),
-								),
+								options.FontSize(14),
+								options.FontColor("#BCBCBC"),
+								options.FontWeight("400"),
+								options.UserSelect(options.UserSelectTypeNone),
 							),
 							text.New(
 								"Run",
-								text.Style(
-									text.Font(text.Size(14), text.Color("#DCDCAA"), text.Weight("400")),
-									text.UserSelect(style.UserSelectTypeNone),
-								),
+								options.FontSize(14),
+								options.FontColor("#DCDCAA"),
+								options.FontWeight("400"),
+								options.UserSelect(options.UserSelectTypeNone),
 							),
 							text.New(
 								"(",
-								text.Style(
-									text.Font(text.Size(14), text.Color("#AD77A8"), text.Weight("400")),
-									text.UserSelect(style.UserSelectTypeNone),
-								),
+								options.FontSize(14),
+								options.FontColor("#AD77A8"),
+								options.FontWeight("400"),
+								options.UserSelect(options.UserSelectTypeNone),
 							),
 							text.New(
 								"app",
-								text.Style(
-									text.Font(text.Size(14), text.Color("#8AD1DE"), text.Weight("400")),
-									text.UserSelect(style.UserSelectTypeNone),
-								),
+								options.FontSize(14),
+								options.FontColor("#8AD1DE"),
+								options.FontWeight("400"),
+								options.UserSelect(options.UserSelectTypeNone),
 							),
 							text.New(
 								".",
-								text.Style(
-									text.Font(text.Size(14), text.Color("#BCBCBC"), text.Weight("400")),
-									text.UserSelect(style.UserSelectTypeNone),
-								),
+								options.FontSize(14),
+								options.FontColor("#BCBCBC"),
+								options.FontWeight("400"),
+								options.UserSelect(options.UserSelectTypeNone),
 							),
 							text.New(
 								"New",
-								text.Style(
-									text.Font(text.Size(14), text.Color("#DCDCAA"), text.Weight("400")),
-									text.UserSelect(style.UserSelectTypeNone),
-								),
+								options.FontSize(14),
+								options.FontColor("#DCDCAA"),
+								options.FontWeight("400"),
+								options.UserSelect(options.UserSelectTypeNone),
 							),
 							text.New(
 								"()",
-								text.Style(
-									text.Font(text.Size(14), text.Color("#4F8CBF"), text.Weight("400")),
-									text.UserSelect(style.UserSelectTypeNone),
-								),
+								options.FontSize(14),
+								options.FontColor("#4F8CBF"),
+								options.FontWeight("400"),
+								options.UserSelect(options.UserSelectTypeNone),
 							),
 							text.New(
 								")",
-								text.Style(
-									text.Font(text.Size(14), text.Color("#AD77A8"), text.Weight("400")),
-									text.UserSelect(style.UserSelectTypeNone),
-								),
+								options.FontSize(14),
+								options.FontColor("#AD77A8"),
+								options.FontWeight("400"),
+								options.UserSelect(options.UserSelectTypeNone),
 							),
 						},
 					),
 				},
-				row.MainAxisAlignment(style.JustifyContentTypeStart),
-				row.CrossAxisAlignment(style.AlignItemsTypeStart),
-				row.Gap(6),
-				row.Flex(0),
+				options.MainAxisAlignment(options.AxisAlignmentTypeStart),
+				options.CrossAxisAlignment(options.AxisAlignmentTypeStart),
+				options.ColumnGap(6),
+				options.Flex(0),
 			),
 			text.New(
 				"}",
-				text.Style(
-					text.Font(text.Size(14), text.Color("#E0BD04"), text.Weight("400")),
-					text.UserSelect(style.UserSelectTypeNone),
-				),
+				options.FontSize(14),
+				options.FontColor("#E0BD04"),
+				options.FontWeight("400"),
+				options.UserSelect(options.UserSelectTypeNone),
 			),
 		},
-		column.MainAxisAlignment(style.JustifyContentTypeStart),
-		column.CrossAxisAlignment(style.AlignItemsTypeStart),
-		column.Gap(6),
+		options.MainAxisAlignment(options.AxisAlignmentTypeStart),
+		options.CrossAxisAlignment(options.AxisAlignmentTypeStart),
+		options.ColumnGap(6),
 	)
 
 	return container.New(
 		column.New(
-			[]widget.Widget{
+			[]widget.BaseWidget{
 				titleBar,
 				packageName,
 				spacer.New(spacer.Height(8)),
@@ -390,96 +352,69 @@ func sampleCode() widget.Widget {
 				spacer.New(spacer.Height(8)),
 				mainFunc,
 			},
-			column.MainAxisAlignment(style.JustifyContentTypeStart),
-			column.Gap(6),
+			options.MainAxisAlignment(options.AxisAlignmentTypeStart),
+			options.RowGap(6),
 		),
-		container.Style(
-			container.Background(
-				style.Background{
-					Color: "#282A36",
-				},
-			),
-			container.Height(240),
-			container.Border(
-				style.Border{
-					Radius: 8,
-				},
-			),
-			container.Padding(style.Padding{
-				Top:    16,
-				Bottom: 16,
-				Left:   16,
-				Right:  16,
-			}),
-			container.MaxWidth(540),
-		),
-		container.WidthP(
-			breakpoint.All(0.5),
-			breakpoint.XS(1.0),
-			breakpoint.SM(1.0),
-			breakpoint.MD(0.75),
-		),
+		options.BackgroundColor("#282A36"),
+		options.Height(breakpoint.All(240)),
+		options.BorderRadius(8),
+		options.Padding(breakpoint.All(16)),
+		options.MaxWidth(540),
+		options.WidthP(breakpoint.All(0.5), breakpoint.XS(1.0), breakpoint.SM(1.0), breakpoint.MD(0.75)),
 	)
 }
 
-func cta() widget.Widget {
+func cta() widget.BaseWidget {
 	return grid.New(
-		[]widget.Widget{
+		[]widget.BaseWidget{
 			link.New(
 				button.New(
 					text.New(
 						"Get Started",
-						text.Style(
-							text.Font(text.Size(14), text.Color("#FFFFFF"), text.Weight("500"), text.Family("Ubuntu")),
-						),
+						options.FontFamily("Ubuntu"),
+						options.FontSize(14),
+						options.FontColor("#FFFFFF"),
+						options.FontWeight("500"),
+						options.UserSelect(options.UserSelectTypeNone),
 					),
-					button.Style(
-						button.Width(100),
-					),
+					options.Width(breakpoint.All(100)),
 				),
-				link.Href("#"),
-				link.Href("/docs#getting-started"),
+				options.Href("/docs#getting-started"),
 			),
 			link.New(
 				button.New(
 					row.New(
-						[]widget.Widget{
+						[]widget.BaseWidget{
 							icon.New(
 								icondata.GitHub,
-								icon.Style(
-									icon.Fill("#FFFFFF"),
-									icon.Height(16),
-									icon.Width(16),
-								),
+								options.Fill("#FFFFFF"),
+								options.Height(breakpoint.All(16)),
+								options.Width(breakpoint.All(16)),
 							),
 							text.New(
 								"GitHub",
-								text.Style(
-									text.Font(text.Size(14), text.Color("#FFFFFF"), text.Weight("500"), text.Family("Ubuntu")),
-								),
+								options.FontSize(14),
+								options.FontColor("#FFFFFF"),
+								options.FontWeight("500"),
+								options.FontFamily("Ubuntu"),
+								options.UserSelect(options.UserSelectTypeNone),
 							),
 						},
-						row.MainAxisAlignment(style.JustifyContentTypeCenter),
-						row.CrossAxisAlignment(style.AlignItemsTypeCenter),
-						row.Gap(6),
-						row.Flex(0),
+						options.MainAxisAlignment(options.AxisAlignmentTypeCenter),
+						options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+						options.ColumnGap(6),
+						options.Flex(0),
 					),
-					button.Style(
-						button.Background(
-							style.Background{
-								Color: "#151b23",
-							},
-						),
-						button.Width(100),
-					),
+					options.BackgroundColor("#151B23"),
+					options.Width(breakpoint.All(100)),
 				),
-				link.Href("https://github.com/gofred-io/gofred"),
-				link.NewTab(true),
+				options.Href("https://github.com/gofred-io/gofred"),
+				options.NewTab(true),
 			),
 		},
-		grid.ColumnGap(8),
-		grid.RowGap(8),
-		grid.ColumnCount(
+		options.ColumnGap(8),
+		options.RowGap(8),
+		options.ColumnCount(
 			breakpoint.All(2),
 			breakpoint.XS(1),
 		),

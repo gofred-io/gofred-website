@@ -5,115 +5,102 @@ import (
 	iconbutton "github.com/gofred-io/gofred/icon_button"
 	icondata "github.com/gofred-io/gofred/icon_data"
 	"github.com/gofred-io/gofred/link"
+	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/row"
-	"github.com/gofred-io/gofred/style"
+	"github.com/gofred-io/gofred/style/breakpoint"
 	"github.com/gofred-io/gofred/text"
 	"github.com/gofred-io/gofred/widget"
 )
 
-func footer() widget.Widget {
+func footer() widget.BaseWidget {
 	return container.New(
 		row.New(
-			[]widget.Widget{
+			[]widget.BaseWidget{
 				socials(),
 				copyright(),
 				githubButton(),
 			},
 		),
-		container.Style(
-			container.Background(style.Background{
-				Color: "#23395B",
-			}),
-			container.Padding(style.Padding{
-				Top:    16,
-				Bottom: 16,
-				Left:   16,
-				Right:  16,
-			}),
-		),
+		options.BackgroundColor("#23395B"),
+		options.Padding(breakpoint.All(16)),
 	)
 }
 
-func socials() widget.Widget {
+func socials() widget.BaseWidget {
 	twitterButton := link.New(
 		iconbutton.New(
 			icondata.Twitter,
-			iconbutton.Style(
-				iconbutton.Fill("#FFFFFF"),
-			),
-			iconbutton.Tooltip("Follow us on Twitter"),
-			iconbutton.Class("footer-icon-button"),
+			options.Fill("#FFFFFF"),
+			options.Tooltip("Follow us on Twitter"),
+			options.Class("footer-icon-button"),
 		),
-		link.Href("#"),
-		link.NewTab(true),
+		options.Href("#"),
+		options.NewTab(true),
 	)
 
 	youtubeButton := link.New(
 		iconbutton.New(
 			icondata.Youtube,
-			iconbutton.Style(
-				iconbutton.Fill("#FFFFFF"),
-			),
-			iconbutton.Tooltip("Subscribe to our YouTube channel"),
-			iconbutton.Class("footer-icon-button"),
+			options.Fill("#FFFFFF"),
+			options.Tooltip("Subscribe to our YouTube channel"),
+			options.Class("footer-icon-button"),
 		),
-		link.Href("#"),
-		link.NewTab(true),
+		options.Href("#"),
+		options.NewTab(true),
 	)
 
 	instagramButton := link.New(
 		iconbutton.New(
 			icondata.Instagram,
-			iconbutton.Style(
-				iconbutton.Fill("#FFFFFF"),
-			),
-			iconbutton.Tooltip("Follow us on Instagram"),
-			iconbutton.Class("footer-icon-button"),
+			options.Fill("#FFFFFF"),
+			options.Tooltip("Follow us on Instagram"),
+			options.Class("footer-icon-button"),
 		),
-		link.Href("#"),
-		link.NewTab(true),
+		options.Href("#"),
+		options.NewTab(true),
 	)
 
 	return row.New(
-		[]widget.Widget{
+		[]widget.BaseWidget{
 			twitterButton,
 			youtubeButton,
 			instagramButton,
 		},
-		row.MainAxisAlignment(style.JustifyContentTypeStart),
-		row.CrossAxisAlignment(style.AlignItemsTypeCenter),
-		row.Gap(8),
+		options.MainAxisAlignment(options.AxisAlignmentTypeStart),
+		options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		options.ColumnGap(8),
 	)
 }
 
-func copyright() widget.Widget {
+func copyright() widget.BaseWidget {
 	return row.New(
-		[]widget.Widget{
-			text.New("Copyright © 2025 Gofred", text.Style(text.Font(text.Size(14), text.Color("#FFFFFF"), text.Weight("400")))),
+		[]widget.BaseWidget{
+			text.New("Copyright © 2025 Gofred", options.FontSize(14), options.FontColor("#FFFFFF"), options.FontWeight("400")),
 		},
-		row.MainAxisAlignment(style.JustifyContentTypeCenter),
-		row.CrossAxisAlignment(style.AlignItemsTypeCenter),
+		options.MainAxisAlignment(options.AxisAlignmentTypeCenter),
+		options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		options.ColumnGap(8),
 	)
 }
 
-func githubButton() widget.Widget {
+func githubButton() widget.BaseWidget {
 	githubButton := link.New(
 		iconbutton.New(
 			icondata.GitHub,
-			iconbutton.Style(iconbutton.Fill("#FFFFFF")),
-			iconbutton.Tooltip("Check out our GitHub repository"),
-			iconbutton.Class("footer-icon-button"),
+			options.Fill("#FFFFFF"),
+			options.Tooltip("Check out our GitHub repository"),
+			options.Class("footer-icon-button"),
 		),
-		link.Href("https://github.com/gofred-io/gofred-website"),
-		link.NewTab(true),
+		options.Href("https://github.com/gofred-io/gofred-website"),
+		options.NewTab(true),
 	)
 
 	return row.New(
-		[]widget.Widget{
+		[]widget.BaseWidget{
 			githubButton,
 		},
-		row.MainAxisAlignment(style.JustifyContentTypeEnd),
-		row.CrossAxisAlignment(style.AlignItemsTypeCenter),
-		row.Gap(8),
+		options.MainAxisAlignment(options.AxisAlignmentTypeEnd),
+		options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		options.ColumnGap(8),
 	)
 }

@@ -7,7 +7,7 @@ import (
 	"github.com/gofred-io/gofred/widget"
 )
 
-func New() widget.Widget {
+func New() widget.BaseWidget {
 	return router.New(
 		router.Route("/", home.New),
 		router.NotFound(notfound.New),

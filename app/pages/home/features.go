@@ -7,49 +7,43 @@ import (
 	"github.com/gofred-io/gofred/grid"
 	"github.com/gofred-io/gofred/icon"
 	icondata "github.com/gofred-io/gofred/icon_data"
+	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/row"
-	"github.com/gofred-io/gofred/style"
 	"github.com/gofred-io/gofred/style/breakpoint"
 	"github.com/gofred-io/gofred/text"
 	"github.com/gofred-io/gofred/widget"
 )
 
-func features() widget.Widget {
+func features() widget.BaseWidget {
 	return container.New(
 		column.New(
-			[]widget.Widget{
+			[]widget.BaseWidget{
 				featureTitle(),
 				featureList(),
 			},
-			column.Gap(32),
+			options.RowGap(32),
 		),
-		container.Style(
-			container.Padding(style.Padding{
-				Top:    64,
-				Bottom: 64,
-				Left:   64,
-				Right:  64,
-			}),
-		),
+		options.Padding(breakpoint.All(64)),
 	)
 }
 
-func featureTitle() widget.Widget {
+func featureTitle() widget.BaseWidget {
 	return center.New(
 		text.New(
 			"Why gofred?",
-			text.Style(
-				text.Font(text.Size(32), text.Color("#000000"), text.Weight("500")),
-			),
+			options.FontSize(32),
+			options.FontColor("#000000"),
+			options.FontWeight("500"),
+			options.UserSelect(options.UserSelectTypeNone),
 		),
 	)
 }
 
-func featureList() widget.Widget {
+func featureList() widget.BaseWidget {
 	return center.New(
 		container.New(
 			grid.New(
-				[]widget.Widget{
+				[]widget.BaseWidget{
 					featureItem1(),
 					featureItem2(),
 					featureItem3(),
@@ -57,7 +51,7 @@ func featureList() widget.Widget {
 					featureItem5(),
 					featureItem6(),
 				},
-				grid.ColumnCount(
+				options.ColumnCount(
 					breakpoint.XS(1),
 					breakpoint.SM(1),
 					breakpoint.MD(2),
@@ -65,140 +59,155 @@ func featureList() widget.Widget {
 					breakpoint.XL(3),
 					breakpoint.XXL(6),
 				),
-				grid.ColumnGap(48),
-				grid.RowGap(48),
+				options.ColumnGap(48),
+				options.RowGap(48),
 			),
-			container.Style(
-				container.MaxWidth(960),
-			),
-			container.WidthP(
-				breakpoint.All(0.75),
-			),
+			options.MaxWidth(960),
+			options.WidthP(breakpoint.All(0.75)),
 		),
 	)
 }
 
-func featureItem1() widget.Widget {
+func featureItem1() widget.BaseWidget {
 	return column.New(
-		[]widget.Widget{
+		[]widget.BaseWidget{
 			row.New(
-				[]widget.Widget{
-					icon.New(icondata.RocketLaunchOutline, icon.Style(icon.Fill("#000000"), icon.Width(28), icon.Height(28))),
-					text.New("No JavaScript Required", text.Style(text.Font(text.Size(20), text.Color("#000000"), text.Weight("500")), text.LineHeight(1.5))),
+				[]widget.BaseWidget{
+					icon.New(icondata.RocketLaunchOutline, options.Fill("#000000"), options.Width(breakpoint.All(28)), options.Height(breakpoint.All(28))),
+					text.New("No JavaScript Required", options.FontSize(20), options.FontColor("#000000"), options.FontWeight("500"), options.LineHeight(1.5)),
 				},
-				row.Gap(8),
-				row.Flex(0),
-				row.CrossAxisAlignment(style.AlignItemsTypeCenter),
+				options.ColumnGap(8),
+				options.Flex(0),
+				options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 			),
 			text.New(
 				"Write modern, reactive web applications entirely in Go. Gofred handles the WebAssembly layer so you can focus on building features — not managing JS interop.",
-				text.Style(text.Font(text.Size(16), text.Color("#000000"), text.Weight("400")), text.LineHeight(1.5)),
+				options.FontSize(16),
+				options.FontColor("#000000"),
+				options.FontWeight("400"),
+				options.LineHeight(1.5),
 			),
 		},
-		column.Gap(8),
+		options.RowGap(8),
 	)
 }
 
-func featureItem2() widget.Widget {
+func featureItem2() widget.BaseWidget {
 	return column.New(
-		[]widget.Widget{
+		[]widget.BaseWidget{
 			row.New(
-				[]widget.Widget{
-					icon.New(icondata.LightningBoltOutline, icon.Style(icon.Fill("#000000"), icon.Width(28), icon.Height(28))),
-					text.New("High Performance", text.Style(text.Font(text.Size(20), text.Color("#000000"), text.Weight("500")), text.LineHeight(1.5))),
+				[]widget.BaseWidget{
+					icon.New(icondata.LightningBoltOutline, options.Fill("#000000"), options.Width(breakpoint.All(28)), options.Height(breakpoint.All(28))),
+					text.New("High Performance", options.FontSize(20), options.FontColor("#000000"), options.FontWeight("500"), options.LineHeight(1.5)),
 				},
-				row.Gap(8),
-				row.Flex(0),
-				row.CrossAxisAlignment(style.AlignItemsTypeCenter),
+				options.ColumnGap(8),
+				options.Flex(0),
+				options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 			),
 			text.New(
 				"Leverages Go’s speed and efficiency, compiled to WebAssembly for near-native browser performance.",
-				text.Style(text.Font(text.Size(16), text.Color("#000000"), text.Weight("400")), text.LineHeight(1.5)),
+				options.FontSize(16),
+				options.FontColor("#000000"),
+				options.FontWeight("400"),
+				options.LineHeight(1.5),
 			),
 		},
-		column.Gap(8),
+		options.RowGap(8),
 	)
 }
 
-func featureItem3() widget.Widget {
+func featureItem3() widget.BaseWidget {
 	return column.New(
-		[]widget.Widget{
+		[]widget.BaseWidget{
 			row.New(
-				[]widget.Widget{
-					icon.New(icondata.PaletteOutline, icon.Style(icon.Fill("#000000"), icon.Width(28), icon.Height(28))),
-					text.New("Declarative & Reactive", text.Style(text.Font(text.Size(20), text.Color("#000000"), text.Weight("500")), text.LineHeight(1.5))),
+				[]widget.BaseWidget{
+					icon.New(icondata.PaletteOutline, options.Fill("#000000"), options.Width(breakpoint.All(28)), options.Height(breakpoint.All(28))),
+					text.New("Declarative & Reactive", options.FontSize(20), options.FontColor("#000000"), options.FontWeight("500"), options.LineHeight(1.5)),
 				},
-				row.Gap(8),
-				row.Flex(0),
-				row.CrossAxisAlignment(style.AlignItemsTypeCenter),
+				options.ColumnGap(8),
+				options.Flex(0),
+				options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 			),
 			text.New(
 				"Inspired by React and Flutter, define your UI with simple Go interfaces. State changes automatically update the DOM — no manual wiring needed.",
-				text.Style(text.Font(text.Size(16), text.Color("#000000"), text.Weight("400")), text.LineHeight(1.5)),
+				options.FontSize(16),
+				options.FontColor("#000000"),
+				options.FontWeight("400"),
+				options.LineHeight(1.5),
 			),
 		},
-		column.Gap(8),
+		options.RowGap(8),
 	)
 }
 
-func featureItem4() widget.Widget {
+func featureItem4() widget.BaseWidget {
 	return column.New(
-		[]widget.Widget{
+		[]widget.BaseWidget{
 			row.New(
-				[]widget.Widget{
-					icon.New(icondata.Cellphone, icon.Style(icon.Fill("#000000"), icon.Width(28), icon.Height(28))),
-					text.New("Responsive by Design", text.Style(text.Font(text.Size(20), text.Color("#000000"), text.Weight("500")), text.LineHeight(1.5))),
+				[]widget.BaseWidget{
+					icon.New(icondata.Cellphone, options.Fill("#000000"), options.Width(breakpoint.All(28)), options.Height(breakpoint.All(28))),
+					text.New("Responsive by Design", options.FontSize(20), options.FontColor("#000000"), options.FontWeight("500"), options.LineHeight(1.5)),
 				},
-				row.Gap(8),
-				row.Flex(0),
+				options.ColumnGap(8),
+				options.Flex(0),
+				options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 			),
 			text.New(
 				"Gofred makes it simple to build layouts that adapt to any device size, ensuring great user experiences everywhere.",
-				text.Style(text.Font(text.Size(16), text.Color("#000000"), text.Weight("400")), text.LineHeight(1.5)),
+				options.FontSize(16),
+				options.FontColor("#000000"),
+				options.FontWeight("400"),
+				options.LineHeight(1.5),
 			),
 		},
-		column.Gap(8),
+		options.RowGap(8),
 	)
 }
 
-func featureItem5() widget.Widget {
+func featureItem5() widget.BaseWidget {
 	return column.New(
-		[]widget.Widget{
+		[]widget.BaseWidget{
 			row.New(
-				[]widget.Widget{
-					icon.New(icondata.PowerPlugOutline, icon.Style(icon.Fill("#000000"), icon.Width(28), icon.Height(28))),
-					text.New("Extensible & Flexible", text.Style(text.Font(text.Size(20), text.Color("#000000"), text.Weight("500")), text.LineHeight(1.5))),
+				[]widget.BaseWidget{
+					icon.New(icondata.PowerPlugOutline, options.Fill("#000000"), options.Width(breakpoint.All(28)), options.Height(breakpoint.All(28))),
+					text.New("Extensible & Flexible", options.FontSize(20), options.FontColor("#000000"), options.FontWeight("500"), options.LineHeight(1.5)),
 				},
-				row.Gap(8),
-				row.Flex(0),
-				row.CrossAxisAlignment(style.AlignItemsTypeCenter),
+				options.ColumnGap(8),
+				options.Flex(0),
+				options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 			),
 			text.New(
 				"Use pure Go for core logic, but still extend with HTML, CSS, and JS when you need fine-grained control.",
-				text.Style(text.Font(text.Size(16), text.Color("#000000"), text.Weight("400")), text.LineHeight(1.5)),
+				options.FontSize(16),
+				options.FontColor("#000000"),
+				options.FontWeight("400"),
+				options.LineHeight(1.5),
 			),
 		},
-		column.Gap(8),
+		options.RowGap(8),
 	)
 }
 
-func featureItem6() widget.Widget {
+func featureItem6() widget.BaseWidget {
 	return column.New(
-		[]widget.Widget{
+		[]widget.BaseWidget{
 			row.New(
-				[]widget.Widget{
-					icon.New(icondata.Tools, icon.Style(icon.Fill("#000000"), icon.Width(28), icon.Height(28))),
-					text.New("Built for Go Developers", text.Style(text.Font(text.Size(20), text.Color("#000000"), text.Weight("500")), text.LineHeight(1.5))),
+				[]widget.BaseWidget{
+					icon.New(icondata.Tools, options.Fill("#000000"), options.Width(breakpoint.All(28)), options.Height(breakpoint.All(28))),
+					text.New("Built for Go Developers", options.FontSize(20), options.FontColor("#000000"), options.FontWeight("500"), options.LineHeight(1.5)),
 				},
-				row.Gap(8),
-				row.Flex(0),
-				row.CrossAxisAlignment(style.AlignItemsTypeCenter),
+				options.ColumnGap(8),
+				options.Flex(0),
+				options.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 			),
 			text.New(
 				"No need to switch languages — build full web applications using the same patterns and tooling you already know in Go.",
-				text.Style(text.Font(text.Size(16), text.Color("#000000"), text.Weight("400")), text.LineHeight(1.5)),
+				options.FontSize(16),
+				options.FontColor("#000000"),
+				options.FontWeight("400"),
+				options.LineHeight(1.5),
 			),
 		},
-		column.Gap(8),
+		options.RowGap(8),
 	)
 }
