@@ -3,7 +3,7 @@ package app
 import (
 	notfound "github.com/gofred-io/gofred-website/app/pages/404"
 	"github.com/gofred-io/gofred-website/app/pages/home"
-	"github.com/gofred-io/gofred/router"
+	"github.com/gofred-io/gofred/foundation/router"
 	"github.com/gofred-io/gofred/widget"
 )
 

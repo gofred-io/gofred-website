@@ -2,8 +2,8 @@ package home
 
 import (
 	"github.com/gofred-io/gofred/breakpoint"
-	"github.com/gofred-io/gofred/column"
-	"github.com/gofred-io/gofred/container"
+	"github.com/gofred-io/gofred/foundation/column"
+	"github.com/gofred-io/gofred/foundation/container"
 	"github.com/gofred-io/gofred/widget"
 )
 

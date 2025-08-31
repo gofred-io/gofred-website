@@ -4,18 +4,19 @@ import (
 	"fmt"
 
 	"github.com/gofred-io/gofred-website/app/theme"
+
 	"github.com/gofred-io/gofred/breakpoint"
-	"github.com/gofred-io/gofred/container"
-	"github.com/gofred-io/gofred/icon"
-	iconbutton "github.com/gofred-io/gofred/icon_button"
-	icondata "github.com/gofred-io/gofred/icon_data"
-	"github.com/gofred-io/gofred/image"
-	"github.com/gofred-io/gofred/link"
+	"github.com/gofred-io/gofred/foundation/container"
+	"github.com/gofred-io/gofred/foundation/icon"
+	icondata "github.com/gofred-io/gofred/foundation/icon/icon_data"
+	iconbutton "github.com/gofred-io/gofred/foundation/icon_button"
+	"github.com/gofred-io/gofred/foundation/image"
+	"github.com/gofred-io/gofred/foundation/link"
+	"github.com/gofred-io/gofred/foundation/row"
+	"github.com/gofred-io/gofred/foundation/spacer"
+	"github.com/gofred-io/gofred/foundation/text"
 	"github.com/gofred-io/gofred/listenable"
 	"github.com/gofred-io/gofred/options"
-	"github.com/gofred-io/gofred/row"
-	"github.com/gofred-io/gofred/spacer"
-	"github.com/gofred-io/gofred/text"
 	"github.com/gofred-io/gofred/widget"
 )
 

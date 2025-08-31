@@ -2,15 +2,15 @@ package home
 
 import (
 	"github.com/gofred-io/gofred/breakpoint"
-	"github.com/gofred-io/gofred/center"
-	"github.com/gofred-io/gofred/column"
-	"github.com/gofred-io/gofred/container"
-	"github.com/gofred-io/gofred/grid"
-	"github.com/gofred-io/gofred/icon"
-	icondata "github.com/gofred-io/gofred/icon_data"
+	"github.com/gofred-io/gofred/foundation/center"
+	"github.com/gofred-io/gofred/foundation/column"
+	"github.com/gofred-io/gofred/foundation/container"
+	"github.com/gofred-io/gofred/foundation/grid"
+	"github.com/gofred-io/gofred/foundation/icon"
+	icondata "github.com/gofred-io/gofred/foundation/icon/icon_data"
+	"github.com/gofred-io/gofred/foundation/row"
+	"github.com/gofred-io/gofred/foundation/text"
 	"github.com/gofred-io/gofred/options"
-	"github.com/gofred-io/gofred/row"
-	"github.com/gofred-io/gofred/text"
 	"github.com/gofred-io/gofred/widget"
 )
 

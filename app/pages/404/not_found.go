@@ -1,7 +1,7 @@
 package notfound
 
 import (
-	"github.com/gofred-io/gofred/text"
+	"github.com/gofred-io/gofred/foundation/text"
 	"github.com/gofred-io/gofred/widget"
 )
 
