@@ -72,6 +72,11 @@ class HTMLPushStateAnchorElement extends HTMLAnchorElement {
       return;
     }
 
+    // don't pushState if the current path is the same as the new path
+    if (href === window.location.pathname) {
+      return;
+    }
+
     // push state into the history stack
     window.history.pushState(JSON.parse(this.getAttribute('state')) || window.history.state, this.getAttribute('title'), href);
 

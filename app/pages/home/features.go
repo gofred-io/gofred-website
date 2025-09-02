@@ -11,6 +11,7 @@ import (
 	"github.com/gofred-io/gofred/foundation/row"
 	"github.com/gofred-io/gofred/foundation/text"
 	"github.com/gofred-io/gofred/options"
+	"github.com/gofred-io/gofred/options/spacing"
 	"github.com/gofred-io/gofred/widget"
 )
 
@@ -24,7 +25,7 @@ func features() widget.BaseWidget {
 			column.Gap(32),
 			column.Flex(1),
 		),
-		container.Padding(breakpoint.All(64)),
+		container.Padding(breakpoint.All(spacing.All(64))),
 	)
 }
 

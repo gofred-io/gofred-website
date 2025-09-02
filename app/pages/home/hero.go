@@ -13,6 +13,7 @@ import (
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
 	"github.com/gofred-io/gofred/options"
+	"github.com/gofred-io/gofred/options/spacing"
 	"github.com/gofred-io/gofred/widget"
 )
 
@@ -34,7 +35,7 @@ func hero() widget.BaseWidget {
 		),
 		container.BackgroundColor("#2B799B"),
 		container.Flex(1),
-		container.Padding(breakpoint.All(32)),
+		container.Padding(breakpoint.All(spacing.All(32))),
 	)
 }
 
@@ -350,7 +351,7 @@ func sampleCode() widget.BaseWidget {
 		container.BackgroundColor("#282A36"),
 		container.Height(breakpoint.All(240)),
 		container.BorderRadius(8),
-		container.Padding(breakpoint.All(16)),
+		container.Padding(breakpoint.All(spacing.All(16))),
 		container.MaxWidth(540),
 		container.WidthP(breakpoint.All(0.5), breakpoint.XS(1.0), breakpoint.SM(1.0), breakpoint.MD(0.75)),
 	)

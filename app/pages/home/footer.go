@@ -9,6 +9,7 @@ import (
 	"github.com/gofred-io/gofred/foundation/row"
 	"github.com/gofred-io/gofred/foundation/text"
 	"github.com/gofred-io/gofred/options"
+	"github.com/gofred-io/gofred/options/spacing"
 	"github.com/gofred-io/gofred/widget"
 )
 
@@ -23,7 +24,7 @@ func footer() widget.BaseWidget {
 			row.Flex(1),
 		),
 		container.BackgroundColor("#23395B"),
-		container.Padding(breakpoint.All(16)),
+		container.Padding(breakpoint.All(spacing.All(16))),
 		container.Flex(1),
 	)
 }

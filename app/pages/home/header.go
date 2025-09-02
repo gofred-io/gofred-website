@@ -5,7 +5,6 @@ import (
 
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/container"
-	"github.com/gofred-io/gofred/foundation/drawer"
 	"github.com/gofred-io/gofred/foundation/icon"
 	icondata "github.com/gofred-io/gofred/foundation/icon/icon_data"
 	iconbutton "github.com/gofred-io/gofred/foundation/icon_button"
@@ -16,13 +15,8 @@ import (
 	"github.com/gofred-io/gofred/foundation/text"
 	"github.com/gofred-io/gofred/listenable"
 	"github.com/gofred-io/gofred/options"
+	"github.com/gofred-io/gofred/options/spacing"
 	"github.com/gofred-io/gofred/widget"
-)
-
-var (
-	leftDrawer = drawer.New(
-		drawer.Width(breakpoint.All(250)),
-	)
 )
 
 func header() widget.BaseWidget {
@@ -32,11 +26,11 @@ func header() widget.BaseWidget {
 				menuButton(),
 				logoTitle(),
 				spacer.New(),
-				documentationLink(),
+				documentationLink(false),
 				spacer.New(spacer.Width(8)),
-				discussionsLink(),
+				discussionsLink(false),
 				spacer.New(spacer.Width(8)),
-				githubLink(),
+				githubLink(false),
 				spacer.New(spacer.Width(8)),
 				themeToggleButton(),
 			},
@@ -46,8 +40,7 @@ func header() widget.BaseWidget {
 		),
 		container.Height(breakpoint.All(44)),
 		container.BackgroundColor("#FFFFFF"),
-		container.PaddingV(breakpoint.All(8)),
-		container.PaddingH(breakpoint.All(16)),
+		container.Padding(breakpoint.All(spacing.Axis(8, 16))),
 	)
 }
 
@@ -98,7 +91,15 @@ func title() widget.BaseWidget {
 	)
 }
 
-func documentationLink() widget.BaseWidget {
+func documentationLink(inMenu bool) widget.BaseWidget {
+	var (
+		visible = []breakpoint.BreakpointOptions[bool]{breakpoint.All(true)}
+	)
+
+	if !inMenu {
+		visible = append(visible, breakpoint.XS(false), breakpoint.SM(false))
+	}
+
 	return container.New(
 		link.New(
 			text.New(
@@ -109,16 +110,23 @@ func documentationLink() widget.BaseWidget {
 				text.UserSelect(options.UserSelectTypeNone),
 			),
 			link.Href("/docs"),
+			link.OnClick(func(this widget.BaseWidget, e widget.Event) {
+				leftDrawer.Hide()
+			}),
 		),
-		container.Visible(
-			breakpoint.All(true),
-			breakpoint.XS(false),
-			breakpoint.SM(false),
-		),
+		container.Visible(visible...),
 	)
 }
 
-func discussionsLink() widget.BaseWidget {
+func discussionsLink(inMenu bool) widget.BaseWidget {
+	var (
+		visible = []breakpoint.BreakpointOptions[bool]{breakpoint.All(true)}
+	)
+
+	if !inMenu {
+		visible = append(visible, breakpoint.XS(false), breakpoint.SM(false))
+	}
+
 	return container.New(
 		link.New(
 			row.New(
@@ -141,15 +149,19 @@ func discussionsLink() widget.BaseWidget {
 			link.Href("https://github.com/gofred-io/gofred/pulls"),
 			link.NewTab(true),
 		),
-		container.Visible(
-			breakpoint.All(true),
-			breakpoint.XS(false),
-			breakpoint.SM(false),
-		),
+		container.Visible(visible...),
 	)
 }
 
-func githubLink() widget.BaseWidget {
+func githubLink(inMenu bool) widget.BaseWidget {
+	var (
+		visible = []breakpoint.BreakpointOptions[bool]{breakpoint.All(true)}
+	)
+
+	if !inMenu {
+		visible = append(visible, breakpoint.XS(false), breakpoint.SM(false))
+	}
+
 	return container.New(
 		link.New(
 			row.New(
@@ -172,11 +184,7 @@ func githubLink() widget.BaseWidget {
 			link.Href("https://github.com/gofred-io/gofred"),
 			link.NewTab(true),
 		),
-		container.Visible(
-			breakpoint.All(true),
-			breakpoint.XS(false),
-			breakpoint.SM(false),
-		),
+		container.Visible(visible...),
 	)
 }
 
