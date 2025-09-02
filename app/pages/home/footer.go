@@ -13,7 +13,7 @@ import (
 	"github.com/gofred-io/gofred/widget"
 )
 
-func footer() widget.BaseWidget {
+func Footer() widget.BaseWidget {
 	return container.New(
 		row.New(
 			[]widget.BaseWidget{

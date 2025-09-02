@@ -19,7 +19,7 @@ import (
 	"github.com/gofred-io/gofred/widget"
 )
 
-func header() widget.BaseWidget {
+func Header() widget.BaseWidget {
 	return container.New(
 		row.New(
 			[]widget.BaseWidget{

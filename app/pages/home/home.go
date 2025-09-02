@@ -13,7 +13,7 @@ func New() widget.BaseWidget {
 			container.New(
 				column.New(
 					[]widget.BaseWidget{
-						header(),
+						Header(),
 						hero(),
 					},
 					column.Flex(1),
@@ -22,7 +22,7 @@ func New() widget.BaseWidget {
 				container.Flex(1),
 			),
 			features(),
-			footer(),
+			Footer(),
 		},
 	)
 }
