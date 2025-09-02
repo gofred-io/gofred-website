@@ -72,6 +72,7 @@ func socials() widget.BaseWidget {
 		row.MainAxisAlignment(options.AxisAlignmentTypeStart),
 		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 		row.Gap(8),
+		row.Flex(1),
 	)
 }
 
@@ -83,7 +84,6 @@ func copyright() widget.BaseWidget {
 		row.MainAxisAlignment(options.AxisAlignmentTypeCenter),
 		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 		row.Gap(8),
-		row.Flex(1),
 	)
 }
 
@@ -106,5 +106,6 @@ func githubButton() widget.BaseWidget {
 		row.MainAxisAlignment(options.AxisAlignmentTypeEnd),
 		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 		row.Gap(8),
+		row.Flex(1),
 	)
 }
