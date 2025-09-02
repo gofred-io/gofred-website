@@ -40,7 +40,14 @@ func Header() widget.BaseWidget {
 		),
 		container.Height(breakpoint.All(44)),
 		container.BackgroundColor("#FFFFFF"),
-		container.Padding(breakpoint.All(spacing.Axis(8, 16))),
+		container.Padding(
+			breakpoint.All(spacing.Axis(24, 16)),
+			breakpoint.XS(spacing.Axis(8, 16)),
+			breakpoint.SM(spacing.Axis(8, 16)),
+		),
+		container.BorderColor("#CECECE"),
+		container.BorderWidth(0, 0, 1, 0),
+		container.BorderStyle(options.BorderStyleTypeSolid),
 	)
 }
 
