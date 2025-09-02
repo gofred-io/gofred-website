@@ -85,9 +85,10 @@ func navigationMenu(activeHref string) widget.BaseWidget {
 				"Components",
 				[]navItem{
 					{title: "Buttons", href: "/docs/components/buttons"},
-					{title: "Forms", href: "/docs/components/forms"},
 					{title: "Navigation", href: "/docs/components/navigation"},
 					{title: "Icons", href: "/docs/components/icons"},
+					{title: "Images", href: "/docs/components/images"},
+					{title: "Containers", href: "/docs/components/containers"},
 				},
 				activeHref,
 			),

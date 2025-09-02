@@ -140,7 +140,7 @@ func listItem(itemText string) widget.BaseWidget {
 	return row.New(
 		[]widget.BaseWidget{
 			icon.New(
-				icondata.Tools,
+				icondata.Check,
 				icon.Width(breakpoint.All(16)),
 				icon.Height(breakpoint.All(16)),
 				icon.Fill("#10B981"),
@@ -211,7 +211,7 @@ func nextStepItem(title, description, href string) widget.BaseWidget {
 						column.Flex(1),
 					),
 					icon.New(
-						icondata.OpenInNew,
+						icondata.ChevronRight,
 						icon.Width(breakpoint.All(20)),
 						icon.Height(breakpoint.All(20)),
 						icon.Fill("#9CA3AF"),
@@ -240,7 +240,7 @@ func navigationButtons(previousHref, nextHref string) widget.BaseWidget {
 					row.New(
 						[]widget.BaseWidget{
 							icon.New(
-								icondata.Menu,
+								icondata.ChevronLeft,
 								icon.Width(breakpoint.All(16)),
 								icon.Height(breakpoint.All(16)),
 								icon.Fill("#FFFFFF"),
@@ -272,7 +272,7 @@ func navigationButtons(previousHref, nextHref string) widget.BaseWidget {
 								text.FontWeight("500"),
 							),
 							icon.New(
-								icondata.OpenInNew,
+								icondata.ChevronRight,
 								icon.Width(breakpoint.All(16)),
 								icon.Height(breakpoint.All(16)),
 								icon.Fill("#FFFFFF"),
