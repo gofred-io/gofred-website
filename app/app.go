@@ -11,7 +11,7 @@ import (
 func New() widget.BaseWidget {
 	return router.New(
 		router.Route("/", home.New),
-		router.Route("/docs", docs.New),
+		router.Route("/docs/:section", docs.New),
 		router.NotFound(notfound.New),
 	)
 }

@@ -4,10 +4,11 @@ import (
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/column"
 	"github.com/gofred-io/gofred/foundation/container"
+	"github.com/gofred-io/gofred/foundation/router"
 	"github.com/gofred-io/gofred/widget"
 )
 
-func New() widget.BaseWidget {
+func New(params router.RouteParams) widget.BaseWidget {
 	return column.New(
 		[]widget.BaseWidget{
 			container.New(

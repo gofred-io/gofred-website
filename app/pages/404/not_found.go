@@ -9,6 +9,7 @@ import (
 	"github.com/gofred-io/gofred/foundation/icon"
 	icondata "github.com/gofred-io/gofred/foundation/icon/icon_data"
 	"github.com/gofred-io/gofred/foundation/link"
+	"github.com/gofred-io/gofred/foundation/router"
 	"github.com/gofred-io/gofred/foundation/row"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
@@ -17,7 +18,7 @@ import (
 	"github.com/gofred-io/gofred/widget"
 )
 
-func New() widget.BaseWidget {
+func New(params router.RouteParams) widget.BaseWidget {
 	return column.New(
 		[]widget.BaseWidget{
 			home.Header(),

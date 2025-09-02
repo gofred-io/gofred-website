@@ -375,7 +375,7 @@ func cta() widget.BaseWidget {
 					),
 					button.Width(breakpoint.All(100)),
 				),
-				link.Href("/docs#getting-started"),
+				link.Href("/docs/installation"),
 			),
 			link.New(
 				button.New(
