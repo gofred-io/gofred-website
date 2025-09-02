@@ -31,7 +31,7 @@ func New(params router.RouteParams) widget.BaseWidget {
 	case "quick-start":
 		return quickStartPage()
 	case "first-app":
-		return firstAppContent()
+		return firstAppPage()
 	default:
 		return notfound.New(params)
 	}
@@ -254,39 +254,5 @@ func featuresTitle() widget.BaseWidget {
 		},
 		column.Gap(8),
 		column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-	)
-}
-
-func firstAppContent() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			home.Header(),
-			container.New(
-				column.New(
-					[]widget.BaseWidget{
-						text.New(
-							"Your First App",
-							text.FontSize(32),
-							text.FontColor("#1F2937"),
-							text.FontWeight("700"),
-							text.UserSelect(options.UserSelectTypeNone),
-						),
-						spacer.New(spacer.Height(16)),
-						text.New(
-							"Build a complete gofred application from scratch with step-by-step instructions.",
-							text.FontSize(18),
-							text.FontColor("#6B7280"),
-							text.FontWeight("400"),
-							text.UserSelect(options.UserSelectTypeNone),
-						),
-					},
-					column.Gap(8),
-				),
-				container.Flex(1),
-				container.Padding(breakpoint.All(spacing.All(32))),
-			),
-			home.Footer(),
-		},
-		column.Flex(1),
 	)
 }

@@ -174,11 +174,6 @@ func nextStepsList() widget.BaseWidget {
 			description: "Create a simple application step by step",
 			href:        "/docs/first-app",
 		},
-		{
-			title:       "Learn the Basics",
-			description: "Understand widgets, layouts, and styling",
-			href:        "/docs/widgets",
-		},
 	}
 
 	var stepItems []widget.BaseWidget

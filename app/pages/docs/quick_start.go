@@ -78,7 +78,7 @@ func quickStartPageHeader() widget.BaseWidget {
 func quickStartPageContent() widget.BaseWidget {
 	return column.New(
 		[]widget.BaseWidget{
-			contentSection("Quick Start", "Create your first gofred application:"),
+			contentSection("Hello, gofred!", "Let's start with a simple hello world application:"),
 			codeblock.New(`package main
 
 import (
@@ -110,11 +110,6 @@ func quickStartNextStepsList() widget.BaseWidget {
 			title:       "Build Your First App",
 			description: "Create a simple application step by step",
 			href:        "/docs/first-app",
-		},
-		{
-			title:       "Explore Components",
-			description: "Discover available UI components",
-			href:        "/docs/components",
 		},
 	}
 
