@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"io/fs"
 	"log"
@@ -27,10 +28,13 @@ var (
 		ReadBufferSize:  1024,
 		WriteBufferSize: 1024,
 	}
+	watchFiles     = map[string]bool{}
 	localURL       string
 	netURL         string
+	colorError     = 31
 	colorSuccess   = 32
 	colorCompiling = 33
+	linesToRemove  = 0
 )
 
 type wsMsg struct {
@@ -139,19 +143,51 @@ func watch() {
 		log.Printf("error: %v", err)
 	}
 
-	err = filepath.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
-		if !d.IsDir() && !strings.HasPrefix(path, ".") && strings.HasSuffix(path, ".go") {
-			watcher.Add(path)
-		}
+	handleChange := func() {
+		removeLines(linesToRemove)
+		printCompilingMessage()
+		err = build()
+		removeLines(linesToRemove)
 
-		return nil
-	})
-	if err != nil {
-		log.Printf("error: %v", err)
+		if err != nil {
+			printErrorMessage(err)
+		} else {
+			printSuccessMessage()
+			chReload <- struct{}{}
+		}
 	}
+
+	walkdir := func(initial bool) {
+		err = filepath.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
+			if d.IsDir() || strings.HasPrefix(path, ".") || !strings.HasSuffix(path, ".go") {
+				return nil
+			}
+
+			_, ok := watchFiles[path]
+			if ok {
+				return nil
+			}
+
+			if !initial {
+				handleChange()
+			}
+
+			watchFiles[path] = true
+			watcher.Add(path)
+			return nil
+		})
+		if err != nil {
+			log.Printf("error: %v", err)
+		}
+	}
+
+	walkdir(true)
 
 	ticker := time.NewTicker(500 * time.Millisecond)
 	defer ticker.Stop()
+
+	ticker2 := time.NewTicker(1 * time.Second)
+	defer ticker2.Stop()
 
 	hasChanged := atomic.Bool{}
 
@@ -169,26 +205,30 @@ func watch() {
 			log.Printf("error: %v", err)
 		case <-ticker.C:
 			if hasChanged.CompareAndSwap(true, false) {
-				removeLines(6)
-				printCompilingMessage()
-				build()
-				removeLines(1)
-				printSuccessMessage()
-				chReload <- struct{}{}
+				handleChange()
 			}
+		case <-ticker2.C:
+			walkdir(false)
 		}
 	}
 }
 
-func build() {
+func build() error {
+	var (
+		stderr strings.Builder
+		stdout strings.Builder
+	)
+
 	process := exec.Command("go", "build", "-o", "server/main.wasm", ".")
 	process.Env = append(os.Environ(), "GOARCH=wasm", "GOOS=js")
-	process.Stdout = os.Stdout
-	process.Stderr = os.Stderr
+	process.Stdout = &stdout
+	process.Stderr = &stderr
 	err := process.Run()
 	if err != nil {
-		log.Printf("error: %v", err)
+		return errors.New(stderr.String())
 	}
+
+	return nil
 }
 
 // openURL opens the specified URL in the default browser of the user.
@@ -232,14 +272,23 @@ func isWSL() bool {
 }
 
 func printSuccessMessage() {
-	fmt.Printf("\x1b[%dmCompiled successfully!\x1b[0m\n\n", colorSuccess)
-	fmt.Printf("Open your browser and go to:\n\n")
+	fmt.Printf("\x1b[%dmCompiled successfully!\x1b[0m\n", colorSuccess)
+	fmt.Println()
+	fmt.Printf("Open your browser and go to:")
+	fmt.Println()
 	fmt.Printf("   Local: %s\n", localURL)
 	fmt.Printf("   Network: %s\n", netURL)
+	linesToRemove = 6
+}
+
+func printErrorMessage(err error) {
+	fmt.Printf("\x1b[%dm%v\x1b[0m\n", colorError, err)
+	linesToRemove = strings.Count(err.Error(), "\n") + 1
 }
 
 func printCompilingMessage() {
 	fmt.Printf("\x1b[%dmCompiling...\x1b[0m\n", colorCompiling)
+	linesToRemove = 1
 }
 
 func removeLines(n int) {
