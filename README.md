@@ -87,22 +87,22 @@ See [DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md) for detailed deployment instruc
 
 ```
 gofred-website/
-├── app/                          # Main application code
-│   ├── components/              # Reusable UI components
-│   │   ├── code_block/         # Code syntax highlighting
-│   │   └── coming_soon/        # Placeholder component
-│   ├── pages/                  # Page components
-│   │   ├── home/              # Homepage sections
-│   │   ├── docs/              # Documentation pages
-│   │   └── 404/               # Error pages
-│   └── theme/                 # Global theming
-├── server/                     # Static assets and dev server
-│   ├── index.html            # Main HTML template
-│   ├── index.js              # WebAssembly loader
-│   ├── main.wasm             # Compiled Go WebAssembly
-│   ├── *.css                 # Stylesheets
-│   └── img/                  # Images and assets
-├── Dockerfile                # Production container
+├── app/                     # Main application code
+│   ├── components/          # Reusable UI components
+│   │   ├── code_block/      # Code syntax highlighting
+│   │   └── coming_soon/     # Placeholder component
+│   ├── pages/               # Page components
+│   │   ├── home/            # Homepage sections
+│   │   ├── docs/            # Documentation pages
+│   │   └── 404/             # Error pages
+│   └── theme/               # Global theming
+├── server/                  # Static assets and dev server
+│   ├── index.html           # Main HTML template
+│   ├── index.js             # WebAssembly loader
+│   ├── main.wasm            # Compiled Go WebAssembly
+│   ├── *.css                # Stylesheets
+│   └── img/                 # Images and assets
+├── Dockerfile               # Production container
 ├── docker-compose.yml       # Container orchestration
 ├── nginx.conf               # Web server configuration
 └── Makefile                 # Build commands
