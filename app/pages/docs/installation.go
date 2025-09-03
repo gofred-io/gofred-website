@@ -90,7 +90,7 @@ func installationPageContent() widget.BaseWidget {
 			codeblock.New("go get github.com/gofred-io/gofred"),
 			spacer.New(spacer.Height(24)),
 			contentSection("Next Steps", "Now that you have gofred installed, you can:"),
-			nextStepsList(),
+			installationNextSteps(),
 			spacer.New(spacer.Height(32)),
 			navigationButtons("/docs", "/docs/quick-start"),
 		},
@@ -158,7 +158,7 @@ func listItem(itemText string) widget.BaseWidget {
 	)
 }
 
-func nextStepsList() widget.BaseWidget {
+func installationNextSteps() widget.BaseWidget {
 	steps := []struct {
 		title       string
 		description string
@@ -173,6 +173,11 @@ func nextStepsList() widget.BaseWidget {
 			title:       "Build Your First App",
 			description: "Create a simple application step by step",
 			href:        "/docs/first-app",
+		},
+		{
+			title:       "Project Structure",
+			description: "Explore the project structure",
+			href:        "/docs/project-structure",
 		},
 	}
 

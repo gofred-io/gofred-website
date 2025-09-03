@@ -220,7 +220,7 @@ func decreaseCount(this widget.BaseWidget, e widget.Event) {
 			contentSection("What's Next?", "Now that you've built your first app, explore these topics:"),
 			firstAppNextStepsList(),
 			spacer.New(spacer.Height(32)),
-			navigationButtons("/docs/quick-start", "/docs/widgets"),
+			navigationButtons("/docs/quick-start", "/docs/project-structure"),
 		},
 		column.Gap(16),
 	)
@@ -233,25 +233,30 @@ func firstAppNextStepsList() widget.BaseWidget {
 		href        string
 	}{
 		{
-			title:       "Learn About Widgets",
-			description: "Understand the building blocks of gofred applications",
-			href:        "/docs/widgets",
+			title:       "Project Structure",
+			description: "Explore the project structure",
+			href:        "/docs/project-structure",
 		},
-		{
-			title:       "Explore Layouts",
-			description: "Learn how to arrange widgets with columns, rows, and grids",
-			href:        "/docs/layouts",
-		},
-		{
-			title:       "Style Your App",
-			description: "Make your application beautiful with colors, fonts, and spacing",
-			href:        "/docs/styling",
-		},
-		{
-			title:       "State Management",
-			description: "Handle dynamic data and user interactions properly",
-			href:        "/docs/state",
-		},
+		// {
+		// 	title:       "Learn About Widgets",
+		// 	description: "Understand the building blocks of gofred applications",
+		// 	href:        "/docs/widgets",
+		// },
+		// {
+		// 	title:       "Explore Layouts",
+		// 	description: "Learn how to arrange widgets with columns, rows, and grids",
+		// 	href:        "/docs/layouts",
+		// },
+		// {
+		// 	title:       "Style Your App",
+		// 	description: "Make your application beautiful with colors, fonts, and spacing",
+		// 	href:        "/docs/styling",
+		// },
+		// {
+		// 	title:       "State Management",
+		// 	description: "Handle dynamic data and user interactions properly",
+		// 	href:        "/docs/state",
+		// },
 	}
 
 	var stepItems []widget.BaseWidget

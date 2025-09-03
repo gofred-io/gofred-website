@@ -111,6 +111,11 @@ func quickStartNextStepsList() widget.BaseWidget {
 			description: "Create a simple application step by step",
 			href:        "/docs/first-app",
 		},
+		{
+			title:       "Project Structure",
+			description: "Explore the project structure",
+			href:        "/docs/project-structure",
+		},
 	}
 
 	var stepItems []widget.BaseWidget
