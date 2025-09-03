@@ -272,7 +272,7 @@ func main() {
     application.Run(app)
 }`, code.FontSize(14), code.FontColor("#F3F4F6"), code.FontWeight("400")),
 					),
-					container.Padding(breakpoint.All(spacing.All(16))),
+					container.Padding(breakpoint.All(spacing.All(8))),
 					container.BackgroundColor("#1F2937"),
 				),
 			},
@@ -558,7 +558,12 @@ func gettingStartedSection() widget.BaseWidget {
 			),
 		),
 		container.BackgroundColor("#F9FAFB"),
-		container.Padding(breakpoint.All(spacing.All(64))),
+		container.Padding(
+			breakpoint.All(spacing.All(64)),
+			breakpoint.XS(spacing.All(12)),
+			breakpoint.SM(spacing.All(16)),
+			breakpoint.MD(spacing.All(32)),
+		),
 	)
 }
 
