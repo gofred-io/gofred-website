@@ -48,7 +48,9 @@ func New(params router.RouteParams) widget.BaseWidget {
 		return docsPageTemplate(core_concepts.StateManagementContent())
 	case "events":
 		return docsPageTemplate(core_concepts.EventHandlingContent())
-	case "buttons", "navigation", "icons", "images", "containers", "routing", "api", "best-practices", "performance", "deployment":
+	case "buttons", "navigation", "icons", "images", "containers",
+		"routing", "api", "best-practices", "performance", "deployment",
+		"examples", "tutorials", "community", "support":
 		return docsPageTemplate(comingsoon.ComingSoonContent("Coming Soon", []comingsoon.Suggestion{
 			{Title: "Buttons", Description: "Learn about buttons and how to use them", Href: "/docs/buttons"},
 			{Title: "Navigation", Description: "Learn about navigation and how to use it", Href: "/docs/navigation"},
