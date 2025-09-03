@@ -82,6 +82,9 @@ func projectStructurePageContent() widget.BaseWidget {
 			spacer.New(spacer.Height(24)),
 			contentSection("Best Practices", "Follow these guidelines for better organization:"),
 			projectStructureBestPractices(),
+			spacer.New(spacer.Height(24)),
+			contentSection("Next Steps", "Now that you have learned about the project structure, you can:"),
+			projectStructureNextStepsList(),
 			spacer.New(spacer.Height(32)),
 			navigationButtons("/docs/first-app", "/docs/widgets"),
 		},
@@ -201,5 +204,44 @@ func projectStructureBestPractices() widget.BaseWidget {
 	return column.New(
 		practiceItems,
 		column.Gap(8),
+	)
+}
+
+func projectStructureNextStepsList() widget.BaseWidget {
+	steps := []struct {
+		title       string
+		description string
+		href        string
+	}{
+		{
+			title:       "Learn About Widgets",
+			description: "Understand the building blocks of gofred applications",
+			href:        "/docs/widgets",
+		},
+		{
+			title:       "Explore Layouts",
+			description: "Learn how to arrange widgets with columns, rows, and grids",
+			href:        "/docs/layouts",
+		},
+		{
+			title:       "Style Your App",
+			description: "Make your application beautiful with colors, fonts, and spacing",
+			href:        "/docs/styling",
+		},
+		{
+			title:       "Learn State Management",
+			description: "Handle dynamic data and user interactions properly",
+			href:        "/docs/state",
+		},
+	}
+
+	var stepItems []widget.BaseWidget
+	for _, step := range steps {
+		stepItems = append(stepItems, nextStepItem(step.title, step.description, step.href))
+	}
+
+	return column.New(
+		stepItems,
+		column.Gap(12),
 	)
 }
