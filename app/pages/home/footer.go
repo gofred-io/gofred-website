@@ -21,27 +21,45 @@ func Footer() widget.BaseWidget {
 	return container.New(
 		column.New(
 			[]widget.BaseWidget{
-				// Main footer content
-				center.New(
-					container.New(
-						column.New(
-							[]widget.BaseWidget{
-								// Footer sections
-								footerContent(),
+				// Desktop footer (MD and larger)
+				container.New(
+					center.New(
+						container.New(
+							column.New(
+								[]widget.BaseWidget{
+									// Footer sections
+									footerContent(),
 
-								spacer.New(spacer.Height(48)),
+									spacer.New(spacer.Height(48)),
 
-								// Footer bottom with copyright and social links
-								footerBottom(),
-							},
-							column.Gap(0),
+									// Footer bottom with copyright and social links
+									footerBottom(),
+								},
+								column.Gap(0),
+							),
+							container.MaxWidth(breakpoint.All(1200)),
+							container.Padding(
+								breakpoint.All(spacing.All(32)),
+								breakpoint.MD(spacing.All(32)),
+								breakpoint.LG(spacing.All(32)),
+							),
 						),
-						container.MaxWidth(breakpoint.All(1200)),
-						container.Padding(
-							breakpoint.All(spacing.All(32)),
-							breakpoint.XS(spacing.All(16)),
-							breakpoint.SM(spacing.All(24)),
-						),
+					),
+					container.Visible(
+						breakpoint.MD(true),
+						breakpoint.LG(true),
+						breakpoint.XL(true),
+						breakpoint.XXL(true),
+					),
+				),
+
+				// Mobile footer (XS and SM)
+				container.New(
+					mobileFooter(),
+					container.Visible(
+						breakpoint.XS(true),
+						breakpoint.SM(true),
+						breakpoint.MD(false),
 					),
 				),
 			},
@@ -403,7 +421,6 @@ func mobileFooter() widget.BaseWidget {
 			column.Gap(0),
 		),
 		container.Padding(breakpoint.All(spacing.All(24))),
-		container.BackgroundColor("#1F2937"),
 	)
 }
 

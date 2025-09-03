@@ -644,7 +644,7 @@ func communitySection() widget.BaseWidget {
 						spacer.New(spacer.Height(48)),
 
 						// Community links
-						row.New(
+						grid.New(
 							[]widget.BaseWidget{
 								communityLink(
 									icondata.Github,
@@ -665,8 +665,13 @@ func communitySection() widget.BaseWidget {
 									"/docs",
 								),
 							},
-							row.Gap(24),
-							row.CrossAxisAlignment(options.AxisAlignmentTypeStretch),
+							grid.ColumnGap(24),
+							grid.RowGap(24),
+							grid.ColumnCount(
+								breakpoint.All(3),
+								breakpoint.XS(1),
+								breakpoint.SM(1),
+							),
 						),
 					},
 					column.Gap(0),
