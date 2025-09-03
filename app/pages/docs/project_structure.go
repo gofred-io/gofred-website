@@ -83,10 +83,10 @@ func projectStructurePageContent() widget.BaseWidget {
 		[]widget.BaseWidget{
 			contentSection("Directory Structure", "A typical gofred project follows this structure:"),
 			codeblock.New(`my-gofred-app/
-├── main.go                 # Application entry point
-├── go.mod                  # Go module file
-├── go.sum                  # Go module checksums
-├── app/                    # Application code
+├── main.go                # Application entry point
+├── go.mod                 # Go module file
+├── go.sum                 # Go module checksums
+├── app/                   # Application code
 │   ├── pages/             # Page components
 │   │   ├── home/          # Home page
 │   │   ├── docs/          # Documentation pages
