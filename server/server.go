@@ -130,6 +130,20 @@ func runWebsockerServer() {
 	http.Serve(addr, nil)
 }
 
+func handleChange() {
+	removeLines(linesToRemove)
+	printCompilingMessage()
+	err := build()
+	removeLines(linesToRemove)
+
+	if err != nil {
+		printErrorMessage(err)
+	} else {
+		printSuccessMessage()
+		chReload <- struct{}{}
+	}
+}
+
 func watch() {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
@@ -141,20 +155,6 @@ func watch() {
 	err = watcher.Add(dir)
 	if err != nil {
 		log.Printf("error: %v", err)
-	}
-
-	handleChange := func() {
-		removeLines(linesToRemove)
-		printCompilingMessage()
-		err = build()
-		removeLines(linesToRemove)
-
-		if err != nil {
-			printErrorMessage(err)
-		} else {
-			printSuccessMessage()
-			chReload <- struct{}{}
-		}
 	}
 
 	walkdir := func(initial bool) {
@@ -182,6 +182,7 @@ func watch() {
 	}
 
 	walkdir(true)
+	handleChange()
 
 	ticker := time.NewTicker(500 * time.Millisecond)
 	defer ticker.Stop()
