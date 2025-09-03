@@ -93,11 +93,11 @@ func navigationMenu() widget.BaseWidget {
 				navSection(
 					"Components",
 					[]navItem{
-						{title: "Buttons", href: "/docs/components/buttons"},
-						{title: "Navigation", href: "/docs/components/navigation"},
-						{title: "Icons", href: "/docs/components/icons"},
-						{title: "Images", href: "/docs/components/images"},
-						{title: "Containers", href: "/docs/components/containers"},
+						{title: "Buttons", href: "/docs/buttons"},
+						{title: "Navigation", href: "/docs/navigation"},
+						{title: "Icons", href: "/docs/icons"},
+						{title: "Images", href: "/docs/images"},
+						{title: "Containers", href: "/docs/containers"},
 					},
 					activeHref,
 				),

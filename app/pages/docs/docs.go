@@ -1,6 +1,7 @@
 package docs
 
 import (
+	comingsoon "github.com/gofred-io/gofred-website/app/components/coming_soon"
 	notfound "github.com/gofred-io/gofred-website/app/pages/404"
 	"github.com/gofred-io/gofred-website/app/pages/docs/core_concepts"
 	"github.com/gofred-io/gofred-website/app/pages/docs/getting_started"
@@ -47,6 +48,14 @@ func New(params router.RouteParams) widget.BaseWidget {
 		return docsPageTemplate(core_concepts.StateManagementContent())
 	case "events":
 		return docsPageTemplate(core_concepts.EventHandlingContent())
+	case "buttons", "navigation", "icons", "images", "containers", "routing", "api", "best-practices", "performance", "deployment":
+		return docsPageTemplate(comingsoon.ComingSoonContent("Coming Soon", []comingsoon.Suggestion{
+			{Title: "Buttons", Description: "Learn about buttons and how to use them", Href: "/docs/buttons"},
+			{Title: "Navigation", Description: "Learn about navigation and how to use it", Href: "/docs/navigation"},
+			{Title: "Icons", Description: "Learn about icons and how to use them", Href: "/docs/icons"},
+			{Title: "Images", Description: "Learn about images and how to use them", Href: "/docs/images"},
+			{Title: "Containers", Description: "Learn about containers and how to use them", Href: "/docs/containers"},
+		}))
 	default:
 		return notfound.New(params)
 	}
