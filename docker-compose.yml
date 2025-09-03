@@ -7,7 +7,6 @@ services:
       context: .
       dockerfile: Dockerfile
       target: runtime
-    container_name: gofred-website
     ports:
       - "3000:80"  # Map host port 3000 to container port 80 (nginx)
     restart: unless-stopped
@@ -36,7 +35,6 @@ services:
       context: .
       dockerfile: Dockerfile
       target: runtime
-    container_name: gofred-website-ssl
     ports:
       - "80:80"
       - "443:443"
