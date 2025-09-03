@@ -79,6 +79,7 @@ class HTMLPushStateAnchorElement extends HTMLAnchorElement {
 
     // push state into the history stack
     window.history.pushState(JSON.parse(this.getAttribute('state')) || window.history.state, this.getAttribute('title'), href);
+    window.scrollTo(0, 0);
 
     // dispatch a popstate event
     try {
