@@ -1,0 +1,232 @@
+package docs
+
+import (
+	codeblock "github.com/gofred-io/gofred-website/app/components/code_block"
+	"github.com/gofred-io/gofred-website/app/pages/home"
+	"github.com/gofred-io/gofred/breakpoint"
+	"github.com/gofred-io/gofred/foundation/column"
+	"github.com/gofred-io/gofred/foundation/container"
+	"github.com/gofred-io/gofred/foundation/icon"
+	icondata "github.com/gofred-io/gofred/foundation/icon/icon_data"
+	"github.com/gofred-io/gofred/foundation/row"
+	"github.com/gofred-io/gofred/foundation/spacer"
+	"github.com/gofred-io/gofred/foundation/text"
+	"github.com/gofred-io/gofred/options"
+	"github.com/gofred-io/gofred/options/spacing"
+	"github.com/gofred-io/gofred/widget"
+)
+
+func projectStructurePage() widget.BaseWidget {
+	return column.New(
+		[]widget.BaseWidget{
+			home.Header(),
+			projectStructureContent(),
+			home.Footer(),
+		},
+		column.Flex(1),
+	)
+}
+
+func projectStructureContent() widget.BaseWidget {
+	return container.New(
+		row.New(
+			[]widget.BaseWidget{
+				docsSidebar("/docs/project-structure"),
+				projectStructureContentArea(),
+			},
+			row.Flex(1),
+		),
+		container.Flex(1),
+		container.BackgroundColor("#F8F9FA"),
+	)
+}
+
+func projectStructureContentArea() widget.BaseWidget {
+	return container.New(
+		column.New(
+			[]widget.BaseWidget{
+				docsMobileMenuButton(),
+				projectStructurePageHeader(),
+				spacer.New(spacer.Height(24)),
+				projectStructurePageContent(),
+			},
+			column.Gap(16),
+			column.Flex(1),
+		),
+		container.Flex(1),
+		container.Padding(breakpoint.All(spacing.All(32))),
+	)
+}
+
+func projectStructurePageHeader() widget.BaseWidget {
+	return column.New(
+		[]widget.BaseWidget{
+			text.New(
+				"Project Structure",
+				text.FontSize(32),
+				text.FontColor("#1F2937"),
+				text.FontWeight("700"),
+			),
+			text.New(
+				"Understand the recommended project structure for gofred applications.",
+				text.FontSize(18),
+				text.FontColor("#6B7280"),
+				text.FontWeight("400"),
+			),
+		},
+		column.Gap(8),
+	)
+}
+
+func projectStructurePageContent() widget.BaseWidget {
+	return column.New(
+		[]widget.BaseWidget{
+			contentSection("Directory Structure", "A typical gofred project follows this structure:"),
+			codeblock.New(`my-gofred-app/
+├── main.go                 # Application entry point
+├── go.mod                  # Go module file
+├── go.sum                  # Go module checksums
+├── app/                    # Application code
+│   ├── pages/             # Page components
+│   │   ├── home/          # Home page
+│   │   ├── docs/          # Documentation pages
+│   │   └── 404/           # 404 error page
+│   ├── components/        # Reusable components
+│   │   └── code_block/    # Code block component
+│   ├── theme/             # Theme and styling
+│   │   └── theme.go       # Theme configuration
+│   └── app.go             # Main application setup
+└── web/                   # Web assets
+    ├── index.html         # HTML template
+    ├── index.css          # CSS styles
+    └── assets/            # Static assets
+        ├── images/        # Image files
+        ├── fonts/         # Font files
+        └── icons/         # Icon files`),
+			spacer.New(spacer.Height(24)),
+			contentSection("Key Files", "Here's what each important file does:"),
+			projectStructureFileList(),
+			spacer.New(spacer.Height(24)),
+			contentSection("Best Practices", "Follow these guidelines for better organization:"),
+			projectStructureBestPractices(),
+			spacer.New(spacer.Height(32)),
+			navigationButtons("/docs/first-app", "/docs/widgets"),
+		},
+		column.Gap(16),
+	)
+}
+
+func projectStructureFileList() widget.BaseWidget {
+	files := []struct {
+		path        string
+		description string
+	}{
+		{
+			path:        "main.go",
+			description: "The entry point of your application. Contains the main function and application initialization.",
+		},
+		{
+			path:        "app/app.go",
+			description: "Main application setup, routing configuration, and global state management.",
+		},
+		{
+			path:        "app/pages/",
+			description: "Directory containing all page components. Each page should be in its own subdirectory (home, docs, 404, etc.).",
+		},
+		{
+			path:        "app/components/",
+			description: "Reusable UI components that can be used across multiple pages (code_block, etc.).",
+		},
+		{
+			path:        "app/theme/",
+			description: "Theme configuration, colors, typography, and global styling options.",
+		},
+		{
+			path:        "web/index.html",
+			description: "HTML template file that serves as the base structure for the web application.",
+		},
+		{
+			path:        "web/index.css",
+			description: "Main CSS file containing custom styles and overrides for the application.",
+		},
+		{
+			path:        "web/assets/",
+			description: "Directory containing static assets like images, fonts, and icons used throughout the application.",
+		},
+	}
+
+	var fileItems []widget.BaseWidget
+	for _, file := range files {
+		fileItems = append(fileItems, projectStructureFileItem(file.path, file.description))
+	}
+
+	return column.New(
+		fileItems,
+		column.Gap(12),
+	)
+}
+
+func projectStructureFileItem(path, description string) widget.BaseWidget {
+	return container.New(
+		row.New(
+			[]widget.BaseWidget{
+				icon.New(
+					icondata.FileDocument,
+					icon.Width(breakpoint.All(20)),
+					icon.Height(breakpoint.All(20)),
+					icon.Fill("#6B7280"),
+				),
+				spacer.New(spacer.Width(12)),
+				column.New(
+					[]widget.BaseWidget{
+						text.New(
+							path,
+							text.FontSize(16),
+							text.FontColor("#1F2937"),
+							text.FontWeight("600"),
+						),
+						text.New(
+							description,
+							text.FontSize(14),
+							text.FontColor("#6B7280"),
+							text.FontWeight("400"),
+							text.LineHeight(1.5),
+						),
+					},
+					column.Gap(4),
+					column.Flex(1),
+				),
+			},
+			row.Gap(12),
+			row.CrossAxisAlignment(options.AxisAlignmentTypeStart),
+		),
+		container.Padding(breakpoint.All(spacing.All(16))),
+		container.BackgroundColor("#FFFFFF"),
+		container.BorderRadius(8),
+		container.BorderColor("#E5E7EB"),
+		container.BorderWidth(1, 1, 1, 1),
+		container.BorderStyle(options.BorderStyleTypeSolid),
+	)
+}
+
+func projectStructureBestPractices() widget.BaseWidget {
+	practices := []string{
+		"Keep pages in separate directories under app/pages/",
+		"Create reusable components in app/components/",
+		"Use consistent naming conventions (snake_case for files)",
+		"Store HTML templates and CSS files in the web/ directory",
+		"Organize static assets (images, fonts, icons) in web/assets/",
+		"Keep theme configuration centralized in app/theme/",
+		"Use meaningful directory and file names",
+	}
+
+	var practiceItems []widget.BaseWidget
+	for _, practice := range practices {
+		practiceItems = append(practiceItems, listItem(practice))
+	}
+
+	return column.New(
+		practiceItems,
+		column.Gap(8),
+	)
+}

@@ -32,6 +32,8 @@ func New(params router.RouteParams) widget.BaseWidget {
 		return quickStartPage()
 	case "first-app":
 		return firstAppPage()
+	case "project-structure":
+		return projectStructurePage()
 	default:
 		return notfound.New(params)
 	}
