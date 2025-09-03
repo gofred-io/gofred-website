@@ -39,6 +39,8 @@ func New(params router.RouteParams) widget.BaseWidget {
 		return docsPageTemplate(getting_started.ProjectStructureContent())
 	case "widgets":
 		return docsPageTemplate(core_concepts.WidgetsContent())
+	case "layouts":
+		return docsPageTemplate(core_concepts.LayoutsContent())
 	default:
 		return notfound.New(params)
 	}
