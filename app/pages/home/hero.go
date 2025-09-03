@@ -355,7 +355,7 @@ func sampleCode() widget.BaseWidget {
 		container.Height(breakpoint.All(240)),
 		container.BorderRadius(8),
 		container.Padding(breakpoint.All(spacing.All(16))),
-		container.MaxWidth(540),
+		container.MaxWidth(breakpoint.All(540)),
 		container.WidthP(breakpoint.All(0.5), breakpoint.XS(1.0), breakpoint.SM(1.0), breakpoint.MD(0.75)),
 	)
 }

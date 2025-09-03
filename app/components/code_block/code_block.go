@@ -42,6 +42,6 @@ func New(code string) widget.BaseWidget {
 		container.BackgroundColor("#1F2937"),
 		container.Padding(breakpoint.All(spacing.All(16))),
 		container.BorderRadius(8),
-		container.MaxWidth(720),
+		container.MaxWidth(breakpoint.All(720)),
 	)
 }

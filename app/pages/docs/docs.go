@@ -164,14 +164,28 @@ func featuresSection() widget.BaseWidget {
 					"#F59E0B",
 					"/docs/components",
 				),
+				featureCard(
+					icondata.Cog,
+					"Advanced",
+					"Master advanced concepts like routing, performance optimization, and deployment strategies.",
+					"#8B5CF6",
+					"/docs/advanced",
+				),
 			},
 			grid.RowGap(24),
 			grid.ColumnGap(24),
 			grid.ColumnCount(
-				breakpoint.All(3),
+				breakpoint.All(4),
 				breakpoint.XS(1),
-				breakpoint.SM(1),
+				breakpoint.SM(2),
+				breakpoint.MD(2),
 			),
+		),
+		container.Width(
+			breakpoint.All(960),
+			breakpoint.XS(240),
+			breakpoint.SM(480),
+			breakpoint.MD(640),
 		),
 	)
 }

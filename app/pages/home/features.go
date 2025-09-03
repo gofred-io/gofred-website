@@ -64,7 +64,7 @@ func featureList() widget.BaseWidget {
 				grid.ColumnGap(48),
 				grid.RowGap(48),
 			),
-			container.MaxWidth(960),
+			container.MaxWidth(breakpoint.All(960)),
 			container.WidthP(breakpoint.All(0.75)),
 		),
 	)

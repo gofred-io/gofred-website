@@ -12,12 +12,16 @@ import (
 	"github.com/gofred-io/gofred/foundation/row"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
+	"github.com/gofred-io/gofred/hooks"
+	"github.com/gofred-io/gofred/listenable"
 	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/options/spacing"
 	"github.com/gofred-io/gofred/widget"
 )
 
-var docsDrawer *drawer.Drawer
+var (
+	docsDrawer *drawer.Drawer
+)
 
 func init() {
 	docsDrawer = buildDocsDrawer()
@@ -88,62 +92,68 @@ func drawerTitle() widget.BaseWidget {
 }
 
 func drawerNavigation() widget.BaseWidget {
+	navigate := hooks.UseNavigate()
+
 	return container.New(
-		column.New(
-			[]widget.BaseWidget{
-				drawerNavSection("Getting Started", []drawerNavItem{
-					{title: "Installation", href: "/docs/installation", icon: icondata.Download, active: true},
-					{title: "Quick Start", href: "/docs/quick-start", icon: icondata.RocketLaunchOutline},
-					{title: "Your First App", href: "/docs/first-app", icon: icondata.Application},
-					{title: "Project Structure", href: "/docs/project-structure", icon: icondata.Folder},
-				}),
-				spacer.New(spacer.Height(16)),
-				drawerNavSection("Core Concepts", []drawerNavItem{
-					{title: "Widgets", href: "/docs/widgets", icon: icondata.Widgets},
-					{title: "Layouts", href: "/docs/layouts", icon: icondata.Grid},
-					{title: "Styling", href: "/docs/styling", icon: icondata.PaletteOutline},
-					{title: "State Management", href: "/docs/state", icon: icondata.Database},
-					{title: "Event Handling", href: "/docs/events", icon: icondata.Mouse},
-				}),
-				spacer.New(spacer.Height(16)),
-				drawerNavSection("Components", []drawerNavItem{
-					{title: "Buttons", href: "/docs/components/buttons", icon: icondata.ButtonPointer},
-					{title: "Navigation", href: "/docs/components/navigation", icon: icondata.Menu},
-					{title: "Icons", href: "/docs/components/icons", icon: icondata.Star},
-					{title: "Images", href: "/docs/components/images", icon: icondata.Image},
-					{title: "Containers", href: "/docs/components/containers", icon: icondata.Package},
-				}),
-				spacer.New(spacer.Height(16)),
-				drawerNavSection("Advanced", []drawerNavItem{
-					{title: "Routing", href: "/docs/routing", icon: icondata.SignDirection},
-					{title: "API Reference", href: "/docs/api", icon: icondata.FileDocument},
-					{title: "Best Practices", href: "/docs/best-practices", icon: icondata.ThumbUp},
-					{title: "Performance", href: "/docs/performance", icon: icondata.Speedometer},
-					{title: "Deployment", href: "/docs/deployment", icon: icondata.Server},
-				}),
-				spacer.New(spacer.Height(16)),
-				drawerNavSection("Resources", []drawerNavItem{
-					{title: "Examples", href: "/docs/examples", icon: icondata.Lightbulb},
-					{title: "Tutorials", href: "/docs/tutorials", icon: icondata.Book},
-					{title: "Community", href: "/docs/community", icon: icondata.AccountGroup},
-					{title: "Support", href: "/docs/support", icon: icondata.Help},
-				}),
-			},
-			column.Gap(8),
-			column.Flex(1),
+		listenable.Builder(navigate, func() widget.BaseWidget {
+			activeHref := navigate.Path()
+
+			return column.New(
+				[]widget.BaseWidget{
+					drawerNavSection("Getting Started", []drawerNavItem{
+						{title: "Installation", href: "/docs/installation", icon: icondata.Download},
+						{title: "Quick Start", href: "/docs/quick-start", icon: icondata.RocketLaunchOutline},
+						{title: "Your First App", href: "/docs/first-app", icon: icondata.Application},
+						{title: "Project Structure", href: "/docs/project-structure", icon: icondata.Folder},
+					}, activeHref),
+					spacer.New(spacer.Height(16)),
+					drawerNavSection("Core Concepts", []drawerNavItem{
+						{title: "Widgets", href: "/docs/widgets", icon: icondata.Widgets},
+						{title: "Layouts", href: "/docs/layouts", icon: icondata.Grid},
+						{title: "Styling", href: "/docs/styling", icon: icondata.PaletteOutline},
+						{title: "State Management", href: "/docs/state", icon: icondata.Database},
+						{title: "Event Handling", href: "/docs/events", icon: icondata.Mouse},
+					}, activeHref),
+					spacer.New(spacer.Height(16)),
+					drawerNavSection("Components", []drawerNavItem{
+						{title: "Buttons", href: "/docs/components/buttons", icon: icondata.ButtonPointer},
+						{title: "Navigation", href: "/docs/components/navigation", icon: icondata.Menu},
+						{title: "Icons", href: "/docs/components/icons", icon: icondata.Star},
+						{title: "Images", href: "/docs/components/images", icon: icondata.Image},
+						{title: "Containers", href: "/docs/components/containers", icon: icondata.Package},
+					}, activeHref),
+					spacer.New(spacer.Height(16)),
+					drawerNavSection("Advanced", []drawerNavItem{
+						{title: "Routing", href: "/docs/routing", icon: icondata.SignDirection},
+						{title: "API Reference", href: "/docs/api", icon: icondata.FileDocument},
+						{title: "Best Practices", href: "/docs/best-practices", icon: icondata.ThumbUp},
+						{title: "Performance", href: "/docs/performance", icon: icondata.Speedometer},
+						{title: "Deployment", href: "/docs/deployment", icon: icondata.Server},
+					}, activeHref),
+					spacer.New(spacer.Height(16)),
+					drawerNavSection("Resources", []drawerNavItem{
+						{title: "Examples", href: "/docs/examples", icon: icondata.Lightbulb},
+						{title: "Tutorials", href: "/docs/tutorials", icon: icondata.Book},
+						{title: "Community", href: "/docs/community", icon: icondata.AccountGroup},
+						{title: "Support", href: "/docs/support", icon: icondata.Help},
+					}, activeHref),
+				},
+				column.Gap(8),
+				column.Flex(1),
+			)
+		},
 		),
 		container.Padding(breakpoint.All(spacing.LRTB(20, 20, 20, 20))),
 	)
 }
 
 type drawerNavItem struct {
-	title  string
-	href   string
-	icon   icondata.IconData
-	active bool
+	title string
+	href  string
+	icon  icondata.IconData
 }
 
-func drawerNavSection(title string, items []drawerNavItem) widget.BaseWidget {
+func drawerNavSection(title string, items []drawerNavItem, activeHref string) widget.BaseWidget {
 	var sectionItems []widget.BaseWidget
 
 	// Section title
@@ -157,7 +167,7 @@ func drawerNavSection(title string, items []drawerNavItem) widget.BaseWidget {
 
 	// Section items
 	for _, item := range items {
-		sectionItems = append(sectionItems, drawerNavItemWidget(item))
+		sectionItems = append(sectionItems, drawerNavItemWidget(item, activeHref))
 	}
 
 	return column.New(
@@ -166,12 +176,12 @@ func drawerNavSection(title string, items []drawerNavItem) widget.BaseWidget {
 	)
 }
 
-func drawerNavItemWidget(item drawerNavItem) widget.BaseWidget {
+func drawerNavItemWidget(item drawerNavItem, activeHref string) widget.BaseWidget {
 	var textColor string
 	var backgroundColor string
 	var iconColor string
 
-	if item.active {
+	if item.href == activeHref {
 		textColor = "#2B799B"
 		backgroundColor = "#EBF8FF"
 		iconColor = "#2B799B"
