@@ -45,6 +45,8 @@ func New(params router.RouteParams) widget.BaseWidget {
 		return docsPageTemplate(core_concepts.StylingContent())
 	case "state":
 		return docsPageTemplate(core_concepts.StateManagementContent())
+	case "events":
+		return docsPageTemplate(core_concepts.EventHandlingContent())
 	default:
 		return notfound.New(params)
 	}
