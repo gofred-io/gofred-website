@@ -2,6 +2,7 @@ package docs
 
 import (
 	notfound "github.com/gofred-io/gofred-website/app/pages/404"
+	"github.com/gofred-io/gofred-website/app/pages/docs/core_concepts"
 	"github.com/gofred-io/gofred-website/app/pages/docs/getting_started"
 	"github.com/gofred-io/gofred-website/app/pages/home"
 
@@ -36,6 +37,8 @@ func New(params router.RouteParams) widget.BaseWidget {
 		return docsPageTemplate(getting_started.FirstAppContent())
 	case "project-structure":
 		return docsPageTemplate(getting_started.ProjectStructureContent())
+	case "widgets":
+		return docsPageTemplate(core_concepts.WidgetsContent())
 	default:
 		return notfound.New(params)
 	}

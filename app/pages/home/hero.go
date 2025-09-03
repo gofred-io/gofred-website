@@ -382,7 +382,7 @@ func cta() widget.BaseWidget {
 					row.New(
 						[]widget.BaseWidget{
 							icon.New(
-								icondata.GitHub,
+								icondata.Github,
 								icon.Fill("#FFFFFF"),
 								icon.Height(breakpoint.All(16)),
 								icon.Width(breakpoint.All(16)),

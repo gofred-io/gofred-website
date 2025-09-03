@@ -90,7 +90,7 @@ func copyright() widget.BaseWidget {
 func githubButton() widget.BaseWidget {
 	githubButton := link.New(
 		iconbutton.New(
-			icondata.GitHub,
+			icondata.Github,
 			iconbutton.Fill("#FFFFFF"),
 			iconbutton.Tooltip("Check out our GitHub repository"),
 			iconbutton.Class("footer-icon-button"),
