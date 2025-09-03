@@ -106,10 +106,41 @@ func errorDescription() widget.BaseWidget {
 func actionButtons() widget.BaseWidget {
 	return row.New(
 		[]widget.BaseWidget{
+			backButton(),
 			homeButton(),
 		},
 		row.Gap(16),
 		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+	)
+}
+
+func backButton() widget.BaseWidget {
+	return button.New(
+		container.New(
+			row.New(
+				[]widget.BaseWidget{
+					icon.New(
+						icondata.ChevronLeft,
+						icon.Width(breakpoint.All(20)),
+						icon.Height(breakpoint.All(20)),
+						icon.Fill("#FFFFFF"),
+					),
+					text.New(
+						"Go Back",
+						text.FontSize(16),
+						text.FontColor("#FFFFFF"),
+						text.FontWeight("500"),
+						text.UserSelect(options.UserSelectTypeNone),
+					),
+				},
+				row.Gap(8),
+				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+			),
+			container.Padding(breakpoint.All(spacing.Right(4))),
+		),
+		button.OnClick(func(this widget.BaseWidget, e widget.Event) {
+			widget.Context().GoBack()
+		}),
 	)
 }
 
