@@ -125,6 +125,7 @@ func heroHeadline() widget.BaseWidget {
 		text.FontColor("#1F2937"),
 		text.FontWeight("700"),
 		text.LineHeight(1.2),
+		text.Align(options.TextAlignTypeCenter),
 	)
 }
 
