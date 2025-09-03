@@ -2,6 +2,8 @@ package home
 
 import (
 	codeblock "github.com/gofred-io/gofred-website/app/components/code_block"
+	"github.com/gofred-io/gofred/basic/code"
+	"github.com/gofred-io/gofred/basic/pre"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/center"
 	"github.com/gofred-io/gofred/foundation/column"
@@ -255,19 +257,18 @@ func heroCodePreview() widget.BaseWidget {
 
 				// Code content
 				container.New(
-					column.New(
-						[]widget.BaseWidget{
-							codeLine(`package main`, "#9333EA"),
-							codeLineEmpty(),
-							codeLine(`import "github.com/gofred-io/gofred/application"`, "#059669"),
-							codeLine(`import "github.com/gofred-io/gofred/foundation/text"`, "#059669"),
-							codeLineEmpty(),
-							codeLine(`func main() {`, "#E5E7EB"),
-							codeLineIndented(`app := text.New("Hello, gofred!")`, "#E5E7EB"),
-							codeLineIndented(`application.Run(app)`, "#E5E7EB"),
-							codeLine(`}`, "#E5E7EB"),
-						},
-						column.Gap(4),
+					pre.New(
+						code.New(`package main
+
+import (
+    "github.com/gofred-io/gofred/application"
+    "github.com/gofred-io/gofred/foundation/text"
+)
+
+func main() {
+    app := text.New("Hello, gofred!")
+    application.Run(app)
+}`, code.FontSize(14), code.FontColor("#F3F4F6"), code.FontWeight("400")),
 					),
 					container.Padding(breakpoint.All(spacing.All(16))),
 					container.BackgroundColor("#1F2937"),
@@ -284,26 +285,30 @@ func heroCodePreview() widget.BaseWidget {
 }
 
 func codeLine(content, color string) widget.BaseWidget {
-	return text.New(
-		content,
-		text.FontSize(14),
-		text.FontColor(color),
-		text.FontWeight("400"),
+	return pre.New(
+		text.New(
+			content,
+			text.FontSize(14),
+			text.FontColor(color),
+			text.FontWeight("400"),
+		),
 	)
 }
 
 func codeLineIndented(content, color string) widget.BaseWidget {
-	return row.New(
-		[]widget.BaseWidget{
-			text.New("  ", text.FontSize(14), text.FontColor("#E5E7EB")),
-			text.New(
-				content,
-				text.FontSize(14),
-				text.FontColor(color),
-				text.FontWeight("400"),
-			),
-		},
-		row.Gap(0),
+	return pre.New(
+		row.New(
+			[]widget.BaseWidget{
+				text.New("  ", text.FontSize(14), text.FontColor("#E5E7EB")),
+				text.New(
+					content,
+					text.FontSize(14),
+					text.FontColor(color),
+					text.FontWeight("400"),
+				),
+			},
+			row.Gap(0),
+		),
 	)
 }
 
