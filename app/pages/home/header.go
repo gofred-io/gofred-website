@@ -23,78 +23,229 @@ func Header() widget.BaseWidget {
 	return container.New(
 		row.New(
 			[]widget.BaseWidget{
+				// Mobile menu button
 				menuButton(),
+
+				// Logo and title
 				logoTitle(),
+
+				// Spacer to push navigation to the right
 				spacer.New(),
-				documentationLink(false),
-				spacer.New(spacer.Width(8)),
-				discussionsLink(false),
-				spacer.New(spacer.Width(8)),
-				githubLink(false),
-				spacer.New(spacer.Width(8)),
-				themeToggleButton(),
+
+				// Desktop navigation
+				desktopNavigation(),
+
+				spacer.New(spacer.Width(24)),
+
+				// Actions section
+				headerActions(),
 			},
-			row.Gap(8),
+			row.Gap(0),
 			row.Flex(1),
 			row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 		),
-		container.Height(breakpoint.All(44)),
+		container.Height(breakpoint.All(72)),
 		container.BackgroundColor("#FFFFFF"),
 		container.Padding(
-			breakpoint.All(spacing.Axis(24, 16)),
-			breakpoint.XS(spacing.Axis(8, 16)),
-			breakpoint.SM(spacing.Axis(8, 16)),
+			breakpoint.All(spacing.Axis(32, 0)),
+			breakpoint.XS(spacing.Axis(16, 0)),
+			breakpoint.SM(spacing.Axis(20, 0)),
+			breakpoint.MD(spacing.Axis(24, 0)),
 		),
-		container.BorderColor("#CECECE"),
+		container.BorderColor("#E5E7EB"),
 		container.BorderWidth(0, 0, 1, 0),
 		container.BorderStyle(options.BorderStyleTypeSolid),
+		// Add subtle shadow for depth
+		container.BoxShadow("0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)"),
 	)
 }
 
 func menuButton() widget.BaseWidget {
-	return iconbutton.New(
-		icondata.Menu,
-		iconbutton.OnClick(func(this widget.BaseWidget, e widget.Event) {
-			leftDrawer.Show()
-		}),
-		iconbutton.Fill("#003B73"),
-		iconbutton.Tooltip("Menu"),
-		iconbutton.Visible(
+	return container.New(
+		iconbutton.New(
+			icondata.Menu,
+			iconbutton.OnClick(func(this widget.BaseWidget, e widget.Event) {
+				leftDrawer.Show()
+			}),
+			iconbutton.Fill("#1F2937"),
+			iconbutton.Tooltip("Open menu"),
+		),
+		container.Padding(breakpoint.All(spacing.All(8))),
+		container.Visible(
 			breakpoint.XS(true),
 			breakpoint.SM(true),
+			breakpoint.MD(false),
+			breakpoint.LG(false),
 		),
 	)
 }
 
 func logoTitle() widget.BaseWidget {
-	return link.New(
-		row.New(
-			[]widget.BaseWidget{
-				logo(),
-				title(),
-			},
-			row.Gap(8),
-			row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+	return container.New(
+		link.New(
+			row.New(
+				[]widget.BaseWidget{
+					logo(),
+					title(),
+				},
+				row.Gap(12),
+				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+			),
+			link.Href("/"),
 		),
-		link.Href("/"),
+		container.Padding(
+			breakpoint.All(spacing.All(8)),
+			breakpoint.XS(spacing.All(4)),
+		),
 	)
 }
 
 func logo() widget.BaseWidget {
 	return image.New(
 		"img/gofred.png",
-		image.Width(breakpoint.All(32)),
-		image.Height(breakpoint.All(32)),
+		image.Width(
+			breakpoint.All(40),
+			breakpoint.XS(36),
+			breakpoint.SM(38),
+		),
+		image.Height(
+			breakpoint.All(40),
+			breakpoint.XS(36),
+			breakpoint.SM(38),
+		),
 	)
 }
 
 func title() widget.BaseWidget {
 	return text.New(
 		"gofred",
-		text.FontSize(20),
-		text.FontColor("#003B73"),
-		text.FontWeight("500"),
+		text.FontSize(24),
+		text.FontColor("#1F2937"),
+		text.FontWeight("700"),
 		text.UserSelect(options.UserSelectTypeNone),
+	)
+}
+
+// Desktop navigation - hidden on mobile
+func desktopNavigation() widget.BaseWidget {
+	return container.New(
+		row.New(
+			[]widget.BaseWidget{
+				navigationLink("Documentation", "/docs", false),
+				navigationLink("Examples", "/docs/examples", false),
+				navigationLink("Community", "https://github.com/orgs/gofred-io/discussions", true),
+			},
+			row.Gap(32),
+			row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		),
+		container.Visible(
+			breakpoint.MD(true),
+			breakpoint.LG(true),
+			breakpoint.XL(true),
+			breakpoint.XXL(true),
+		),
+	)
+}
+
+// Header actions section
+func headerActions() widget.BaseWidget {
+	return row.New(
+		[]widget.BaseWidget{
+			githubButton(),
+			//spacer.New(spacer.Width(12)),
+			//themeToggleButton(),
+		},
+		row.Gap(0),
+		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+	)
+}
+
+// Modern navigation link
+func navigationLink(label, href string, external bool) widget.BaseWidget {
+	linkWidget := row.New(
+		[]widget.BaseWidget{
+			text.New(
+				label,
+				text.FontSize(16),
+				text.FontColor("#4B5563"),
+				text.FontWeight("500"),
+				text.UserSelect(options.UserSelectTypeNone),
+			),
+		},
+		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+	)
+
+	if external {
+		linkWidget = row.New(
+			[]widget.BaseWidget{
+				text.New(
+					label,
+					text.FontSize(16),
+					text.FontColor("#4B5563"),
+					text.FontWeight("500"),
+					text.UserSelect(options.UserSelectTypeNone),
+				),
+				spacer.New(spacer.Width(4)),
+				icon.New(
+					icondata.OpenInNew,
+					icon.Width(breakpoint.All(14)),
+					icon.Height(breakpoint.All(14)),
+					icon.Fill("#6B7280"),
+				),
+			},
+			row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		)
+	}
+
+	return container.New(
+		link.New(
+			linkWidget,
+			link.Href(href),
+			link.NewTab(external),
+		),
+		container.Padding(breakpoint.All(spacing.All(8))),
+	)
+}
+
+// GitHub button with icon
+func githubButton() widget.BaseWidget {
+	return container.New(
+		link.New(
+			row.New(
+				[]widget.BaseWidget{
+					icon.New(
+						icondata.Github,
+						icon.Width(breakpoint.All(20)),
+						icon.Height(breakpoint.All(20)),
+						icon.Fill("#374151"),
+					),
+					spacer.New(spacer.Width(8)),
+					container.New(
+						text.New(
+							"GitHub",
+							text.FontSize(14),
+							text.FontColor("#374151"),
+							text.FontWeight("600"),
+							text.UserSelect(options.UserSelectTypeNone),
+						),
+						container.Visible(
+							breakpoint.LG(true),
+							breakpoint.XL(true),
+							breakpoint.XXL(true),
+						),
+					),
+				},
+				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+			),
+			link.Href("https://github.com/gofred-io/gofred"),
+			link.NewTab(true),
+		),
+		container.Padding(breakpoint.All(spacing.All(12))),
+		container.BackgroundColor("#F9FAFB"),
+		container.BorderColor("#E5E7EB"),
+		container.BorderWidth(1, 1, 1, 1),
+		container.BorderRadius(8),
+		container.BorderStyle(options.BorderStyleTypeSolid),
 	)
 }
 
@@ -199,21 +350,31 @@ func themeToggleButton() widget.BaseWidget {
 	currentTheme := theme.Listenable()
 	return listenable.Builder(currentTheme, func() widget.BaseWidget {
 		themeIcon := icondata.WhiteBalanceSunny
+		themeTooltip := "Switch to dark mode"
 		if theme.Get() == theme.ThemeDark {
 			themeIcon = icondata.MoonWaningCrescent
+			themeTooltip = "Switch to light mode"
 		}
 
-		return iconbutton.New(
-			themeIcon,
-			iconbutton.Fill("#2B799B"),
-			iconbutton.OnClick(func(this widget.BaseWidget, e widget.Event) {
-				if theme.Get() == theme.ThemeLight {
-					theme.Set(theme.ThemeDark)
-				} else {
-					theme.Set(theme.ThemeLight)
-				}
-			}),
-			iconbutton.Tooltip("Toggle theme"),
+		return container.New(
+			iconbutton.New(
+				themeIcon,
+				iconbutton.Fill("#6B7280"),
+				iconbutton.OnClick(func(this widget.BaseWidget, e widget.Event) {
+					if theme.Get() == theme.ThemeLight {
+						theme.Set(theme.ThemeDark)
+					} else {
+						theme.Set(theme.ThemeLight)
+					}
+				}),
+				iconbutton.Tooltip(themeTooltip),
+			),
+			container.Padding(breakpoint.All(spacing.All(8))),
+			container.BackgroundColor("#F9FAFB"),
+			container.BorderColor("#E5E7EB"),
+			container.BorderWidth(1, 1, 1, 1),
+			container.BorderRadius(8),
+			container.BorderStyle(options.BorderStyleTypeSolid),
 		)
 	})
 }
