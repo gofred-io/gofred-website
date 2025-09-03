@@ -69,10 +69,10 @@ func footerContent() widget.BaseWidget {
 
 			// Community section
 			footerLinksSection("Community", []FooterLink{
-				{title: "GitHub", href: "https://github.com/gofred-io/gofred"},
-				{title: "Discussions", href: "https://github.com/orgs/gofred-io/discussions"},
-				{title: "Issues", href: "https://github.com/gofred-io/gofred/issues"},
-				{title: "Contributions", href: "https://github.com/gofred-io/gofred/blob/main/CONTRIBUTING.md"},
+				{title: "GitHub", href: "https://github.com/gofred-io/gofred", newTab: true},
+				{title: "Discussions", href: "https://github.com/orgs/gofred-io/discussions", newTab: true},
+				{title: "Issues", href: "https://github.com/gofred-io/gofred/issues", newTab: true},
+				{title: "Contributions", href: "https://github.com/gofred-io/gofred/blob/main/CONTRIBUTING.md", newTab: true},
 			}),
 
 			// Resources section
@@ -95,8 +95,9 @@ func footerContent() widget.BaseWidget {
 }
 
 type FooterLink struct {
-	title string
-	href  string
+	title  string
+	href   string
+	newTab bool
 }
 
 // Brand section with logo and description
@@ -147,7 +148,7 @@ func footerLinksSection(title string, links []FooterLink) widget.BaseWidget {
 	var linkWidgets []widget.BaseWidget
 
 	for _, link := range links {
-		linkWidgets = append(linkWidgets, footerLink(link.title, link.href))
+		linkWidgets = append(linkWidgets, footerLink(link.title, link.href, link.newTab))
 	}
 
 	return column.New(
@@ -174,7 +175,7 @@ func footerLinksSection(title string, links []FooterLink) widget.BaseWidget {
 }
 
 // Individual footer link
-func footerLink(title, href string) widget.BaseWidget {
+func footerLink(title, href string, newTab bool) widget.BaseWidget {
 	return link.New(
 		text.New(
 			title,
@@ -183,6 +184,7 @@ func footerLink(title, href string) widget.BaseWidget {
 			text.FontWeight("400"),
 		),
 		link.Href(href),
+		link.NewTab(newTab),
 	)
 }
 
@@ -237,11 +239,11 @@ func footerBottom() widget.BaseWidget {
 						// Legal links
 						row.New(
 							[]widget.BaseWidget{
-								footerLink("Privacy Policy", "/privacy"),
+								footerLink("Privacy Policy", "/privacy", false),
 								text.New("•", text.FontSize(14), text.FontColor("#6B7280")),
-								footerLink("Terms of Service", "/terms"),
+								footerLink("Terms of Service", "/terms", false),
 								text.New("•", text.FontSize(14), text.FontColor("#6B7280")),
-								footerLink("License", "/license"),
+								footerLink("License", "/license", false),
 							},
 							row.Gap(8),
 							row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
