@@ -56,26 +56,26 @@ func projectStructurePageContent() widget.BaseWidget {
 		[]widget.BaseWidget{
 			contentSection("Directory Structure", "A typical gofred project follows this structure:"),
 			codeblock.New(`my-gofred-app/
-├── main.go                # Application entry point
-├── go.mod                 # Go module file
-├── go.sum                 # Go module checksums
 ├── app/                   # Application code
-│   ├── pages/             # Page components
-│   │   ├── home/          # Home page
-│   │   ├── docs/          # Documentation pages
-│   │   └── 404/           # 404 error page
 │   ├── components/        # Reusable components
 │   │   └── code_block/    # Code block component
+│   ├── pages/             # Page components
+│   │   ├── 404/           # 404 error page
+│   │   ├── docs/          # Documentation pages
+│   │   └── home/          # Home page
 │   ├── theme/             # Theme and styling
 │   │   └── theme.go       # Theme configuration
 │   └── app.go             # Main application setup
-└── web/                   # Web assets
-    ├── index.html         # HTML template
-    ├── index.css          # CSS styles
-    └── assets/            # Static assets
-        ├── images/        # Image files
-        ├── fonts/         # Font files
-        └── icons/         # Icon files`),
+├── web/                   # Web assets
+│   ├── assets/            # Static assets
+│   │   ├── fonts/         # Font files
+│   │   ├── icons/         # Icon files
+│   │   └── images/        # Image files
+│   ├── index.css          # CSS styles
+│   └── index.html         # HTML template
+├── go.mod                 # Go module file
+├── go.sum                 # Go module checksums
+└── main.go                # Application entry point`),
 			spacer.New(spacer.Height(24)),
 			contentSection("Key Files", "Here's what each important file does:"),
 			projectStructureFileList(),
