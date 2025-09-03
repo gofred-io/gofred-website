@@ -1,0 +1,109 @@
+# Git and version control
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+*.md
+docs/
+
+# Development files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Node modules (if any)
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Build artifacts (we'll build fresh in Docker)
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace file
+go.work
+go.work.sum
+
+# IDE files
+*.sublime-project
+*.sublime-workspace
+
+# Cache directories
+.cache/
+.npm/
+.yarn/
+
+# Docker files (to avoid recursive copying)
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# CI/CD files
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+
+# Backup files
+*.bak
+*.backup
+
+# Lock files (we want to copy go.mod and go.sum explicitly)
+package-lock.json
+yarn.lock
+
+# Development scripts
+scripts/dev/
+scripts/test/
+
+# Local development server files that shouldn't be in production
+server/env.js
+
+# Any local configuration that shouldn't be in the container
+config/local/
+local.config.*

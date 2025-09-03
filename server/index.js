@@ -6,7 +6,12 @@ const WASM_URL = 'main.wasm';
 var wasm;
 
 function createWebsocketClient() {
-  const socket = new WebSocket(`ws://localhost:${window.env.LIVE_PORT}/ws`);
+  const livePort = window.env.LIVE_PORT;
+  if (!livePort) {
+    return;
+  }
+
+  const socket = new WebSocket(`ws://localhost:${livePort}/ws`);
   socket.onmessage = (event) => {
     const msg = JSON.parse(event.data);
     if (msg.cmd === "reload") {
@@ -96,7 +101,7 @@ class HTMLPushStateAnchorElement extends HTMLAnchorElement {
         // normal
         window.dispatchEvent(popstateEvent);
       }
-    } catch(error) {
+    } catch (error) {
       // Internet Explorer
       var evt = document.createEvent('CustomEvent');
       evt.initCustomEvent('popstate', false, false, { state: window.history.state });
