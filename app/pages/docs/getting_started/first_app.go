@@ -1,48 +1,20 @@
-package docs
+package getting_started
 
 import (
 	codeblock "github.com/gofred-io/gofred-website/app/components/code_block"
-	"github.com/gofred-io/gofred-website/app/pages/home"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/column"
 	"github.com/gofred-io/gofred/foundation/container"
-	"github.com/gofred-io/gofred/foundation/row"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
 	"github.com/gofred-io/gofred/options/spacing"
 	"github.com/gofred-io/gofred/widget"
 )
 
-func firstAppPage() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			home.Header(),
-			firstAppContent(),
-			home.Footer(),
-		},
-		column.Flex(1),
-	)
-}
-
-func firstAppContent() widget.BaseWidget {
-	return container.New(
-		row.New(
-			[]widget.BaseWidget{
-				docsSidebar("/docs/first-app"),
-				firstAppContentArea(),
-			},
-			row.Flex(1),
-		),
-		container.Flex(1),
-		container.BackgroundColor("#F8F9FA"),
-	)
-}
-
-func firstAppContentArea() widget.BaseWidget {
+func FirstAppContent() widget.BaseWidget {
 	return container.New(
 		column.New(
 			[]widget.BaseWidget{
-				docsMobileMenuButton(),
 				firstAppPageHeader(),
 				spacer.New(spacer.Height(24)),
 				firstAppPageContent(),

@@ -1,8 +1,7 @@
-package docs
+package getting_started
 
 import (
 	codeblock "github.com/gofred-io/gofred-website/app/components/code_block"
-	"github.com/gofred-io/gofred-website/app/pages/home"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/button"
 	"github.com/gofred-io/gofred/foundation/column"
@@ -18,36 +17,10 @@ import (
 	"github.com/gofred-io/gofred/widget"
 )
 
-func installationPage() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			home.Header(),
-			installationContent(),
-			home.Footer(),
-		},
-		column.Flex(1),
-	)
-}
-
-func installationContent() widget.BaseWidget {
-	return container.New(
-		row.New(
-			[]widget.BaseWidget{
-				docsSidebar("/docs/installation"),
-				installationContentArea(),
-			},
-			row.Flex(1),
-		),
-		container.Flex(1),
-		container.BackgroundColor("#F8F9FA"),
-	)
-}
-
-func installationContentArea() widget.BaseWidget {
+func InstallationContent() widget.BaseWidget {
 	return container.New(
 		column.New(
 			[]widget.BaseWidget{
-				docsMobileMenuButton(),
 				installationPageHeader(),
 				spacer.New(spacer.Height(24)),
 				installationPageContent(),

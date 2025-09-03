@@ -1,8 +1,7 @@
-package docs
+package getting_started
 
 import (
 	codeblock "github.com/gofred-io/gofred-website/app/components/code_block"
-	"github.com/gofred-io/gofred-website/app/pages/home"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/column"
 	"github.com/gofred-io/gofred/foundation/container"
@@ -16,36 +15,10 @@ import (
 	"github.com/gofred-io/gofred/widget"
 )
 
-func projectStructurePage() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			home.Header(),
-			projectStructureContent(),
-			home.Footer(),
-		},
-		column.Flex(1),
-	)
-}
-
-func projectStructureContent() widget.BaseWidget {
-	return container.New(
-		row.New(
-			[]widget.BaseWidget{
-				docsSidebar("/docs/project-structure"),
-				projectStructureContentArea(),
-			},
-			row.Flex(1),
-		),
-		container.Flex(1),
-		container.BackgroundColor("#F8F9FA"),
-	)
-}
-
-func projectStructureContentArea() widget.BaseWidget {
+func ProjectStructureContent() widget.BaseWidget {
 	return container.New(
 		column.New(
 			[]widget.BaseWidget{
-				docsMobileMenuButton(),
 				projectStructurePageHeader(),
 				spacer.New(spacer.Height(24)),
 				projectStructurePageContent(),

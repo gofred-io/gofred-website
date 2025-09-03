@@ -2,6 +2,7 @@ package docs
 
 import (
 	notfound "github.com/gofred-io/gofred-website/app/pages/404"
+	"github.com/gofred-io/gofred-website/app/pages/docs/getting_started"
 	"github.com/gofred-io/gofred-website/app/pages/home"
 
 	"github.com/gofred-io/gofred/breakpoint"
@@ -23,39 +24,40 @@ import (
 
 func New(params router.RouteParams) widget.BaseWidget {
 	section := params.Get("section")
+
 	switch section {
 	case "":
-		return rootDocsPage()
+		return docsPageTemplate(docsPageContent())
 	case "installation":
-		return installationPage()
+		return docsPageTemplate(getting_started.InstallationContent())
 	case "quick-start":
-		return quickStartPage()
+		return docsPageTemplate(getting_started.QuickStartContent())
 	case "first-app":
-		return firstAppPage()
+		return docsPageTemplate(getting_started.FirstAppContent())
 	case "project-structure":
-		return projectStructurePage()
+		return docsPageTemplate(getting_started.ProjectStructureContent())
 	default:
 		return notfound.New(params)
 	}
 }
 
-func rootDocsPage() widget.BaseWidget {
+func docsPageTemplate(content widget.BaseWidget) widget.BaseWidget {
 	return column.New(
 		[]widget.BaseWidget{
 			home.Header(),
-			docsMainContent(),
+			docsMainContent(content),
 			home.Footer(),
 		},
 		column.Flex(1),
 	)
 }
 
-func docsMainContent() widget.BaseWidget {
+func docsMainContent(content widget.BaseWidget) widget.BaseWidget {
 	return container.New(
 		row.New(
 			[]widget.BaseWidget{
-				docsSidebar("/docs"),
-				docsContentArea(),
+				docsSidebar(),
+				contentArea(content),
 			},
 			row.Flex(1),
 		),
@@ -64,12 +66,12 @@ func docsMainContent() widget.BaseWidget {
 	)
 }
 
-func docsContentArea() widget.BaseWidget {
+func contentArea(content widget.BaseWidget) widget.BaseWidget {
 	return container.New(
 		column.New(
 			[]widget.BaseWidget{
 				docsMobileMenuButton(),
-				docsPageContent(),
+				content,
 			},
 			column.Gap(16),
 			column.Flex(1),
