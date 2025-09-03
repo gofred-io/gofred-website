@@ -202,6 +202,7 @@ func heroCTAButtons() widget.BaseWidget {
 					container.BorderStyle(options.BorderStyleTypeSolid),
 				),
 				link.Href("https://github.com/gofred-io/gofred"),
+				link.NewTab(true),
 			),
 		},
 		row.Gap(16),
