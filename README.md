@@ -2,7 +2,9 @@
 
 A modern, responsive website showcasing the power of [gofred](https://github.com/gofred-io/gofred) - a framework for building web applications using only Go that compiles to WebAssembly.
 
-![gofred Logo](server/img/gofred.png)
+<div align="center">
+<img src="server/img/gofred.png" alt="gofred Logo" width="200" height="200">
+</div>
 
 ## ✨ What is gofred?
 
