@@ -6,7 +6,7 @@ go 1.25.0
 
 require (
 	github.com/fsnotify/fsnotify v1.9.0
-	github.com/gofred-io/gofred v0.0.0-20250904184656-9cc0063876ff
+	github.com/gofred-io/gofred v0.0.0-20250904210204-86820c6db65b
 	github.com/gorilla/websocket v1.5.3
 )
 
