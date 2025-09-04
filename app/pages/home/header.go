@@ -48,9 +48,10 @@ func Header() widget.BaseWidget {
 		container.BackgroundColor("#FFFFFF"),
 		container.Padding(
 			breakpoint.All(spacing.Axis(32, 0)),
-			breakpoint.XS(spacing.Axis(16, 0)),
-			breakpoint.SM(spacing.Axis(20, 0)),
-			breakpoint.MD(spacing.Axis(24, 0)),
+			breakpoint.XS(spacing.Axis(0, 0)),
+			breakpoint.SM(spacing.Axis(8, 0)),
+			breakpoint.MD(spacing.Axis(16, 0)),
+			breakpoint.LG(spacing.Axis(24, 0)),
 		),
 		container.BorderColor("#E5E7EB"),
 		container.BorderWidth(0, 0, 1, 0),
@@ -117,12 +118,18 @@ func logo() widget.BaseWidget {
 }
 
 func title() widget.BaseWidget {
-	return text.New(
-		"gofred",
-		text.FontSize(24),
-		text.FontColor("#1F2937"),
-		text.FontWeight("700"),
-		text.UserSelect(options.UserSelectTypeNone),
+	return container.New(
+		text.New(
+			"gofred",
+			text.FontSize(24),
+			text.FontColor("#1F2937"),
+			text.FontWeight("700"),
+			text.UserSelect(options.UserSelectTypeNone),
+		),
+		container.Visible(
+			breakpoint.All(true),
+			breakpoint.XS(false),
+		),
 	)
 }
 
@@ -219,7 +226,6 @@ func githubButton() widget.BaseWidget {
 						icon.Height(breakpoint.All(20)),
 						icon.Fill("#374151"),
 					),
-					spacer.New(spacer.Width(8)),
 					container.New(
 						text.New(
 							"GitHub",
@@ -229,12 +235,13 @@ func githubButton() widget.BaseWidget {
 							text.UserSelect(options.UserSelectTypeNone),
 						),
 						container.Visible(
-							breakpoint.LG(true),
-							breakpoint.XL(true),
-							breakpoint.XXL(true),
+							breakpoint.All(true),
+							breakpoint.XS(false),
+							breakpoint.SM(false),
 						),
 					),
 				},
+				row.Gap(8),
 				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 			),
 			link.Href("https://github.com/gofred-io/gofred"),
