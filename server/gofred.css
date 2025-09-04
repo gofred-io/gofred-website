@@ -79,7 +79,6 @@ body {
     background: #1F2937;
     color: #F3F4F6;
     border-radius: 8px;
-    width: 100%;
     max-width: 720px;
     width: fit-content;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
