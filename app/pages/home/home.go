@@ -143,32 +143,35 @@ func heroDescription() widget.BaseWidget {
 }
 
 func heroCTAButtons() widget.BaseWidget {
-	return row.New(
+	return grid.New(
 		[]widget.BaseWidget{
 			// Primary CTA
 			link.New(
 				container.New(
-					row.New(
-						[]widget.BaseWidget{
-							text.New(
-								"Get Started",
-								text.FontSize(16),
-								text.FontColor("#FFFFFF"),
-								text.FontWeight("600"),
-							),
-							icon.New(
-								icondata.ChevronRight,
-								icon.Width(breakpoint.All(16)),
-								icon.Height(breakpoint.All(16)),
-								icon.Fill("#FFFFFF"),
-							),
-						},
-						row.Gap(8),
-						row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+					center.New(
+						row.New(
+							[]widget.BaseWidget{
+								text.New(
+									"Get Started",
+									text.FontSize(16),
+									text.FontColor("#FFFFFF"),
+									text.FontWeight("600"),
+								),
+								icon.New(
+									icondata.ChevronRight,
+									icon.Width(breakpoint.All(16)),
+									icon.Height(breakpoint.All(16)),
+									icon.Fill("#FFFFFF"),
+								),
+							},
+							row.Gap(8),
+							row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+						),
 					),
 					container.Padding(breakpoint.All(spacing.All(20))),
 					container.BackgroundColor("#2B799B"),
 					container.BorderRadius(8),
+					container.Width(breakpoint.All(182)),
 				),
 				link.Href("/docs"),
 			),
@@ -176,24 +179,27 @@ func heroCTAButtons() widget.BaseWidget {
 			// Secondary CTA
 			link.New(
 				container.New(
-					row.New(
-						[]widget.BaseWidget{
-							icon.New(
-								icondata.Github,
-								icon.Width(breakpoint.All(16)),
-								icon.Height(breakpoint.All(16)),
-								icon.Fill("#374151"),
-							),
-							text.New(
-								"View on GitHub",
-								text.FontSize(16),
-								text.FontColor("#374151"),
-								text.FontWeight("500"),
-							),
-						},
-						row.Gap(8),
-						row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+					center.New(
+						row.New(
+							[]widget.BaseWidget{
+								icon.New(
+									icondata.Github,
+									icon.Width(breakpoint.All(16)),
+									icon.Height(breakpoint.All(16)),
+									icon.Fill("#374151"),
+								),
+								text.New(
+									"View on GitHub",
+									text.FontSize(16),
+									text.FontColor("#374151"),
+									text.FontWeight("500"),
+								),
+							},
+							row.Gap(8),
+							row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+						),
 					),
+					container.Width(breakpoint.All(182)),
 					container.Padding(breakpoint.All(spacing.All(20))),
 					container.BackgroundColor("#FFFFFF"),
 					container.BorderColor("#E5E7EB"),
@@ -205,8 +211,12 @@ func heroCTAButtons() widget.BaseWidget {
 				link.NewTab(true),
 			),
 		},
-		row.Gap(16),
-		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		grid.RowGap(16),
+		grid.ColumnGap(16),
+		grid.ColumnCount(
+			breakpoint.All(2),
+			breakpoint.XS(1),
+		),
 	)
 }
 
@@ -417,7 +427,13 @@ func modernFeaturesSection() widget.BaseWidget {
 			),
 		),
 		container.BackgroundColor("#FFFFFF"),
-		container.Padding(breakpoint.All(spacing.All(64))),
+		container.Padding(
+			breakpoint.All(spacing.All(64)),
+			breakpoint.XS(spacing.All(8)),
+			breakpoint.SM(spacing.All(16)),
+			breakpoint.MD(spacing.All(24)),
+			breakpoint.LG(spacing.All(32)),
+		),
 	)
 }
 
@@ -528,6 +544,7 @@ func gettingStartedSection() widget.BaseWidget {
 											text.FontSize(16),
 											text.FontColor("#FFFFFF"),
 											text.FontWeight("600"),
+											text.Align(options.TextAlignTypeCenter),
 										),
 										icon.New(
 											icondata.ChevronRight,
@@ -696,7 +713,13 @@ func communitySection() widget.BaseWidget {
 			),
 		),
 		container.BackgroundColor("#FFFFFF"),
-		container.Padding(breakpoint.All(spacing.All(64))),
+		container.Padding(
+			breakpoint.All(spacing.All(64)),
+			breakpoint.XS(spacing.All(8)),
+			breakpoint.SM(spacing.All(16)),
+			breakpoint.MD(spacing.All(24)),
+			breakpoint.LG(spacing.All(32)),
+		),
 	)
 }
 
