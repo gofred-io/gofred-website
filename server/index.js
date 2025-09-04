@@ -77,14 +77,11 @@ class HTMLPushStateAnchorElement extends HTMLAnchorElement {
       return;
     }
 
-    // don't pushState if the current path is the same as the new path
-    if (href === window.location.pathname) {
-      return;
+    if (href !== window.location.pathname) {
+      // push state into the history stack if the current path is not the same as the new path
+      window.history.pushState(JSON.parse(this.getAttribute('state')) || window.history.state, this.getAttribute('title'), href);
+      window.document.getElementById('root').scrollTo(0, 0);
     }
-
-    // push state into the history stack
-    window.history.pushState(JSON.parse(this.getAttribute('state')) || window.history.state, this.getAttribute('title'), href);
-    window.document.getElementById('root').scrollTo(0, 0);
 
     // dispatch a popstate event
     try {
