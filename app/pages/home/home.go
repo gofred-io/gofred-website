@@ -285,9 +285,11 @@ func main() {
 		),
 		container.BorderRadius(12),
 		container.BorderColor("#E5E7EB"),
+		container.BackgroundColor("#1F2937"),
 		container.BorderWidth(1, 1, 1, 1),
 		container.BorderStyle(options.BorderStyleTypeSolid),
 		container.MaxWidth(breakpoint.All(500)),
+		container.Overflow(options.OverflowTypeHidden),
 	)
 }
 
