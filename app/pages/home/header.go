@@ -248,6 +248,10 @@ func githubButton() widget.BaseWidget {
 			link.NewTab(true),
 		),
 		container.Padding(breakpoint.All(spacing.All(12))),
+		container.Margin(
+			breakpoint.All(spacing.All(0)),
+			breakpoint.XS(spacing.Right(8)),
+		),
 		container.BackgroundColor("#F9FAFB"),
 		container.BorderColor("#E5E7EB"),
 		container.BorderWidth(1, 1, 1, 1),

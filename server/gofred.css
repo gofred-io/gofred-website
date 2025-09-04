@@ -85,7 +85,7 @@ body {
 }
 
 .gf-code-block-header {
-    padding: 4px 4px 0px 0px;
+    padding: 6px 6px 0px 0px;
 }
   
 .gf-code-block-pre {
@@ -104,11 +104,11 @@ body {
     background: transparent;
     color: #F3F4F6;
     border-radius: 50%;
-    padding: 4px !important;
+    padding: 2px !important;
     font-size: 12px;
     cursor: pointer;
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     opacity: 0.25;
     z-index: 10;
 }
