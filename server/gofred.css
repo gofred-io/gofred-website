@@ -111,6 +111,53 @@ body {
     cursor: not-allowed;
 }
 
+.gf-code-block {
+    background: #1F2937;
+    color: #F3F4F6;
+    border-radius: 8px;
+    max-width: 720px;
+    width: fit-content;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.gf-code-block-header {
+    padding: 4px 4px 0px 0px;
+}
+  
+.gf-code-block-pre {
+    margin: 0;
+    white-space: pre;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 0px 16px 16px 16px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+  
+.gf-code-block-copy-button {
+    fill: #F3F4F6;
+    background: transparent;
+    color: #F3F4F6;
+    border-radius: 50%;
+    padding: 4px !important;
+    font-size: 12px;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    opacity: 0.25;
+    z-index: 10;
+}
+  
+.gf-code-block-copy-button:hover {
+    background: #374151 !important;
+    opacity: 1;
+}
+
+.gf-code-block-copy-button > svg {
+    height: 12px;
+}
+
 .gf-drawer-barrier {
     position: fixed;
     top: 0;

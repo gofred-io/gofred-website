@@ -89,7 +89,6 @@ See [DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md) for detailed deployment instruc
 gofred-website/
 ├── app/                     # Main application code
 │   ├── components/          # Reusable UI components
-│   │   ├── code_block/      # Code syntax highlighting
 │   │   └── coming_soon/     # Placeholder component
 │   ├── pages/               # Page components
 │   │   ├── home/            # Homepage sections

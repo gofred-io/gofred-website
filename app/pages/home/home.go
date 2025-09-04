@@ -1,11 +1,11 @@
 package home
 
 import (
-	codeblock "github.com/gofred-io/gofred-website/app/components/code_block"
 	"github.com/gofred-io/gofred/basic/code"
 	"github.com/gofred-io/gofred/basic/pre"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/center"
+	codeblock "github.com/gofred-io/gofred/foundation/code_block"
 	"github.com/gofred-io/gofred/foundation/column"
 	"github.com/gofred-io/gofred/foundation/container"
 	"github.com/gofred-io/gofred/foundation/grid"
@@ -584,6 +584,11 @@ func gettingStartedStep(number, title, description, code string) widget.BaseWidg
 				container.Height(breakpoint.All(40)),
 				container.BackgroundColor("#2B799B"),
 				container.BorderRadius(20),
+				container.Visible(
+					breakpoint.All(true),
+					breakpoint.XS(false),
+					breakpoint.SM(false),
+				),
 			),
 
 			// Content

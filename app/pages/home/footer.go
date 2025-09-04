@@ -32,6 +32,11 @@ func Footer() widget.BaseWidget {
 
 									spacer.New(spacer.Height(48)),
 
+									// Social links
+									socialLinks(),
+
+									spacer.New(spacer.Height(8)),
+
 									// Footer bottom with copyright and social links
 									footerBottom(),
 								},
@@ -46,10 +51,9 @@ func Footer() widget.BaseWidget {
 						),
 					),
 					container.Visible(
-						breakpoint.MD(true),
-						breakpoint.LG(true),
-						breakpoint.XL(true),
-						breakpoint.XXL(true),
+						breakpoint.All(true),
+						breakpoint.XS(false),
+						breakpoint.SM(false),
 					),
 				),
 
@@ -57,9 +61,9 @@ func Footer() widget.BaseWidget {
 				container.New(
 					mobileFooter(),
 					container.Visible(
+						breakpoint.All(false),
 						breakpoint.XS(true),
 						breakpoint.SM(true),
-						breakpoint.MD(false),
 					),
 				),
 			},
@@ -72,43 +76,44 @@ func Footer() widget.BaseWidget {
 
 // Main footer content with different sections
 func footerContent() widget.BaseWidget {
-	return grid.New(
+	return column.New(
 		[]widget.BaseWidget{
 			// Brand section
 			footerBrandSection(),
 
-			// Quick links
-			footerLinksSection("Quick Links", []FooterLink{
-				{title: "Documentation", href: "/docs"},
-				{title: "Getting Started", href: "/docs/installation"},
-				{title: "Examples", href: "/docs/examples"},
-				{title: "API Reference", href: "/docs/api"},
-			}),
+			grid.New(
+				[]widget.BaseWidget{
+					// Quick links
+					footerLinksSection("Quick Links", []FooterLink{
+						{title: "Documentation", href: "/docs"},
+						{title: "Getting Started", href: "/docs/installation"},
+						{title: "Examples", href: "/docs/examples"},
+						{title: "API Reference", href: "/docs/api"},
+					}),
 
-			// Community section
-			footerLinksSection("Community", []FooterLink{
-				{title: "GitHub", href: "https://github.com/gofred-io/gofred", newTab: true},
-				{title: "Discussions", href: "https://github.com/orgs/gofred-io/discussions", newTab: true},
-				{title: "Issues", href: "https://github.com/gofred-io/gofred/issues", newTab: true},
-				{title: "Contributions", href: "https://github.com/gofred-io/gofred/blob/main/CONTRIBUTING.md", newTab: true},
-			}),
+					// Community section
+					footerLinksSection("Community", []FooterLink{
+						{title: "GitHub", href: "https://github.com/gofred-io/gofred", newTab: true},
+						{title: "Discussions", href: "https://github.com/orgs/gofred-io/discussions", newTab: true},
+						{title: "Issues", href: "https://github.com/gofred-io/gofred/issues", newTab: true},
+						{title: "Contributions", href: "https://github.com/gofred-io/gofred/blob/main/CONTRIBUTING.md", newTab: true},
+					}),
 
-			// Resources section
-			footerLinksSection("Resources", []FooterLink{
-				{title: "Blog", href: "/blog"},
-				{title: "Tutorials", href: "/docs/tutorials"},
-				{title: "Best Practices", href: "/docs/best-practices"},
-				{title: "Support", href: "/docs/support"},
-			}),
+					// Resources section
+					footerLinksSection("Resources", []FooterLink{
+						{title: "Blog", href: "/blog"},
+						{title: "Tutorials", href: "/docs/tutorials"},
+						{title: "Best Practices", href: "/docs/best-practices"},
+						{title: "Support", href: "/docs/support"},
+					}),
+				},
+				grid.ColumnCount(
+					breakpoint.All(3),
+				),
+				grid.ColumnGap(32),
+				grid.RowGap(32),
+			),
 		},
-		grid.ColumnCount(
-			breakpoint.All(4),
-			breakpoint.XS(1),
-			breakpoint.SM(2),
-			breakpoint.MD(4),
-		),
-		grid.ColumnGap(32),
-		grid.RowGap(32),
 	)
 }
 
@@ -152,9 +157,6 @@ func footerBrandSection() widget.BaseWidget {
 			),
 
 			spacer.New(spacer.Height(20)),
-
-			// Social links
-			socialLinks(),
 		},
 		column.Gap(0),
 		column.CrossAxisAlignment(options.AxisAlignmentTypeStart),
@@ -188,7 +190,7 @@ func footerLinksSection(title string, links []FooterLink) widget.BaseWidget {
 			),
 		},
 		column.Gap(0),
-		column.CrossAxisAlignment(options.AxisAlignmentTypeStart),
+		column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 	)
 }
 
@@ -210,6 +212,7 @@ func footerLink(title, href string, newTab bool) widget.BaseWidget {
 func socialLinks() widget.BaseWidget {
 	return row.New(
 		[]widget.BaseWidget{
+			spacer.New(),
 			socialIcon(icondata.Github, "GitHub", "https://github.com/gofred-io/gofred"),
 			socialIcon(icondata.Twitter, "Twitter", "https://twitter.com/gofred_io"),
 			socialIcon(icondata.Youtube, "YouTube", "https://youtube.com/@gofred"),
@@ -314,112 +317,116 @@ func footerBottom() widget.BaseWidget {
 // Mobile-optimized footer for smaller screens
 func mobileFooter() widget.BaseWidget {
 	return container.New(
-		column.New(
-			[]widget.BaseWidget{
-				// Brand section
-				center.New(
-					column.New(
+		center.New(
+			column.New(
+				[]widget.BaseWidget{
+					// Brand section
+					center.New(
+						column.New(
+							[]widget.BaseWidget{
+								// Logo and brand
+								row.New(
+									[]widget.BaseWidget{
+										text.New(
+											"🚀",
+											text.FontSize(28),
+										),
+										text.New(
+											"gofred",
+											text.FontSize(20),
+											text.FontColor("#FFFFFF"),
+											text.FontWeight("700"),
+										),
+									},
+									row.Gap(10),
+									row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+								),
+
+								spacer.New(spacer.Height(12)),
+
+								// Description
+								container.New(
+									text.New(
+										"Build responsive web applications using only Go.",
+										text.FontSize(14),
+										text.FontColor("#9CA3AF"),
+										text.FontWeight("400"),
+									),
+									container.MaxWidth(breakpoint.All(300)),
+								),
+
+								spacer.New(spacer.Height(20)),
+
+								// Social links
+								socialLinks(),
+							},
+							column.Gap(0),
+							column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+						),
+					),
+
+					spacer.New(spacer.Height(32)),
+
+					// Quick navigation grid
+					grid.New(
 						[]widget.BaseWidget{
-							// Logo and brand
-							row.New(
-								[]widget.BaseWidget{
-									text.New(
-										"🚀",
-										text.FontSize(28),
-									),
-									text.New(
-										"gofred",
-										text.FontSize(20),
-										text.FontColor("#FFFFFF"),
-										text.FontWeight("700"),
-									),
-								},
-								row.Gap(10),
-								row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-							),
+							mobileFooterSection("Docs", []string{"Getting Started", "Examples", "API"}),
+							mobileFooterSection("Community", []string{"GitHub", "Discussions", "Support"}),
+						},
+						grid.ColumnCount(breakpoint.All(2)),
+						grid.ColumnGap(24),
+					),
 
-							spacer.New(spacer.Height(12)),
+					spacer.New(spacer.Height(24)),
 
-							// Description
-							container.New(
+					// Copyright
+					center.New(
+						column.New(
+							[]widget.BaseWidget{
 								text.New(
-									"Build responsive web applications using only Go.",
+									"© 2025 gofred",
 									text.FontSize(14),
-									text.FontColor("#9CA3AF"),
+									text.FontColor("#6B7280"),
 									text.FontWeight("400"),
 								),
-								container.MaxWidth(breakpoint.All(300)),
-							),
 
-							spacer.New(spacer.Height(20)),
+								spacer.New(spacer.Height(8)),
 
-							// Social links
-							socialLinks(),
-						},
-						column.Gap(0),
-						column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+								row.New(
+									[]widget.BaseWidget{
+										text.New(
+											"Built with",
+											text.FontSize(12),
+											text.FontColor("#6B7280"),
+											text.FontWeight("400"),
+										),
+										icon.New(
+											icondata.Heart,
+											icon.Width(breakpoint.All(14)),
+											icon.Height(breakpoint.All(14)),
+											icon.Fill("#EF4444"),
+										),
+										text.New(
+											"using gofred",
+											text.FontSize(12),
+											text.FontColor("#6B7280"),
+											text.FontWeight("400"),
+										),
+									},
+									row.Gap(6),
+									row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+								),
+							},
+							column.Gap(0),
+							column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+						),
 					),
-				),
-
-				spacer.New(spacer.Height(32)),
-
-				// Quick navigation grid
-				grid.New(
-					[]widget.BaseWidget{
-						mobileFooterSection("Docs", []string{"Getting Started", "Examples", "API"}),
-						mobileFooterSection("Community", []string{"GitHub", "Discussions", "Support"}),
-					},
-					grid.ColumnCount(breakpoint.All(2)),
-					grid.ColumnGap(24),
-				),
-
-				spacer.New(spacer.Height(24)),
-
-				// Copyright
-				center.New(
-					column.New(
-						[]widget.BaseWidget{
-							text.New(
-								"© 2025 gofred",
-								text.FontSize(14),
-								text.FontColor("#6B7280"),
-								text.FontWeight("400"),
-							),
-
-							spacer.New(spacer.Height(8)),
-
-							row.New(
-								[]widget.BaseWidget{
-									text.New(
-										"Built with",
-										text.FontSize(12),
-										text.FontColor("#6B7280"),
-										text.FontWeight("400"),
-									),
-									icon.New(
-										icondata.Heart,
-										icon.Width(breakpoint.All(14)),
-										icon.Height(breakpoint.All(14)),
-										icon.Fill("#EF4444"),
-									),
-									text.New(
-										"using gofred",
-										text.FontSize(12),
-										text.FontColor("#6B7280"),
-										text.FontWeight("400"),
-									),
-								},
-								row.Gap(6),
-								row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-							),
-						},
-						column.Gap(0),
-						column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-					),
-				),
-			},
-			column.Gap(0),
+				},
+				column.Gap(0),
+				column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+			),
 		),
+		container.Flex(1),
 		container.Padding(breakpoint.All(spacing.All(24))),
 	)
 }
