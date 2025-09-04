@@ -283,6 +283,7 @@ func featuresTitle() widget.BaseWidget {
 				text.FontColor("#1F2937"),
 				text.FontWeight("600"),
 				text.UserSelect(options.UserSelectTypeNone),
+				text.Align(options.TextAlignTypeCenter),
 			),
 			spacer.New(spacer.Height(16)),
 			text.New(
