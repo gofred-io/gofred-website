@@ -47,7 +47,7 @@ fi
 
 # Build and start new containers with production profile
 log "Building and starting new containers with production profile..."
-docker-compose --profile production up -d --build || {
+docker compose --profile production up --build -d || {
     log "ERROR: Failed to build and start containers with production profile"
     exit 1
 }
@@ -57,7 +57,7 @@ sleep 10
 
 # Check if containers are running
 log "Checking container status..."
-docker-compose --profile production ps
+docker compose --profile production ps
 
 # Verify the application is responding
 log "Verifying application health..."
@@ -68,7 +68,7 @@ elif curl -f http://localhost:80/health > /dev/null 2>&1; then
 else
     log "WARNING: Health check failed, but deployment completed"
     log "Trying to check container logs..."
-    docker-compose --profile production logs --tail=20
+    docker compose --profile production logs --tail=20
 fi
 
 # Clean up old Docker images
