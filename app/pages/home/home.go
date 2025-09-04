@@ -1,7 +1,6 @@
 package home
 
 import (
-	"github.com/gofred-io/gofred/basic/code"
 	"github.com/gofred-io/gofred/basic/pre"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/center"
@@ -268,9 +267,8 @@ func heroCodePreview() widget.BaseWidget {
 				),
 
 				// Code content
-				container.New(
-					pre.New(
-						code.New(`package main
+				codeblock.New(
+					`package main
 
 import (
     "github.com/gofred-io/gofred/application"
@@ -280,10 +278,7 @@ import (
 func main() {
     app := text.New("Hello, gofred!")
     application.Run(app)
-}`, code.FontSize(14), code.FontColor("#F3F4F6"), code.FontWeight("400")),
-					),
-					container.Padding(breakpoint.All(spacing.All(8))),
-					container.BackgroundColor("#1F2937"),
+}`,
 				),
 			},
 			column.Gap(0),
@@ -678,18 +673,21 @@ func communitySection() widget.BaseWidget {
 									"GitHub",
 									"Contribute code and report issues",
 									"https://github.com/gofred-io/gofred",
+									true,
 								),
 								communityLink(
 									icondata.AccountGroup,
 									"Discussions",
 									"Ask questions and share ideas",
 									"https://github.com/orgs/gofred-io/discussions",
+									true,
 								),
 								communityLink(
 									icondata.Book,
 									"Documentation",
 									"Learn with comprehensive guides",
 									"/docs",
+									false,
 								),
 							},
 							grid.ColumnGap(24),
@@ -723,58 +721,63 @@ func communitySection() widget.BaseWidget {
 	)
 }
 
-func communityLink(iconData icondata.IconData, title, description, href string) widget.BaseWidget {
+func communityLink(iconData icondata.IconData, title, description, href string, newTab bool) widget.BaseWidget {
 	return container.New(
-		link.New(
-			container.New(
-				column.New(
-					[]widget.BaseWidget{
-						// Icon
-						container.New(
-							center.New(
-								icon.New(
-									iconData,
-									icon.Width(breakpoint.All(24)),
-									icon.Height(breakpoint.All(24)),
-									icon.Fill("#2B799B"),
+		center.New(
+			link.New(
+				center.New(
+					container.New(
+						column.New(
+							[]widget.BaseWidget{
+								// Icon
+								container.New(
+									center.New(
+										icon.New(
+											iconData,
+											icon.Width(breakpoint.All(24)),
+											icon.Height(breakpoint.All(24)),
+											icon.Fill("#2B799B"),
+										),
+									),
+									container.Padding(breakpoint.All(spacing.All(12))),
+									container.BackgroundColor("#EFF6FF"),
+									container.BorderRadius(8),
+									container.Width(breakpoint.All(48)),
+									container.Height(breakpoint.All(48)),
 								),
-							),
-							container.Padding(breakpoint.All(spacing.All(12))),
-							container.BackgroundColor("#EFF6FF"),
-							container.BorderRadius(8),
-							container.Width(breakpoint.All(48)),
-							container.Height(breakpoint.All(48)),
+
+								spacer.New(spacer.Height(16)),
+
+								// Title
+								text.New(
+									title,
+									text.FontSize(18),
+									text.FontColor("#1F2937"),
+									text.FontWeight("600"),
+								),
+
+								spacer.New(spacer.Height(8)),
+
+								// Description
+								text.New(
+									description,
+									text.FontSize(14),
+									text.FontColor("#6B7280"),
+									text.FontWeight("400"),
+									text.LineHeight(1.5),
+								),
+							},
+							column.Gap(0),
+							column.Flex(1),
+							column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 						),
-
-						spacer.New(spacer.Height(16)),
-
-						// Title
-						text.New(
-							title,
-							text.FontSize(18),
-							text.FontColor("#1F2937"),
-							text.FontWeight("600"),
-						),
-
-						spacer.New(spacer.Height(8)),
-
-						// Description
-						text.New(
-							description,
-							text.FontSize(14),
-							text.FontColor("#6B7280"),
-							text.FontWeight("400"),
-							text.LineHeight(1.5),
-						),
-					},
-					column.Gap(0),
-					column.Flex(1),
-					column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+						container.Padding(breakpoint.All(spacing.All(24))),
+						container.Flex(1),
+					),
 				),
-				container.Padding(breakpoint.All(spacing.All(24))),
-				container.Flex(1),
+				link.Href(href),
+				link.NewTab(newTab),
 			),
-			link.Href(href),
 		),
 		container.BackgroundColor("#FFFFFF"),
 		container.BorderColor("#E5E7EB"),
