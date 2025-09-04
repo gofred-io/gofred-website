@@ -342,6 +342,7 @@ func modernFeaturesSection() widget.BaseWidget {
 									text.FontSize(36),
 									text.FontColor("#1F2937"),
 									text.FontWeight("700"),
+									text.Align(options.TextAlignTypeCenter),
 								),
 								spacer.New(spacer.Height(16)),
 								container.New(
@@ -413,11 +414,6 @@ func modernFeaturesSection() widget.BaseWidget {
 								grid.RowGap(24),
 							),
 							container.MaxWidth(breakpoint.All(1200)),
-							container.Padding(
-								breakpoint.All(spacing.All(24)),
-								breakpoint.XS(spacing.All(16)),
-								breakpoint.SM(spacing.All(24)),
-							),
 						),
 					),
 				},
@@ -428,10 +424,10 @@ func modernFeaturesSection() widget.BaseWidget {
 		container.BackgroundColor("#FFFFFF"),
 		container.Padding(
 			breakpoint.All(spacing.All(64)),
-			breakpoint.XS(spacing.All(8)),
-			breakpoint.SM(spacing.All(16)),
-			breakpoint.MD(spacing.All(24)),
-			breakpoint.LG(spacing.All(32)),
+			breakpoint.XS(spacing.Axis(16, 24)),
+			breakpoint.SM(spacing.Axis(24, 32)),
+			breakpoint.MD(spacing.Axis(32, 48)),
+			breakpoint.LG(spacing.Axis(48, 64)),
 		),
 	)
 }
@@ -504,6 +500,7 @@ func gettingStartedSection() widget.BaseWidget {
 									text.FontSize(36),
 									text.FontColor("#1F2937"),
 									text.FontWeight("700"),
+									text.Align(options.TextAlignTypeCenter),
 								),
 								spacer.New(spacer.Height(16)),
 								container.New(
@@ -652,6 +649,7 @@ func communitySection() widget.BaseWidget {
 									text.FontSize(36),
 									text.FontColor("#1F2937"),
 									text.FontWeight("700"),
+									text.Align(options.TextAlignTypeCenter),
 								),
 								spacer.New(spacer.Height(16)),
 								container.New(
