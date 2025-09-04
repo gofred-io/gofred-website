@@ -1,0 +1,28 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Deploy to production server
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.PROD_HOST }}
+        username: ${{ secrets.PROD_USER }}
+        key: ${{ secrets.PROD_SSH_KEY }}
+        port: ${{ secrets.PROD_PORT }}
+        script: |
+          # Set environment variables
+          export PROD_REPO_PATH="${{ secrets.PROD_REPO_PATH }}"
+          
+          # Make deployment script executable
+          chmod +x ${{ secrets.PROD_REPO_PATH }}/scripts/deploy.sh
+          
+          # Run deployment script
+          ${{ secrets.PROD_REPO_PATH }}/scripts/deploy.sh
