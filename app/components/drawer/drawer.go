@@ -2,12 +2,14 @@ package drawer
 
 import (
 	"github.com/gofred-io/gofred/breakpoint"
+	"github.com/gofred-io/gofred/foundation/center"
 	"github.com/gofred-io/gofred/foundation/column"
 	"github.com/gofred-io/gofred/foundation/container"
 	"github.com/gofred-io/gofred/foundation/drawer"
 	"github.com/gofred-io/gofred/foundation/icon"
 	icondata "github.com/gofred-io/gofred/foundation/icon/icon_data"
 	iconbutton "github.com/gofred-io/gofred/foundation/icon_button"
+	"github.com/gofred-io/gofred/foundation/image"
 	"github.com/gofred-io/gofred/foundation/link"
 	"github.com/gofred-io/gofred/foundation/row"
 	"github.com/gofred-io/gofred/foundation/spacer"
@@ -19,11 +21,10 @@ import (
 
 var leftDrawer *drawer.Drawer
 
-func init() {
-	leftDrawer = buildLeftDrawer()
-}
-
 func Get() *drawer.Drawer {
+	if leftDrawer == nil {
+		leftDrawer = buildLeftDrawer()
+	}
 	return leftDrawer
 }
 
@@ -32,142 +33,238 @@ func buildLeftDrawer() *drawer.Drawer {
 		container.New(
 			column.New(
 				[]widget.BaseWidget{
-					container.New(
-						row.New(
-							[]widget.BaseWidget{
-								spacer.New(),
-								iconbutton.New(
-									icondata.Close,
-									iconbutton.Fill("#003B73"),
-									iconbutton.OnClick(func(this widget.BaseWidget, e widget.Event) {
-										leftDrawer.Hide()
-									}),
-								),
-							},
-							row.Gap(8),
-							row.Flex(1),
-							row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-						),
-						container.Padding(breakpoint.All(spacing.LRTB(16, 16, 16, 8))),
-						container.BorderColor("#CECECE"),
-						container.BorderWidth(0, 0, 1, 0),
-						container.BorderStyle(options.BorderStyleTypeSolid),
-					),
-					container.New(
-						column.New(
-							[]widget.BaseWidget{
-								documentationLink(true),
-								discussionsLink(true),
-								githubLink(true),
-							},
-							column.Gap(16),
-							column.Flex(1),
-						),
-						container.Padding(breakpoint.All(spacing.All(16))),
-					),
+					drawerHeader(),
+					drawerContent(),
 				},
-				column.Gap(8),
+				column.Gap(0),
 				column.Flex(1),
 			),
+			container.Flex(1),
 		),
-		drawer.Width(breakpoint.All(250)),
+		drawer.ID("root-left-drawer"),
+		drawer.Width(breakpoint.All(320)),
 		drawer.Transition(0.3),
 	)
 }
 
-func documentationLink(inMenu bool) widget.BaseWidget {
-	var (
-		visible = []breakpoint.BreakpointOptions[bool]{breakpoint.All(true)}
-	)
-
-	if !inMenu {
-		visible = append(visible, breakpoint.XS(false), breakpoint.SM(false))
-	}
-
+func drawerHeader() widget.BaseWidget {
 	return container.New(
-		link.New(
+		row.New(
+			[]widget.BaseWidget{
+				drawerLogo(),
+				spacer.New(),
+				iconbutton.New(
+					icondata.Close,
+					iconbutton.Fill("#6B7280"),
+					iconbutton.OnClick(func(this widget.BaseWidget, e widget.Event) {
+						leftDrawer.Hide()
+					}),
+				),
+			},
+			row.Gap(12),
+			row.Flex(1),
+			row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		),
+		container.Padding(breakpoint.All(spacing.LRTB(24, 12, 18, 14))),
+		container.BorderColor("#E5E7EB"),
+		container.BorderWidth(0, 0, 1, 0),
+		container.BorderStyle(options.BorderStyleTypeSolid),
+	)
+}
+
+func drawerLogo() widget.BaseWidget {
+	return row.New(
+		[]widget.BaseWidget{
+			image.New(
+				"img/gofred.png",
+				image.Width(breakpoint.All(32)),
+				image.Height(breakpoint.All(32)),
+			),
 			text.New(
-				"Docs",
-				text.FontSize(16),
-				text.FontColor("#2B799B"),
-				text.FontWeight("500"),
+				"gofred",
+				text.FontSize(20),
+				text.FontColor("#1F2937"),
+				text.FontWeight("700"),
 				text.UserSelect(options.UserSelectTypeNone),
 			),
-			link.Href("/docs"),
+		},
+		row.Gap(16),
+		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+	)
+}
+
+func drawerContent() widget.BaseWidget {
+	return container.New(
+		column.New(
+			[]widget.BaseWidget{
+				navigationSection(),
+				externalLinksSection(),
+				spacer.New(),
+				drawerFooter(),
+			},
+			column.Gap(24),
+			column.Flex(1),
+		),
+		container.Flex(1),
+		container.Padding(breakpoint.All(spacing.LRTB(24, 24, 24, 24))),
+	)
+}
+
+func navigationSection() widget.BaseWidget {
+	return column.New(
+		[]widget.BaseWidget{
+			sectionTitle("Navigation"),
+			spacer.New(spacer.Height(12)),
+			navItem("Home", "/", icondata.Home, false),
+			navItem("Documentation", "/docs", icondata.FileDocument, false),
+			navItem("Getting Started", "/docs/getting-started", icondata.Play, false),
+			navItem("Core Concepts", "/docs/core-concepts", icondata.Lightbulb, false),
+			navItem("Components", "/docs/components", icondata.Package, false),
+			navItem("API Reference", "/docs/api", icondata.FileDocument, false),
+		},
+		column.Gap(4),
+	)
+}
+
+func externalLinksSection() widget.BaseWidget {
+	return column.New(
+		[]widget.BaseWidget{
+			sectionTitle("Resources"),
+			spacer.New(spacer.Height(12)),
+			externalNavItem("GitHub", "https://github.com/gofred-io/gofred", icondata.Github),
+			externalNavItem("Discussions", "https://github.com/gofred-io/gofred/discussions", icondata.Comment),
+			externalNavItem("Examples", "https://github.com/gofred-io/examples", icondata.Lightbulb),
+			externalNavItem("Community", "https://github.com/orgs/gofred-io/discussions", icondata.AccountGroup),
+		},
+		column.Gap(4),
+	)
+}
+
+func drawerFooter() widget.BaseWidget {
+	return container.New(
+		center.New(
+			column.New(
+				[]widget.BaseWidget{
+					text.New(
+						"Built with gofred",
+						text.FontSize(12),
+						text.FontColor("#9CA3AF"),
+						text.FontWeight("400"),
+					),
+					spacer.New(spacer.Height(4)),
+					text.New(
+						"v1.0.0",
+						text.FontSize(11),
+						text.FontColor("#D1D5DB"),
+						text.FontWeight("400"),
+					),
+				},
+				column.Gap(0),
+				column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+			),
+		),
+		container.Padding(breakpoint.All(spacing.LRTB(0, 0, 0, 0))),
+	)
+}
+
+func sectionTitle(title string) widget.BaseWidget {
+	return text.New(
+		title,
+		text.FontSize(12),
+		text.FontColor("#6B7280"),
+		text.FontWeight("600"),
+		text.UserSelect(options.UserSelectTypeNone),
+	)
+}
+
+func navItem(title, href string, iconData icondata.IconData, isExternal bool) widget.BaseWidget {
+	return container.New(
+		link.New(
+			row.New(
+				[]widget.BaseWidget{
+					icon.New(
+						iconData,
+						icon.Width(breakpoint.All(20)),
+						icon.Height(breakpoint.All(20)),
+						icon.Fill("#6B7280"),
+					),
+					text.New(
+						title,
+						text.FontSize(14),
+						text.FontColor("#374151"),
+						text.FontWeight("500"),
+						text.UserSelect(options.UserSelectTypeNone),
+					),
+					spacer.New(),
+					func() widget.BaseWidget {
+						if isExternal {
+							return icon.New(
+								icondata.OpenInNew,
+								icon.Width(breakpoint.All(16)),
+								icon.Height(breakpoint.All(16)),
+								icon.Fill("#9CA3AF"),
+							)
+						}
+						return spacer.New()
+					}(),
+				},
+				row.Gap(12),
+				row.Flex(1),
+				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+			),
+			link.Href(href),
 			link.OnClick(func(this widget.BaseWidget, e widget.Event) {
-				leftDrawer.Hide()
+				Get().Hide()
 			}),
 		),
-		container.Visible(visible...),
+		container.Padding(breakpoint.All(spacing.LRTB(12, 12, 12, 12))),
+		container.BorderRadius(8),
+		container.BackgroundColor("transparent"),
+		container.BorderWidth(1, 1, 1, 1),
+		container.BorderColor("transparent"),
+		container.BorderStyle(options.BorderStyleTypeSolid),
 	)
 }
 
-func discussionsLink(inMenu bool) widget.BaseWidget {
-	var (
-		visible = []breakpoint.BreakpointOptions[bool]{breakpoint.All(true)}
-	)
-
-	if !inMenu {
-		visible = append(visible, breakpoint.XS(false), breakpoint.SM(false))
-	}
-
+func externalNavItem(title, href string, iconData icondata.IconData) widget.BaseWidget {
 	return container.New(
 		link.New(
 			row.New(
 				[]widget.BaseWidget{
+					icon.New(
+						iconData,
+						icon.Width(breakpoint.All(20)),
+						icon.Height(breakpoint.All(20)),
+						icon.Fill("#6B7280"),
+					),
 					text.New(
-						"Discussions",
-						text.FontSize(16),
-						text.FontColor("#2B799B"),
+						title,
+						text.FontSize(14),
+						text.FontColor("#374151"),
 						text.FontWeight("500"),
 						text.UserSelect(options.UserSelectTypeNone),
 					),
+					spacer.New(),
 					icon.New(
 						icondata.OpenInNew,
-						icon.Width(breakpoint.All(18)),
-						icon.Height(breakpoint.All(18)),
-						icon.Fill("#2B799B"),
+						icon.Width(breakpoint.All(16)),
+						icon.Height(breakpoint.All(16)),
+						icon.Fill("#9CA3AF"),
 					),
 				},
+				row.Gap(12),
+				row.Flex(1),
+				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 			),
-			link.Href("https://github.com/gofred-io/gofred/pulls"),
+			link.Flex(1),
+			link.Href(href),
 			link.NewTab(true),
 		),
-		container.Visible(visible...),
-	)
-}
-
-func githubLink(inMenu bool) widget.BaseWidget {
-	var (
-		visible = []breakpoint.BreakpointOptions[bool]{breakpoint.All(true)}
-	)
-
-	if !inMenu {
-		visible = append(visible, breakpoint.XS(false), breakpoint.SM(false))
-	}
-
-	return container.New(
-		link.New(
-			row.New(
-				[]widget.BaseWidget{
-					text.New(
-						"GitHub",
-						text.FontSize(16),
-						text.FontColor("#2B799B"),
-						text.FontWeight("500"),
-						text.UserSelect(options.UserSelectTypeNone),
-					),
-					icon.New(
-						icondata.OpenInNew,
-						icon.Width(breakpoint.All(18)),
-						icon.Height(breakpoint.All(18)),
-						icon.Fill("#2B799B"),
-					),
-				},
-			),
-			link.Href("https://github.com/gofred-io/gofred"),
-			link.NewTab(true),
-		),
-		container.Visible(visible...),
+		container.Padding(breakpoint.All(spacing.LRTB(12, 12, 12, 12))),
+		container.BorderRadius(8),
+		container.BackgroundColor("transparent"),
+		container.BorderWidth(1, 1, 1, 1),
+		container.BorderColor("transparent"),
+		container.BorderStyle(options.BorderStyleTypeSolid),
 	)
 }

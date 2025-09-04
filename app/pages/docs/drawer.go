@@ -23,8 +23,11 @@ var (
 	docsDrawer *drawer.Drawer
 )
 
-func init() {
-	docsDrawer = buildDocsDrawer()
+func Get() *drawer.Drawer {
+	if docsDrawer == nil {
+		docsDrawer = buildDocsDrawer()
+	}
+	return docsDrawer
 }
 
 func buildDocsDrawer() *drawer.Drawer {
@@ -39,6 +42,7 @@ func buildDocsDrawer() *drawer.Drawer {
 				column.Flex(1),
 			),
 		),
+		drawer.ID("docs-left-drawer"),
 		drawer.Width(breakpoint.All(320)),
 		drawer.Transition(0.3),
 	)
@@ -54,7 +58,7 @@ func drawerHeader() widget.BaseWidget {
 					icondata.Close,
 					iconbutton.Fill("#6B7280"),
 					iconbutton.OnClick(func(this widget.BaseWidget, e widget.Event) {
-						docsDrawer.Hide()
+						Get().Hide()
 					}),
 				),
 			},
