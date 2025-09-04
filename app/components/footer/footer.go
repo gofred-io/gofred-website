@@ -1,4 +1,4 @@
-package home
+package footer
 
 import (
 	"github.com/gofred-io/gofred/breakpoint"
@@ -17,7 +17,7 @@ import (
 	"github.com/gofred-io/gofred/widget"
 )
 
-func Footer() widget.BaseWidget {
+func Get() widget.BaseWidget {
 	return container.New(
 		column.New(
 			[]widget.BaseWidget{

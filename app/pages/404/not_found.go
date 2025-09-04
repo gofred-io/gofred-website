@@ -1,7 +1,8 @@
 package notfound
 
 import (
-	"github.com/gofred-io/gofred-website/app/pages/home"
+	"github.com/gofred-io/gofred-website/app/components/footer"
+	"github.com/gofred-io/gofred-website/app/components/header"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/button"
 	"github.com/gofred-io/gofred/foundation/column"
@@ -21,9 +22,9 @@ import (
 func New(params router.RouteParams) widget.BaseWidget {
 	return column.New(
 		[]widget.BaseWidget{
-			home.Header(),
+			header.Get(),
 			mainContent(),
-			home.Footer(),
+			footer.Get(),
 		},
 		column.Flex(1),
 	)

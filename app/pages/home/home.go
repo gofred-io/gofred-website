@@ -1,6 +1,8 @@
 package home
 
 import (
+	"github.com/gofred-io/gofred-website/app/components/footer"
+	"github.com/gofred-io/gofred-website/app/components/header"
 	"github.com/gofred-io/gofred/basic/pre"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/center"
@@ -24,7 +26,7 @@ func New(params router.RouteParams) widget.BaseWidget {
 	return column.New(
 		[]widget.BaseWidget{
 			// Header - fixed at top
-			Header(),
+			header.Get(),
 
 			// Hero Section - enhanced
 			heroSection(),
@@ -39,7 +41,7 @@ func New(params router.RouteParams) widget.BaseWidget {
 			communitySection(),
 
 			// Footer
-			Footer(),
+			footer.Get(),
 		},
 	)
 }

@@ -2,10 +2,11 @@ package docs
 
 import (
 	comingsoon "github.com/gofred-io/gofred-website/app/components/coming_soon"
+	"github.com/gofred-io/gofred-website/app/components/footer"
+	"github.com/gofred-io/gofred-website/app/components/header"
 	notfound "github.com/gofred-io/gofred-website/app/pages/404"
 	"github.com/gofred-io/gofred-website/app/pages/docs/core_concepts"
 	"github.com/gofred-io/gofred-website/app/pages/docs/getting_started"
-	"github.com/gofred-io/gofred-website/app/pages/home"
 
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/column"
@@ -66,9 +67,9 @@ func New(params router.RouteParams) widget.BaseWidget {
 func docsPageTemplate(content widget.BaseWidget) widget.BaseWidget {
 	return column.New(
 		[]widget.BaseWidget{
-			home.Header(),
+			header.Get(),
 			docsMainContent(content),
-			home.Footer(),
+			footer.Get(),
 		},
 		column.Flex(1),
 	)
