@@ -1,7 +1,7 @@
 github.com/fsnotify/fsnotify v1.9.0 h1:2Ml+OJNzbYCTzsxtv8vKSFD9PbJjmhYF14k/jKC7S9k=
 github.com/fsnotify/fsnotify v1.9.0/go.mod h1:8jBTzvmWwFyi3Pb8djgCCO5IBqzKJ/Jwo8TRcHyHii0=
-github.com/gofred-io/gofred v0.0.0-20250904155612-5c3c951b8724 h1:3uy48hA4X7jjA1sR4bWBAPjVMXb927OU45UI1goZIq0=
-github.com/gofred-io/gofred v0.0.0-20250904155612-5c3c951b8724/go.mod h1:EG+xVF5i/XnV2P6/mnAL9uV+zdphRAAUn5WGcte9qMM=
+github.com/gofred-io/gofred v0.0.0-20250904184656-9cc0063876ff h1:S82atecZ3lk8AOHh+f0umaYjj30Gv+xOJyY9qi96QXU=
+github.com/gofred-io/gofred v0.0.0-20250904184656-9cc0063876ff/go.mod h1:EG+xVF5i/XnV2P6/mnAL9uV+zdphRAAUn5WGcte9qMM=
 github.com/gorilla/websocket v1.5.3 h1:saDtZ6Pbx/0u+bgYQ3q96pZgCzfhKXGPqt7kZ72aNNg=
 github.com/gorilla/websocket v1.5.3/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
 golang.org/x/sys v0.35.0 h1:vz1N37gP5bs89s7He8XuIYXpyY0+QlsKmzipCbUtyxI=

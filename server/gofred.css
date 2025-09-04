@@ -80,7 +80,7 @@ body {
     color: #F3F4F6;
     border-radius: 8px;
     max-width: 720px;
-    width: fit-content;
+    width: 100%;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
