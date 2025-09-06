@@ -43,7 +43,7 @@ func installationPageHeader() widget.BaseWidget {
 				text.FontWeight("700"),
 			),
 			text.New(
-				"Get started with gofred by installing the framework and setting up your development environment.",
+				"Install the gofred CLI tool and set up your development environment for Go WebAssembly applications.",
 				text.FontSize(18),
 				text.FontColor("#6B7280"),
 				text.FontWeight("400"),
@@ -59,8 +59,33 @@ func installationPageContent() widget.BaseWidget {
 			contentSection("Prerequisites", "Before you begin, make sure you have the following installed on your system:"),
 			prerequisitesList(),
 			spacer.New(spacer.Height(24)),
-			contentSection("Installation", "Install gofred using Go modules:"),
-			codeblock.New("go get github.com/gofred-io/gofred"),
+			contentSection("Installation", "Install the gofred CLI tool using the installation script:"),
+			codeblock.New(`curl -fsSL https://raw.githubusercontent.com/gofred-io/gofred-cli/refs/heads/master/install.sh | bash`),
+			text.New(
+				"This script will detect your operating system and architecture, download the appropriate binary, and install it to ~/.local/bin (or ~/AppData/Local/bin on Windows).",
+				text.FontSize(14),
+				text.FontColor("#6B7280"),
+			),
+			spacer.New(spacer.Height(16)),
+			contentSection("Verify Installation", "Check that gofred is installed correctly:"),
+			codeblock.New(`gofred version`),
+			spacer.New(spacer.Height(24)),
+			contentSection("Create Your First App", "Create a new Go WebAssembly application:"),
+			codeblock.New(`gofred app create my-app --package my-app`),
+			text.New(
+				"This will create a complete project structure with main.go, web assets, and VS Code configuration.",
+				text.FontSize(14),
+				text.FontColor("#6B7280"),
+			),
+			spacer.New(spacer.Height(16)),
+			contentSection("Run Your Application", "Navigate to your app directory and start the development server:"),
+			codeblock.New(`cd my-app
+gofred app run`),
+			text.New(
+				"This will compile your Go code to WebAssembly, start a development server, and automatically open your browser with hot reload enabled.",
+				text.FontSize(14),
+				text.FontColor("#6B7280"),
+			),
 			spacer.New(spacer.Height(24)),
 			contentSection("Next Steps", "Now that you have gofred installed, you can:"),
 			installationNextSteps(),
@@ -93,8 +118,9 @@ func contentSection(title, description string) widget.BaseWidget {
 
 func prerequisitesList() widget.BaseWidget {
 	items := []string{
-		"Go 1.21 or later",
+		"Go 1.25.1 or later",
 		"A modern web browser with WebAssembly support",
+		"curl, tar, and jq (for installation script)",
 		"Basic knowledge of Go programming",
 	}
 
