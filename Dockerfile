@@ -18,10 +18,10 @@ RUN go mod download
 COPY . .
 
 # Build the WebAssembly binary
-RUN GOOS=js GOARCH=wasm go build -ldflags="-s -w" -o server/main.wasm .
+RUN GOOS=js GOARCH=wasm go build -ldflags="-s -w" -o web/main.wasm .
 
 # Verify the wasm file was created
-RUN ls -la server/main.wasm
+RUN ls -la web/main.wasm
 
 # Stage 2: Final stage with static files only
 FROM nginx:alpine AS runtime
@@ -36,10 +36,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 RUN mkdir -p /usr/share/nginx/html
 
 # Copy static files and WebAssembly from builder
-COPY --from=builder /app/server/ /usr/share/nginx/html/
-
-# Remove server.go from static files (we don't need it)
-RUN rm -f /usr/share/nginx/html/server.go
+COPY --from=builder /app/web/ /usr/share/nginx/html/
 
 # Create env.js file with empty window.env object for production
 RUN echo "window.env = {}" > /usr/share/nginx/html/env.js
