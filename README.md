@@ -38,7 +38,8 @@ This website demonstrates gofred's capabilities with:
 
 ### Prerequisites
 
-- Go 1.21 or higher
+- Go 1.25.1 or higher
+- gofred CLI tool
 - Docker (for containerized deployment)
 - Modern web browser with WebAssembly support
 
@@ -50,22 +51,17 @@ This website demonstrates gofred's capabilities with:
    cd gofred-website
    ```
 
-2. **Install dependencies**
+2. **Install gofred CLI** (if not already installed)
    ```bash
-   go mod download
+   curl -fsSL https://raw.githubusercontent.com/gofred-io/gofred-cli/refs/heads/master/install.sh | bash
    ```
 
 3. **Run development server**
    ```bash
-   make serve
-   # or
-   go run server/server.go
+   gofred app run
    ```
 
-4. **Open your browser**
-   ```
-   http://localhost:8080
-   ```
+   The development server will automatically open your browser with hot reload enabled on an available port.
 
 ### 🐳 Docker Deployment
 
@@ -81,6 +77,8 @@ docker compose --profile production up -d
 # Access at http://localhost and https://localhost
 ```
 
+**Note**: Docker deployment still uses the containerized approach. For local development, use `gofred app run` instead.
+
 See [DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md) for detailed deployment instructions.
 
 ## 📚 Project Structure
@@ -95,12 +93,6 @@ gofred-website/
 │   │   ├── docs/            # Documentation pages
 │   │   └── 404/             # Error pages
 │   └── theme/               # Global theming
-├── server/                  # Static assets and dev server
-│   ├── index.html           # Main HTML template
-│   ├── index.js             # WebAssembly loader
-│   ├── main.wasm            # Compiled Go WebAssembly
-│   ├── *.css                # Stylesheets
-│   └── img/                 # Images and assets
 ├── Dockerfile               # Production container
 ├── docker-compose.yml       # Container orchestration
 ├── nginx.conf               # Web server configuration
@@ -112,16 +104,14 @@ gofred-website/
 ### Building
 
 ```bash
-# Build WebAssembly
-make build
-# or
-GOARCH=wasm GOOS=js go build -o server/main.wasm main.go
+# Run development server with hot reload
+gofred app run
 
-# Run development server
-make serve
-# or
-go run server/server.go
+# Build for production (coming soon)
+gofred app build
 ```
+
+**Note**: `gofred app build` is currently in development and will be available soon.
 
 ### Key Components
 
