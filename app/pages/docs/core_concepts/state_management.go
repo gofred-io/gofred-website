@@ -1,70 +1,61 @@
 package core_concepts
 
 import (
-	"github.com/gofred-io/gofred/breakpoint"
-	"github.com/gofred-io/gofred/foundation/button"
-	codeblock "github.com/gofred-io/gofred/foundation/code_block"
-	"github.com/gofred-io/gofred/foundation/column"
-	"github.com/gofred-io/gofred/foundation/container"
-	"github.com/gofred-io/gofred/foundation/icon"
+	. "github.com/gofred-io/gofred/breakpoint"
+	. "github.com/gofred-io/gofred/foundation/button"
+	. "github.com/gofred-io/gofred/foundation/code_block"
+	. "github.com/gofred-io/gofred/foundation/column"
+	. "github.com/gofred-io/gofred/foundation/container"
+	. "github.com/gofred-io/gofred/foundation/icon"
 	icondata "github.com/gofred-io/gofred/foundation/icon/icon_data"
-	"github.com/gofred-io/gofred/foundation/link"
-	"github.com/gofred-io/gofred/foundation/row"
-	"github.com/gofred-io/gofred/foundation/spacer"
-	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/options"
-	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	. "github.com/gofred-io/gofred/foundation/link"
+	. "github.com/gofred-io/gofred/foundation/row"
+	. "github.com/gofred-io/gofred/foundation/spacer"
+	. "github.com/gofred-io/gofred/foundation/text"
+	. "github.com/gofred-io/gofred/options"
+	. "github.com/gofred-io/gofred/options/spacing"
+	. "github.com/gofred-io/gofred/widget"
 )
 
-func StateManagementContent() widget.BaseWidget {
-	return container.New(
-		column.New(
-			[]widget.BaseWidget{
+func StateManagementContent() Widget {
+	return Container(
+		Column(
+			[]Widget{
 				stateManagementPageHeader(),
-				spacer.New(spacer.Height(24)),
+				Spacer().Height(24),
 				stateManagementPageContent(),
 			},
-			column.Gap(16),
-			column.Flex(1),
-		),
-		container.Flex(1),
-		container.Padding(breakpoint.All(spacing.All(32))),
-	)
+		).Gap(16).Flex(1),
+	).Flex(1).Padding(AllBP(All(32)))
 }
 
-func stateManagementPageHeader() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			text.New(
-				"State Management",
-				text.FontSize(32),
-				text.FontColor("#1F2937"),
-				text.FontWeight("700"),
-			),
-			text.New(
-				"Learn how to manage dynamic data and create reactive user interfaces with gofred's powerful state management system.",
-				text.FontSize(18),
-				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
-			),
+func stateManagementPageHeader() Widget {
+	return Column(
+		[]Widget{
+			Text("State Management").
+				FontSize(32).
+				FontColor("#1F2937").
+				FontWeight("700"),
+			Text("Learn how to manage dynamic data and create reactive user interfaces with gofred's powerful state management system.").
+				FontSize(18).
+				FontColor("#6B7280").
+				FontWeight("400"),
 		},
-		column.Gap(8),
-	)
+	).Gap(8)
 }
 
-func stateManagementPageContent() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
+func stateManagementPageContent() Widget {
+	return Column(
+		[]Widget{
 			stateContentSection("Understanding State", "State represents data that can change over time in your application. In gofred, state management is built around hooks and reactive patterns that automatically update your UI when data changes."),
-			spacer.New(spacer.Height(24)),
+			Spacer().Height(24),
 
 			// Hooks Introduction
 			stateContentSection("Hooks & UseState", "Hooks are functions that let you use state and other gofred features in your widgets. The UseState hook is the foundation of state management."),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			stateSubsection("Basic UseState", "Create stateful values that can be updated and tracked."),
-			codeblock.New(`package main
+			CodeBlock(`package main
 
 import (
     "fmt"
@@ -82,33 +73,33 @@ var (
     name, setName   = hooks.UseState("World")
 )
 
-func counterWidget() widget.BaseWidget {
-    return column.New(
-        []widget.BaseWidget{
+func counterWidget() Widget {
+    return Column(
+        []Widget{
             // Display current count with listenable.Builder
-            listenable.Builder(count, func() widget.BaseWidget {
-                return text.New(
+            listenable.Builder(count, func() Widget {
+                return Text(
                     fmt.Sprintf("Count: %d", count.Value()),
-                    text.FontSize(18),
-                    text.FontWeight("600"),
+                    .FontSize(18),
+                    .FontWeight("600"),
                 )
             }),
             
             // Button to increment count
-            button.New(
-                text.New("Increment"),
-                button.OnClick(func(this widget.BaseWidget, e widget.Event) {
+            Button(
+                Text("Increment"),
+                button.OnClick(func(this Widget, e widget.Event) {
                     setCount(count.Value() + 1)
                 }),
             ),
         },
-        column.Gap(12),
+        .Gap(12),
     )
 }`),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			stateSubsection("Multiple State Variables", "Manage multiple pieces of state in your application."),
-			codeblock.New(`var (
+			CodeBlock(`var (
     // User interface state
     isLoggedIn, setIsLoggedIn = hooks.UseState(false)
     username, setUsername     = hooks.UseState("")
@@ -124,35 +115,35 @@ func counterWidget() widget.BaseWidget {
 )
 
 // Using multiple state variables
-func loginForm() widget.BaseWidget {
-    return column.New(
-        []widget.BaseWidget{
+func loginForm() Widget {
+    return Column(
+        []Widget{
             // Show loading state
-            listenable.Builder(isLoading, func() widget.BaseWidget {
+            listenable.Builder(isLoading, func() Widget {
                 if isLoading.Value() {
-                    return text.New("Logging in...", text.FontColor("#6B7280"))
+                    return Text("Logging in...", .FontColor("#6B7280"))
                 }
-                return text.New("Please log in", text.FontWeight("500"))
+                return Text("Please log in", .FontWeight("500"))
             }),
             
             // Email input (conceptual - actual input would be implemented)
             // emailInput(),
             
             // Login button
-            listenable.Builder(email, func() widget.BaseWidget {
-                return button.New(
-                    text.New("Login"),
+            listenable.Builder(email, func() Widget {
+                return Button(
+                    Text("Login"),
                     button.OnClick(handleLogin),
                     // Disable if email is empty
                     button.Disabled(email.Value() == ""),
                 )
             }),
         },
-        column.Gap(16),
+        .Gap(16),
     )
 }
 
-func handleLogin(this widget.BaseWidget, e widget.Event) {
+func handleLogin(this Widget, e widget.Event) {
     setIsLoading(true)
     // Simulate async login
     go func() {
@@ -162,54 +153,54 @@ func handleLogin(this widget.BaseWidget, e widget.Event) {
         setUsername(email.Value())
     }()
 }`),
-			spacer.New(spacer.Height(24)),
+			Spacer().Height(24),
 
 			// Listenable and Reactive UI
 			stateContentSection("Reactive UI with Listenable", "The listenable.Builder function creates reactive UI components that automatically update when state changes."),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			stateSubsection("Basic Reactive Components", "Build components that respond to state changes."),
-			codeblock.New(`// Theme switching example
+			CodeBlock(`// Theme switching example
 var (
     isDarkMode, setIsDarkMode = hooks.UseState(false)
 )
 
-func themeToggleWidget() widget.BaseWidget {
-    return column.New(
-        []widget.BaseWidget{
+func themeToggleWidget() Widget {
+    return Column(
+        []Widget{
             // Display current theme
-            listenable.Builder(isDarkMode, func() widget.BaseWidget {
+            listenable.Builder(isDarkMode, func() Widget {
                 theme := "Light Mode"
                 if isDarkMode.Value() {
                     theme = "Dark Mode"
                 }
-                return text.New(
+                return Text(
                     fmt.Sprintf("Current theme: %s", theme),
-                    text.FontSize(16),
+                    .FontSize(16),
                 )
             }),
             
             // Toggle button
-            listenable.Builder(isDarkMode, func() widget.BaseWidget {
+            listenable.Builder(isDarkMode, func() Widget {
                 label := "Switch to Dark"
                 if isDarkMode.Value() {
                     label = "Switch to Light"
                 }
-                return button.New(
-                    text.New(label),
-                    button.OnClick(func(this widget.BaseWidget, e widget.Event) {
+                return Button(
+                    Text(label),
+                    button.OnClick(func(this Widget, e widget.Event) {
                         setIsDarkMode(!isDarkMode.Value())
                     }),
                 )
             }),
         },
-        column.Gap(12),
+        .Gap(12),
     )
 }`),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			stateSubsection("Conditional Rendering", "Show different UI based on state values."),
-			codeblock.New(`var (
+			CodeBlock(`var (
     user, setUser         = hooks.UseState[*User](nil)
     isLoggedIn, setLoggedIn = hooks.UseState(false)
 )
@@ -220,64 +211,64 @@ type User struct {
     Role  string
 }
 
-func userProfileWidget() widget.BaseWidget {
-    return listenable.Builder(isLoggedIn, func() widget.BaseWidget {
+func userProfileWidget() Widget {
+    return listenable.Builder(isLoggedIn, func() Widget {
         if !isLoggedIn.Value() {
             // Show login prompt
-            return container.New(
-                column.New(
-                    []widget.BaseWidget{
-                        text.New("Please log in to continue"),
-                        button.New(
-                            text.New("Login"),
+            return Container(
+                Column(
+                    []Widget{
+                        Text("Please log in to continue"),
+                        Button(
+                            Text("Login"),
                             button.OnClick(showLoginForm),
                         ),
                     },
-                    column.Gap(12),
+                    .Gap(12),
                 ),
-                container.Padding(breakpoint.All(spacing.All(24))),
+                .Padding(AllBP(All(24))),
             )
         }
         
         // Show user profile
-        return listenable.Builder(user, func() widget.BaseWidget {
+        return listenable.Builder(user, func() Widget {
             currentUser := user.Value()
             if currentUser == nil {
-                return text.New("Loading user data...")
+                return Text("Loading user data...")
             }
             
-            return container.New(
-                column.New(
-                    []widget.BaseWidget{
-                        text.New(
+            return Container(
+                Column(
+                    []Widget{
+                        Text(
                             fmt.Sprintf("Welcome, %s!", currentUser.Name),
-                            text.FontSize(24),
-                            text.FontWeight("600"),
+                            .FontSize(24),
+                            .FontWeight("600"),
                         ),
-                        text.New(
+                        Text(
                             fmt.Sprintf("Email: %s", currentUser.Email),
-                            text.FontColor("#6B7280"),
+                            .FontColor("#6B7280"),
                         ),
-                        text.New(
+                        Text(
                             fmt.Sprintf("Role: %s", currentUser.Role),
-                            text.FontColor("#6B7280"),
+                            .FontColor("#6B7280"),
                         ),
-                        button.New(
-                            text.New("Logout"),
+                        Button(
+                            Text("Logout"),
                             button.OnClick(handleLogout),
                         ),
                     },
-                    column.Gap(8),
+                    .Gap(8),
                 ),
-                container.Padding(breakpoint.All(spacing.All(24))),
+                .Padding(AllBP(All(24))),
             )
         })
     })
 }`),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			stateSubsection("Combining Multiple States", "Create complex reactive UIs by combining multiple state variables."),
-			codeblock.New(`var (
+			CodeBlock(`var (
     items, setItems       = hooks.UseState([]TodoItem{})
     filter, setFilter     = hooks.UseState("all") // "all", "active", "completed"
     editingId, setEditingId = hooks.UseState("")
@@ -290,44 +281,44 @@ type TodoItem struct {
     CreatedAt   time.Time
 }
 
-func todoListWidget() widget.BaseWidget {
-    return column.New(
-        []widget.BaseWidget{
+func todoListWidget() Widget {
+    return Column(
+        []Widget{
             // Filter buttons
-            listenable.Builder(filter, func() widget.BaseWidget {
-                return row.New(
-                    []widget.BaseWidget{
+            listenable.Builder(filter, func() Widget {
+                return Row(
+                    []Widget{
                         filterButton("all", "All"),
                         filterButton("active", "Active"),
                         filterButton("completed", "Completed"),
                     },
-                    row.Gap(8),
+                    .Gap(8),
                 )
             }),
             
             // Todo items list
-            listenable.Builder(items, func() widget.BaseWidget {
-                return listenable.Builder(filter, func() widget.BaseWidget {
+            listenable.Builder(items, func() Widget {
+                return listenable.Builder(filter, func() Widget {
                     filteredItems := getFilteredItems()
                     
-                    var itemWidgets []widget.BaseWidget
+                    var itemWidgets []Widget
                     for _, item := range filteredItems {
                         itemWidgets = append(itemWidgets, todoItemWidget(item))
                     }
                     
-                    return column.New(itemWidgets, column.Gap(8))
+                    return Column(itemWidgets, .Gap(8))
                 })
             }),
             
             // Add new item form
             addTodoForm(),
         },
-        column.Gap(16),
+        .Gap(16),
     )
 }
 
-func filterButton(filterValue, label string) widget.BaseWidget {
-    return listenable.Builder(filter, func() widget.BaseWidget {
+func filterButton(filterValue, label string) Widget {
+    return listenable.Builder(filter, func() Widget {
         isActive := filter.Value() == filterValue
         bgColor := "#F3F4F6"
         textColor := "#6B7280"
@@ -337,23 +328,23 @@ func filterButton(filterValue, label string) widget.BaseWidget {
             textColor = "#FFFFFF"
         }
         
-        return button.New(
-            text.New(label, text.FontColor(textColor)),
-            button.BackgroundColor(bgColor),
-            button.OnClick(func(this widget.BaseWidget, e widget.Event) {
+        return Button(
+            Text(label, .FontColor(textColor)),
+            .BackgroundColor(bgColor),
+            button.OnClick(func(this Widget, e widget.Event) {
                 setFilter(filterValue)
             }),
         )
     })
 }`),
-			spacer.New(spacer.Height(24)),
+			Spacer().Height(24),
 
 			// Advanced State Patterns
 			stateContentSection("Advanced State Patterns", "Learn advanced patterns for managing complex application state."),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			stateSubsection("State Composition", "Combine related state variables into cohesive patterns."),
-			codeblock.New(`// Group related state together
+			CodeBlock(`// Group related state together
 type AppState struct {
     User     *User
     Theme    string
@@ -389,20 +380,20 @@ func updateSetting(key string, value interface{}) {
 }
 
 // Using composed state
-func settingsPanel() widget.BaseWidget {
-    return listenable.Builder(appState, func() widget.BaseWidget {
+func settingsPanel() Widget {
+    return listenable.Builder(appState, func() Widget {
         state := appState.Value()
         
-        return column.New(
-            []widget.BaseWidget{
+        return Column(
+            []Widget{
                 // Theme setting
-                row.New(
-                    []widget.BaseWidget{
-                        text.New("Theme:", text.FontWeight("500")),
-                        text.New(state.Theme, text.FontColor("#6B7280")),
-                        button.New(
-                            text.New("Change"),
-                            button.OnClick(func(this widget.BaseWidget, e widget.Event) {
+                Row(
+                    []Widget{
+                        Text("Theme:", .FontWeight("500")),
+                        Text(state.Theme, .FontColor("#6B7280")),
+                        Button(
+                            Text("Change"),
+                            button.OnClick(func(this Widget, e widget.Event) {
                                 newTheme := "dark"
                                 if state.Theme == "dark" {
                                     newTheme = "light"
@@ -411,26 +402,26 @@ func settingsPanel() widget.BaseWidget {
                             }),
                         ),
                     },
-                    row.Gap(8),
+                    .Gap(8),
                 ),
                 
                 // Language setting
-                row.New(
-                    []widget.BaseWidget{
-                        text.New("Language:", text.FontWeight("500")),
-                        text.New(state.Language, text.FontColor("#6B7280")),
+                Row(
+                    []Widget{
+                        Text("Language:", .FontWeight("500")),
+                        Text(state.Language, .FontColor("#6B7280")),
                     },
-                    row.Gap(8),
+                    .Gap(8),
                 ),
             },
-            column.Gap(12),
+            .Gap(12),
         )
     })
 }`),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			stateSubsection("Async State Management", "Handle asynchronous operations and loading states."),
-			codeblock.New(`type AsyncState[T any] struct {
+			CodeBlock(`type AsyncState[T any] struct {
     Data    T
     Loading bool
     Error   error
@@ -478,60 +469,60 @@ func loadUserProfile(userID string) {
 }
 
 // UI that handles async state
-func userProfileAsyncWidget() widget.BaseWidget {
-    return listenable.Builder(userProfile, func() widget.BaseWidget {
+func userProfileAsyncWidget() Widget {
+    return listenable.Builder(userProfile, func() Widget {
         state := userProfile.Value()
         
         if state.Loading {
-            return column.New(
-                []widget.BaseWidget{
-                    text.New("Loading user profile...", text.FontColor("#6B7280")),
+            return Column(
+                []Widget{
+                    Text("Loading user profile...", .FontColor("#6B7280")),
                     // You could add a spinner here
                 },
-                column.Gap(8),
+                .Gap(8),
             )
         }
         
         if state.Error != nil {
-            return column.New(
-                []widget.BaseWidget{
-                    text.New(
+            return Column(
+                []Widget{
+                    Text(
                         fmt.Sprintf("Error: %s", state.Error.Error()),
-                        text.FontColor("#EF4444"),
+                        .FontColor("#EF4444"),
                     ),
-                    button.New(
-                        text.New("Retry"),
-                        button.OnClick(func(this widget.BaseWidget, e widget.Event) {
+                    Button(
+                        Text("Retry"),
+                        button.OnClick(func(this Widget, e widget.Event) {
                             loadUserProfile("current-user-id")
                         }),
                     ),
                 },
-                column.Gap(8),
+                .Gap(8),
             )
         }
         
         user := state.Data
         if user == nil {
-            return text.New("No user data available")
+            return Text("No user data available")
         }
         
-        return column.New(
-            []widget.BaseWidget{
-                text.New(
+        return Column(
+            []Widget{
+                Text(
                     fmt.Sprintf("Welcome, %s!", user.Name),
-                    text.FontSize(24),
-                    text.FontWeight("600"),
+                    .FontSize(24),
+                    .FontWeight("600"),
                 ),
-                text.New(user.Email, text.FontColor("#6B7280")),
+                Text(user.Email, .FontColor("#6B7280")),
             },
-            column.Gap(8),
+            .Gap(8),
         )
     })
 }`),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			stateSubsection("State Validation", "Implement validation and error handling in your state."),
-			codeblock.New(`type FormState struct {
+			CodeBlock(`type FormState struct {
     Values map[string]string
     Errors map[string]string
     Touched map[string]bool
@@ -598,41 +589,41 @@ func updateFormValue(field, value string) {
 }
 
 // Form component with validation
-func validatedForm() widget.BaseWidget {
-    return listenable.Builder(formState, func() widget.BaseWidget {
+func validatedForm() Widget {
+    return listenable.Builder(formState, func() Widget {
         state := formState.Value()
         
-        return column.New(
-            []widget.BaseWidget{
+        return Column(
+            []Widget{
                 // Email field
-                column.New(
-                    []widget.BaseWidget{
-                        text.New("Email", text.FontWeight("500")),
+                Column(
+                    []Widget{
+                        Text("Email", .FontWeight("500")),
                         // Email input would go here
-                        text.New(
+                        Text(
                             fmt.Sprintf("Current: %s", state.Values["email"]),
-                            text.FontSize(12),
-                            text.FontColor("#6B7280"),
+                            .FontSize(12),
+                            .FontColor("#6B7280"),
                         ),
                         // Show error if field is touched and has error
-                        func() widget.BaseWidget {
+                        func() Widget {
                             if state.Touched["email"] && state.Errors["email"] != "" {
-                                return text.New(
+                                return Text(
                                     state.Errors["email"],
-                                    text.FontSize(12),
-                                    text.FontColor("#EF4444"),
+                                    .FontSize(12),
+                                    .FontColor("#EF4444"),
                                 )
                             }
-                            return spacer.New(spacer.Height(0))
+                            return Spacer(.Height(0))
                         }(),
                     },
-                    column.Gap(4),
+                    .Gap(4),
                 ),
                 
                 // Submit button
-                button.New(
-                    text.New("Submit"),
-                    button.OnClick(func(this widget.BaseWidget, e widget.Event) {
+                Button(
+                    Text("Submit"),
+                    button.OnClick(func(this Widget, e widget.Event) {
                         if state.IsValid {
                             handleFormSubmit()
                         }
@@ -641,18 +632,18 @@ func validatedForm() widget.BaseWidget {
                     button.Disabled(!state.IsValid),
                 ),
             },
-            column.Gap(16),
+            .Gap(16),
         )
     })
 }`),
-			spacer.New(spacer.Height(24)),
+			Spacer().Height(24),
 
 			// Global State Management
 			stateContentSection("Global State Management", "Share state across your entire application with global state patterns."),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			stateSubsection("Application Store", "Create a central store for application-wide state."),
-			codeblock.New(`// store/app_store.go
+			CodeBlock(`// store/app_store.go
 package store
 
 import (
@@ -738,30 +729,30 @@ func RemoveNotification(id string) {
 func AppStoreListenable() listenable.Listenable[AppStore] {
     return appStore
 }`),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			stateSubsection("Using Global State", "Access and use global state in your components."),
-			codeblock.New(`// Using the global store in components
+			CodeBlock(`// Using the global store in components
 import "your-app/store"
 
-func notificationBar() widget.BaseWidget {
-    return listenable.Builder(store.AppStoreListenable(), func() widget.BaseWidget {
+func notificationBar() Widget {
+    return listenable.Builder(store.AppStoreListenable(), func() Widget {
         notifications := store.GetNotifications()
         
         if len(notifications) == 0 {
-            return spacer.New(spacer.Height(0))
+            return Spacer(.Height(0))
         }
         
-        var notifWidgets []widget.BaseWidget
+        var notifWidgets []Widget
         for _, notif := range notifications {
             notifWidgets = append(notifWidgets, notificationWidget(notif))
         }
         
-        return column.New(notifWidgets, column.Gap(8))
+        return Column(notifWidgets, .Gap(8))
     })
 }
 
-func notificationWidget(notif store.Notification) widget.BaseWidget {
+func notificationWidget(notif store.Notification) Widget {
     var bgColor, textColor string
     switch notif.Type {
     case "success":
@@ -778,31 +769,31 @@ func notificationWidget(notif store.Notification) widget.BaseWidget {
         textColor = "#FFFFFF"
     }
     
-    return container.New(
-        row.New(
-            []widget.BaseWidget{
-                text.New(notif.Message, text.FontColor(textColor)),
-                spacer.New(),
-                button.New(
-                    text.New("×", text.FontColor(textColor)),
-                    button.BackgroundColor("transparent"),
-                    button.OnClick(func(this widget.BaseWidget, e widget.Event) {
+    return Container(
+        Row(
+            []Widget{
+                Text(notif.Message, .FontColor(textColor)),
+                Spacer(),
+                Button(
+                    Text("×", .FontColor(textColor)),
+                    .BackgroundColor("transparent"),
+                    button.OnClick(func(this Widget, e widget.Event) {
                         store.RemoveNotification(notif.ID)
                     }),
                 ),
             },
-            row.Gap(8),
-            row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+            .Gap(8),
+            .CrossAxisAlignment(AxisAlignmentTypeCenter),
         ),
         container.BackgroundColor(bgColor),
-        container.Padding(breakpoint.All(spacing.All(12))),
+        .Padding(AllBP(All(12))),
         container.BorderRadius(6),
     )
 }
 
 // Theme-aware component
-func themedButton(label string, onClick func(widget.BaseWidget, widget.Event)) widget.BaseWidget {
-    return listenable.Builder(store.AppStoreListenable(), func() widget.BaseWidget {
+func themedButton(label string, onClick func(Widget, widget.Event)) Widget {
+    return listenable.Builder(store.AppStoreListenable(), func() Widget {
         theme := store.GetTheme()
         
         var bgColor, textColor string
@@ -814,70 +805,59 @@ func themedButton(label string, onClick func(widget.BaseWidget, widget.Event)) w
             textColor = "#FFFFFF"
         }
         
-        return button.New(
-            text.New(label, text.FontColor(textColor)),
-            button.BackgroundColor(bgColor),
+        return Button(
+            Text(label, .FontColor(textColor)),
+            .BackgroundColor(bgColor),
             button.OnClick(onClick),
         )
     })
 }`),
-			spacer.New(spacer.Height(24)),
+			Spacer().Height(24),
 
 			// Best Practices
 			stateContentSection("State Management Best Practices", "Follow these guidelines for effective state management."),
 			stateManagementBestPracticesList(),
-			spacer.New(spacer.Height(24)),
+			Spacer().Height(24),
 
 			stateContentSection("What's Next?", "Now that you understand state management, explore these related topics:"),
 			stateManagementNextStepsList(),
-			spacer.New(spacer.Height(32)),
+			Spacer().Height(32),
 			stateManagementNavigationButtons("/docs/styling", "/docs/events"),
 		},
-		column.Gap(16),
-	)
+	).Gap(16)
 }
 
-func stateContentSection(title, description string) widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			text.New(
-				title,
-				text.FontSize(24),
-				text.FontColor("#1F2937"),
-				text.FontWeight("600"),
-			),
-			text.New(
-				description,
-				text.FontSize(16),
-				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
-			),
+func stateContentSection(title, description string) Widget {
+	return Column(
+		[]Widget{
+			Text(title).
+				FontSize(24).
+				FontColor("#1F2937").
+				FontWeight("600"),
+			Text(description).
+				FontSize(16).
+				FontColor("#6B7280").
+				FontWeight("400"),
 		},
-		column.Gap(8),
-	)
+	).Gap(8)
 }
 
-func stateSubsection(title, description string) widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			text.New(
-				title,
-				text.FontSize(20),
-				text.FontColor("#1F2937"),
-				text.FontWeight("600"),
-			),
-			text.New(
-				description,
-				text.FontSize(14),
-				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
-			),
+func stateSubsection(title, description string) Widget {
+	return Column(
+		[]Widget{
+			Text(title).
+				FontSize(20).
+				FontColor("#1F2937").
+				FontWeight("600"),
+			Text(description).
+				FontSize(14).
+				FontColor("#6B7280").
+				FontWeight("400"),
 		},
-		column.Gap(4),
-	)
+	).Gap(4)
 }
 
-func stateManagementBestPracticesList() widget.BaseWidget {
+func stateManagementBestPracticesList() Widget {
 	practices := []string{
 		"Declare state variables at package level for global access and persistence",
 		"Use descriptive names for state variables and their setters (e.g., user, setUser)",
@@ -893,40 +873,33 @@ func stateManagementBestPracticesList() widget.BaseWidget {
 		"Document your state structure and update patterns for team collaboration",
 	}
 
-	var practiceItems []widget.BaseWidget
+	var practiceItems []Widget
 	for _, practice := range practices {
 		practiceItems = append(practiceItems, stateManagementListItem(practice))
 	}
 
-	return column.New(
+	return Column(
 		practiceItems,
-		column.Gap(8),
-	)
+	).Gap(8)
 }
 
-func stateManagementListItem(itemText string) widget.BaseWidget {
-	return row.New(
-		[]widget.BaseWidget{
-			icon.New(
-				icondata.Check,
-				icon.Width(breakpoint.All(16)),
-				icon.Height(breakpoint.All(16)),
-				icon.Fill("#10B981"),
-			),
-			spacer.New(spacer.Width(8)),
-			text.New(
-				itemText,
-				text.FontSize(16),
-				text.FontColor("#374151"),
-				text.FontWeight("400"),
-			),
+func stateManagementListItem(itemText string) Widget {
+	return Row(
+		[]Widget{
+			Icon(icondata.Check).
+				Width(AllBP(16)).
+				Height(AllBP(16)).
+				Fill("#10B981"),
+			Spacer().Width(8),
+			Text(itemText).
+				FontSize(16).
+				FontColor("#374151").
+				FontWeight("400"),
 		},
-		row.Gap(8),
-		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-	)
+	).Gap(8).CrossAxisAlignment(AxisAlignmentTypeCenter)
 }
 
-func stateManagementNextStepsList() widget.BaseWidget {
+func stateManagementNextStepsList() Widget {
 	steps := []struct {
 		title       string
 		description string
@@ -939,117 +912,84 @@ func stateManagementNextStepsList() widget.BaseWidget {
 		},
 	}
 
-	var stepItems []widget.BaseWidget
+	var stepItems []Widget
 	for _, step := range steps {
 		stepItems = append(stepItems, stateManagementNextStepItem(step.title, step.description, step.href))
 	}
 
-	return column.New(
+	return Column(
 		stepItems,
-		column.Gap(12),
-	)
+	).Gap(12)
 }
 
-func stateManagementNextStepItem(title, description, href string) widget.BaseWidget {
-	return link.New(
-		container.New(
-			row.New(
-				[]widget.BaseWidget{
-					column.New(
-						[]widget.BaseWidget{
-							text.New(
-								title,
-								text.FontSize(16),
-								text.FontColor("#2B799B"),
-								text.FontWeight("500"),
-							),
-							text.New(
-								description,
-								text.FontSize(14),
-								text.FontColor("#6B7280"),
-								text.FontWeight("400"),
-							),
+func stateManagementNextStepItem(title, description, href string) Widget {
+	return Link(
+		Container(
+			Row(
+				[]Widget{
+					Column(
+						[]Widget{
+							Text(title).
+								FontSize(16).
+								FontColor("#2B799B").
+								FontWeight("500"),
+							Text(description).
+								FontSize(14).
+								FontColor("#6B7280").
+								FontWeight("400"),
 						},
-						column.Gap(4),
-						column.Flex(1),
-					),
-					icon.New(
-						icondata.ChevronRight,
-						icon.Width(breakpoint.All(20)),
-						icon.Height(breakpoint.All(20)),
-						icon.Fill("#9CA3AF"),
-					),
+					).Gap(4).Flex(1),
+					Icon(icondata.ChevronRight).
+						Width(AllBP(20)).
+						Height(AllBP(20)).
+						Fill("#9CA3AF"),
 				},
-				row.Gap(12),
-				row.Flex(1),
-				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-			),
-			container.Padding(breakpoint.All(spacing.All(16))),
-			container.BackgroundColor("#FFFFFF"),
-			container.BorderRadius(8),
-			container.BorderColor("#E5E7EB"),
-			container.BorderWidth(1, 1, 1, 1),
-			container.BorderStyle(options.BorderStyleTypeSolid),
-		),
-		link.Href(href),
-	)
+			).Gap(12).Flex(1).CrossAxisAlignment(AxisAlignmentTypeCenter),
+		).Padding(AllBP(All(16))).
+			BackgroundColor("#FFFFFF").
+			BorderRadius(8).
+			BorderColor("#E5E7EB").
+			BorderWidth(1, 1, 1, 1).
+			BorderStyle(BorderStyleTypeSolid),
+	).Href(href)
 }
 
-func stateManagementNavigationButtons(previousHref, nextHref string) widget.BaseWidget {
-	return row.New(
-		[]widget.BaseWidget{
-			link.New(
-				button.New(
-					row.New(
-						[]widget.BaseWidget{
-							icon.New(
-								icondata.ChevronLeft,
-								icon.Width(breakpoint.All(16)),
-								icon.Height(breakpoint.All(16)),
-								icon.Fill("#FFFFFF"),
-							),
-							text.New(
-								"Previous",
-								text.FontSize(14),
-								text.FontColor("#FFFFFF"),
-								text.FontWeight("500"),
-							),
+func stateManagementNavigationButtons(previousHref, nextHref string) Widget {
+	return Row(
+		[]Widget{
+			Link(
+				Button(
+					Row(
+						[]Widget{
+							Icon(icondata.ChevronLeft).
+								Width(AllBP(16)).
+								Height(AllBP(16)).
+								Fill("#FFFFFF"),
+							Text("Previous").
+								FontSize(14).
+								FontColor("#FFFFFF").
+								FontWeight("500"),
 						},
-						row.Gap(8),
-						row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-					),
-					button.BackgroundColor("#6B7280"),
-					button.Width(breakpoint.All(120)),
-				),
-				link.Href(previousHref),
-			),
-			spacer.New(),
-			link.New(
-				button.New(
-					row.New(
-						[]widget.BaseWidget{
-							text.New(
-								"Next",
-								text.FontSize(14),
-								text.FontColor("#FFFFFF"),
-								text.FontWeight("500"),
-							),
-							icon.New(
-								icondata.ChevronRight,
-								icon.Width(breakpoint.All(16)),
-								icon.Height(breakpoint.All(16)),
-								icon.Fill("#FFFFFF"),
-							),
+					).Gap(8).CrossAxisAlignment(AxisAlignmentTypeCenter),
+				).BackgroundColor("#6B7280").Width(AllBP(120)),
+			).Href(previousHref),
+			Spacer(),
+			Link(
+				Button(
+					Row(
+						[]Widget{
+							Text("Next").
+								FontSize(14).
+								FontColor("#FFFFFF").
+								FontWeight("500"),
+							Icon(icondata.ChevronRight).
+								Width(AllBP(16)).
+								Height(AllBP(16)).
+								Fill("#FFFFFF"),
 						},
-						row.Gap(8),
-						row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-					),
-					button.BackgroundColor("#2B799B"),
-					button.Width(breakpoint.All(120)),
-				),
-				link.Href(nextHref),
-			),
+					).Gap(8).CrossAxisAlignment(AxisAlignmentTypeCenter),
+				).BackgroundColor("#2B799B").Width(AllBP(120)),
+			).Href(nextHref),
 		},
-		row.Flex(1),
-	)
+	).Flex(1)
 }

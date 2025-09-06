@@ -1,63 +1,56 @@
 package getting_started
 
 import (
-	"github.com/gofred-io/gofred/breakpoint"
-	codeblock "github.com/gofred-io/gofred/foundation/code_block"
-	"github.com/gofred-io/gofred/foundation/column"
-	"github.com/gofred-io/gofred/foundation/container"
-	"github.com/gofred-io/gofred/foundation/spacer"
-	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	. "github.com/gofred-io/gofred/breakpoint"
+	. "github.com/gofred-io/gofred/foundation/code_block"
+	. "github.com/gofred-io/gofred/foundation/column"
+	. "github.com/gofred-io/gofred/foundation/container"
+	. "github.com/gofred-io/gofred/foundation/spacer"
+	. "github.com/gofred-io/gofred/foundation/text"
+	. "github.com/gofred-io/gofred/options/spacing"
+	. "github.com/gofred-io/gofred/widget"
 )
 
-func FirstAppContent() widget.BaseWidget {
-	return container.New(
-		column.New(
-			[]widget.BaseWidget{
+func FirstAppContent() Widget {
+	return Container(
+		Column(
+			[]Widget{
 				firstAppPageHeader(),
-				spacer.New(spacer.Height(24)),
+				Spacer(),
 				firstAppPageContent(),
 			},
-			column.Gap(16),
-			column.Flex(1),
-		),
-		container.Flex(1),
-		container.Padding(breakpoint.All(spacing.All(32))),
-	)
+		).Gap(16).
+			Flex(1),
+	).Flex(1).
+		Padding(AllBP(All(32)))
 }
 
-func firstAppPageHeader() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			text.New(
-				"Your First App",
-				text.FontSize(32),
-				text.FontColor("#1F2937"),
-				text.FontWeight("700"),
-			),
-			text.New(
-				"Build a complete gofred application from scratch with step-by-step instructions.",
-				text.FontSize(18),
-				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
-			),
+func firstAppPageHeader() Widget {
+	return Column(
+		[]Widget{
+			Text("Your First App").
+				FontSize(32).
+				FontColor("#1F2937").
+				FontWeight("700"),
+			Text("Build a complete gofred application from scratch with step-by-step instructions.").
+				FontSize(18).
+				FontColor("#6B7280").
+				FontWeight("400"),
 		},
-		column.Gap(8),
-	)
+	).Gap(8)
 }
 
-func firstAppPageContent() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
+func firstAppPageContent() Widget {
+	return Column(
+		[]Widget{
 			contentSection("Project Setup", "Let's create a new gofred project and build a simple todo application:"),
-			codeblock.New(`mkdir my-gofred-app
+			CodeBlock(`mkdir my-gofred-app
 cd my-gofred-app
 go mod init my-gofred-app
 go get github.com/gofred-io/gofred`),
-			spacer.New(spacer.Height(24)),
+			Spacer(),
 			contentSection("Basic Structure", "Create the main application file:"),
-			codeblock.New(`package main
+			CodeBlock(`package main
 
 import (
     "github.com/gofred-io/gofred/application"
@@ -74,10 +67,10 @@ func main() {
     application.Run(app)
 }
 
-func createApp() widget.BaseWidget {
+func createApp() widget.Widget {
     return container.New(
         column.New(
-            []widget.BaseWidget{
+            []widget.Widget{
                 text.New(
                     "My First gofred App",
                     text.FontSize(24),
@@ -98,9 +91,9 @@ func createApp() widget.BaseWidget {
     )
 }
 `),
-			spacer.New(spacer.Height(24)),
+			Spacer(),
 			contentSection("Adding Interactivity", "Let's add a simple counter with buttons:"),
-			codeblock.New(`package main
+			CodeBlock(`package main
 
 import (
     "fmt"
@@ -128,17 +121,17 @@ func main() {
     application.Run(app)
 }
 
-func createApp() widget.BaseWidget {
+func createApp() widget.Widget {
     return container.New(
         column.New(
-            []widget.BaseWidget{
+            []widget.Widget{
                 text.New(
                     "Counter App",
                     text.FontSize(24),
                     text.FontColor("#1F2937"),
                     text.FontWeight("700"),
                 ),
-                listenable.Builder(count, func() widget.BaseWidget {
+                listenable.Builder(count, func() widget.Widget {
                     return text.New(
                         fmt.Sprintf("Count: %d", count.Value()),
                         text.FontSize(18),
@@ -148,7 +141,7 @@ func createApp() widget.BaseWidget {
                 }),
                 spacer.New(spacer.Height(16)),
                 row.New(
-                    []widget.BaseWidget{
+                    []widget.Widget{
                         button.New(
                             text.New("Decrease", text.FontColor("#FFFFFF")),
                             button.BackgroundColor("#EF4444"),
@@ -171,34 +164,31 @@ func createApp() widget.BaseWidget {
     )
 }
 
-func increaseCount(this widget.BaseWidget, e widget.Event) {
+func increaseCount(this widget.Widget, e widget.Event) {
     setCount(count.Value() + 1)
 }
 
-func decreaseCount(this widget.BaseWidget, e widget.Event) {
+func decreaseCount(this widget.Widget, e widget.Event) {
     setCount(count.Value() - 1)
 }`),
-			spacer.New(spacer.Height(24)),
+			Spacer(),
 			contentSection("Running Your App", "To run your application:"),
-			codeblock.New(`go run server/server.go`),
-			spacer.New(spacer.Height(16)),
-			text.New(
-				"Your app will compile to WebAssembly and run in your browser automatically!",
-				text.FontSize(16),
-				text.FontColor("#10B981"),
-				text.FontWeight("500"),
-			),
-			spacer.New(spacer.Height(24)),
+			CodeBlock(`go run server/server.go`),
+			Spacer(),
+			Text("Your app will compile to WebAssembly and run in your browser automatically!").
+				FontSize(16).
+				FontColor("#10B981").
+				FontWeight("500"),
+			Spacer(),
 			contentSection("What's Next?", "Now that you've built your first app, explore these topics:"),
 			firstAppNextStepsList(),
-			spacer.New(spacer.Height(32)),
+			Spacer(),
 			navigationButtons("/docs/quick-start", "/docs/project-structure"),
 		},
-		column.Gap(16),
-	)
+	).Gap(16)
 }
 
-func firstAppNextStepsList() widget.BaseWidget {
+func firstAppNextStepsList() Widget {
 	steps := []struct {
 		title       string
 		description string
@@ -231,13 +221,12 @@ func firstAppNextStepsList() widget.BaseWidget {
 		// },
 	}
 
-	var stepItems []widget.BaseWidget
+	var stepItems []Widget
 	for _, step := range steps {
 		stepItems = append(stepItems, nextStepItem(step.title, step.description, step.href))
 	}
 
-	return column.New(
+	return Column(
 		stepItems,
-		column.Gap(12),
-	)
+	).Gap(12)
 }

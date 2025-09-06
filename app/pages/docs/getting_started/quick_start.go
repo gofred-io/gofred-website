@@ -1,57 +1,50 @@
 package getting_started
 
 import (
-	"github.com/gofred-io/gofred/breakpoint"
-	codeblock "github.com/gofred-io/gofred/foundation/code_block"
-	"github.com/gofred-io/gofred/foundation/column"
-	"github.com/gofred-io/gofred/foundation/container"
-	"github.com/gofred-io/gofred/foundation/spacer"
-	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	. "github.com/gofred-io/gofred/breakpoint"
+	. "github.com/gofred-io/gofred/foundation/code_block"
+	. "github.com/gofred-io/gofred/foundation/column"
+	. "github.com/gofred-io/gofred/foundation/container"
+	. "github.com/gofred-io/gofred/foundation/spacer"
+	. "github.com/gofred-io/gofred/foundation/text"
+	. "github.com/gofred-io/gofred/options/spacing"
+	. "github.com/gofred-io/gofred/widget"
 )
 
-func QuickStartContent() widget.BaseWidget {
-	return container.New(
-		column.New(
-			[]widget.BaseWidget{
+func QuickStartContent() Widget {
+	return Container(
+		Column(
+			[]Widget{
 				quickStartPageHeader(),
-				spacer.New(spacer.Height(24)),
+				Spacer(),
 				quickStartPageContent(),
 			},
-			column.Gap(16),
-			column.Flex(1),
-		),
-		container.Flex(1),
-		container.Padding(breakpoint.All(spacing.All(32))),
-	)
+		).Gap(16).
+			Flex(1),
+	).Flex(1).
+		Padding(AllBP(All(32)))
 }
 
-func quickStartPageHeader() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			text.New(
-				"Quick Start",
-				text.FontSize(32),
-				text.FontColor("#1F2937"),
-				text.FontWeight("700"),
-			),
-			text.New(
-				"Get started with gofred by creating your first application.",
-				text.FontSize(18),
-				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
-			),
+func quickStartPageHeader() Widget {
+	return Column(
+		[]Widget{
+			Text("Quick Start").
+				FontSize(32).
+				FontColor("#1F2937").
+				FontWeight("700"),
+			Text("Get started with gofred by creating your first application.").
+				FontSize(18).
+				FontColor("#6B7280").
+				FontWeight("400"),
 		},
-		column.Gap(8),
-	)
+	).Gap(8)
 }
 
-func quickStartPageContent() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
+func quickStartPageContent() Widget {
+	return Column(
+		[]Widget{
 			contentSection("Hello, gofred!", "Let's start with a simple hello world application:"),
-			codeblock.New(`package main
+			CodeBlock(`package main
 
 import (
     "github.com/gofred-io/gofred/application"
@@ -62,17 +55,16 @@ func main() {
     app := text.New("Hello, gofred!")
     application.Run(app)
 }`),
-			spacer.New(spacer.Height(24)),
+			Spacer(),
 			contentSection("Next Steps", "Now that you have gofred installed, you can:"),
 			quickStartNextStepsList(),
-			spacer.New(spacer.Height(32)),
+			Spacer(),
 			navigationButtons("/docs/installation", "/docs/first-app"),
 		},
-		column.Gap(16),
-	)
+	).Gap(16)
 }
 
-func quickStartNextStepsList() widget.BaseWidget {
+func quickStartNextStepsList() Widget {
 	steps := []struct {
 		title       string
 		description string
@@ -90,13 +82,12 @@ func quickStartNextStepsList() widget.BaseWidget {
 		},
 	}
 
-	var stepItems []widget.BaseWidget
+	var stepItems []Widget
 	for _, step := range steps {
 		stepItems = append(stepItems, nextStepItem(step.title, step.description, step.href))
 	}
 
-	return column.New(
+	return Column(
 		stepItems,
-		column.Gap(12),
-	)
+	).Gap(12)
 }

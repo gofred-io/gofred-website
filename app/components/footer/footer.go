@@ -1,88 +1,79 @@
 package footer
 
 import (
-	"github.com/gofred-io/gofred/breakpoint"
-	"github.com/gofred-io/gofred/foundation/center"
-	"github.com/gofred-io/gofred/foundation/column"
-	"github.com/gofred-io/gofred/foundation/container"
-	"github.com/gofred-io/gofred/foundation/grid"
-	"github.com/gofred-io/gofred/foundation/icon"
+	. "github.com/gofred-io/gofred/breakpoint"
+	. "github.com/gofred-io/gofred/foundation/center"
+	. "github.com/gofred-io/gofred/foundation/column"
+	. "github.com/gofred-io/gofred/foundation/container"
+	. "github.com/gofred-io/gofred/foundation/icon"
 	icondata "github.com/gofred-io/gofred/foundation/icon/icon_data"
-	"github.com/gofred-io/gofred/foundation/link"
-	"github.com/gofred-io/gofred/foundation/row"
-	"github.com/gofred-io/gofred/foundation/spacer"
-	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/options"
-	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	. "github.com/gofred-io/gofred/foundation/link"
+	. "github.com/gofred-io/gofred/foundation/row"
+	. "github.com/gofred-io/gofred/foundation/spacer"
+	. "github.com/gofred-io/gofred/foundation/text"
+	. "github.com/gofred-io/gofred/options"
+	. "github.com/gofred-io/gofred/options/spacing"
+	. "github.com/gofred-io/gofred/widget"
 )
 
-func Get() widget.BaseWidget {
-	return container.New(
-		column.New(
-			[]widget.BaseWidget{
+func Get() Widget {
+	return Container(
+		Column(
+			[]Widget{
 				// Desktop footer (MD and larger)
-				container.New(
-					center.New(
-						container.New(
-							column.New(
-								[]widget.BaseWidget{
+				Container(
+					Center(
+						Container(
+							Column(
+								[]Widget{
 									// Footer sections
 									footerContent(),
 
-									spacer.New(spacer.Height(48)),
+									Spacer().Height(48),
 
 									// Social links
 									socialLinks(),
 
-									spacer.New(spacer.Height(8)),
+									Spacer().Height(8),
 
 									// Footer bottom with copyright and social links
 									footerBottom(),
 								},
-								column.Gap(0),
-							),
-							container.MaxWidth(breakpoint.All(1200)),
-							container.Padding(
-								breakpoint.All(spacing.All(32)),
-								breakpoint.MD(spacing.All(32)),
-								breakpoint.LG(spacing.All(32)),
-							),
+							).Gap(0),
+						).MaxWidth(AllBP(1200)).Padding(
+							AllBP(All(32)),
+							MD(All(32)),
+							LG(All(32)),
 						),
 					),
-					container.Visible(
-						breakpoint.All(true),
-						breakpoint.XS(false),
-						breakpoint.SM(false),
-					),
+				).Visible(
+					AllBP(true),
+					XS(false),
+					SM(false),
 				),
 
 				// Mobile footer (XS and SM)
-				container.New(
+				Container(
 					mobileFooter(),
-					container.Visible(
-						breakpoint.All(false),
-						breakpoint.XS(true),
-						breakpoint.SM(true),
-					),
+				).Visible(
+					AllBP(false),
+					XS(true),
+					SM(true),
 				),
 			},
-			column.Gap(0),
-			column.Flex(1),
-		),
-		container.BackgroundColor("#1F2937"),
-	)
+		).Gap(0).Flex(1),
+	).BackgroundColor("#1F2937")
 }
 
 // Main footer content with different sections
-func footerContent() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
+func footerContent() Widget {
+	return Column(
+		[]Widget{
 			// Brand section
 			footerBrandSection(),
 
-			grid.New(
-				[]widget.BaseWidget{
+			Row(
+				[]Widget{
 					// Quick links
 					footerLinksSection("Quick Links", []FooterLink{
 						{title: "Documentation", href: "/docs"},
@@ -107,12 +98,7 @@ func footerContent() widget.BaseWidget {
 						{title: "Support", href: "/docs/support"},
 					}),
 				},
-				grid.ColumnCount(
-					breakpoint.All(3),
-				),
-				grid.ColumnGap(32),
-				grid.RowGap(32),
-			),
+			).Gap(32),
 		},
 	)
 }
@@ -124,342 +110,260 @@ type FooterLink struct {
 }
 
 // Brand section with logo and description
-func footerBrandSection() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
+func footerBrandSection() Widget {
+	return Column(
+		[]Widget{
 			// Logo and brand name
-			row.New(
-				[]widget.BaseWidget{
-					text.New(
-						"🚀",
-						text.FontSize(32),
-					),
-					text.New(
-						"gofred",
-						text.FontSize(24),
-						text.FontColor("#FFFFFF"),
-						text.FontWeight("700"),
-					),
+			Row(
+				[]Widget{
+					Text("🚀").FontSize(32),
+					Text("gofred").
+						FontSize(24).
+						FontColor("#FFFFFF").
+						FontWeight("700"),
 				},
-				row.Gap(12),
-				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-			),
+			).Gap(12).CrossAxisAlignment(AxisAlignmentTypeCenter),
 
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			// Description
-			text.New(
+			Text(
 				"Build responsive web applications using only Go. No JavaScript required - just pure Go code that compiles to WebAssembly.",
-				text.FontSize(14),
-				text.FontColor("#9CA3AF"),
-				text.FontWeight("400"),
-				text.LineHeight(1.6),
-			),
+			).FontSize(14).
+				FontColor("#9CA3AF").
+				FontWeight("400").
+				LineHeight(1.6),
 
-			spacer.New(spacer.Height(20)),
+			Spacer().Height(20),
 		},
-		column.Gap(0),
-		column.CrossAxisAlignment(options.AxisAlignmentTypeStart),
-	)
+	).Gap(0).CrossAxisAlignment(AxisAlignmentTypeStart)
 }
 
 // Links section with title and list of links
-func footerLinksSection(title string, links []FooterLink) widget.BaseWidget {
-	var linkWidgets []widget.BaseWidget
+func footerLinksSection(title string, links []FooterLink) Widget {
+	var linkWidgets []Widget
 
 	for _, link := range links {
 		linkWidgets = append(linkWidgets, footerLink(link.title, link.href, link.newTab))
 	}
 
-	return column.New(
-		[]widget.BaseWidget{
+	return Column(
+		[]Widget{
 			// Section title
-			text.New(
-				title,
-				text.FontSize(16),
-				text.FontColor("#FFFFFF"),
-				text.FontWeight("600"),
-			),
+			Text(title).
+				FontSize(16).
+				FontColor("#FFFFFF").
+				FontWeight("600"),
 
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			// Links list
-			column.New(
+			Column(
 				linkWidgets,
-				column.Gap(12),
-			),
+			).Gap(12),
 		},
-		column.Gap(0),
-		column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-	)
+	).Gap(0).CrossAxisAlignment(AxisAlignmentTypeCenter)
 }
 
 // Individual footer link
-func footerLink(title, href string, newTab bool) widget.BaseWidget {
-	return link.New(
-		text.New(
-			title,
-			text.FontSize(14),
-			text.FontColor("#9CA3AF"),
-			text.FontWeight("400"),
-		),
-		link.Href(href),
-		link.NewTab(newTab),
-	)
+func footerLink(title, href string, newTab bool) Widget {
+	return Link(
+		Text(title).
+			FontSize(14).
+			FontColor("#9CA3AF").
+			FontWeight("400"),
+	).Href(href).NewTab(newTab)
 }
 
 // Social media links
-func socialLinks() widget.BaseWidget {
-	return row.New(
-		[]widget.BaseWidget{
-			spacer.New(),
+func socialLinks() Widget {
+	return Row(
+		[]Widget{
+			Spacer(),
 			socialIcon(icondata.Github, "GitHub", "https://github.com/gofred-io/gofred"),
 			socialIcon(icondata.Twitter, "Twitter", "https://twitter.com/gofred_io"),
 			socialIcon(icondata.Youtube, "YouTube", "https://youtube.com/@gofred"),
 			socialIcon(icondata.Instagram, "Instagram", "https://instagram.com/gofred_io"),
 		},
-		row.Gap(16),
-		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-	)
+	).Gap(16).CrossAxisAlignment(AxisAlignmentTypeCenter)
 }
 
 // Individual social icon
-func socialIcon(iconData icondata.IconData, tooltip, href string) widget.BaseWidget {
-	return link.New(
-		container.New(
-			icon.New(
-				iconData,
-				icon.Width(breakpoint.All(20)),
-				icon.Height(breakpoint.All(20)),
-				icon.Fill("#9CA3AF"),
-			),
-			container.Padding(breakpoint.All(spacing.All(8))),
-		),
-		link.Href(href),
-		link.NewTab(true),
-	)
+func socialIcon(iconData icondata.IconData, tooltip, href string) Widget {
+	return Link(
+		Container(
+			Icon(iconData).
+				Width(AllBP(20)).
+				Height(AllBP(20)).
+				Fill("#9CA3AF"),
+		).Padding(AllBP(All(8))),
+	).Href(href).NewTab(true)
 }
 
 // Footer bottom section with copyright and additional info
-func footerBottom() widget.BaseWidget {
-	return container.New(
-		row.New(
-			[]widget.BaseWidget{
+func footerBottom() Widget {
+	return Container(
+		Row(
+			[]Widget{
 				// Copyright and legal
-				column.New(
-					[]widget.BaseWidget{
-						text.New(
-							"© 2025 gofred. All rights reserved.",
-							text.FontSize(14),
-							text.FontColor("#6B7280"),
-							text.FontWeight("400"),
-						),
+				Column(
+					[]Widget{
+						Text("© 2025 gofred. All rights reserved.").
+							FontSize(14).
+							FontColor("#6B7280").
+							FontWeight("400"),
 
-						spacer.New(spacer.Height(8)),
+						Spacer().Height(8),
 
 						// Legal links
-						row.New(
-							[]widget.BaseWidget{
+						Row(
+							[]Widget{
 								footerLink("Privacy Policy", "/privacy", false),
-								text.New("•", text.FontSize(14), text.FontColor("#6B7280")),
+								Text("•").FontSize(14).FontColor("#6B7280"),
 								footerLink("Terms of Service", "/terms", false),
-								text.New("•", text.FontSize(14), text.FontColor("#6B7280")),
+								Text("•").FontSize(14).FontColor("#6B7280"),
 								footerLink("License", "/license", false),
 							},
-							row.Gap(8),
-							row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-						),
+						).Gap(8).CrossAxisAlignment(AxisAlignmentTypeCenter),
 					},
-					column.Gap(0),
-					column.CrossAxisAlignment(options.AxisAlignmentTypeStart),
-				),
+				).Gap(0).CrossAxisAlignment(AxisAlignmentTypeStart),
 
-				spacer.New(),
+				Spacer(),
 
 				// Built with love
-				row.New(
-					[]widget.BaseWidget{
-						text.New(
-							"Built with",
-							text.FontSize(14),
-							text.FontColor("#6B7280"),
-							text.FontWeight("400"),
-						),
-						icon.New(
-							icondata.Heart,
-							icon.Width(breakpoint.All(16)),
-							icon.Height(breakpoint.All(16)),
-							icon.Fill("#EF4444"),
-						),
-						text.New(
-							"using gofred",
-							text.FontSize(14),
-							text.FontColor("#6B7280"),
-							text.FontWeight("400"),
-						),
+				Row(
+					[]Widget{
+						Text("Built with").
+							FontSize(14).
+							FontColor("#6B7280").
+							FontWeight("400"),
+						Icon(icondata.Heart).
+							Width(AllBP(16)).
+							Height(AllBP(16)).
+							Fill("#EF4444"),
+						Text("using gofred").
+							FontSize(14).
+							FontColor("#6B7280").
+							FontWeight("400"),
 					},
-					row.Gap(8),
-					row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-				),
+				).Gap(8).CrossAxisAlignment(AxisAlignmentTypeCenter),
 			},
-			row.Flex(1),
-			row.CrossAxisAlignment(options.AxisAlignmentTypeStart),
-		),
-		container.Padding(
-			breakpoint.All(spacing.All(24)),
-		),
-		container.BorderColor("#374151"),
-		container.BorderWidth(1, 0, 0, 0),
-		container.BorderStyle(options.BorderStyleTypeSolid),
-	)
+		).Flex(1).CrossAxisAlignment(AxisAlignmentTypeStart),
+	).Padding(
+		AllBP(All(24)),
+	).BorderColor("#374151").BorderWidth(1, 0, 0, 0).BorderStyle(BorderStyleTypeSolid)
 }
 
 // Mobile-optimized footer for smaller screens
-func mobileFooter() widget.BaseWidget {
-	return container.New(
-		center.New(
-			column.New(
-				[]widget.BaseWidget{
+func mobileFooter() Widget {
+	return Container(
+		Center(
+			Column(
+				[]Widget{
 					// Brand section
-					center.New(
-						column.New(
-							[]widget.BaseWidget{
+					Center(
+						Column(
+							[]Widget{
 								// Logo and brand
-								row.New(
-									[]widget.BaseWidget{
-										text.New(
-											"🚀",
-											text.FontSize(28),
-										),
-										text.New(
-											"gofred",
-											text.FontSize(20),
-											text.FontColor("#FFFFFF"),
-											text.FontWeight("700"),
-										),
+								Row(
+									[]Widget{
+										Text("🚀").FontSize(28),
+										Text("gofred").
+											FontSize(20).
+											FontColor("#FFFFFF").
+											FontWeight("700"),
 									},
-									row.Gap(10),
-									row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-								),
+								).Gap(10).CrossAxisAlignment(AxisAlignmentTypeCenter),
 
-								spacer.New(spacer.Height(12)),
+								Spacer().Height(12),
 
 								// Description
-								container.New(
-									text.New(
-										"Build responsive web applications using only Go.",
-										text.FontSize(14),
-										text.FontColor("#9CA3AF"),
-										text.FontWeight("400"),
-									),
-									container.MaxWidth(breakpoint.All(300)),
-								),
+								Container(
+									Text("Build responsive web applications using only Go.").
+										FontSize(14).
+										FontColor("#9CA3AF").
+										FontWeight("400"),
+								).MaxWidth(AllBP(300)),
 
-								spacer.New(spacer.Height(20)),
+								Spacer().Height(20),
 
 								// Social links
 								socialLinks(),
 							},
-							column.Gap(0),
-							column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-						),
+						).Gap(0).CrossAxisAlignment(AxisAlignmentTypeCenter),
 					),
 
-					spacer.New(spacer.Height(32)),
+					Spacer().Height(32),
 
 					// Quick navigation grid
-					grid.New(
-						[]widget.BaseWidget{
+					Row(
+						[]Widget{
 							mobileFooterSection("Docs", []string{"Getting Started", "Examples", "API"}),
 							mobileFooterSection("Community", []string{"GitHub", "Discussions", "Support"}),
 						},
-						grid.ColumnCount(breakpoint.All(2)),
-						grid.ColumnGap(24),
-					),
+					).Gap(24),
 
-					spacer.New(spacer.Height(24)),
+					Spacer().Height(24),
 
 					// Copyright
-					center.New(
-						column.New(
-							[]widget.BaseWidget{
-								text.New(
-									"© 2025 gofred",
-									text.FontSize(14),
-									text.FontColor("#6B7280"),
-									text.FontWeight("400"),
-								),
+					Center(
+						Column(
+							[]Widget{
+								Text("© 2025 gofred").
+									FontSize(14).
+									FontColor("#6B7280").
+									FontWeight("400"),
 
-								spacer.New(spacer.Height(8)),
+								Spacer().Height(8),
 
-								row.New(
-									[]widget.BaseWidget{
-										text.New(
-											"Built with",
-											text.FontSize(12),
-											text.FontColor("#6B7280"),
-											text.FontWeight("400"),
-										),
-										icon.New(
-											icondata.Heart,
-											icon.Width(breakpoint.All(14)),
-											icon.Height(breakpoint.All(14)),
-											icon.Fill("#EF4444"),
-										),
-										text.New(
-											"using gofred",
-											text.FontSize(12),
-											text.FontColor("#6B7280"),
-											text.FontWeight("400"),
-										),
+								Row(
+									[]Widget{
+										Text("Built with").
+											FontSize(12).
+											FontColor("#6B7280").
+											FontWeight("400"),
+										Icon(icondata.Heart).
+											Width(AllBP(14)).
+											Height(AllBP(14)).
+											Fill("#EF4444"),
+										Text("using gofred").
+											FontSize(12).
+											FontColor("#6B7280").
+											FontWeight("400"),
 									},
-									row.Gap(6),
-									row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-								),
+								).Gap(6).CrossAxisAlignment(AxisAlignmentTypeCenter),
 							},
-							column.Gap(0),
-							column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-						),
+						).Gap(0).CrossAxisAlignment(AxisAlignmentTypeCenter),
 					),
 				},
-				column.Gap(0),
-				column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-			),
+			).Gap(0).CrossAxisAlignment(AxisAlignmentTypeCenter),
 		),
-		container.Flex(1),
-		container.Padding(breakpoint.All(spacing.All(24))),
-	)
+	).Flex(1).Padding(AllBP(All(24)))
 }
 
 // Mobile footer section
-func mobileFooterSection(title string, links []string) widget.BaseWidget {
-	var linkWidgets []widget.BaseWidget
+func mobileFooterSection(title string, links []string) Widget {
+	var linkWidgets []Widget
 	for _, link := range links {
-		linkWidgets = append(linkWidgets, text.New(
-			link,
-			text.FontSize(14),
-			text.FontColor("#9CA3AF"),
-			text.FontWeight("400"),
-		))
+		linkWidgets = append(linkWidgets, Text(link).
+			FontSize(14).
+			FontColor("#9CA3AF").
+			FontWeight("400"),
+		)
 	}
 
-	return column.New(
-		[]widget.BaseWidget{
-			text.New(
-				title,
-				text.FontSize(16),
-				text.FontColor("#FFFFFF"),
-				text.FontWeight("600"),
-			),
+	return Column(
+		[]Widget{
+			Text(title).
+				FontSize(16).
+				FontColor("#FFFFFF").
+				FontWeight("600"),
 
-			spacer.New(spacer.Height(12)),
+			Spacer().Height(12),
 
-			column.New(
+			Column(
 				linkWidgets,
-				column.Gap(8),
-			),
+			).Gap(8),
 		},
-		column.Gap(0),
-		column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-	)
+	).Gap(0).CrossAxisAlignment(AxisAlignmentTypeCenter)
 }

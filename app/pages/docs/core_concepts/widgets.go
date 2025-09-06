@@ -1,70 +1,63 @@
 package core_concepts
 
 import (
-	"github.com/gofred-io/gofred/breakpoint"
-	"github.com/gofred-io/gofred/foundation/button"
-	codeblock "github.com/gofred-io/gofred/foundation/code_block"
-	"github.com/gofred-io/gofred/foundation/column"
-	"github.com/gofred-io/gofred/foundation/container"
-	"github.com/gofred-io/gofred/foundation/icon"
+	. "github.com/gofred-io/gofred/breakpoint"
+	. "github.com/gofred-io/gofred/foundation/button"
+	. "github.com/gofred-io/gofred/foundation/code_block"
+	. "github.com/gofred-io/gofred/foundation/column"
+	. "github.com/gofred-io/gofred/foundation/container"
+	. "github.com/gofred-io/gofred/foundation/icon"
 	icondata "github.com/gofred-io/gofred/foundation/icon/icon_data"
-	"github.com/gofred-io/gofred/foundation/link"
-	"github.com/gofred-io/gofred/foundation/row"
-	"github.com/gofred-io/gofred/foundation/spacer"
-	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/options"
-	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	. "github.com/gofred-io/gofred/foundation/link"
+	. "github.com/gofred-io/gofred/foundation/row"
+	. "github.com/gofred-io/gofred/foundation/spacer"
+	. "github.com/gofred-io/gofred/foundation/text"
+	. "github.com/gofred-io/gofred/options"
+	. "github.com/gofred-io/gofred/options/spacing"
+	. "github.com/gofred-io/gofred/widget"
 )
 
-func WidgetsContent() widget.BaseWidget {
-	return container.New(
-		column.New(
-			[]widget.BaseWidget{
+func WidgetsContent() Widget {
+	return Container(
+		Column(
+			[]Widget{
 				widgetsPageHeader(),
-				spacer.New(spacer.Height(24)),
+				Spacer(),
 				widgetsPageContent(),
 			},
-			column.Gap(16),
-			column.Flex(1),
-		),
-		container.Flex(1),
-		container.Padding(breakpoint.All(spacing.All(32))),
-	)
+		).Gap(16).
+			Flex(1),
+	).Flex(1).
+		Padding(AllBP(All(32)))
 }
 
-func widgetsPageHeader() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			text.New(
-				"Foundation Widgets",
-				text.FontSize(32),
-				text.FontColor("#1F2937"),
-				text.FontWeight("700"),
-			),
-			text.New(
-				"Learn about the core building blocks of gofred applications and how to use them effectively.",
-				text.FontSize(18),
-				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
-			),
+func widgetsPageHeader() Widget {
+	return Column(
+		[]Widget{
+			Text("Foundation Widgets").
+				FontSize(32).
+				FontColor("#1F2937").
+				FontWeight("700"),
+			Text("Learn about the core building blocks of gofred applications and how to use them effectively.").
+				FontSize(18).
+				FontColor("#6B7280").
+				FontWeight("400"),
 		},
-		column.Gap(8),
-	)
+	).Gap(8)
 }
 
-func widgetsPageContent() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
+func widgetsPageContent() Widget {
+	return Column(
+		[]Widget{
 			contentSection("What are Widgets?", "Widgets are the fundamental building blocks of gofred applications. They are composable UI components that can be combined to create complex user interfaces. Every element you see in a gofred app is a widget."),
-			spacer.New(spacer.Height(24)),
+			Spacer(),
 
 			// Layout Widgets
 			contentSection("Layout Widgets", "Layout widgets help you organize and position other widgets in your application."),
-			spacer.New(spacer.Height(16)),
+			Spacer(),
 
 			widgetSubsection("Container", "A flexible container widget that can hold other widgets and apply styling properties like padding, background color, borders, and sizing."),
-			codeblock.New(`container.New(
+			CodeBlock(`container.New(
     text.New("Hello, World!"),
     container.Padding(breakpoint.All(spacing.All(16))),
     container.BackgroundColor("#F3F4F6"),
@@ -72,11 +65,11 @@ func widgetsPageContent() widget.BaseWidget {
     container.BorderColor("#E5E7EB"),
     container.BorderWidth(1, 1, 1, 1),
 )`),
-			spacer.New(spacer.Height(16)),
+			Spacer(),
 
 			widgetSubsection("Column", "Arranges child widgets vertically. Perfect for creating vertical layouts and forms."),
-			codeblock.New(`column.New(
-    []widget.BaseWidget{
+			CodeBlock(`column.New(
+    []widget.Widget{
         text.New("First Item"),
         text.New("Second Item"),
         text.New("Third Item"),
@@ -84,11 +77,11 @@ func widgetsPageContent() widget.BaseWidget {
     column.Gap(16),
     column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 )`),
-			spacer.New(spacer.Height(16)),
+			Spacer(),
 
 			widgetSubsection("Row", "Arranges child widgets horizontally. Ideal for creating horizontal layouts and toolbars."),
-			codeblock.New(`row.New(
-    []widget.BaseWidget{
+			CodeBlock(`row.New(
+    []widget.Widget{
         button.New(text.New("Cancel")),
         spacer.New(), // Pushes buttons apart
         button.New(text.New("Submit")),
@@ -96,11 +89,11 @@ func widgetsPageContent() widget.BaseWidget {
     row.Gap(12),
     row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
 )`),
-			spacer.New(spacer.Height(16)),
+			Spacer(),
 
 			widgetSubsection("Grid", "Creates a responsive grid layout for organizing widgets in rows and columns."),
-			codeblock.New(`grid.New(
-    []widget.BaseWidget{
+			CodeBlock(`grid.New(
+    []widget.Widget{
         cardWidget("Card 1"),
         cardWidget("Card 2"),
         cardWidget("Card 3"),
@@ -114,33 +107,33 @@ func widgetsPageContent() widget.BaseWidget {
     grid.ColumnGap(16),
     grid.RowGap(16),
 )`),
-			spacer.New(spacer.Height(16)),
+			Spacer(),
 
 			widgetSubsection("Center", "Centers its child widget both horizontally and vertically."),
-			codeblock.New(`center.New(
+			CodeBlock(`center.New(
     text.New(
         "Centered Content",
         text.FontSize(24),
         text.FontWeight("600"),
     ),
 )`),
-			spacer.New(spacer.Height(16)),
+			Spacer(),
 
 			widgetSubsection("Spacer", "Creates flexible or fixed spacing between widgets."),
-			codeblock.New(`// Fixed spacing
+			CodeBlock(`// Fixed spacing
 spacer.New(spacer.Height(24))
 spacer.New(spacer.Width(16))
 
 // Flexible spacing (takes available space)
 spacer.New()`),
-			spacer.New(spacer.Height(24)),
+			Spacer(),
 
 			// Content Widgets
 			contentSection("Content Widgets", "Content widgets display information and media to users."),
-			spacer.New(spacer.Height(16)),
+			Spacer(),
 
 			widgetSubsection("Text", "Displays text with customizable styling options like font size, color, weight, and alignment."),
-			codeblock.New(`text.New(
+			CodeBlock(`text.New(
     "Hello, gofred!",
     text.FontSize(18),
     text.FontColor("#1F2937"),
@@ -148,33 +141,33 @@ spacer.New()`),
     text.TextAlign(options.TextAlignTypeCenter),
     text.LineHeight(1.5),
 )`),
-			spacer.New(spacer.Height(16)),
+			Spacer(),
 
 			widgetSubsection("Icon", "Displays scalable vector icons from the built-in icon library."),
-			codeblock.New(`icon.New(
+			CodeBlock(`icon.New(
     icondata.Home,
     icon.Width(breakpoint.All(24)),
     icon.Height(breakpoint.All(24)),
     icon.Fill("#2B799B"),
 )`),
-			spacer.New(spacer.Height(16)),
+			Spacer(),
 
 			widgetSubsection("Image", "Displays images with support for various formats and responsive sizing."),
-			codeblock.New(`image.New(
+			CodeBlock(`image.New(
     image.Src("/assets/logo.png"),
     image.Alt("Company Logo"),
     image.Width(breakpoint.All(200)),
     image.Height(breakpoint.All(100)),
     image.ObjectFit(options.ObjectFitTypeCover),
 )`),
-			spacer.New(spacer.Height(24)),
+			Spacer(),
 
 			// Interactive Widgets
 			contentSection("Interactive Widgets", "Interactive widgets respond to user input and enable user interactions."),
-			spacer.New(spacer.Height(16)),
+			Spacer(),
 
 			widgetSubsection("Button", "A clickable button widget that can trigger actions and navigate between screens."),
-			codeblock.New(`button.New(
+			CodeBlock(`button.New(
     text.New("Click Me", text.FontColor("#FFFFFF")),
     button.BackgroundColor("#2B799B"),
     button.BorderRadius(8),
@@ -182,14 +175,14 @@ spacer.New()`),
     button.OnClick(handleButtonClick),
 )
 
-func handleButtonClick(this widget.BaseWidget, e widget.Event) {
+func handleButtonClick(this widget.Widget, e widget.Event) {
     // Handle button click
     fmt.Println("Button clicked!")
 }`),
-			spacer.New(spacer.Height(16)),
+			Spacer(),
 
 			widgetSubsection("Icon Button", "A button that contains only an icon, perfect for toolbars and action menus."),
-			codeblock.New(`iconbutton.New(
+			CodeBlock(`iconbutton.New(
     icondata.Settings,
     iconbutton.IconWidth(breakpoint.All(20)),
     iconbutton.IconHeight(breakpoint.All(20)),
@@ -198,10 +191,10 @@ func handleButtonClick(this widget.BaseWidget, e widget.Event) {
     iconbutton.BorderRadius(6),
     iconbutton.OnClick(openSettings),
 )`),
-			spacer.New(spacer.Height(16)),
+			Spacer(),
 
 			widgetSubsection("Link", "Creates navigational links that can route to different pages or external URLs."),
-			codeblock.New(`link.New(
+			CodeBlock(`link.New(
     text.New(
         "Go to Documentation",
         text.FontColor("#2B799B"),
@@ -209,38 +202,38 @@ func handleButtonClick(this widget.BaseWidget, e widget.Event) {
     ),
     link.Href("/docs"),
 )`),
-			spacer.New(spacer.Height(24)),
+			Spacer(),
 
 			// Navigation Widgets
 			contentSection("Navigation Widgets", "Navigation widgets help users move through your application."),
-			spacer.New(spacer.Height(16)),
+			Spacer(),
 
 			widgetSubsection("Drawer", "A slide-out panel that can contain navigation menus or additional content."),
-			codeblock.New(`drawer.New(
+			CodeBlock(`drawer.New(
     drawerContent(), // Your drawer content
     drawer.Width(breakpoint.All(300)),
     drawer.BackgroundColor("#FFFFFF"),
     drawer.BorderColor("#E5E7EB"),
     drawer.BorderWidth(0, 1, 0, 0),
 )`),
-			spacer.New(spacer.Height(16)),
+			Spacer(),
 
 			widgetSubsection("Router", "Manages navigation and routing in your application."),
-			codeblock.New(`router.New(
+			CodeBlock(`router.New(
     router.Routes([]router.Route{
         {Path: "/", Handler: homePage},
         {Path: "/about", Handler: aboutPage},
         {Path: "/contact", Handler: contactPage},
     }),
 )`),
-			spacer.New(spacer.Height(24)),
+			Spacer(),
 
 			// Widget Composition
 			contentSection("Widget Composition", "Widgets can be composed together to create complex UI components. Here's an example of building a card component:"),
-			codeblock.New(`func cardWidget(title, content string) widget.BaseWidget {
+			CodeBlock(`func cardWidget(title, content string) widget.Widget {
     return container.New(
         column.New(
-            []widget.BaseWidget{
+            []widget.Widget{
                 text.New(
                     title,
                     text.FontSize(18),
@@ -256,7 +249,7 @@ func handleButtonClick(this widget.BaseWidget, e widget.Event) {
                 ),
                 spacer.New(spacer.Height(16)),
                 row.New(
-                    []widget.BaseWidget{
+                    []widget.Widget{
                         spacer.New(),
                         button.New(
                             text.New("Learn More", text.FontColor("#2B799B")),
@@ -277,63 +270,52 @@ func handleButtonClick(this widget.BaseWidget, e widget.Event) {
         container.BorderStyle(options.BorderStyleTypeSolid),
     )
 }`),
-			spacer.New(spacer.Height(24)),
+			Spacer(),
 
 			// Best Practices
 			contentSection("Best Practices", "Follow these guidelines when working with widgets:"),
 			bestPracticesList(),
-			spacer.New(spacer.Height(24)),
+			Spacer(),
 
 			contentSection("What's Next?", "Now that you understand widgets, explore these related topics:"),
 			widgetsNextStepsList(),
-			spacer.New(spacer.Height(32)),
+			Spacer(),
 			navigationButtons("/docs/project-structure", "/docs/layouts"),
 		},
-		column.Gap(16),
-	)
+	).Gap(16)
 }
 
-func contentSection(title, description string) widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			text.New(
-				title,
-				text.FontSize(24),
-				text.FontColor("#1F2937"),
-				text.FontWeight("600"),
-			),
-			text.New(
-				description,
-				text.FontSize(16),
-				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
-			),
+func contentSection(title, description string) Widget {
+	return Column(
+		[]Widget{
+			Text(title).
+				FontSize(24).
+				FontColor("#1F2937").
+				FontWeight("600"),
+			Text(description).
+				FontSize(16).
+				FontColor("#6B7280").
+				FontWeight("400"),
 		},
-		column.Gap(8),
-	)
+	).Gap(8)
 }
 
-func widgetSubsection(title, description string) widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			text.New(
-				title,
-				text.FontSize(20),
-				text.FontColor("#1F2937"),
-				text.FontWeight("600"),
-			),
-			text.New(
-				description,
-				text.FontSize(14),
-				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
-			),
+func widgetSubsection(title, description string) Widget {
+	return Column(
+		[]Widget{
+			Text(title).
+				FontSize(20).
+				FontColor("#1F2937").
+				FontWeight("600"),
+			Text(description).
+				FontSize(14).
+				FontColor("#6B7280").
+				FontWeight("400"),
 		},
-		column.Gap(4),
-	)
+	).Gap(4)
 }
 
-func bestPracticesList() widget.BaseWidget {
+func bestPracticesList() Widget {
 	practices := []string{
 		"Use semantic widget names that clearly describe their purpose",
 		"Keep widget composition simple and avoid deep nesting when possible",
@@ -345,40 +327,34 @@ func bestPracticesList() widget.BaseWidget {
 		"Test your widgets across different screen sizes and browsers",
 	}
 
-	var practiceItems []widget.BaseWidget
+	var practiceItems []Widget
 	for _, practice := range practices {
 		practiceItems = append(practiceItems, listItem(practice))
 	}
 
-	return column.New(
+	return Column(
 		practiceItems,
-		column.Gap(8),
-	)
+	).Gap(8)
 }
 
-func listItem(itemText string) widget.BaseWidget {
-	return row.New(
-		[]widget.BaseWidget{
-			icon.New(
-				icondata.Check,
-				icon.Width(breakpoint.All(16)),
-				icon.Height(breakpoint.All(16)),
-				icon.Fill("#10B981"),
-			),
-			spacer.New(spacer.Width(8)),
-			text.New(
-				itemText,
-				text.FontSize(16),
-				text.FontColor("#374151"),
-				text.FontWeight("400"),
-			),
+func listItem(itemText string) Widget {
+	return Row(
+		[]Widget{
+			Icon(icondata.Check).
+				Width(AllBP(16)).
+				Height(AllBP(16)).
+				Fill("#10B981"),
+			Spacer(),
+			Text(itemText).
+				FontSize(16).
+				FontColor("#374151").
+				FontWeight("400"),
 		},
-		row.Gap(8),
-		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-	)
+	).Gap(8).
+		CrossAxisAlignment(AxisAlignmentTypeCenter)
 }
 
-func widgetsNextStepsList() widget.BaseWidget {
+func widgetsNextStepsList() Widget {
 	steps := []struct {
 		title       string
 		description string
@@ -406,117 +382,91 @@ func widgetsNextStepsList() widget.BaseWidget {
 		},
 	}
 
-	var stepItems []widget.BaseWidget
+	var stepItems []Widget
 	for _, step := range steps {
 		stepItems = append(stepItems, nextStepItem(step.title, step.description, step.href))
 	}
 
-	return column.New(
+	return Column(
 		stepItems,
-		column.Gap(12),
-	)
+	).Gap(12)
 }
 
-func nextStepItem(title, description, href string) widget.BaseWidget {
-	return link.New(
-		container.New(
-			row.New(
-				[]widget.BaseWidget{
-					column.New(
-						[]widget.BaseWidget{
-							text.New(
-								title,
-								text.FontSize(16),
-								text.FontColor("#2B799B"),
-								text.FontWeight("500"),
-							),
-							text.New(
-								description,
-								text.FontSize(14),
-								text.FontColor("#6B7280"),
-								text.FontWeight("400"),
-							),
+func nextStepItem(title, description, href string) Widget {
+	return Link(
+		Container(
+			Row(
+				[]Widget{
+					Column(
+						[]Widget{
+							Text(title).
+								FontSize(16).
+								FontColor("#2B799B").
+								FontWeight("500"),
+							Text(description).
+								FontSize(14).
+								FontColor("#6B7280").
+								FontWeight("400"),
 						},
-						column.Gap(4),
-						column.Flex(1),
-					),
-					icon.New(
-						icondata.ChevronRight,
-						icon.Width(breakpoint.All(20)),
-						icon.Height(breakpoint.All(20)),
-						icon.Fill("#9CA3AF"),
-					),
+					).Gap(4).
+						Flex(1),
+					Icon(icondata.ChevronRight).
+						Width(AllBP(20)).
+						Height(AllBP(20)).
+						Fill("#9CA3AF"),
 				},
-				row.Gap(12),
-				row.Flex(1),
-				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-			),
-			container.Padding(breakpoint.All(spacing.All(16))),
-			container.BackgroundColor("#FFFFFF"),
-			container.BorderRadius(8),
-			container.BorderColor("#E5E7EB"),
-			container.BorderWidth(1, 1, 1, 1),
-			container.BorderStyle(options.BorderStyleTypeSolid),
-		),
-		link.Href(href),
-	)
+			).Gap(12).
+				Flex(1).
+				CrossAxisAlignment(AxisAlignmentTypeCenter),
+		).Padding(AllBP(All(16))).
+			BackgroundColor("#FFFFFF").
+			BorderRadius(8).
+			BorderColor("#E5E7EB").
+			BorderWidth(1, 1, 1, 1).
+			BorderStyle(BorderStyleTypeSolid),
+	).Href(href)
 }
 
-func navigationButtons(previousHref, nextHref string) widget.BaseWidget {
-	return row.New(
-		[]widget.BaseWidget{
-			link.New(
-				button.New(
-					row.New(
-						[]widget.BaseWidget{
-							icon.New(
-								icondata.ChevronLeft,
-								icon.Width(breakpoint.All(16)),
-								icon.Height(breakpoint.All(16)),
-								icon.Fill("#FFFFFF"),
-							),
-							text.New(
-								"Previous",
-								text.FontSize(14),
-								text.FontColor("#FFFFFF"),
-								text.FontWeight("500"),
-							),
+func navigationButtons(previousHref, nextHref string) Widget {
+	return Row(
+		[]Widget{
+			Link(
+				Button(
+					Row(
+						[]Widget{
+							Icon(icondata.ChevronLeft).
+								Width(AllBP(16)).
+								Height(AllBP(16)).
+								Fill("#FFFFFF"),
+							Text("Previous").
+								FontSize(14).
+								FontColor("#FFFFFF").
+								FontWeight("500"),
 						},
-						row.Gap(8),
-						row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-					),
-					button.BackgroundColor("#6B7280"),
-					button.Width(breakpoint.All(120)),
-				),
-				link.Href(previousHref),
-			),
-			spacer.New(),
-			link.New(
-				button.New(
-					row.New(
-						[]widget.BaseWidget{
-							text.New(
-								"Next",
-								text.FontSize(14),
-								text.FontColor("#FFFFFF"),
-								text.FontWeight("500"),
-							),
-							icon.New(
-								icondata.ChevronRight,
-								icon.Width(breakpoint.All(16)),
-								icon.Height(breakpoint.All(16)),
-								icon.Fill("#FFFFFF"),
-							),
+					).Gap(8).
+						CrossAxisAlignment(AxisAlignmentTypeCenter),
+				).BackgroundColor("#6B7280").
+					Width(AllBP(120)),
+			).Href(previousHref),
+			Spacer(),
+			Link(
+				Button(
+					Row(
+						[]Widget{
+							Text("Next").
+								FontSize(14).
+								FontColor("#FFFFFF").
+								FontWeight("500"),
+							Icon(icondata.ChevronRight).
+								Width(AllBP(16)).
+								Height(AllBP(16)).
+								Fill("#FFFFFF"),
 						},
-						row.Gap(8),
-						row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-					),
-					button.BackgroundColor("#2B799B"),
-					button.Width(breakpoint.All(120)),
-				),
-				link.Href(nextHref),
-			),
+					).Gap(8).
+						CrossAxisAlignment(AxisAlignmentTypeCenter),
+				).BackgroundColor("#2B799B").
+					Width(AllBP(120)),
+			).Href(nextHref),
 		},
-		row.Flex(1),
-	)
+	).Flex(1)
 }

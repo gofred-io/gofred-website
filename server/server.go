@@ -194,11 +194,13 @@ func watch() {
 
 	for {
 		select {
-		case _, ok := <-watcher.Events:
+		case e, ok := <-watcher.Events:
 			if !ok {
 				return
 			}
-			hasChanged.Store(true)
+			if e.Op.Has(fsnotify.Write) {
+				hasChanged.Store(true)
+			}
 		case err, ok := <-watcher.Errors:
 			if !ok {
 				return

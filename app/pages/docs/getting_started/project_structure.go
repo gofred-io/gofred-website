@@ -1,61 +1,54 @@
 package getting_started
 
 import (
-	"github.com/gofred-io/gofred/breakpoint"
-	codeblock "github.com/gofred-io/gofred/foundation/code_block"
-	"github.com/gofred-io/gofred/foundation/column"
-	"github.com/gofred-io/gofred/foundation/container"
-	"github.com/gofred-io/gofred/foundation/icon"
+	. "github.com/gofred-io/gofred/breakpoint"
+	. "github.com/gofred-io/gofred/foundation/code_block"
+	. "github.com/gofred-io/gofred/foundation/column"
+	. "github.com/gofred-io/gofred/foundation/container"
+	. "github.com/gofred-io/gofred/foundation/icon"
 	icondata "github.com/gofred-io/gofred/foundation/icon/icon_data"
-	"github.com/gofred-io/gofred/foundation/row"
-	"github.com/gofred-io/gofred/foundation/spacer"
-	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/options"
-	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	. "github.com/gofred-io/gofred/foundation/row"
+	. "github.com/gofred-io/gofred/foundation/spacer"
+	. "github.com/gofred-io/gofred/foundation/text"
+	. "github.com/gofred-io/gofred/options"
+	. "github.com/gofred-io/gofred/options/spacing"
+	. "github.com/gofred-io/gofred/widget"
 )
 
-func ProjectStructureContent() widget.BaseWidget {
-	return container.New(
-		column.New(
-			[]widget.BaseWidget{
+func ProjectStructureContent() Widget {
+	return Container(
+		Column(
+			[]Widget{
 				projectStructurePageHeader(),
-				spacer.New(spacer.Height(24)),
+				Spacer(),
 				projectStructurePageContent(),
 			},
-			column.Gap(16),
-			column.Flex(1),
-		),
-		container.Flex(1),
-		container.Padding(breakpoint.All(spacing.All(32))),
-	)
+		).Gap(16).
+			Flex(1),
+	).Flex(1).
+		Padding(AllBP(All(32)))
 }
 
-func projectStructurePageHeader() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			text.New(
-				"Project Structure",
-				text.FontSize(32),
-				text.FontColor("#1F2937"),
-				text.FontWeight("700"),
-			),
-			text.New(
-				"Understand the recommended project structure for gofred applications.",
-				text.FontSize(18),
-				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
-			),
+func projectStructurePageHeader() Widget {
+	return Column(
+		[]Widget{
+			Text("Project Structure").
+				FontSize(32).
+				FontColor("#1F2937").
+				FontWeight("700"),
+			Text("Understand the recommended project structure for gofred applications.").
+				FontSize(18).
+				FontColor("#6B7280").
+				FontWeight("400"),
 		},
-		column.Gap(8),
-	)
+	).Gap(8)
 }
 
-func projectStructurePageContent() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
+func projectStructurePageContent() Widget {
+	return Column(
+		[]Widget{
 			contentSection("Directory Structure", "A typical gofred project follows this structure:"),
-			codeblock.New(`my-gofred-app/
+			CodeBlock(`my-gofred-app/
 ├── app/                   # Application code
 │   ├── components/        # Reusable components
 │   │   └── code_block/    # Code block component
@@ -76,23 +69,22 @@ func projectStructurePageContent() widget.BaseWidget {
 ├── go.mod                 # Go module file
 ├── go.sum                 # Go module checksums
 └── main.go                # Application entry point`),
-			spacer.New(spacer.Height(24)),
+			Spacer(),
 			contentSection("Key Files", "Here's what each important file does:"),
 			projectStructureFileList(),
-			spacer.New(spacer.Height(24)),
+			Spacer(),
 			contentSection("Best Practices", "Follow these guidelines for better organization:"),
 			projectStructureBestPractices(),
-			spacer.New(spacer.Height(24)),
+			Spacer(),
 			contentSection("Next Steps", "Now that you have learned about the project structure, you can:"),
 			projectStructureNextStepsList(),
-			spacer.New(spacer.Height(32)),
+			Spacer(),
 			navigationButtons("/docs/first-app", "/docs/widgets"),
 		},
-		column.Gap(16),
-	)
+	).Gap(16)
 }
 
-func projectStructureFileList() widget.BaseWidget {
+func projectStructureFileList() Widget {
 	files := []struct {
 		path        string
 		description string
@@ -131,61 +123,51 @@ func projectStructureFileList() widget.BaseWidget {
 		},
 	}
 
-	var fileItems []widget.BaseWidget
+	var fileItems []Widget
 	for _, file := range files {
 		fileItems = append(fileItems, projectStructureFileItem(file.path, file.description))
 	}
 
-	return column.New(
+	return Column(
 		fileItems,
-		column.Gap(12),
-	)
+	).Gap(12)
 }
 
-func projectStructureFileItem(path, description string) widget.BaseWidget {
-	return container.New(
-		row.New(
-			[]widget.BaseWidget{
-				icon.New(
-					icondata.FileDocument,
-					icon.Width(breakpoint.All(20)),
-					icon.Height(breakpoint.All(20)),
-					icon.Fill("#6B7280"),
-				),
-				spacer.New(spacer.Width(12)),
-				column.New(
-					[]widget.BaseWidget{
-						text.New(
-							path,
-							text.FontSize(16),
-							text.FontColor("#1F2937"),
-							text.FontWeight("600"),
-						),
-						text.New(
-							description,
-							text.FontSize(14),
-							text.FontColor("#6B7280"),
-							text.FontWeight("400"),
-							text.LineHeight(1.5),
-						),
+func projectStructureFileItem(path, description string) Widget {
+	return Container(
+		Row(
+			[]Widget{
+				Icon(icondata.FileDocument).
+					Width(AllBP(20)).
+					Height(AllBP(20)).
+					Fill("#6B7280"),
+				Spacer(),
+				Column(
+					[]Widget{
+						Text(path).
+							FontSize(16).
+							FontColor("#1F2937").
+							FontWeight("600"),
+						Text(description).
+							FontSize(14).
+							FontColor("#6B7280").
+							FontWeight("400").
+							LineHeight(1.5),
 					},
-					column.Gap(4),
-					column.Flex(1),
-				),
+				).Gap(4).
+					Flex(1),
 			},
-			row.Gap(12),
-			row.CrossAxisAlignment(options.AxisAlignmentTypeStart),
-		),
-		container.Padding(breakpoint.All(spacing.All(16))),
-		container.BackgroundColor("#FFFFFF"),
-		container.BorderRadius(8),
-		container.BorderColor("#E5E7EB"),
-		container.BorderWidth(1, 1, 1, 1),
-		container.BorderStyle(options.BorderStyleTypeSolid),
-	)
+		).Gap(12).
+			CrossAxisAlignment(AxisAlignmentTypeStart),
+	).Padding(AllBP(All(16))).
+		BackgroundColor("#FFFFFF").
+		BorderRadius(8).
+		BorderColor("#E5E7EB").
+		BorderWidth(1, 1, 1, 1).
+		BorderStyle(BorderStyleTypeSolid)
 }
 
-func projectStructureBestPractices() widget.BaseWidget {
+func projectStructureBestPractices() Widget {
 	practices := []string{
 		"Keep pages in separate directories under app/pages/",
 		"Create reusable components in app/components/",
@@ -196,18 +178,17 @@ func projectStructureBestPractices() widget.BaseWidget {
 		"Use meaningful directory and file names",
 	}
 
-	var practiceItems []widget.BaseWidget
+	var practiceItems []Widget
 	for _, practice := range practices {
 		practiceItems = append(practiceItems, listItem(practice))
 	}
 
-	return column.New(
+	return Column(
 		practiceItems,
-		column.Gap(8),
-	)
+	).Gap(8)
 }
 
-func projectStructureNextStepsList() widget.BaseWidget {
+func projectStructureNextStepsList() Widget {
 	steps := []struct {
 		title       string
 		description string
@@ -235,13 +216,12 @@ func projectStructureNextStepsList() widget.BaseWidget {
 		},
 	}
 
-	var stepItems []widget.BaseWidget
+	var stepItems []Widget
 	for _, step := range steps {
 		stepItems = append(stepItems, nextStepItem(step.title, step.description, step.href))
 	}
 
-	return column.New(
+	return Column(
 		stepItems,
-		column.Gap(12),
-	)
+	).Gap(12)
 }

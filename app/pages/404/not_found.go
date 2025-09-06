@@ -3,174 +3,132 @@ package notfound
 import (
 	"github.com/gofred-io/gofred-website/app/components/footer"
 	"github.com/gofred-io/gofred-website/app/components/header"
-	"github.com/gofred-io/gofred/breakpoint"
-	"github.com/gofred-io/gofred/foundation/button"
-	"github.com/gofred-io/gofred/foundation/column"
-	"github.com/gofred-io/gofred/foundation/container"
-	"github.com/gofred-io/gofred/foundation/icon"
+	. "github.com/gofred-io/gofred/breakpoint"
+	. "github.com/gofred-io/gofred/foundation/button"
+	. "github.com/gofred-io/gofred/foundation/column"
+	. "github.com/gofred-io/gofred/foundation/container"
+	. "github.com/gofred-io/gofred/foundation/icon"
 	icondata "github.com/gofred-io/gofred/foundation/icon/icon_data"
-	"github.com/gofred-io/gofred/foundation/link"
-	"github.com/gofred-io/gofred/foundation/router"
-	"github.com/gofred-io/gofred/foundation/row"
-	"github.com/gofred-io/gofred/foundation/spacer"
-	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/options"
-	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	. "github.com/gofred-io/gofred/foundation/link"
+	. "github.com/gofred-io/gofred/foundation/router"
+	. "github.com/gofred-io/gofred/foundation/row"
+	. "github.com/gofred-io/gofred/foundation/spacer"
+	. "github.com/gofred-io/gofred/foundation/text"
+	. "github.com/gofred-io/gofred/options"
+	. "github.com/gofred-io/gofred/options/spacing"
+	. "github.com/gofred-io/gofred/widget"
 )
 
-func New(params router.RouteParams) widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
+func NotFoundPage(params RouteParams) Widget {
+	return Column(
+		[]Widget{
 			header.Get(),
 			mainContent(),
 			footer.Get(),
 		},
-		column.Flex(1),
-	)
+	).Flex(1)
 }
 
-func mainContent() widget.BaseWidget {
-	return container.New(
-		column.New(
-			[]widget.BaseWidget{
+func mainContent() Widget {
+	return Container(
+		Column(
+			[]Widget{
 				errorIcon(),
-				spacer.New(spacer.Height(24)),
+				Spacer().Height(24),
 				errorTitle(),
-				spacer.New(spacer.Height(16)),
+				Spacer().Height(16),
 				errorDescription(),
-				spacer.New(spacer.Height(32)),
+				Spacer().Height(32),
 				actionButtons(),
 			},
-			column.Gap(16),
-			column.Flex(1),
-			column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-			column.MainAxisAlignment(options.AxisAlignmentTypeCenter),
-		),
-		container.BackgroundColor("#F8F9FA"),
-		container.Flex(1),
-		container.Padding(breakpoint.All(spacing.All(32))),
-	)
+		).Gap(16).Flex(1).CrossAxisAlignment(AxisAlignmentTypeCenter).MainAxisAlignment(AxisAlignmentTypeCenter),
+	).BackgroundColor("#F8F9FA").Flex(1).Padding(AllBP(All(32)))
 }
 
-func errorIcon() widget.BaseWidget {
-	return container.New(
-		icon.New(
-			icondata.Alert,
-			icon.Width(breakpoint.All(120)),
-			icon.Height(breakpoint.All(120)),
-			icon.Fill("#E74C3C"),
-		),
-		container.BackgroundColor("#FFFFFF"),
-		container.BorderRadius(48),
-		container.Padding(breakpoint.All(spacing.All(20))),
-		container.BorderColor("#E74C3C"),
-		container.BorderWidth(3, 3, 3, 3),
-		container.BorderStyle(options.BorderStyleTypeSolid),
-	)
+func errorIcon() Widget {
+	return Container(
+		Icon(icondata.Alert).
+			Width(AllBP(120)).
+			Height(AllBP(120)).
+			Fill("#E74C3C"),
+	).BackgroundColor("#FFFFFF").BorderRadius(48).Padding(AllBP(All(20))).BorderColor("#E74C3C").BorderWidth(3, 3, 3, 3).BorderStyle(BorderStyleTypeSolid)
 }
 
-func errorTitle() widget.BaseWidget {
-	return text.New(
-		"404",
-		text.FontSize(72),
-		text.FontColor("#2C3E50"),
-		text.FontWeight("700"),
-		text.UserSelect(options.UserSelectTypeNone),
-	)
+func errorTitle() Widget {
+	return Text("404").
+		FontSize(72).
+		FontColor("#2C3E50").
+		FontWeight("700").
+		UserSelect(UserSelectTypeNone)
 }
 
-func errorDescription() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			text.New(
-				"Oops! The page you're looking for doesn't exist.",
-				text.FontSize(24),
-				text.FontColor("#34495E"),
-				text.FontWeight("500"),
-				text.UserSelect(options.UserSelectTypeNone),
-			),
-			spacer.New(spacer.Height(8)),
-			text.New(
-				"It might have been moved, deleted, or you entered the wrong URL.",
-				text.FontSize(16),
-				text.FontColor("#7F8C8D"),
-				text.FontWeight("400"),
-				text.UserSelect(options.UserSelectTypeNone),
-			),
+func errorDescription() Widget {
+	return Column(
+		[]Widget{
+			Text("Oops! The page you're looking for doesn't exist.").
+				FontSize(24).
+				FontColor("#34495E").
+				FontWeight("500").
+				UserSelect(UserSelectTypeNone),
+			Spacer().Height(8),
+			Text("It might have been moved, deleted, or you entered the wrong URL.").
+				FontSize(16).
+				FontColor("#7F8C8D").
+				FontWeight("400").
+				UserSelect(UserSelectTypeNone),
 		},
-		column.Gap(8),
-		column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-	)
+	).Gap(8).CrossAxisAlignment(AxisAlignmentTypeCenter)
 }
 
-func actionButtons() widget.BaseWidget {
-	return row.New(
-		[]widget.BaseWidget{
+func actionButtons() Widget {
+	return Row(
+		[]Widget{
 			backButton(),
 			homeButton(),
 		},
-		row.Gap(16),
-		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-	)
+	).Gap(16).CrossAxisAlignment(AxisAlignmentTypeCenter)
 }
 
-func backButton() widget.BaseWidget {
-	return button.New(
-		container.New(
-			row.New(
-				[]widget.BaseWidget{
-					icon.New(
-						icondata.ChevronLeft,
-						icon.Width(breakpoint.All(20)),
-						icon.Height(breakpoint.All(20)),
-						icon.Fill("#FFFFFF"),
-					),
-					text.New(
-						"Go Back",
-						text.FontSize(16),
-						text.FontColor("#FFFFFF"),
-						text.FontWeight("500"),
-						text.UserSelect(options.UserSelectTypeNone),
-					),
+func backButton() Widget {
+	return Button(
+		Container(
+			Row(
+				[]Widget{
+					Icon(icondata.ChevronLeft).
+						Width(AllBP(20)).
+						Height(AllBP(20)).
+						Fill("#FFFFFF"),
+					Text("Go Back").
+						FontSize(16).
+						FontColor("#FFFFFF").
+						FontWeight("500").
+						UserSelect(UserSelectTypeNone),
 				},
-				row.Gap(8),
-				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-			),
-			container.Padding(breakpoint.All(spacing.Right(4))),
-		),
-		button.OnClick(func(this widget.BaseWidget, e widget.Event) {
-			widget.Context().GoBack()
-		}),
-	)
+			).Gap(8).CrossAxisAlignment(AxisAlignmentTypeCenter),
+		).Padding(AllBP(Right(4))),
+	).OnClick(func(this Widget, e Event) {
+		Context().GoBack()
+	})
 }
 
-func homeButton() widget.BaseWidget {
-	return link.New(
-		button.New(
-			container.New(
-				row.New(
-					[]widget.BaseWidget{
-						icon.New(
-							icondata.Home,
-							icon.Width(breakpoint.All(20)),
-							icon.Height(breakpoint.All(20)),
-							icon.Fill("#FFFFFF"),
-						),
-						text.New(
-							"Go Home",
-							text.FontSize(16),
-							text.FontColor("#FFFFFF"),
-							text.FontWeight("500"),
-							text.UserSelect(options.UserSelectTypeNone),
-						),
+func homeButton() Widget {
+	return Link(
+		Button(
+			Container(
+				Row(
+					[]Widget{
+						Icon(icondata.Home).
+							Width(AllBP(20)).
+							Height(AllBP(20)).
+							Fill("#FFFFFF"),
+						Text("Go Home").
+							FontSize(16).
+							FontColor("#FFFFFF").
+							FontWeight("500").
+							UserSelect(UserSelectTypeNone),
 					},
-					row.Gap(8),
-					row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-				),
-				container.Padding(breakpoint.All(spacing.Right(4))),
-			),
+				).Gap(8).CrossAxisAlignment(AxisAlignmentTypeCenter),
+			).Padding(AllBP(Right(4))),
 		),
-		link.Href("/"),
-	)
+	).Href("/")
 }

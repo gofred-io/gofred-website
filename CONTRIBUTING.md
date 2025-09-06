@@ -226,10 +226,10 @@ Follow standard Go conventions:
 
 ```go
 // Good: Clear, descriptive function names
-func CreateResponsiveLayout() widget.BaseWidget {
+func CreateResponsiveLayout() widget.Widget {
     return container.New(
         column.New(
-            []widget.BaseWidget{
+            []widget.Widget{
                 header(),
                 content(),
                 footer(),
@@ -268,14 +268,14 @@ import (
 )
 
 // Public component function
-func ComponentName(props ComponentProps) widget.BaseWidget {
+func ComponentName(props ComponentProps) widget.Widget {
     return container.New(
         // Component implementation
     )
 }
 
 // Private helper functions
-func helperFunction() widget.BaseWidget {
+func helperFunction() widget.Widget {
     // Helper implementation
 }
 ```

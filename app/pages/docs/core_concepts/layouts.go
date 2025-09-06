@@ -1,181 +1,172 @@
 package core_concepts
 
 import (
-	"github.com/gofred-io/gofred/breakpoint"
-	"github.com/gofred-io/gofred/foundation/button"
-	codeblock "github.com/gofred-io/gofred/foundation/code_block"
-	"github.com/gofred-io/gofred/foundation/column"
-	"github.com/gofred-io/gofred/foundation/container"
-	"github.com/gofred-io/gofred/foundation/icon"
+	. "github.com/gofred-io/gofred/breakpoint"
+	. "github.com/gofred-io/gofred/foundation/button"
+	. "github.com/gofred-io/gofred/foundation/code_block"
+	. "github.com/gofred-io/gofred/foundation/column"
+	. "github.com/gofred-io/gofred/foundation/container"
+	. "github.com/gofred-io/gofred/foundation/icon"
 	icondata "github.com/gofred-io/gofred/foundation/icon/icon_data"
-	"github.com/gofred-io/gofred/foundation/link"
-	"github.com/gofred-io/gofred/foundation/row"
-	"github.com/gofred-io/gofred/foundation/spacer"
-	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/options"
-	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	. "github.com/gofred-io/gofred/foundation/link"
+	. "github.com/gofred-io/gofred/foundation/row"
+	. "github.com/gofred-io/gofred/foundation/spacer"
+	. "github.com/gofred-io/gofred/foundation/text"
+	. "github.com/gofred-io/gofred/options"
+	. "github.com/gofred-io/gofred/options/spacing"
+	. "github.com/gofred-io/gofred/widget"
 )
 
-func LayoutsContent() widget.BaseWidget {
-	return container.New(
-		column.New(
-			[]widget.BaseWidget{
+func LayoutsContent() Widget {
+	return Container(
+		Column(
+			[]Widget{
 				layoutsPageHeader(),
-				spacer.New(spacer.Height(24)),
+				Spacer().Height(24),
 				layoutsPageContent(),
 			},
-			column.Gap(16),
-			column.Flex(1),
-		),
-		container.Flex(1),
-		container.Padding(breakpoint.All(spacing.All(32))),
-	)
+		).Gap(16).Flex(1),
+	).Flex(1).Padding(AllBP(All(32)))
 }
 
-func layoutsPageHeader() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			text.New(
-				"Layouts & Responsive Design",
-				text.FontSize(32),
-				text.FontColor("#1F2937"),
-				text.FontWeight("700"),
-			),
-			text.New(
-				"Master the art of creating beautiful, responsive layouts that work perfectly across all devices and screen sizes.",
-				text.FontSize(18),
-				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
-			),
+func layoutsPageHeader() Widget {
+	return Column(
+		[]Widget{
+			Text("Layouts & Responsive Design").
+				FontSize(32).
+				FontColor("#1F2937").
+				FontWeight("700"),
+			Text("Master the art of creating beautiful, responsive layouts that work perfectly across all devices and screen sizes.").
+				FontSize(18).
+				FontColor("#6B7280").
+				FontWeight("400"),
 		},
-		column.Gap(8),
-	)
+	).Gap(8)
 }
 
-func layoutsPageContent() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
+func layoutsPageContent() Widget {
+	return Column(
+		[]Widget{
 			layoutContentSection("Layout Fundamentals", "Layouts in gofred are built using a flexbox-inspired system that makes it easy to create responsive, flexible designs. The main layout widgets work together to help you arrange content exactly how you want it."),
-			spacer.New(spacer.Height(24)),
+			Spacer().Height(24),
 
 			// Column Layouts
 			layoutContentSection("Column Layouts", "Columns arrange widgets vertically, perfect for forms, lists, and content that flows from top to bottom."),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			layoutSubsection("Basic Column", "The foundation of vertical layouts."),
-			codeblock.New(`column.New(
-    []widget.BaseWidget{
-        text.New("Header", text.FontSize(24), text.FontWeight("600")),
-        text.New("Subtitle", text.FontSize(16), text.FontColor("#6B7280")),
-        text.New("Content goes here..."),
-        button.New(text.New("Action Button")),
+			CodeBlock(`Column(
+    []Widget{
+        Text("Header", .FontSize(24), .FontWeight("600")),
+        Text("Subtitle", .FontSize(16), .FontColor("#6B7280")),
+        Text("Content goes here..."),
+        Button(Text("Action Button")),
     },
-    column.Gap(16), // Space between items
+    .Gap(16), // Space between items
 )`),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			layoutSubsection("Column Alignment", "Control how items are aligned within the column."),
-			codeblock.New(`// Center-aligned column
-column.New(
-    []widget.BaseWidget{
-        text.New("Centered Title"),
-        text.New("Centered content"),
-        button.New(text.New("Centered Button")),
+			CodeBlock(`// Center-aligned column
+Column(
+    []Widget{
+        Text("Centered Title"),
+        Text("Centered content"),
+        Button(Text("Centered Button")),
     },
-    column.Gap(12),
-    column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+    .Gap(12),
+    column.CrossAxisAlignment(AxisAlignmentTypeCenter),
 )
 
 // Right-aligned column
-column.New(
+Column(
     items,
-    column.CrossAxisAlignment(options.AxisAlignmentTypeEnd),
+    column.CrossAxisAlignment(AxisAlignmentTypeEnd),
 )`),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			layoutSubsection("Flexible Columns", "Make columns expand to fill available space."),
-			codeblock.New(`column.New(
-    []widget.BaseWidget{
+			CodeBlock(`Column(
+    []Widget{
         header(),
-        column.New(
+        Column(
             contentItems,
-            column.Flex(1), // This column takes remaining space
+            .Flex(1), // This column takes remaining space
         ),
         footer(),
     },
-    column.Gap(0),
+    .Gap(0),
 )`),
-			spacer.New(spacer.Height(24)),
+			Spacer().Height(24),
 
 			// Row Layouts
 			layoutContentSection("Row Layouts", "Rows arrange widgets horizontally, ideal for navigation bars, button groups, and side-by-side content."),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			layoutSubsection("Basic Row", "The foundation of horizontal layouts."),
-			codeblock.New(`row.New(
-    []widget.BaseWidget{
-        icon.New(icondata.User, icon.Width(breakpoint.All(20))),
-        text.New("John Doe", text.FontWeight("500")),
-        spacer.New(), // Pushes next items to the right
-        text.New("Online", text.FontColor("#10B981")),
-        button.New(text.New("Contact")),
+			CodeBlock(`Row(
+    []Widget{
+        Icon(icondata.User, .Width(AllBP(20))),
+        Text("John Doe", .FontWeight("500")),
+        Spacer(), // Pushes next items to the right
+        Text("Online", .FontColor("#10B981")),
+        Button(Text("Contact")),
     },
-    row.Gap(12),
-    row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+    .Gap(12),
+    .CrossAxisAlignment(AxisAlignmentTypeCenter),
 )`),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			layoutSubsection("Row Alignment", "Control vertical alignment of items in a row."),
-			codeblock.New(`// Top-aligned row
-row.New(
-    []widget.BaseWidget{
+			CodeBlock(`// Top-aligned row
+Row(
+    []Widget{
         largeImage(),
-        column.New(smallTextItems),
+        Column(smallTextItems),
     },
-    row.CrossAxisAlignment(options.AxisAlignmentTypeStart),
+    .CrossAxisAlignment(AxisAlignmentTypeStart),
 )
 
 // Bottom-aligned row
-row.New(
+Row(
     items,
-    row.CrossAxisAlignment(options.AxisAlignmentTypeEnd),
+    .CrossAxisAlignment(AxisAlignmentTypeEnd),
 )
 
 // Stretch items to same height
-row.New(
+Row(
     items,
-    row.CrossAxisAlignment(options.AxisAlignmentTypeStretch),
+    .CrossAxisAlignment(AxisAlignmentTypeStretch),
 )`),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			layoutSubsection("Flexible Rows", "Distribute space between row items."),
-			codeblock.New(`row.New(
-    []widget.BaseWidget{
-        container.New(
-            text.New("Left Panel"),
-            container.Flex(1), // Takes 1/3 of space
+			CodeBlock(`Row(
+    []Widget{
+        Container(
+            Text("Left Panel"),
+            .Flex(1), // Takes 1/3 of space
         ),
-        container.New(
-            text.New("Main Content"),
-            container.Flex(2), // Takes 2/3 of space
+        Container(
+            Text("Main Content"),
+            .Flex(2), // Takes 2/3 of space
         ),
-        container.New(
-            text.New("Right Panel"),
-            container.Width(breakpoint.All(200)), // Fixed width
+        Container(
+            Text("Right Panel"),
+            container.Width(AllBP(200)), // Fixed width
         ),
     },
-    row.Gap(16),
+    .Gap(16),
 )`),
-			spacer.New(spacer.Height(24)),
+			Spacer().Height(24),
 
 			// Grid Layouts
 			layoutContentSection("Grid Layouts", "Grids create two-dimensional layouts perfect for cards, galleries, and dashboard-style interfaces."),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			layoutSubsection("Responsive Grid", "Create grids that adapt to screen size."),
-			codeblock.New(`grid.New(
-    []widget.BaseWidget{
+			CodeBlock(`grid.New(
+    []Widget{
         productCard("Product 1"),
         productCard("Product 2"),
         productCard("Product 3"),
@@ -193,12 +184,12 @@ row.New(
     grid.ColumnGap(16),
     grid.RowGap(16),
 )`),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			layoutSubsection("Fixed Grid", "Create grids with consistent column counts."),
-			codeblock.New(`// 3-column grid for desktop dashboard
+			CodeBlock(`// 3-column grid for desktop dashboard
 grid.New(
-    []widget.BaseWidget{
+    []Widget{
         dashboardCard("Sales", "$12,345"),
         dashboardCard("Orders", "156"),
         dashboardCard("Users", "1,234"),
@@ -206,57 +197,57 @@ grid.New(
         dashboardCard("Growth", "+12%"),
         dashboardCard("Conversion", "3.2%"),
     },
-    grid.ColumnCount(breakpoint.All(3)),
+    grid.ColumnCount(AllBP(3)),
     grid.ColumnGap(24),
     grid.RowGap(24),
 )`),
-			spacer.New(spacer.Height(24)),
+			Spacer().Height(24),
 
 			// Container Layouts
 			layoutContentSection("Container Layouts", "Containers provide structure, spacing, and styling to your layouts."),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			layoutSubsection("Basic Container", "Wrap content with padding and styling."),
-			codeblock.New(`container.New(
-    column.New(
-        []widget.BaseWidget{
-            text.New("Card Title", text.FontWeight("600")),
-            text.New("Card content goes here..."),
+			CodeBlock(`Container(
+    Column(
+        []Widget{
+            Text("Card Title", .FontWeight("600")),
+            Text("Card content goes here..."),
         },
-        column.Gap(8),
+        .Gap(8),
     ),
-    container.Padding(breakpoint.All(spacing.All(16))),
+    .Padding(AllBP(All(16))),
     container.BackgroundColor("#FFFFFF"),
     container.BorderRadius(8),
     container.BorderColor("#E5E7EB"),
     container.BorderWidth(1, 1, 1, 1),
 )`),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			layoutSubsection("Responsive Container", "Containers that adapt to screen size."),
-			codeblock.New(`container.New(
+			CodeBlock(`Container(
     content,
-    container.Padding(
-        breakpoint.XS(spacing.All(8)),
-        breakpoint.SM(spacing.All(16)),
-        breakpoint.MD(spacing.All(24)),
-        breakpoint.LG(spacing.All(32)),
+    .Padding(
+        breakpoint.XS(All(8)),
+        breakpoint.SM(All(16)),
+        breakpoint.MD(All(24)),
+        breakpoint.LG(All(32)),
     ),
     container.MaxWidth(
-        breakpoint.SM(breakpoint.All(640)),
-        breakpoint.MD(breakpoint.All(768)),
-        breakpoint.LG(breakpoint.All(1024)),
-        breakpoint.XL(breakpoint.All(1280)),
+        breakpoint.SM(AllBP(640)),
+        breakpoint.MD(AllBP(768)),
+        breakpoint.LG(AllBP(1024)),
+        breakpoint.XL(AllBP(1280)),
     ),
 )`),
-			spacer.New(spacer.Height(24)),
+			Spacer().Height(24),
 
 			// Responsive Design
 			layoutContentSection("Responsive Design", "gofred's breakpoint system makes it easy to create layouts that work on any device."),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			layoutSubsection("Breakpoint System", "Define different behaviors for different screen sizes."),
-			codeblock.New(`// Available breakpoints:
+			CodeBlock(`// Available breakpoints:
 // breakpoint.XS   - Extra small (< 640px)
 // breakpoint.SM   - Small (≥ 640px)
 // breakpoint.MD   - Medium (≥ 768px)
@@ -265,8 +256,8 @@ grid.New(
 // breakpoint.XXL  - 2X large (≥ 1536px)
 
 // Example: Different layouts for different screen sizes
-func responsiveLayout() widget.BaseWidget {
-    return container.New(
+func responsiveLayout() Widget {
+    return Container(
         grid.New(
             contentCards(),
             grid.ColumnCount(
@@ -276,29 +267,29 @@ func responsiveLayout() widget.BaseWidget {
             ),
             grid.ColumnGap(16),
         ),
-        container.Padding(
-            breakpoint.XS(spacing.All(16)),
-            breakpoint.LG(spacing.All(32)),
+        .Padding(
+            breakpoint.XS(All(16)),
+            breakpoint.LG(All(32)),
         ),
     )
 }`),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			layoutSubsection("Mobile-First Design", "Start with mobile layouts and enhance for larger screens."),
-			codeblock.New(`// Mobile-first navigation
-func navigationBar() widget.BaseWidget {
-    return container.New(
-        row.New(
-            []widget.BaseWidget{
+			CodeBlock(`// Mobile-first navigation
+func navigationBar() Widget {
+    return Container(
+        Row(
+            []Widget{
                 // Logo
                 logo(),
-                spacer.New(),
+                Spacer(),
                 // Mobile: Hamburger menu, Desktop: Full navigation
-                container.New(
-                    row.New(
-                        []widget.BaseWidget{
+                Container(
+                    Row(
+                        []Widget{
                             // Shown on mobile, hidden on desktop
-                            container.New(
+                            Container(
                                 hamburgerMenu(),
                                 container.Visible(
                                     breakpoint.XS(true),
@@ -306,8 +297,8 @@ func navigationBar() widget.BaseWidget {
                                 ),
                             ),
                             // Hidden on mobile, shown on desktop
-                            container.New(
-                                row.New(navItems(), row.Gap(24)),
+                            Container(
+                                Row(navItems(), .Gap(24)),
                                 container.Visible(
                                     breakpoint.XS(false),
                                     breakpoint.MD(true),
@@ -317,56 +308,56 @@ func navigationBar() widget.BaseWidget {
                     ),
                 ),
             },
-            row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+            .CrossAxisAlignment(AxisAlignmentTypeCenter),
         ),
-        container.Padding(breakpoint.All(spacing.All(16))),
+        .Padding(AllBP(All(16))),
     )
 }`),
-			spacer.New(spacer.Height(24)),
+			Spacer().Height(24),
 
 			// Common Layout Patterns
 			layoutContentSection("Common Layout Patterns", "Learn proven patterns for building common UI layouts."),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			layoutSubsection("Header-Content-Footer", "The classic three-section layout."),
-			codeblock.New(`func appLayout() widget.BaseWidget {
-    return column.New(
-        []widget.BaseWidget{
+			CodeBlock(`func appLayout() Widget {
+    return Column(
+        []Widget{
             // Header
-            container.New(
+            Container(
                 navigationBar(),
-                container.Height(breakpoint.All(64)),
+                container.Height(AllBP(64)),
                 container.BackgroundColor("#FFFFFF"),
                 container.BorderColor("#E5E7EB"),
                 container.BorderWidth(0, 0, 1, 0),
             ),
             // Main Content
-            container.New(
+            Container(
                 mainContent(),
-                container.Flex(1), // Takes remaining height
+                .Flex(1), // Takes remaining height
                 container.BackgroundColor("#F9FAFB"),
             ),
             // Footer
-            container.New(
+            Container(
                 footer(),
                 container.BackgroundColor("#1F2937"),
             ),
         },
-        column.Height(breakpoint.All(widget.Context().ClientHeight())),
+        column.Height(AllBP(widget.Context().ClientHeight())),
     )
 }`),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			layoutSubsection("Sidebar Layout", "Content with a side navigation panel."),
-			codeblock.New(`func dashboardLayout() widget.BaseWidget {
-    return row.New(
-        []widget.BaseWidget{
+			CodeBlock(`func dashboardLayout() Widget {
+    return Row(
+        []Widget{
             // Sidebar
-            container.New(
+            Container(
                 sidebar(),
                 container.Width(
-                    breakpoint.MD(breakpoint.All(240)),
-                    breakpoint.LG(breakpoint.All(280)),
+                    breakpoint.MD(AllBP(240)),
+                    breakpoint.LG(AllBP(280)),
                 ),
                 container.Visible(
                     breakpoint.XS(false),
@@ -377,61 +368,61 @@ func navigationBar() widget.BaseWidget {
                 container.BorderWidth(0, 1, 0, 0),
             ),
             // Main Content
-            container.New(
+            Container(
                 dashboardContent(),
-                container.Flex(1),
-                container.Padding(breakpoint.All(spacing.All(24))),
+                .Flex(1),
+                .Padding(AllBP(All(24))),
             ),
         },
-        row.Height(breakpoint.All(widget.Context().ClientHeight())),
+        row.Height(AllBP(widget.Context().ClientHeight())),
     )
 }`),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			layoutSubsection("Card Layout", "Reusable card components for content display."),
-			codeblock.New(`func cardLayout(title, content string, actions []widget.BaseWidget) widget.BaseWidget {
-    return container.New(
-        column.New(
-            []widget.BaseWidget{
+			CodeBlock(`func cardLayout(title, content string, actions []Widget) Widget {
+    return Container(
+        Column(
+            []Widget{
                 // Card Header
-                row.New(
-                    []widget.BaseWidget{
-                        text.New(
+                Row(
+                    []Widget{
+                        Text(
                             title,
-                            text.FontSize(18),
-                            text.FontWeight("600"),
-                            text.FontColor("#1F2937"),
+                            .FontSize(18),
+                            .FontWeight("600"),
+                            .FontColor("#1F2937"),
                         ),
-                        spacer.New(),
+                        Spacer(),
                         // Optional header actions
-                        row.New(actions, row.Gap(8)),
+                        Row(actions, .Gap(8)),
                     },
-                    row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+                    .CrossAxisAlignment(AxisAlignmentTypeCenter),
                 ),
                 // Card Content
-                container.New(
-                    text.New(
+                Container(
+                    Text(
                         content,
-                        text.FontSize(14),
-                        text.FontColor("#6B7280"),
+                        .FontSize(14),
+                        .FontColor("#6B7280"),
                         text.LineHeight(1.5),
                     ),
-                    container.Padding(breakpoint.All(spacing.Symmetric(0, 16))),
+                    .Padding(AllBP(Symmetric(0, 16))),
                 ),
                 // Card Footer
-                row.New(
-                    []widget.BaseWidget{
-                        spacer.New(),
-                        button.New(
-                            text.New("Learn More", text.FontColor("#2B799B")),
-                            button.BackgroundColor("transparent"),
+                Row(
+                    []Widget{
+                        Spacer(),
+                        Button(
+                            Text("Learn More", .FontColor("#2B799B")),
+                            .BackgroundColor("transparent"),
                         ),
                     },
                 ),
             },
-            column.Gap(16),
+            .Gap(16),
         ),
-        container.Padding(breakpoint.All(spacing.All(16))),
+        .Padding(AllBP(All(16))),
         container.BackgroundColor("#FFFFFF"),
         container.BorderRadius(8),
         container.BorderColor("#E5E7EB"),
@@ -439,14 +430,14 @@ func navigationBar() widget.BaseWidget {
         container.BorderStyle(options.BorderStyleTypeSolid),
     )
 }`),
-			spacer.New(spacer.Height(24)),
+			Spacer().Height(24),
 
 			// Spacing and Alignment
 			layoutContentSection("Spacing & Alignment", "Master the art of spacing and alignment for polished layouts."),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			layoutSubsection("Consistent Spacing", "Use a consistent spacing scale throughout your app."),
-			codeblock.New(`// Define your spacing scale
+			CodeBlock(`// Define your spacing scale
 const (
     SpaceXS  = 4
     SpaceSM  = 8
@@ -457,90 +448,79 @@ const (
 )
 
 // Use spacing consistently
-column.New(
-    []widget.BaseWidget{
+Column(
+    []Widget{
         sectionHeader(),
-        spacer.New(spacer.Height(SpaceLG)),
+        Spacer(.Height(SpaceLG)),
         sectionContent(),
-        spacer.New(spacer.Height(SpaceXL)),
+        Spacer(.Height(SpaceXL)),
         nextSection(),
     },
 )`),
-			spacer.New(spacer.Height(16)),
+			Spacer().Height(16),
 
 			layoutSubsection("Spacer Widget", "Use spacers for flexible and fixed spacing."),
-			codeblock.New(`// Fixed spacing
-spacer.New(spacer.Height(24))
-spacer.New(spacer.Width(16))
+			CodeBlock(`// Fixed spacing
+Spacer().Height(24)
+Spacer(.Width(16))
 
 // Flexible spacing - takes all available space
-spacer.New()
+Spacer()
 
 // Example: Pushing items apart
-row.New(
-    []widget.BaseWidget{
+Row(
+    []Widget{
         leftContent(),
-        spacer.New(), // Pushes rightContent to the far right
+        Spacer(), // Pushes rightContent to the far right
         rightContent(),
     },
 )`),
-			spacer.New(spacer.Height(24)),
+			Spacer().Height(24),
 
 			// Best Practices
 			layoutContentSection("Layout Best Practices", "Follow these guidelines for creating effective layouts."),
 			layoutBestPracticesList(),
-			spacer.New(spacer.Height(24)),
+			Spacer().Height(24),
 
 			layoutContentSection("What's Next?", "Now that you understand layouts, explore these related topics:"),
 			layoutsNextStepsList(),
-			spacer.New(spacer.Height(32)),
+			Spacer().Height(32),
 			layoutNavigationButtons("/docs/widgets", "/docs/styling"),
 		},
-		column.Gap(16),
-	)
+	).Gap(16)
 }
 
-func layoutContentSection(title, description string) widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			text.New(
-				title,
-				text.FontSize(24),
-				text.FontColor("#1F2937"),
-				text.FontWeight("600"),
-			),
-			text.New(
-				description,
-				text.FontSize(16),
-				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
-			),
+func layoutContentSection(title, description string) Widget {
+	return Column(
+		[]Widget{
+			Text(title).
+				FontSize(24).
+				FontColor("#1F2937").
+				FontWeight("600"),
+			Text(description).
+				FontSize(16).
+				FontColor("#6B7280").
+				FontWeight("400"),
 		},
-		column.Gap(8),
-	)
+	).Gap(8)
 }
 
-func layoutSubsection(title, description string) widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			text.New(
-				title,
-				text.FontSize(20),
-				text.FontColor("#1F2937"),
-				text.FontWeight("600"),
-			),
-			text.New(
-				description,
-				text.FontSize(14),
-				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
-			),
+func layoutSubsection(title, description string) Widget {
+	return Column(
+		[]Widget{
+			Text(title).
+				FontSize(20).
+				FontColor("#1F2937").
+				FontWeight("600"),
+			Text(description).
+				FontSize(14).
+				FontColor("#6B7280").
+				FontWeight("400"),
 		},
-		column.Gap(4),
-	)
+	).Gap(4)
 }
 
-func layoutBestPracticesList() widget.BaseWidget {
+func layoutBestPracticesList() Widget {
 	practices := []string{
 		"Start with mobile-first design and progressively enhance for larger screens",
 		"Use consistent spacing throughout your application with a defined scale",
@@ -554,40 +534,33 @@ func layoutBestPracticesList() widget.BaseWidget {
 		"Make interactive elements easily accessible with proper spacing and sizing",
 	}
 
-	var practiceItems []widget.BaseWidget
+	var practiceItems []Widget
 	for _, practice := range practices {
 		practiceItems = append(practiceItems, layoutListItem(practice))
 	}
 
-	return column.New(
+	return Column(
 		practiceItems,
-		column.Gap(8),
-	)
+	).Gap(8)
 }
 
-func layoutListItem(itemText string) widget.BaseWidget {
-	return row.New(
-		[]widget.BaseWidget{
-			icon.New(
-				icondata.Check,
-				icon.Width(breakpoint.All(16)),
-				icon.Height(breakpoint.All(16)),
-				icon.Fill("#10B981"),
-			),
-			spacer.New(spacer.Width(8)),
-			text.New(
-				itemText,
-				text.FontSize(16),
-				text.FontColor("#374151"),
-				text.FontWeight("400"),
-			),
+func layoutListItem(itemText string) Widget {
+	return Row(
+		[]Widget{
+			Icon(icondata.Check).
+				Width(AllBP(16)).
+				Height(AllBP(16)).
+				Fill("#10B981"),
+			Spacer().Width(8),
+			Text(itemText).
+				FontSize(16).
+				FontColor("#374151").
+				FontWeight("400"),
 		},
-		row.Gap(8),
-		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-	)
+	).Gap(8).CrossAxisAlignment(AxisAlignmentTypeCenter)
 }
 
-func layoutsNextStepsList() widget.BaseWidget {
+func layoutsNextStepsList() Widget {
 	steps := []struct {
 		title       string
 		description string
@@ -610,117 +583,84 @@ func layoutsNextStepsList() widget.BaseWidget {
 		},
 	}
 
-	var stepItems []widget.BaseWidget
+	var stepItems []Widget
 	for _, step := range steps {
 		stepItems = append(stepItems, layoutNextStepItem(step.title, step.description, step.href))
 	}
 
-	return column.New(
+	return Column(
 		stepItems,
-		column.Gap(12),
-	)
+	).Gap(12)
 }
 
-func layoutNextStepItem(title, description, href string) widget.BaseWidget {
-	return link.New(
-		container.New(
-			row.New(
-				[]widget.BaseWidget{
-					column.New(
-						[]widget.BaseWidget{
-							text.New(
-								title,
-								text.FontSize(16),
-								text.FontColor("#2B799B"),
-								text.FontWeight("500"),
-							),
-							text.New(
-								description,
-								text.FontSize(14),
-								text.FontColor("#6B7280"),
-								text.FontWeight("400"),
-							),
+func layoutNextStepItem(title, description, href string) Widget {
+	return Link(
+		Container(
+			Row(
+				[]Widget{
+					Column(
+						[]Widget{
+							Text(title).
+								FontSize(16).
+								FontColor("#2B799B").
+								FontWeight("500"),
+							Text(description).
+								FontSize(14).
+								FontColor("#6B7280").
+								FontWeight("400"),
 						},
-						column.Gap(4),
-						column.Flex(1),
-					),
-					icon.New(
-						icondata.ChevronRight,
-						icon.Width(breakpoint.All(20)),
-						icon.Height(breakpoint.All(20)),
-						icon.Fill("#9CA3AF"),
-					),
+					).Gap(4).Flex(1),
+					Icon(icondata.ChevronRight).
+						Width(AllBP(20)).
+						Height(AllBP(20)).
+						Fill("#9CA3AF"),
 				},
-				row.Gap(12),
-				row.Flex(1),
-				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-			),
-			container.Padding(breakpoint.All(spacing.All(16))),
-			container.BackgroundColor("#FFFFFF"),
-			container.BorderRadius(8),
-			container.BorderColor("#E5E7EB"),
-			container.BorderWidth(1, 1, 1, 1),
-			container.BorderStyle(options.BorderStyleTypeSolid),
-		),
-		link.Href(href),
-	)
+			).Gap(12).Flex(1).CrossAxisAlignment(AxisAlignmentTypeCenter),
+		).Padding(AllBP(All(16))).
+			BackgroundColor("#FFFFFF").
+			BorderRadius(8).
+			BorderColor("#E5E7EB").
+			BorderWidth(1, 1, 1, 1).
+			BorderStyle(BorderStyleTypeSolid),
+	).Href(href)
 }
 
-func layoutNavigationButtons(previousHref, nextHref string) widget.BaseWidget {
-	return row.New(
-		[]widget.BaseWidget{
-			link.New(
-				button.New(
-					row.New(
-						[]widget.BaseWidget{
-							icon.New(
-								icondata.ChevronLeft,
-								icon.Width(breakpoint.All(16)),
-								icon.Height(breakpoint.All(16)),
-								icon.Fill("#FFFFFF"),
-							),
-							text.New(
-								"Previous",
-								text.FontSize(14),
-								text.FontColor("#FFFFFF"),
-								text.FontWeight("500"),
-							),
+func layoutNavigationButtons(previousHref, nextHref string) Widget {
+	return Row(
+		[]Widget{
+			Link(
+				Button(
+					Row(
+						[]Widget{
+							Icon(icondata.ChevronLeft).
+								Width(AllBP(16)).
+								Height(AllBP(16)).
+								Fill("#FFFFFF"),
+							Text("Previous").
+								FontSize(14).
+								FontColor("#FFFFFF").
+								FontWeight("500"),
 						},
-						row.Gap(8),
-						row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-					),
-					button.BackgroundColor("#6B7280"),
-					button.Width(breakpoint.All(120)),
-				),
-				link.Href(previousHref),
-			),
-			spacer.New(),
-			link.New(
-				button.New(
-					row.New(
-						[]widget.BaseWidget{
-							text.New(
-								"Next",
-								text.FontSize(14),
-								text.FontColor("#FFFFFF"),
-								text.FontWeight("500"),
-							),
-							icon.New(
-								icondata.ChevronRight,
-								icon.Width(breakpoint.All(16)),
-								icon.Height(breakpoint.All(16)),
-								icon.Fill("#FFFFFF"),
-							),
+					).Gap(8).CrossAxisAlignment(AxisAlignmentTypeCenter),
+				).BackgroundColor("#6B7280").Width(AllBP(120)),
+			).Href(previousHref),
+			Spacer(),
+			Link(
+				Button(
+					Row(
+						[]Widget{
+							Text("Next").
+								FontSize(14).
+								FontColor("#FFFFFF").
+								FontWeight("500"),
+							Icon(icondata.ChevronRight).
+								Width(AllBP(16)).
+								Height(AllBP(16)).
+								Fill("#FFFFFF"),
 						},
-						row.Gap(8),
-						row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-					),
-					button.BackgroundColor("#2B799B"),
-					button.Width(breakpoint.All(120)),
-				),
-				link.Href(nextHref),
-			),
+					).Gap(8).CrossAxisAlignment(AxisAlignmentTypeCenter),
+				).BackgroundColor("#2B799B").Width(AllBP(120)),
+			).Href(nextHref),
 		},
-		row.Flex(1),
-	)
+	).Flex(1)
 }

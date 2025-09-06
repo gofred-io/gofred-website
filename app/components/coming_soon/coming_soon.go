@@ -1,48 +1,43 @@
 package comingsoon
 
 import (
-	"github.com/gofred-io/gofred/breakpoint"
-	"github.com/gofred-io/gofred/foundation/button"
-	"github.com/gofred-io/gofred/foundation/center"
-	"github.com/gofred-io/gofred/foundation/column"
-	"github.com/gofred-io/gofred/foundation/container"
-	"github.com/gofred-io/gofred/foundation/icon"
+	. "github.com/gofred-io/gofred/breakpoint"
+	. "github.com/gofred-io/gofred/foundation/button"
+	. "github.com/gofred-io/gofred/foundation/center"
+	. "github.com/gofred-io/gofred/foundation/column"
+	. "github.com/gofred-io/gofred/foundation/container"
+	. "github.com/gofred-io/gofred/foundation/icon"
 	icondata "github.com/gofred-io/gofred/foundation/icon/icon_data"
-	"github.com/gofred-io/gofred/foundation/link"
-	"github.com/gofred-io/gofred/foundation/row"
-	"github.com/gofred-io/gofred/foundation/spacer"
-	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/options"
-	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	. "github.com/gofred-io/gofred/foundation/link"
+	. "github.com/gofred-io/gofred/foundation/row"
+	. "github.com/gofred-io/gofred/foundation/spacer"
+	. "github.com/gofred-io/gofred/foundation/text"
+	. "github.com/gofred-io/gofred/options"
+	. "github.com/gofred-io/gofred/options/spacing"
+	. "github.com/gofred-io/gofred/widget"
 )
 
 // ComingSoonContent creates a coming soon page with optional title and suggestions
-func ComingSoonContent(title string, suggestions []Suggestion) widget.BaseWidget {
-	return container.New(
-		center.New(
-			container.New(
-				column.New(
-					[]widget.BaseWidget{
+func ComingSoonContent(title string, suggestions []Suggestion) Widget {
+	return Container(
+		Center(
+			Container(
+				Column(
+					[]Widget{
 						comingSoonHeader(title),
-						spacer.New(spacer.Height(32)),
+						Spacer().Height(32),
 						comingSoonIcon(),
-						spacer.New(spacer.Height(24)),
+						Spacer().Height(24),
 						comingSoonMessage(),
-						spacer.New(spacer.Height(32)),
+						Spacer().Height(32),
 						comingSoonSuggestions(suggestions),
-						spacer.New(spacer.Height(32)),
+						Spacer().Height(32),
 						comingSoonActions(),
 					},
-					column.Gap(0),
-					column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-				),
-				container.MaxWidth(breakpoint.All(600)),
-				container.Padding(breakpoint.All(spacing.All(32))),
-			),
+				).Gap(0).CrossAxisAlignment(AxisAlignmentTypeCenter),
+			).MaxWidth(AllBP(600)).Padding(AllBP(All(32))),
 		),
-		container.Flex(1),
-	)
+	).Flex(1)
 }
 
 // Suggestion represents a suggested page or action for users
@@ -52,94 +47,46 @@ type Suggestion struct {
 	Href        string
 }
 
-func comingSoonHeader(title string) widget.BaseWidget {
+func comingSoonHeader(title string) Widget {
 	pageTitle := title
 	if pageTitle == "" {
 		pageTitle = "Coming Soon"
 	}
 
-	return column.New(
-		[]widget.BaseWidget{
-			text.New(
-				pageTitle,
-				text.FontSize(32),
-				text.FontColor("#1F2937"),
-				text.FontWeight("700"),
-			),
-			spacer.New(spacer.Height(8)),
-			text.New(
-				"This documentation page is currently under development",
-				text.FontSize(18),
-				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
-			),
+	return Column(
+		[]Widget{
+			Text(pageTitle).FontSize(32).FontColor("#1F2937").FontWeight("700"),
+			Spacer().Height(8),
+			Text("This documentation page is currently under development").FontSize(18).FontColor("#6B7280").FontWeight("400"),
 		},
-		column.Gap(0),
-		column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-	)
+	).Gap(0).CrossAxisAlignment(AxisAlignmentTypeCenter)
 }
 
-func comingSoonIcon() widget.BaseWidget {
-	return container.New(
-		icon.New(
-			icondata.Clock,
-			icon.Width(breakpoint.All(80)),
-			icon.Height(breakpoint.All(80)),
-			icon.Fill("#9CA3AF"),
-		),
-		container.Padding(breakpoint.All(spacing.All(20))),
-		container.BackgroundColor("#F9FAFB"),
-		container.BorderRadius(40),
-		container.BorderColor("#E5E7EB"),
-		container.BorderWidth(1, 1, 1, 1),
-		container.BorderStyle(options.BorderStyleTypeSolid),
-	)
+func comingSoonIcon() Widget {
+	return Container(
+		Icon(icondata.Clock).Width(AllBP(80)).Height(AllBP(80)).Fill("#9CA3AF"),
+	).Padding(AllBP(All(20))).BackgroundColor("#F9FAFB").BorderRadius(40).
+		BorderColor("#E5E7EB").BorderWidth(1, 1, 1, 1).BorderStyle(BorderStyleTypeSolid)
 }
 
-func comingSoonMessage() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			text.New(
-				"We're working hard to bring you comprehensive documentation for this topic. In the meantime, you can explore the available sections or check back soon for updates.",
-				text.FontSize(16),
-				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
-				text.LineHeight(1.6),
-			),
-			spacer.New(spacer.Height(16)),
-			container.New(
-				row.New(
-					[]widget.BaseWidget{
-						icon.New(
-							icondata.Alert,
-							icon.Width(breakpoint.All(16)),
-							icon.Height(breakpoint.All(16)),
-							icon.Fill("#3B82F6"),
-						),
-						text.New(
-							"Want to contribute? This documentation is open source and we welcome contributions!",
-							text.FontSize(14),
-							text.FontColor("#3B82F6"),
-							text.FontWeight("400"),
-						),
+func comingSoonMessage() Widget {
+	return Column(
+		[]Widget{
+			Text("We're working hard to bring you comprehensive documentation for this topic. In the meantime, you can explore the available sections or check back soon for updates.").FontSize(16).FontColor("#6B7280").FontWeight("400").LineHeight(1.6),
+			Spacer().Height(16),
+			Container(
+				Row(
+					[]Widget{
+						Icon(icondata.Alert).Width(AllBP(16)).Height(AllBP(16)).Fill("#3B82F6"),
+						Text("Want to contribute? This documentation is open source and we welcome contributions!").FontSize(14).FontColor("#3B82F6").FontWeight("400"),
 					},
-					row.Gap(8),
-					row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-				),
-				container.Padding(breakpoint.All(spacing.All(12))),
-				container.BackgroundColor("#EFF6FF"),
-				container.BorderRadius(8),
-				container.BorderColor("#DBEAFE"),
-				container.BorderWidth(1, 1, 1, 1),
-				container.BorderStyle(options.BorderStyleTypeSolid),
-			),
+				).Gap(8).CrossAxisAlignment(AxisAlignmentTypeCenter),
+			).Padding(AllBP(All(12))).BackgroundColor("#EFF6FF").BorderRadius(8).BorderColor("#DBEAFE").BorderWidth(1, 1, 1, 1).BorderStyle(BorderStyleTypeSolid),
 		},
-		column.Gap(0),
-		column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-	)
+	).Gap(0).CrossAxisAlignment(AxisAlignmentTypeCenter)
 }
 
-func comingSoonSuggestions(suggestions []Suggestion) widget.BaseWidget {
+func comingSoonSuggestions(suggestions []Suggestion) Widget {
 	if len(suggestions) == 0 {
 		// Default suggestions if none provided
 		suggestions = []Suggestion{
@@ -166,159 +113,85 @@ func comingSoonSuggestions(suggestions []Suggestion) widget.BaseWidget {
 		}
 	}
 
-	var suggestionWidgets []widget.BaseWidget
+	var suggestionWidgets []Widget
 	suggestionWidgets = append(suggestionWidgets,
-		text.New(
-			"While you're here, check out these available topics:",
-			text.FontSize(18),
-			text.FontColor("#1F2937"),
-			text.FontWeight("600"),
-		),
+		Text("While you're here, check out these available topics:").FontSize(18).FontColor("#1F2937").FontWeight("600"),
 	)
-	suggestionWidgets = append(suggestionWidgets, spacer.New(spacer.Height(16)))
+	suggestionWidgets = append(suggestionWidgets, Spacer().Height(16))
 
 	for _, suggestion := range suggestions {
 		suggestionWidgets = append(suggestionWidgets, suggestionCard(suggestion))
 	}
 
-	return column.New(
+	return Column(
 		suggestionWidgets,
-		column.Gap(12),
-		column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-	)
+	).Gap(12).CrossAxisAlignment(AxisAlignmentTypeCenter)
 }
 
-func suggestionCard(suggestion Suggestion) widget.BaseWidget {
-	return link.New(
-		container.New(
-			row.New(
-				[]widget.BaseWidget{
-					column.New(
-						[]widget.BaseWidget{
-							text.New(
-								suggestion.Title,
-								text.FontSize(16),
-								text.FontColor("#2B799B"),
-								text.FontWeight("500"),
-							),
-							text.New(
-								suggestion.Description,
-								text.FontSize(14),
-								text.FontColor("#6B7280"),
-								text.FontWeight("400"),
-								text.LineHeight(1.4),
-							),
+func suggestionCard(suggestion Suggestion) Widget {
+	return Link(
+		Container(
+			Row(
+				[]Widget{
+					Column(
+						[]Widget{
+							Text(suggestion.Title).FontSize(16).FontColor("#2B799B").FontWeight("500"),
+							Text(suggestion.Description).FontSize(14).FontColor("#6B7280").FontWeight("400").LineHeight(1.4),
 						},
-						column.Gap(4),
-						column.Flex(1),
-					),
-					icon.New(
-						icondata.ChevronRight,
-						icon.Width(breakpoint.All(20)),
-						icon.Height(breakpoint.All(20)),
-						icon.Fill("#9CA3AF"),
-					),
+					).Gap(4).Flex(1),
+					Icon(icondata.ChevronRight).Width(AllBP(20)).Height(AllBP(20)).Fill("#9CA3AF"),
 				},
-				row.Gap(12),
-				row.Flex(1),
-				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-			),
-			container.Padding(breakpoint.All(spacing.All(16))),
-			container.BackgroundColor("#FFFFFF"),
-			container.BorderRadius(8),
-			container.BorderColor("#E5E7EB"),
-			container.BorderWidth(1, 1, 1, 1),
-			container.BorderStyle(options.BorderStyleTypeSolid),
-			container.Width(breakpoint.All(400)),
-		),
-		link.Href(suggestion.Href),
-	)
+			).Gap(12).Flex(1).CrossAxisAlignment(AxisAlignmentTypeCenter),
+		).Padding(AllBP(All(16))).BackgroundColor("#FFFFFF").BorderRadius(8).BorderColor("#E5E7EB").BorderWidth(1, 1, 1, 1).BorderStyle(BorderStyleTypeSolid).Width(AllBP(400)),
+	).Href(suggestion.Href)
 }
 
-func comingSoonActions() widget.BaseWidget {
-	return column.New(
-		[]widget.BaseWidget{
-			text.New(
+func comingSoonActions() Widget {
+	return Column(
+		[]Widget{
+			Text(
 				"Need help or have questions?",
-				text.FontSize(16),
-				text.FontColor("#1F2937"),
-				text.FontWeight("500"),
-			),
-			spacer.New(spacer.Height(16)),
-			row.New(
-				[]widget.BaseWidget{
-					link.New(
-						button.New(
-							row.New(
-								[]widget.BaseWidget{
-									icon.New(
-										icondata.Home,
-										icon.Width(breakpoint.All(16)),
-										icon.Height(breakpoint.All(16)),
-										icon.Fill("#FFFFFF"),
-									),
-									text.New(
-										"Back to Docs",
-										text.FontSize(14),
-										text.FontColor("#FFFFFF"),
-										text.FontWeight("500"),
-									),
+			).FontSize(16).FontColor("#1F2937").FontWeight("500"),
+			Spacer().Height(16),
+			Row(
+				[]Widget{
+					Link(
+						Button(
+							Row(
+								[]Widget{
+									Icon(icondata.Home).Width(AllBP(16)).Height(AllBP(16)).Fill("#FFFFFF"),
+									Text("Back to Docs").FontSize(14).FontColor("#FFFFFF").FontWeight("500"),
 								},
-								row.Gap(8),
-								row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-							),
-							button.BackgroundColor("#2B799B"),
-							button.BorderRadius(6),
-						),
-						link.Href("/docs"),
-					),
-					link.New(
-						button.New(
-							row.New(
-								[]widget.BaseWidget{
-									icon.New(
-										icondata.AccountGroup,
-										icon.Width(breakpoint.All(16)),
-										icon.Height(breakpoint.All(16)),
-										icon.Fill("#FFFFFF"),
-									),
-									text.New(
-										"GitHub Discussions",
-										text.FontSize(14),
-										text.FontColor("#FFFFFF"),
-										text.FontWeight("500"),
-									),
+							).Gap(8).CrossAxisAlignment(AxisAlignmentTypeCenter),
+						).BackgroundColor("#2B799B").BorderRadius(6),
+					).Href("/docs"),
+					Link(
+						Button(
+							Row(
+								[]Widget{
+									Icon(icondata.AccountGroup).Width(AllBP(16)).Height(AllBP(16)).Fill("#FFFFFF"),
+									Text("GitHub Discussions").FontSize(14).FontColor("#FFFFFF").FontWeight("500"),
 								},
-								row.Gap(8),
-								row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-							),
-							button.BackgroundColor("#2B799B"),
-							button.BorderRadius(6),
-						),
-						link.Href("https://github.com/orgs/gofred-io/discussions"),
-						link.NewTab(true),
-					),
+							).Gap(8).CrossAxisAlignment(AxisAlignmentTypeCenter),
+						).BackgroundColor("#2B799B").BorderRadius(6),
+					).Href("https://github.com/orgs/gofred-io/discussions").NewTab(true),
 				},
-				row.Gap(12),
-				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-			),
+			).Gap(12).CrossAxisAlignment(AxisAlignmentTypeCenter),
 		},
-		column.Gap(0),
-		column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
-	)
+	).Gap(0).CrossAxisAlignment(AxisAlignmentTypeCenter)
 }
 
 // Simple coming soon page without custom suggestions
-func Simple(title string) widget.BaseWidget {
+func Simple(title string) Widget {
 	return ComingSoonContent(title, nil)
 }
 
 // Coming soon page with custom suggestions
-func WithSuggestions(title string, suggestions []Suggestion) widget.BaseWidget {
+func WithSuggestions(title string, suggestions []Suggestion) Widget {
 	return ComingSoonContent(title, suggestions)
 }
 
 // Coming soon page for a specific documentation section
-func ForDocsSection(sectionTitle string, relatedSections []Suggestion) widget.BaseWidget {
+func ForDocsSection(sectionTitle string, relatedSections []Suggestion) Widget {
 	return WithSuggestions(sectionTitle, relatedSections)
 }
