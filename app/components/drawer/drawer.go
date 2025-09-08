@@ -19,16 +19,16 @@ import (
 	"github.com/gofred-io/gofred/widget"
 )
 
-var leftDrawer *drawer.Drawer
+var leftDrawer drawer.IDrawer
 
-func Get() *drawer.Drawer {
+func Get() drawer.IDrawer {
 	if leftDrawer == nil {
 		leftDrawer = buildLeftDrawer()
 	}
 	return leftDrawer
 }
 
-func buildLeftDrawer() *drawer.Drawer {
+func buildLeftDrawer() drawer.IDrawer {
 	return drawer.New(
 		container.New(
 			column.New(

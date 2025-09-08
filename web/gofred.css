@@ -187,3 +187,10 @@ body {
 .gf-link:hover {
     color: #0000EE;
 }
+
+.gf-snackbar-container {
+    position: fixed;
+    width: auto;
+    height: auto;
+    z-index: 99;
+}

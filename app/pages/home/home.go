@@ -3,6 +3,8 @@ package home
 import (
 	"github.com/gofred-io/gofred-website/app/components/footer"
 	"github.com/gofred-io/gofred-website/app/components/header"
+	"github.com/gofred-io/gofred-website/app/components/snackbar"
+	"github.com/gofred-io/gofred-website/app/constant"
 	"github.com/gofred-io/gofred/basic/pre"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/center"
@@ -281,6 +283,9 @@ func main() {
     app := text.New("Hello, gofred!")
     application.Run(app)
 }`,
+					codeblock.OnCopied(func(code string) {
+						snackbar.Show("Successfully copied to clipboard", constant.SnackbarTypeSuccess)
+					}),
 				),
 			},
 			column.Gap(0),

@@ -20,17 +20,17 @@ import (
 )
 
 var (
-	docsDrawer *drawer.Drawer
+	docsDrawer drawer.IDrawer
 )
 
-func Get() *drawer.Drawer {
+func Get() drawer.IDrawer {
 	if docsDrawer == nil {
 		docsDrawer = buildDocsDrawer()
 	}
 	return docsDrawer
 }
 
-func buildDocsDrawer() *drawer.Drawer {
+func buildDocsDrawer() drawer.IDrawer {
 	return drawer.New(
 		container.New(
 			column.New(

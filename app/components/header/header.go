@@ -2,8 +2,11 @@ package header
 
 import (
 	"github.com/gofred-io/gofred-website/app/components/drawer"
+	"github.com/gofred-io/gofred-website/app/components/snackbar"
+	"github.com/gofred-io/gofred-website/app/constant"
 	"github.com/gofred-io/gofred-website/app/theme"
 
+	"github.com/gofred-io/gofred/basic/button"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/container"
 	"github.com/gofred-io/gofred/foundation/icon"
@@ -89,6 +92,12 @@ func logoTitle() widget.BaseWidget {
 				[]widget.BaseWidget{
 					logo(),
 					title(),
+					button.New(
+						text.New("show snackbar"),
+						button.OnClick(func(this widget.BaseWidget, e widget.Event) {
+							snackbar.Show("Drawer closed", constant.SnackbarTypeSuccess)
+						}),
+					),
 				},
 				row.Gap(12),
 				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),

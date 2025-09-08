@@ -2,7 +2,7 @@ module github.com/gofred-io/gofred-website
 
 go 1.25.0
 
-//replace github.com/gofred-io/gofred => ../gofred
+replace github.com/gofred-io/gofred => ../gofred
 
 require (
 	github.com/fsnotify/fsnotify v1.9.0
