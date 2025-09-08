@@ -521,9 +521,11 @@ func gettingStartedSection() widget.BaseWidget {
 						// Steps
 						column.New(
 							[]widget.BaseWidget{
-								gettingStartedStep("1", "Install", "Add gofred to your Go project", "go get github.com/gofred-io/gofred"),
-								gettingStartedStep("2", "Create", "Write your first application", "func main() {\n   app := text.New(\"Hello!\") \n   application.Run(app) \n}"),
-								gettingStartedStep("3", "Run", "Start the development server", "go run server/server.go"),
+								gettingStartedStep("1", "Install gofred CLI", "Install the gofred CLI tool", "curl -fsSL https://raw.githubusercontent.com/gofred-io/gofred-cli/refs/heads/master/install.sh | bash"),
+								gettingStartedStep("2", "Install the library", "Add gofred to your Go project", "go get github.com/gofred-io/gofred"),
+								gettingStartedStep("3", "Create your first app", "Create a new Go WebAssembly application", "gofred app create my-app --package my-app"),
+								gettingStartedStep("4", "Write your first application", "Write your first application", "func main() {\n   app := text.New(\"Hello!\") \n   application.Run(app) \n}"),
+								gettingStartedStep("5", "Run", "Start the development server", "gofred app run"),
 							},
 							column.Gap(32),
 						),
