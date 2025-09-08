@@ -1,8 +1,8 @@
 package getting_started
 
 import (
+	"github.com/gofred-io/gofred-website/app/components/codeblock"
 	"github.com/gofred-io/gofred/breakpoint"
-	codeblock "github.com/gofred-io/gofred/foundation/code_block"
 	"github.com/gofred-io/gofred/foundation/column"
 	"github.com/gofred-io/gofred/foundation/container"
 	"github.com/gofred-io/gofred/foundation/spacer"
