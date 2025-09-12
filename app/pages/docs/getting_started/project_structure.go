@@ -2,6 +2,7 @@ package getting_started
 
 import (
 	"github.com/gofred-io/gofred-website/app/components/codeblock"
+	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/column"
 	"github.com/gofred-io/gofred/foundation/container"
@@ -10,15 +11,14 @@ import (
 	"github.com/gofred-io/gofred/foundation/row"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	"github.com/gofred-io/gofred/theme"
 )
 
-func ProjectStructureContent() widget.BaseWidget {
+func ProjectStructureContent() application.BaseWidget {
 	return container.New(
 		column.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				projectStructurePageHeader(),
 				spacer.New(spacer.Height(24)),
 				projectStructurePageContent(),
@@ -31,29 +31,27 @@ func ProjectStructureContent() widget.BaseWidget {
 	)
 }
 
-func projectStructurePageHeader() widget.BaseWidget {
+func projectStructurePageHeader() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				"Project Structure",
 				text.FontSize(32),
-				text.FontColor("#1F2937"),
 				text.FontWeight("700"),
 			),
 			text.New(
 				"Understand the recommended project structure for gofred applications.",
 				text.FontSize(18),
 				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
 			),
 		},
 		column.Gap(8),
 	)
 }
 
-func projectStructurePageContent() widget.BaseWidget {
+func projectStructurePageContent() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			contentSection("Directory Structure", "A typical gofred project follows this structure:"),
 			codeblock.New(`my-gofred-app/
 ├── app/                   # Application code
@@ -92,7 +90,7 @@ func projectStructurePageContent() widget.BaseWidget {
 	)
 }
 
-func projectStructureFileList() widget.BaseWidget {
+func projectStructureFileList() application.BaseWidget {
 	files := []struct {
 		path        string
 		description string
@@ -131,7 +129,7 @@ func projectStructureFileList() widget.BaseWidget {
 		},
 	}
 
-	var fileItems []widget.BaseWidget
+	var fileItems []application.BaseWidget
 	for _, file := range files {
 		fileItems = append(fileItems, projectStructureFileItem(file.path, file.description))
 	}
@@ -142,10 +140,10 @@ func projectStructureFileList() widget.BaseWidget {
 	)
 }
 
-func projectStructureFileItem(path, description string) widget.BaseWidget {
+func projectStructureFileItem(path, description string) application.BaseWidget {
 	return container.New(
 		row.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				icon.New(
 					icondata.FileDocument,
 					icon.Width(breakpoint.All(20)),
@@ -154,18 +152,16 @@ func projectStructureFileItem(path, description string) widget.BaseWidget {
 				),
 				spacer.New(spacer.Width(12)),
 				column.New(
-					[]widget.BaseWidget{
+					[]application.BaseWidget{
 						text.New(
 							path,
 							text.FontSize(16),
-							text.FontColor("#1F2937"),
 							text.FontWeight("600"),
 						),
 						text.New(
 							description,
 							text.FontSize(14),
 							text.FontColor("#6B7280"),
-							text.FontWeight("400"),
 							text.LineHeight(1.5),
 						),
 					},
@@ -174,18 +170,18 @@ func projectStructureFileItem(path, description string) widget.BaseWidget {
 				),
 			},
 			row.Gap(12),
-			row.CrossAxisAlignment(options.AxisAlignmentTypeStart),
+			row.CrossAxisAlignment(theme.AxisAlignmentTypeStart),
 		),
 		container.Padding(breakpoint.All(spacing.All(16))),
 		container.BackgroundColor("#FFFFFF"),
 		container.BorderRadius(8),
 		container.BorderColor("#E5E7EB"),
 		container.BorderWidth(1, 1, 1, 1),
-		container.BorderStyle(options.BorderStyleTypeSolid),
+		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
 }
 
-func projectStructureBestPractices() widget.BaseWidget {
+func projectStructureBestPractices() application.BaseWidget {
 	practices := []string{
 		"Keep pages in separate directories under app/pages/",
 		"Create reusable components in app/components/",
@@ -196,7 +192,7 @@ func projectStructureBestPractices() widget.BaseWidget {
 		"Use meaningful directory and file names",
 	}
 
-	var practiceItems []widget.BaseWidget
+	var practiceItems []application.BaseWidget
 	for _, practice := range practices {
 		practiceItems = append(practiceItems, listItem(practice))
 	}
@@ -207,7 +203,7 @@ func projectStructureBestPractices() widget.BaseWidget {
 	)
 }
 
-func projectStructureNextStepsList() widget.BaseWidget {
+func projectStructureNextStepsList() application.BaseWidget {
 	steps := []struct {
 		title       string
 		description string
@@ -235,7 +231,7 @@ func projectStructureNextStepsList() widget.BaseWidget {
 		},
 	}
 
-	var stepItems []widget.BaseWidget
+	var stepItems []application.BaseWidget
 	for _, step := range steps {
 		stepItems = append(stepItems, nextStepItem(step.title, step.description, step.href))
 	}

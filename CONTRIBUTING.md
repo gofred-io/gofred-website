@@ -226,15 +226,15 @@ Follow standard Go conventions:
 
 ```go
 // Good: Clear, descriptive function names
-func CreateResponsiveLayout() widget.BaseWidget {
+func CreateResponsiveLayout() application.BaseWidget {
     return container.New(
         column.New(
-            []widget.BaseWidget{
+            []application.BaseWidget{
                 header(),
                 content(),
                 footer(),
             },
-            column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+            column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
         ),
         container.Padding(breakpoint.All(spacing.All(16))),
     )
@@ -268,14 +268,14 @@ import (
 )
 
 // Public component function
-func ComponentName(props ComponentProps) widget.BaseWidget {
+func ComponentName(props ComponentProps) application.BaseWidget {
     return container.New(
         // Component implementation
     )
 }
 
 // Private helper functions
-func helperFunction() widget.BaseWidget {
+func helperFunction() application.BaseWidget {
     // Helper implementation
 }
 ```

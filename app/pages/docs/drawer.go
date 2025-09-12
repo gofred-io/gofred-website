@@ -1,6 +1,7 @@
 package docs
 
 import (
+	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/column"
 	"github.com/gofred-io/gofred/foundation/container"
@@ -14,9 +15,8 @@ import (
 	"github.com/gofred-io/gofred/foundation/text"
 	"github.com/gofred-io/gofred/hooks"
 	"github.com/gofred-io/gofred/listenable"
-	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	"github.com/gofred-io/gofred/theme"
 )
 
 var (
@@ -34,7 +34,7 @@ func buildDocsDrawer() drawer.IDrawer {
 	return drawer.New(
 		container.New(
 			column.New(
-				[]widget.BaseWidget{
+				[]application.BaseWidget{
 					drawerHeader(),
 					drawerNavigation(),
 				},
@@ -48,62 +48,60 @@ func buildDocsDrawer() drawer.IDrawer {
 	)
 }
 
-func drawerHeader() widget.BaseWidget {
+func drawerHeader() application.BaseWidget {
 	return container.New(
 		row.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				drawerTitle(),
 				spacer.New(),
 				iconbutton.New(
 					icondata.Close,
 					iconbutton.Fill("#6B7280"),
-					iconbutton.OnClick(func(this widget.BaseWidget, e widget.Event) {
+					iconbutton.OnClick(func(this application.BaseWidget, e application.Event) {
 						Get().Hide()
 					}),
 				),
 			},
 			row.Gap(8),
 			row.Flex(1),
-			row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+			row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 		),
 		container.Padding(breakpoint.All(spacing.LRTB(20, 20, 16, 8))),
 		container.BorderColor("#E5E7EB"),
 		container.BorderWidth(0, 0, 1, 0),
-		container.BorderStyle(options.BorderStyleTypeSolid),
+		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
 }
 
-func drawerTitle() widget.BaseWidget {
+func drawerTitle() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				"Documentation",
 				text.FontSize(18),
-				text.FontColor("#1F2937"),
 				text.FontWeight("600"),
-				text.UserSelect(options.UserSelectTypeNone),
+				text.UserSelect(theme.UserSelectTypeNone),
 			),
 			text.New(
 				"Learn how to build with gofred",
 				text.FontSize(12),
 				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
-				text.UserSelect(options.UserSelectTypeNone),
+				text.UserSelect(theme.UserSelectTypeNone),
 			),
 		},
 		column.Gap(2),
 	)
 }
 
-func drawerNavigation() widget.BaseWidget {
+func drawerNavigation() application.BaseWidget {
 	navigate := hooks.UseNavigate()
 
 	return container.New(
-		listenable.Builder(navigate, func() widget.BaseWidget {
+		listenable.Builder(navigate, func() application.BaseWidget {
 			activeHref := navigate.Path()
 
 			return column.New(
-				[]widget.BaseWidget{
+				[]application.BaseWidget{
 					drawerNavSection("Getting Started", []drawerNavItem{
 						{title: "Installation", href: "/docs/installation", icon: icondata.Download},
 						{title: "Quick Start", href: "/docs/quick-start", icon: icondata.RocketLaunchOutline},
@@ -157,8 +155,8 @@ type drawerNavItem struct {
 	icon  icondata.IconData
 }
 
-func drawerNavSection(title string, items []drawerNavItem, activeHref string) widget.BaseWidget {
-	var sectionItems []widget.BaseWidget
+func drawerNavSection(title string, items []drawerNavItem, activeHref string) application.BaseWidget {
+	var sectionItems []application.BaseWidget
 
 	// Section title
 	sectionItems = append(sectionItems, text.New(
@@ -166,7 +164,7 @@ func drawerNavSection(title string, items []drawerNavItem, activeHref string) wi
 		text.FontSize(12),
 		text.FontColor("#6B7280"),
 		text.FontWeight("600"),
-		text.UserSelect(options.UserSelectTypeNone),
+		text.UserSelect(theme.UserSelectTypeNone),
 	))
 
 	// Section items
@@ -180,7 +178,7 @@ func drawerNavSection(title string, items []drawerNavItem, activeHref string) wi
 	)
 }
 
-func drawerNavItemWidget(item drawerNavItem, activeHref string) widget.BaseWidget {
+func drawerNavItemWidget(item drawerNavItem, activeHref string) application.BaseWidget {
 	var textColor string
 	var backgroundColor string
 	var iconColor string
@@ -198,7 +196,7 @@ func drawerNavItemWidget(item drawerNavItem, activeHref string) widget.BaseWidge
 	return link.New(
 		container.New(
 			row.New(
-				[]widget.BaseWidget{
+				[]application.BaseWidget{
 					icon.New(
 						item.icon,
 						icon.Width(breakpoint.All(20)),
@@ -210,19 +208,18 @@ func drawerNavItemWidget(item drawerNavItem, activeHref string) widget.BaseWidge
 						item.title,
 						text.FontSize(14),
 						text.FontColor(textColor),
-						text.FontWeight("400"),
-						text.UserSelect(options.UserSelectTypeNone),
+						text.UserSelect(theme.UserSelectTypeNone),
 					),
 				},
 				row.Gap(8),
-				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+				row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 			),
 			container.Padding(breakpoint.All(spacing.Axis(8, 12))),
 			container.BackgroundColor(backgroundColor),
 			container.BorderRadius(6),
 		),
 		link.Href(item.href),
-		link.OnClick(func(this widget.BaseWidget, e widget.Event) {
+		link.OnClick(func(this application.BaseWidget, e application.Event) {
 			docsDrawer.Hide()
 		}),
 	)

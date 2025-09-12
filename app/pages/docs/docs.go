@@ -8,6 +8,7 @@ import (
 	"github.com/gofred-io/gofred-website/app/pages/docs/core_concepts"
 	"github.com/gofred-io/gofred-website/app/pages/docs/getting_started"
 
+	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/column"
 	"github.com/gofred-io/gofred/foundation/container"
@@ -20,12 +21,11 @@ import (
 	"github.com/gofred-io/gofred/foundation/row"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	"github.com/gofred-io/gofred/theme"
 )
 
-func New(params router.RouteParams) widget.BaseWidget {
+func New(params router.RouteParams) application.BaseWidget {
 	section := params.Get("section")
 
 	switch section {
@@ -64,9 +64,9 @@ func New(params router.RouteParams) widget.BaseWidget {
 	}
 }
 
-func docsPageTemplate(content widget.BaseWidget) widget.BaseWidget {
+func docsPageTemplate(content application.BaseWidget) application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			header.Get(),
 			docsMainContent(content),
 			footer.Get(),
@@ -75,10 +75,10 @@ func docsPageTemplate(content widget.BaseWidget) widget.BaseWidget {
 	)
 }
 
-func docsMainContent(content widget.BaseWidget) widget.BaseWidget {
+func docsMainContent(content application.BaseWidget) application.BaseWidget {
 	return container.New(
 		row.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				docsSidebar(),
 				contentArea(content),
 			},
@@ -89,10 +89,10 @@ func docsMainContent(content widget.BaseWidget) widget.BaseWidget {
 	)
 }
 
-func contentArea(content widget.BaseWidget) widget.BaseWidget {
+func contentArea(content application.BaseWidget) application.BaseWidget {
 	return container.New(
 		column.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				docsMobileMenuButton(),
 				content,
 			},
@@ -104,7 +104,7 @@ func contentArea(content widget.BaseWidget) widget.BaseWidget {
 	)
 }
 
-func docsMobileMenuButton() widget.BaseWidget {
+func docsMobileMenuButton() application.BaseWidget {
 	return iconbutton.New(
 		icondata.Menu,
 		iconbutton.Fill("#6B7280"),
@@ -116,60 +116,57 @@ func docsMobileMenuButton() widget.BaseWidget {
 		),
 		iconbutton.Width(breakpoint.All(42)),
 		iconbutton.Height(breakpoint.All(42)),
-		iconbutton.OnClick(func(this widget.BaseWidget, e widget.Event) {
+		iconbutton.OnClick(func(this application.BaseWidget, e application.Event) {
 			docsDrawer.Show()
 		}),
 	)
 }
 
-func docsPageContent() widget.BaseWidget {
+func docsPageContent() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			//heroSection(),
 			featuresTitle(),
 			featuresSection(),
 		},
 		column.Gap(48),
-		column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 	)
 }
 
-func heroSection() widget.BaseWidget {
+func heroSection() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				"Documentation",
 				text.FontSize(48),
-				text.FontColor("#1F2937"),
 				text.FontWeight("700"),
-				text.UserSelect(options.UserSelectTypeNone),
+				text.UserSelect(theme.UserSelectTypeNone),
 			),
 			spacer.New(spacer.Height(16)),
 			text.New(
 				"Learn how to build modern web applications with gofred",
 				text.FontSize(20),
 				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
-				text.UserSelect(options.UserSelectTypeNone),
+				text.UserSelect(theme.UserSelectTypeNone),
 			),
 			spacer.New(spacer.Height(8)),
 			text.New(
 				"Write Go code, get WebAssembly apps. No JavaScript required.",
 				text.FontSize(16),
 				text.FontColor("#9CA3AF"),
-				text.FontWeight("400"),
-				text.UserSelect(options.UserSelectTypeNone),
+				text.UserSelect(theme.UserSelectTypeNone),
 			),
 		},
 		column.Gap(8),
-		column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 	)
 }
 
-func featuresSection() widget.BaseWidget {
+func featuresSection() application.BaseWidget {
 	return container.New(
 		grid.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				featureCard(
 					icondata.RocketLaunchOutline,
 					"Get Started",
@@ -217,12 +214,12 @@ func featuresSection() widget.BaseWidget {
 	)
 }
 
-func featureCard(iconData icondata.IconData, title, description, color string, href string) widget.BaseWidget {
+func featureCard(iconData icondata.IconData, title, description, color string, href string) application.BaseWidget {
 	return container.New(
 		link.New(
 			container.New(
 				column.New(
-					[]widget.BaseWidget{
+					[]application.BaseWidget{
 						container.New(
 							icon.New(
 								iconData,
@@ -235,33 +232,31 @@ func featureCard(iconData icondata.IconData, title, description, color string, h
 							container.Padding(breakpoint.All(spacing.All(16))),
 							container.BorderColor("#E5E7EB"),
 							container.BorderWidth(1, 1, 1, 1),
-							container.BorderStyle(options.BorderStyleTypeSolid),
+							container.BorderStyle(theme.BorderStyleTypeSolid),
 						),
 						spacer.New(spacer.Height(16)),
 						text.New(
 							title,
 							text.FontSize(18),
-							text.FontColor("#1F2937"),
 							text.FontWeight("600"),
-							text.UserSelect(options.UserSelectTypeNone),
+							text.UserSelect(theme.UserSelectTypeNone),
 						),
 						spacer.New(spacer.Height(8)),
 						text.New(
 							description,
 							text.FontSize(14),
 							text.FontColor("#6B7280"),
-							text.FontWeight("400"),
-							text.UserSelect(options.UserSelectTypeNone),
+							text.UserSelect(theme.UserSelectTypeNone),
 							text.LineHeight(1.5),
 						),
 					},
 					column.Gap(8),
-					column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+					column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 				),
 				container.Padding(breakpoint.All(spacing.Axis(24, 48))),
 			),
 			link.Href(href),
-			link.OnClick(func(this widget.BaseWidget, e widget.Event) {
+			link.OnClick(func(this application.BaseWidget, e application.Event) {
 				docsDrawer.Hide()
 			}),
 		),
@@ -270,31 +265,29 @@ func featureCard(iconData icondata.IconData, title, description, color string, h
 		container.BorderRadius(12),
 		container.BorderColor("#E5E7EB"),
 		container.BorderWidth(1, 1, 1, 1),
-		container.BorderStyle(options.BorderStyleTypeSolid),
+		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
 }
 
-func featuresTitle() widget.BaseWidget {
+func featuresTitle() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				"Ready to get started?",
 				text.FontSize(24),
-				text.FontColor("#1F2937"),
 				text.FontWeight("600"),
-				text.UserSelect(options.UserSelectTypeNone),
-				text.Align(options.TextAlignTypeCenter),
+				text.UserSelect(theme.UserSelectTypeNone),
+				text.Align(theme.TextAlignTypeCenter),
 			),
 			spacer.New(spacer.Height(16)),
 			text.New(
 				"Follow our step-by-step installation guide to set up your development environment.",
 				text.FontSize(16),
 				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
-				text.UserSelect(options.UserSelectTypeNone),
+				text.UserSelect(theme.UserSelectTypeNone),
 			),
 		},
 		column.Gap(8),
-		column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 	)
 }

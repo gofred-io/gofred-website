@@ -2,6 +2,7 @@ package getting_started
 
 import (
 	"github.com/gofred-io/gofred-website/app/components/codeblock"
+	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/button"
 	"github.com/gofred-io/gofred/foundation/column"
@@ -12,15 +13,14 @@ import (
 	"github.com/gofred-io/gofred/foundation/row"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	"github.com/gofred-io/gofred/theme"
 )
 
-func InstallationContent() widget.BaseWidget {
+func InstallationContent() application.BaseWidget {
 	return container.New(
 		column.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				installationPageHeader(),
 				spacer.New(spacer.Height(24)),
 				installationPageContent(),
@@ -33,29 +33,27 @@ func InstallationContent() widget.BaseWidget {
 	)
 }
 
-func installationPageHeader() widget.BaseWidget {
+func installationPageHeader() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				"Installation",
 				text.FontSize(32),
-				text.FontColor("#1F2937"),
 				text.FontWeight("700"),
 			),
 			text.New(
 				"Install the gofred CLI tool and set up your development environment for Go WebAssembly applications.",
 				text.FontSize(18),
 				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
 			),
 		},
 		column.Gap(8),
 	)
 }
 
-func installationPageContent() widget.BaseWidget {
+func installationPageContent() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			contentSection("Prerequisites", "Before you begin, make sure you have the following installed on your system:"),
 			prerequisitesList(),
 			spacer.New(spacer.Height(24)),
@@ -96,27 +94,25 @@ gofred app run`),
 	)
 }
 
-func contentSection(title, description string) widget.BaseWidget {
+func contentSection(title, description string) application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				title,
 				text.FontSize(24),
-				text.FontColor("#1F2937"),
 				text.FontWeight("600"),
 			),
 			text.New(
 				description,
 				text.FontSize(16),
 				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
 			),
 		},
 		column.Gap(8),
 	)
 }
 
-func prerequisitesList() widget.BaseWidget {
+func prerequisitesList() application.BaseWidget {
 	items := []string{
 		"Go 1.25.1 or later",
 		"A modern web browser with WebAssembly support",
@@ -124,7 +120,7 @@ func prerequisitesList() widget.BaseWidget {
 		"Basic knowledge of Go programming",
 	}
 
-	var listItems []widget.BaseWidget
+	var listItems []application.BaseWidget
 	for _, item := range items {
 		listItems = append(listItems, listItem(item))
 	}
@@ -135,9 +131,9 @@ func prerequisitesList() widget.BaseWidget {
 	)
 }
 
-func listItem(itemText string) widget.BaseWidget {
+func listItem(itemText string) application.BaseWidget {
 	return row.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			icon.New(
 				icondata.Check,
 				icon.Width(breakpoint.All(16)),
@@ -149,15 +145,14 @@ func listItem(itemText string) widget.BaseWidget {
 				itemText,
 				text.FontSize(16),
 				text.FontColor("#374151"),
-				text.FontWeight("400"),
 			),
 		},
 		row.Gap(8),
-		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 	)
 }
 
-func installationNextSteps() widget.BaseWidget {
+func installationNextSteps() application.BaseWidget {
 	steps := []struct {
 		title       string
 		description string
@@ -180,7 +175,7 @@ func installationNextSteps() widget.BaseWidget {
 		},
 	}
 
-	var stepItems []widget.BaseWidget
+	var stepItems []application.BaseWidget
 	for _, step := range steps {
 		stepItems = append(stepItems, nextStepItem(step.title, step.description, step.href))
 	}
@@ -191,13 +186,13 @@ func installationNextSteps() widget.BaseWidget {
 	)
 }
 
-func nextStepItem(title, description, href string) widget.BaseWidget {
+func nextStepItem(title, description, href string) application.BaseWidget {
 	return link.New(
 		container.New(
 			row.New(
-				[]widget.BaseWidget{
+				[]application.BaseWidget{
 					column.New(
-						[]widget.BaseWidget{
+						[]application.BaseWidget{
 							text.New(
 								title,
 								text.FontSize(16),
@@ -208,7 +203,6 @@ func nextStepItem(title, description, href string) widget.BaseWidget {
 								description,
 								text.FontSize(14),
 								text.FontColor("#6B7280"),
-								text.FontWeight("400"),
 							),
 						},
 						column.Gap(4),
@@ -223,26 +217,26 @@ func nextStepItem(title, description, href string) widget.BaseWidget {
 				},
 				row.Gap(12),
 				row.Flex(1),
-				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+				row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 			),
 			container.Padding(breakpoint.All(spacing.All(16))),
 			container.BackgroundColor("#FFFFFF"),
 			container.BorderRadius(8),
 			container.BorderColor("#E5E7EB"),
 			container.BorderWidth(1, 1, 1, 1),
-			container.BorderStyle(options.BorderStyleTypeSolid),
+			container.BorderStyle(theme.BorderStyleTypeSolid),
 		),
 		link.Href(href),
 	)
 }
 
-func navigationButtons(previousHref, nextHref string) widget.BaseWidget {
+func navigationButtons(previousHref, nextHref string) application.BaseWidget {
 	return row.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			link.New(
 				button.New(
 					row.New(
-						[]widget.BaseWidget{
+						[]application.BaseWidget{
 							icon.New(
 								icondata.ChevronLeft,
 								icon.Width(breakpoint.All(16)),
@@ -257,7 +251,7 @@ func navigationButtons(previousHref, nextHref string) widget.BaseWidget {
 							),
 						},
 						row.Gap(8),
-						row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+						row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 					),
 					button.BackgroundColor("#6B7280"),
 					button.Width(breakpoint.All(120)),
@@ -268,7 +262,7 @@ func navigationButtons(previousHref, nextHref string) widget.BaseWidget {
 			link.New(
 				button.New(
 					row.New(
-						[]widget.BaseWidget{
+						[]application.BaseWidget{
 							text.New(
 								"Next",
 								text.FontSize(14),
@@ -283,7 +277,7 @@ func navigationButtons(previousHref, nextHref string) widget.BaseWidget {
 							),
 						},
 						row.Gap(8),
-						row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+						row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 					),
 					button.BackgroundColor("#2B799B"),
 					button.Width(breakpoint.All(120)),

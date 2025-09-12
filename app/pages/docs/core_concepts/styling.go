@@ -2,6 +2,7 @@ package core_concepts
 
 import (
 	"github.com/gofred-io/gofred-website/app/components/codeblock"
+	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/button"
 	"github.com/gofred-io/gofred/foundation/column"
@@ -12,15 +13,14 @@ import (
 	"github.com/gofred-io/gofred/foundation/row"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	"github.com/gofred-io/gofred/theme"
 )
 
-func StylingContent() widget.BaseWidget {
+func StylingContent() application.BaseWidget {
 	return container.New(
 		column.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				stylingPageHeader(),
 				spacer.New(spacer.Height(24)),
 				stylingPageContent(),
@@ -33,29 +33,27 @@ func StylingContent() widget.BaseWidget {
 	)
 }
 
-func stylingPageHeader() widget.BaseWidget {
+func stylingPageHeader() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				"Styling & Visual Design",
 				text.FontSize(32),
-				text.FontColor("#1F2937"),
 				text.FontWeight("700"),
 			),
 			text.New(
 				"Master the art of styling gofred widgets with colors, typography, spacing, borders, and responsive design principles.",
 				text.FontSize(18),
 				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
 			),
 		},
 		column.Gap(8),
 	)
 }
 
-func stylingPageContent() widget.BaseWidget {
+func stylingPageContent() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			stylingContentSection("Styling Philosophy", "gofred follows a design system approach where styling is applied directly to widgets using properties and options. This ensures consistent, predictable, and maintainable styling throughout your application."),
 			spacer.New(spacer.Height(24)),
 
@@ -152,7 +150,7 @@ text.New("Black Text", text.FontWeight("900"))`),
 			stylingSubsection("Text Alignment & Layout", "Control text alignment and layout properties."),
 			codeblock.New(`// Text alignment
 text.New("Left Aligned", text.TextAlign(options.TextAlignTypeLeft))
-text.New("Center Aligned", text.TextAlign(options.TextAlignTypeCenter))
+text.New("Center Aligned", text.TextAlign(theme.TextAlignTypeCenter))
 text.New("Right Aligned", text.TextAlign(options.TextAlignTypeRight))
 text.New("Justified", text.TextAlign(options.TextAlignTypeJustify))
 
@@ -212,7 +210,7 @@ container.New(
 			stylingSubsection("Margins & Gaps", "Control spacing between widgets."),
 			codeblock.New(`// Column gaps
 column.New(
-    []widget.BaseWidget{item1, item2, item3},
+    []application.BaseWidget{item1, item2, item3},
     column.Gap(8),     // Small gap
     column.Gap(16),    // Medium gap
     column.Gap(24),    // Large gap
@@ -220,7 +218,7 @@ column.New(
 
 // Row gaps
 row.New(
-    []widget.BaseWidget{item1, item2, item3},
+    []application.BaseWidget{item1, item2, item3},
     row.Gap(12),       // Consistent spacing
 )
 
@@ -233,7 +231,7 @@ grid.New(
 
 // Manual spacing with spacers
 column.New(
-    []widget.BaseWidget{
+    []application.BaseWidget{
         section1(),
         spacer.New(spacer.Height(32)),  // Fixed spacing
         section2(),
@@ -253,7 +251,7 @@ container.New(
     content,
     container.BorderColor("#E5E7EB"),
     container.BorderWidth(1, 1, 1, 1),      // top, right, bottom, left
-    container.BorderStyle(options.BorderStyleTypeSolid),
+    container.BorderStyle(theme.BorderStyleTypeSolid),
 )
 
 // Colored borders
@@ -275,7 +273,7 @@ button.New(
     text.New("Click me"),
     button.BorderColor("#2B799B"),
     button.BorderWidth(2, 2, 2, 2),
-    button.BorderStyle(options.BorderStyleTypeSolid),
+    button.BorderStyle(theme.BorderStyleTypeSolid),
 )`),
 			spacer.New(spacer.Height(16)),
 
@@ -350,7 +348,7 @@ text.New(
 
 			stylingSubsection("Mobile-First Styling", "Start with mobile styles and enhance for larger screens."),
 			codeblock.New(`// Mobile-first approach
-func responsiveCard() widget.BaseWidget {
+func responsiveCard() application.BaseWidget {
     return container.New(
         cardContent(),
         // Base styles (mobile)
@@ -378,7 +376,7 @@ func responsiveCard() widget.BaseWidget {
 
 			stylingSubsection("Button Styles", "Create consistent button styling across your application."),
 			codeblock.New(`// Primary button
-func primaryButton(label string) widget.BaseWidget {
+func primaryButton(label string) application.BaseWidget {
     return button.New(
         text.New(label, text.FontColor("#FFFFFF"), text.FontWeight("500")),
         button.BackgroundColor("#2B799B"),
@@ -388,7 +386,7 @@ func primaryButton(label string) widget.BaseWidget {
 }
 
 // Secondary button
-func secondaryButton(label string) widget.BaseWidget {
+func secondaryButton(label string) application.BaseWidget {
     return button.New(
         text.New(label, text.FontColor("#2B799B"), text.FontWeight("500")),
         button.BackgroundColor("transparent"),
@@ -400,7 +398,7 @@ func secondaryButton(label string) widget.BaseWidget {
 }
 
 // Danger button
-func dangerButton(label string) widget.BaseWidget {
+func dangerButton(label string) application.BaseWidget {
     return button.New(
         text.New(label, text.FontColor("#FFFFFF"), text.FontWeight("500")),
         button.BackgroundColor("#EF4444"),
@@ -412,7 +410,7 @@ func dangerButton(label string) widget.BaseWidget {
 
 			stylingSubsection("Card Styles", "Design consistent card components."),
 			codeblock.New(`// Basic card
-func basicCard(content widget.BaseWidget) widget.BaseWidget {
+func basicCard(content application.BaseWidget) application.BaseWidget {
     return container.New(
         content,
         container.BackgroundColor("#FFFFFF"),
@@ -424,7 +422,7 @@ func basicCard(content widget.BaseWidget) widget.BaseWidget {
 }
 
 // Elevated card (with shadow effect using border)
-func elevatedCard(content widget.BaseWidget) widget.BaseWidget {
+func elevatedCard(content application.BaseWidget) application.BaseWidget {
     return container.New(
         content,
         container.BackgroundColor("#FFFFFF"),
@@ -436,7 +434,7 @@ func elevatedCard(content widget.BaseWidget) widget.BaseWidget {
 }
 
 // Status cards with colored borders
-func statusCard(content widget.BaseWidget, status string) widget.BaseWidget {
+func statusCard(content application.BaseWidget, status string) application.BaseWidget {
     var borderColor string
     switch status {
     case "success":
@@ -462,7 +460,7 @@ func statusCard(content widget.BaseWidget, status string) widget.BaseWidget {
 
 			stylingSubsection("Form Styling", "Style form elements for better user experience."),
 			codeblock.New(`// Form container
-func formContainer(children []widget.BaseWidget) widget.BaseWidget {
+func formContainer(children []application.BaseWidget) application.BaseWidget {
     return container.New(
         column.New(children, column.Gap(16)),
         container.BackgroundColor("#FFFFFF"),
@@ -474,9 +472,9 @@ func formContainer(children []widget.BaseWidget) widget.BaseWidget {
 }
 
 // Form field with label
-func formField(label, placeholder string) widget.BaseWidget {
+func formField(label, placeholder string) application.BaseWidget {
     return column.New(
-        []widget.BaseWidget{
+        []application.BaseWidget{
             text.New(
                 label,
                 text.FontSize(14),
@@ -491,13 +489,12 @@ func formField(label, placeholder string) widget.BaseWidget {
 }
 
 // Error message styling
-func errorMessage(message string) widget.BaseWidget {
+func errorMessage(message string) application.BaseWidget {
     return text.New(
         message,
         text.FontSize(12),
         text.FontColor("#EF4444"),
-        text.FontWeight("400"),
-    )
+            )
 }`),
 			spacer.New(spacer.Height(24)),
 
@@ -567,7 +564,7 @@ const (
 )
 
 // Consistent text components
-func headingXL(content string) widget.BaseWidget {
+func headingXL(content string) application.BaseWidget {
     return text.New(
         content,
         text.FontSize(Text4XL),
@@ -576,7 +573,7 @@ func headingXL(content string) widget.BaseWidget {
     )
 }
 
-func bodyText(content string) widget.BaseWidget {
+func bodyText(content string) application.BaseWidget {
     return text.New(
         content,
         text.FontSize(TextBase),
@@ -609,7 +606,7 @@ func cardPadding() spacing.Spacing {
     return spacing.All(Space4) // 16px
 }
 
-func sectionMargin() widget.BaseWidget {
+func sectionMargin() application.BaseWidget {
     return spacer.New(spacer.Height(Space8)) // 32px
 }
 
@@ -634,47 +631,43 @@ container.New(
 	)
 }
 
-func stylingContentSection(title, description string) widget.BaseWidget {
+func stylingContentSection(title, description string) application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				title,
 				text.FontSize(24),
-				text.FontColor("#1F2937"),
 				text.FontWeight("600"),
 			),
 			text.New(
 				description,
 				text.FontSize(16),
 				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
 			),
 		},
 		column.Gap(8),
 	)
 }
 
-func stylingSubsection(title, description string) widget.BaseWidget {
+func stylingSubsection(title, description string) application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				title,
 				text.FontSize(20),
-				text.FontColor("#1F2937"),
 				text.FontWeight("600"),
 			),
 			text.New(
 				description,
 				text.FontSize(14),
 				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
 			),
 		},
 		column.Gap(4),
 	)
 }
 
-func stylingBestPracticesList() widget.BaseWidget {
+func stylingBestPracticesList() application.BaseWidget {
 	practices := []string{
 		"Establish a consistent color palette and stick to it throughout your application",
 		"Use a typographic scale with defined font sizes and weights for hierarchy",
@@ -690,7 +683,7 @@ func stylingBestPracticesList() widget.BaseWidget {
 		"Document your design system and share it with your team",
 	}
 
-	var practiceItems []widget.BaseWidget
+	var practiceItems []application.BaseWidget
 	for _, practice := range practices {
 		practiceItems = append(practiceItems, stylingListItem(practice))
 	}
@@ -701,9 +694,9 @@ func stylingBestPracticesList() widget.BaseWidget {
 	)
 }
 
-func stylingListItem(itemText string) widget.BaseWidget {
+func stylingListItem(itemText string) application.BaseWidget {
 	return row.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			icon.New(
 				icondata.Check,
 				icon.Width(breakpoint.All(16)),
@@ -715,15 +708,14 @@ func stylingListItem(itemText string) widget.BaseWidget {
 				itemText,
 				text.FontSize(16),
 				text.FontColor("#374151"),
-				text.FontWeight("400"),
 			),
 		},
 		row.Gap(8),
-		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 	)
 }
 
-func stylingNextStepsList() widget.BaseWidget {
+func stylingNextStepsList() application.BaseWidget {
 	steps := []struct {
 		title       string
 		description string
@@ -741,7 +733,7 @@ func stylingNextStepsList() widget.BaseWidget {
 		},
 	}
 
-	var stepItems []widget.BaseWidget
+	var stepItems []application.BaseWidget
 	for _, step := range steps {
 		stepItems = append(stepItems, stylingNextStepItem(step.title, step.description, step.href))
 	}
@@ -752,13 +744,13 @@ func stylingNextStepsList() widget.BaseWidget {
 	)
 }
 
-func stylingNextStepItem(title, description, href string) widget.BaseWidget {
+func stylingNextStepItem(title, description, href string) application.BaseWidget {
 	return link.New(
 		container.New(
 			row.New(
-				[]widget.BaseWidget{
+				[]application.BaseWidget{
 					column.New(
-						[]widget.BaseWidget{
+						[]application.BaseWidget{
 							text.New(
 								title,
 								text.FontSize(16),
@@ -769,7 +761,6 @@ func stylingNextStepItem(title, description, href string) widget.BaseWidget {
 								description,
 								text.FontSize(14),
 								text.FontColor("#6B7280"),
-								text.FontWeight("400"),
 							),
 						},
 						column.Gap(4),
@@ -784,26 +775,26 @@ func stylingNextStepItem(title, description, href string) widget.BaseWidget {
 				},
 				row.Gap(12),
 				row.Flex(1),
-				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+				row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 			),
 			container.Padding(breakpoint.All(spacing.All(16))),
 			container.BackgroundColor("#FFFFFF"),
 			container.BorderRadius(8),
 			container.BorderColor("#E5E7EB"),
 			container.BorderWidth(1, 1, 1, 1),
-			container.BorderStyle(options.BorderStyleTypeSolid),
+			container.BorderStyle(theme.BorderStyleTypeSolid),
 		),
 		link.Href(href),
 	)
 }
 
-func stylingNavigationButtons(previousHref, nextHref string) widget.BaseWidget {
+func stylingNavigationButtons(previousHref, nextHref string) application.BaseWidget {
 	return row.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			link.New(
 				button.New(
 					row.New(
-						[]widget.BaseWidget{
+						[]application.BaseWidget{
 							icon.New(
 								icondata.ChevronLeft,
 								icon.Width(breakpoint.All(16)),
@@ -818,7 +809,7 @@ func stylingNavigationButtons(previousHref, nextHref string) widget.BaseWidget {
 							),
 						},
 						row.Gap(8),
-						row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+						row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 					),
 					button.BackgroundColor("#6B7280"),
 					button.Width(breakpoint.All(120)),
@@ -829,7 +820,7 @@ func stylingNavigationButtons(previousHref, nextHref string) widget.BaseWidget {
 			link.New(
 				button.New(
 					row.New(
-						[]widget.BaseWidget{
+						[]application.BaseWidget{
 							text.New(
 								"Next",
 								text.FontSize(14),
@@ -844,7 +835,7 @@ func stylingNavigationButtons(previousHref, nextHref string) widget.BaseWidget {
 							),
 						},
 						row.Gap(8),
-						row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+						row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 					),
 					button.BackgroundColor("#2B799B"),
 					button.Width(breakpoint.All(120)),

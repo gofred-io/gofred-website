@@ -2,6 +2,7 @@ package core_concepts
 
 import (
 	"github.com/gofred-io/gofred-website/app/components/codeblock"
+	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/button"
 	"github.com/gofred-io/gofred/foundation/column"
@@ -12,15 +13,14 @@ import (
 	"github.com/gofred-io/gofred/foundation/row"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	"github.com/gofred-io/gofred/theme"
 )
 
-func EventHandlingContent() widget.BaseWidget {
+func EventHandlingContent() application.BaseWidget {
 	return container.New(
 		column.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				eventHandlingPageHeader(),
 				spacer.New(spacer.Height(24)),
 				eventHandlingPageContent(),
@@ -33,29 +33,27 @@ func EventHandlingContent() widget.BaseWidget {
 	)
 }
 
-func eventHandlingPageHeader() widget.BaseWidget {
+func eventHandlingPageHeader() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				"Event Handling",
 				text.FontSize(32),
-				text.FontColor("#1F2937"),
 				text.FontWeight("700"),
 			),
 			text.New(
 				"Learn how to handle user interactions and create responsive, interactive applications with gofred's event system.",
 				text.FontSize(18),
 				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
 			),
 		},
 		column.Gap(8),
 	)
 }
 
-func eventHandlingPageContent() widget.BaseWidget {
+func eventHandlingPageContent() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			eventContentSection("Understanding Events", "Events are actions that users perform in your application, such as clicking buttons, typing in inputs, or navigating between pages. gofred provides a simple and powerful event handling system that integrates seamlessly with state management."),
 			spacer.New(spacer.Height(24)),
 
@@ -71,11 +69,11 @@ import (
     "github.com/gofred-io/gofred/foundation/button"
     "github.com/gofred-io/gofred/foundation/column"
     "github.com/gofred-io/gofred/foundation/text"
-    "github.com/gofred-io/gofred/widget"
+    "github.com/gofred-io/gofred/application"
 )
 
 // Basic click handler
-func simpleButton() widget.BaseWidget {
+func simpleButton() application.BaseWidget {
     return button.New(
         text.New("Click Me"),
         button.OnClick(handleSimpleClick),
@@ -83,17 +81,17 @@ func simpleButton() widget.BaseWidget {
 }
 
 // Event handler function signature
-func handleSimpleClick(this widget.BaseWidget, e widget.Event) {
+func handleSimpleClick(this application.BaseWidget, e application.Event) {
     fmt.Println("Button was clicked!")
     // 'this' is the widget that was clicked
     // 'e' contains event details
 }
 
 // Inline event handler
-func inlineHandlerButton() widget.BaseWidget {
+func inlineHandlerButton() application.BaseWidget {
     return button.New(
         text.New("Inline Handler"),
-        button.OnClick(func(this widget.BaseWidget, e widget.Event) {
+        button.OnClick(func(this application.BaseWidget, e application.Event) {
             fmt.Println("Inline handler executed!")
             // You can access variables from the surrounding scope
         }),
@@ -103,23 +101,23 @@ func inlineHandlerButton() widget.BaseWidget {
 
 			eventSubsection("Event Handler Patterns", "Different patterns for organizing and implementing event handlers."),
 			codeblock.New(`// Named handler functions (recommended for reusability)
-func saveButton() widget.BaseWidget {
+func saveButton() application.BaseWidget {
     return button.New(
         text.New("Save"),
         button.OnClick(handleSave),
     )
 }
 
-func handleSave(this widget.BaseWidget, e widget.Event) {
+func handleSave(this application.BaseWidget, e application.Event) {
     // Dedicated handler function
     fmt.Println("Saving data...")
 }
 
 // Closure handlers (for accessing local state)
-func counterButton(count int, onIncrement func()) widget.BaseWidget {
+func counterButton(count int, onIncrement func()) application.BaseWidget {
     return button.New(
         text.New(fmt.Sprintf("Count: %d", count)),
-        button.OnClick(func(this widget.BaseWidget, e widget.Event) {
+        button.OnClick(func(this application.BaseWidget, e application.Event) {
             // Access closure variables
             onIncrement()
         }),
@@ -131,14 +129,14 @@ type TodoList struct {
     items []string
 }
 
-func (tl *TodoList) addButton() widget.BaseWidget {
+func (tl *TodoList) addButton() application.BaseWidget {
     return button.New(
         text.New("Add Item"),
         button.OnClick(tl.handleAddItem),
     )
 }
 
-func (tl *TodoList) handleAddItem(this widget.BaseWidget, e widget.Event) {
+func (tl *TodoList) handleAddItem(this application.BaseWidget, e application.Event) {
     tl.items = append(tl.items, "New Item")
     // Update state or trigger re-render
 }`),
@@ -161,11 +159,11 @@ var (
 )
 
 // Counter with state updates
-func counterWidget() widget.BaseWidget {
+func counterWidget() application.BaseWidget {
     return column.New(
-        []widget.BaseWidget{
+        []application.BaseWidget{
             // Display current count
-            listenable.Builder(count, func() widget.BaseWidget {
+            listenable.Builder(count, func() application.BaseWidget {
                 return text.New(
                     fmt.Sprintf("Count: %d", count.Value()),
                     text.FontSize(18),
@@ -176,7 +174,7 @@ func counterWidget() widget.BaseWidget {
             // Increment button
             button.New(
                 text.New("Increment"),
-                button.OnClick(func(this widget.BaseWidget, e widget.Event) {
+                button.OnClick(func(this application.BaseWidget, e application.Event) {
                     setCount(count.Value() + 1)
                 }),
             ),
@@ -184,7 +182,7 @@ func counterWidget() widget.BaseWidget {
             // Decrement button
             button.New(
                 text.New("Decrement"),
-                button.OnClick(func(this widget.BaseWidget, e widget.Event) {
+                button.OnClick(func(this application.BaseWidget, e application.Event) {
                     setCount(count.Value() - 1)
                 }),
             ),
@@ -192,7 +190,7 @@ func counterWidget() widget.BaseWidget {
             // Reset button
             button.New(
                 text.New("Reset"),
-                button.OnClick(func(this widget.BaseWidget, e widget.Event) {
+                button.OnClick(func(this application.BaseWidget, e application.Event) {
                     setCount(0)
                 }),
             ),
@@ -213,8 +211,8 @@ type User struct {
     Email string
 }
 
-func loginButton() widget.BaseWidget {
-    return listenable.Builder(isLoggedIn, func() widget.BaseWidget {
+func loginButton() application.BaseWidget {
+    return listenable.Builder(isLoggedIn, func() application.BaseWidget {
         if isLoggedIn.Value() {
             // Show logout button when logged in
             return button.New(
@@ -233,7 +231,7 @@ func loginButton() widget.BaseWidget {
     })
 }
 
-func handleLogin(this widget.BaseWidget, e widget.Event) {
+func handleLogin(this application.BaseWidget, e application.Event) {
     // Simulate login process
     fmt.Println("Logging in...")
     
@@ -247,7 +245,7 @@ func handleLogin(this widget.BaseWidget, e widget.Event) {
     setIsLoggedIn(true)
 }
 
-func handleLogout(this widget.BaseWidget, e widget.Event) {
+func handleLogout(this application.BaseWidget, e application.Event) {
     fmt.Println("Logging out...")
     
     // Clear user data
@@ -266,9 +264,9 @@ func handleLogout(this widget.BaseWidget, e widget.Event) {
     isSubmitting, setIsSubmitting = hooks.UseState(false)
 )
 
-func loginForm() widget.BaseWidget {
+func loginForm() application.BaseWidget {
     return column.New(
-        []widget.BaseWidget{
+        []application.BaseWidget{
             // Email field (conceptual - actual input implementation would be here)
             text.New("Email:"),
             
@@ -276,13 +274,13 @@ func loginForm() widget.BaseWidget {
             text.New("Password:"),
             
             // Show validation errors
-            listenable.Builder(formErrors, func() widget.BaseWidget {
+            listenable.Builder(formErrors, func() application.BaseWidget {
                 errors := formErrors.Value()
                 if len(errors) == 0 {
                     return spacer.New(spacer.Height(0))
                 }
                 
-                var errorWidgets []widget.BaseWidget
+                var errorWidgets []application.BaseWidget
                 for field, msg := range errors {
                     errorWidgets = append(errorWidgets, text.New(
                         fmt.Sprintf("%s: %s", field, msg),
@@ -295,7 +293,7 @@ func loginForm() widget.BaseWidget {
             }),
             
             // Submit button
-            listenable.Builder(isSubmitting, func() widget.BaseWidget {
+            listenable.Builder(isSubmitting, func() application.BaseWidget {
                 if isSubmitting.Value() {
                     return button.New(
                         text.New("Submitting..."),
@@ -313,7 +311,7 @@ func loginForm() widget.BaseWidget {
     )
 }
 
-func handleFormSubmit(this widget.BaseWidget, e widget.Event) {
+func handleFormSubmit(this application.BaseWidget, e application.Event) {
     // Prevent double submission
     if isSubmitting.Value() {
         return
@@ -371,11 +369,11 @@ var (
     })
 )
 
-func todoList() widget.BaseWidget {
-    return listenable.Builder(todos, func() widget.BaseWidget {
+func todoList() application.BaseWidget {
+    return listenable.Builder(todos, func() application.BaseWidget {
         items := todos.Value()
         
-        var todoWidgets []widget.BaseWidget
+        var todoWidgets []application.BaseWidget
         for _, item := range items {
             todoWidgets = append(todoWidgets, todoItemWidget(item))
         }
@@ -384,10 +382,10 @@ func todoList() widget.BaseWidget {
     })
 }
 
-func todoItemWidget(item TodoItem) widget.BaseWidget {
+func todoItemWidget(item TodoItem) application.BaseWidget {
     return container.New(
         row.New(
-            []widget.BaseWidget{
+            []application.BaseWidget{
                 // Toggle completion
                 button.New(
                     text.New(func() string {
@@ -396,7 +394,7 @@ func todoItemWidget(item TodoItem) widget.BaseWidget {
                         }
                         return "○"
                     }()),
-                    button.OnClick(func(this widget.BaseWidget, e widget.Event) {
+                    button.OnClick(func(this application.BaseWidget, e application.Event) {
                         toggleTodo(item.ID)
                     }),
                 ),
@@ -418,13 +416,13 @@ func todoItemWidget(item TodoItem) widget.BaseWidget {
                 button.New(
                     text.New("Delete"),
                     button.BackgroundColor("#EF4444"),
-                    button.OnClick(func(this widget.BaseWidget, e widget.Event) {
+                    button.OnClick(func(this application.BaseWidget, e application.Event) {
                         deleteTodo(item.ID)
                     }),
                 ),
             },
             row.Gap(12),
-            row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+            row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
         ),
         container.Padding(breakpoint.All(spacing.All(12))),
         container.BorderColor("#E5E7EB"),
@@ -464,9 +462,9 @@ func deleteTodo(id string) {
     error, setError = hooks.UseState[error](nil)
 )
 
-func userProfile() widget.BaseWidget {
+func userProfile() application.BaseWidget {
     return column.New(
-        []widget.BaseWidget{
+        []application.BaseWidget{
             // Load user button
             button.New(
                 text.New("Load User Profile"),
@@ -474,7 +472,7 @@ func userProfile() widget.BaseWidget {
             ),
             
             // Loading state
-            listenable.Builder(isLoading, func() widget.BaseWidget {
+            listenable.Builder(isLoading, func() application.BaseWidget {
                 if isLoading.Value() {
                     return text.New("Loading...", text.FontColor("#6B7280"))
                 }
@@ -482,11 +480,11 @@ func userProfile() widget.BaseWidget {
             }),
             
             // Error state
-            listenable.Builder(error, func() widget.BaseWidget {
+            listenable.Builder(error, func() application.BaseWidget {
                 err := error.Value()
                 if err != nil {
                     return column.New(
-                        []widget.BaseWidget{
+                        []application.BaseWidget{
                             text.New(
                                 fmt.Sprintf("Error: %s", err.Error()),
                                 text.FontColor("#EF4444"),
@@ -503,14 +501,14 @@ func userProfile() widget.BaseWidget {
             }),
             
             // User data
-            listenable.Builder(userData, func() widget.BaseWidget {
+            listenable.Builder(userData, func() application.BaseWidget {
                 user := userData.Value()
                 if user == nil {
                     return text.New("No user data")
                 }
                 
                 return column.New(
-                    []widget.BaseWidget{
+                    []application.BaseWidget{
                         text.New(
                             fmt.Sprintf("Name: %s", user.Name),
                             text.FontWeight("600"),
@@ -532,7 +530,7 @@ func userProfile() widget.BaseWidget {
     )
 }
 
-func handleLoadUser(this widget.BaseWidget, e widget.Event) {
+func handleLoadUser(this application.BaseWidget, e application.Event) {
     // Prevent multiple simultaneous requests
     if isLoading.Value() {
         return
@@ -566,10 +564,10 @@ func handleLoadUser(this widget.BaseWidget, e widget.Event) {
 
 			eventSubsection("Event Composition and Higher-Order Handlers", "Create reusable event handling patterns."),
 			codeblock.New(`// Higher-order function for debounced events
-func debounceHandler(delay time.Duration, handler func(widget.BaseWidget, widget.Event)) func(widget.BaseWidget, widget.Event) {
+func debounceHandler(delay time.Duration, handler func(application.BaseWidget, application.Event)) func(application.BaseWidget, application.Event) {
     var timer *time.Timer
     
-    return func(this widget.BaseWidget, e widget.Event) {
+    return func(this application.BaseWidget, e application.Event) {
         if timer != nil {
             timer.Stop()
         }
@@ -581,8 +579,8 @@ func debounceHandler(delay time.Duration, handler func(widget.BaseWidget, widget
 }
 
 // Higher-order function for event confirmation
-func confirmHandler(message string, handler func(widget.BaseWidget, widget.Event)) func(widget.BaseWidget, widget.Event) {
-    return func(this widget.BaseWidget, e widget.Event) {
+func confirmHandler(message string, handler func(application.BaseWidget, application.Event)) func(application.BaseWidget, application.Event) {
+    return func(this application.BaseWidget, e application.Event) {
         // In a real implementation, you'd show a confirmation dialog
         confirmed := true // Simulate user confirmation
         
@@ -593,13 +591,13 @@ func confirmHandler(message string, handler func(widget.BaseWidget, widget.Event
 }
 
 // Usage examples
-func enhancedButton() widget.BaseWidget {
+func enhancedButton() application.BaseWidget {
     return column.New(
-        []widget.BaseWidget{
+        []application.BaseWidget{
             // Debounced search button
             button.New(
                 text.New("Search"),
-                button.OnClick(debounceHandler(300*time.Millisecond, func(this widget.BaseWidget, e widget.Event) {
+                button.OnClick(debounceHandler(300*time.Millisecond, func(this application.BaseWidget, e application.Event) {
                     fmt.Println("Performing search...")
                     // Search logic here
                 })),
@@ -609,7 +607,7 @@ func enhancedButton() widget.BaseWidget {
             button.New(
                 text.New("Delete All"),
                 button.BackgroundColor("#EF4444"),
-                button.OnClick(confirmHandler("Are you sure you want to delete all items?", func(this widget.BaseWidget, e widget.Event) {
+                button.OnClick(confirmHandler("Are you sure you want to delete all items?", func(this application.BaseWidget, e application.Event) {
                     fmt.Println("Deleting all items...")
                     // Delete logic here
                 })),
@@ -620,8 +618,8 @@ func enhancedButton() widget.BaseWidget {
 }
 
 // Event handler composition
-func compositeHandler(handlers ...func(widget.BaseWidget, widget.Event)) func(widget.BaseWidget, widget.Event) {
-    return func(this widget.BaseWidget, e widget.Event) {
+func compositeHandler(handlers ...func(application.BaseWidget, application.Event)) func(application.BaseWidget, application.Event) {
+    return func(this application.BaseWidget, e application.Event) {
         for _, handler := range handlers {
             handler(this, e)
         }
@@ -629,8 +627,8 @@ func compositeHandler(handlers ...func(widget.BaseWidget, widget.Event)) func(wi
 }
 
 // Analytics and logging wrapper
-func analyticsHandler(eventName string, handler func(widget.BaseWidget, widget.Event)) func(widget.BaseWidget, widget.Event) {
-    return func(this widget.BaseWidget, e widget.Event) {
+func analyticsHandler(eventName string, handler func(application.BaseWidget, application.Event)) func(application.BaseWidget, application.Event) {
+    return func(this application.BaseWidget, e application.Event) {
         // Log analytics event
         fmt.Printf("Analytics: %s triggered\n", eventName)
         
@@ -640,14 +638,14 @@ func analyticsHandler(eventName string, handler func(widget.BaseWidget, widget.E
 }
 
 // Usage with composition
-func trackedButton() widget.BaseWidget {
+func trackedButton() application.BaseWidget {
     return button.New(
         text.New("Tracked Action"),
         button.OnClick(compositeHandler(
-            analyticsHandler("button_clicked", func(this widget.BaseWidget, e widget.Event) {
+            analyticsHandler("button_clicked", func(this application.BaseWidget, e application.Event) {
                 fmt.Println("Primary action executed")
             }),
-            func(this widget.BaseWidget, e widget.Event) {
+            func(this application.BaseWidget, e application.Event) {
                 fmt.Println("Secondary action executed")
             },
         )),
@@ -670,9 +668,9 @@ var (
 )
 
 // Navigation links
-func navigationBar() widget.BaseWidget {
+func navigationBar() application.BaseWidget {
     return row.New(
-        []widget.BaseWidget{
+        []application.BaseWidget{
             navLink("home", "Home"),
             navLink("about", "About"),
             navLink("contact", "Contact"),
@@ -682,8 +680,8 @@ func navigationBar() widget.BaseWidget {
     )
 }
 
-func navLink(page, label string) widget.BaseWidget {
-    return listenable.Builder(currentPage, func() widget.BaseWidget {
+func navLink(page, label string) application.BaseWidget {
+    return listenable.Builder(currentPage, func() application.BaseWidget {
         isActive := currentPage.Value() == page
         
         textColor := "#6B7280"
@@ -694,7 +692,7 @@ func navLink(page, label string) widget.BaseWidget {
         return link.New(
             text.New(label, text.FontColor(textColor)),
             link.Href(fmt.Sprintf("/%s", page)),
-            link.OnClick(func(this widget.BaseWidget, e widget.Event) {
+            link.OnClick(func(this application.BaseWidget, e application.Event) {
                 navigateToPage(page)
             }),
         )
@@ -715,15 +713,15 @@ func navigateToPage(page string) {
 }
 
 // Back button functionality
-func backButton() widget.BaseWidget {
-    return listenable.Builder(history, func() widget.BaseWidget {
+func backButton() application.BaseWidget {
+    return listenable.Builder(history, func() application.BaseWidget {
         hist := history.Value()
         canGoBack := len(hist) > 1
         
         return button.New(
             text.New("← Back"),
             button.Disabled(!canGoBack),
-            button.OnClick(func(this widget.BaseWidget, e widget.Event) {
+            button.OnClick(func(this application.BaseWidget, e application.Event) {
                 if canGoBack {
                     // Remove current page from history
                     newHist := hist[:len(hist)-1]
@@ -753,47 +751,43 @@ func backButton() widget.BaseWidget {
 	)
 }
 
-func eventContentSection(title, description string) widget.BaseWidget {
+func eventContentSection(title, description string) application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				title,
 				text.FontSize(24),
-				text.FontColor("#1F2937"),
 				text.FontWeight("600"),
 			),
 			text.New(
 				description,
 				text.FontSize(16),
 				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
 			),
 		},
 		column.Gap(8),
 	)
 }
 
-func eventSubsection(title, description string) widget.BaseWidget {
+func eventSubsection(title, description string) application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				title,
 				text.FontSize(20),
-				text.FontColor("#1F2937"),
 				text.FontWeight("600"),
 			),
 			text.New(
 				description,
 				text.FontSize(14),
 				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
 			),
 		},
 		column.Gap(4),
 	)
 }
 
-func eventHandlingBestPracticesList() widget.BaseWidget {
+func eventHandlingBestPracticesList() application.BaseWidget {
 	practices := []string{
 		"Use named functions for event handlers when they can be reused across components",
 		"Keep event handlers focused and delegate complex logic to separate functions",
@@ -809,7 +803,7 @@ func eventHandlingBestPracticesList() widget.BaseWidget {
 		"Use higher-order functions to create reusable event handling patterns",
 	}
 
-	var practiceItems []widget.BaseWidget
+	var practiceItems []application.BaseWidget
 	for _, practice := range practices {
 		practiceItems = append(practiceItems, eventHandlingListItem(practice))
 	}
@@ -820,9 +814,9 @@ func eventHandlingBestPracticesList() widget.BaseWidget {
 	)
 }
 
-func eventHandlingListItem(itemText string) widget.BaseWidget {
+func eventHandlingListItem(itemText string) application.BaseWidget {
 	return row.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			icon.New(
 				icondata.Check,
 				icon.Width(breakpoint.All(16)),
@@ -834,15 +828,14 @@ func eventHandlingListItem(itemText string) widget.BaseWidget {
 				itemText,
 				text.FontSize(16),
 				text.FontColor("#374151"),
-				text.FontWeight("400"),
 			),
 		},
 		row.Gap(8),
-		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 	)
 }
 
-func eventHandlingNextStepsList() widget.BaseWidget {
+func eventHandlingNextStepsList() application.BaseWidget {
 	steps := []struct {
 		title       string
 		description string
@@ -855,7 +848,7 @@ func eventHandlingNextStepsList() widget.BaseWidget {
 		},
 	}
 
-	var stepItems []widget.BaseWidget
+	var stepItems []application.BaseWidget
 	for _, step := range steps {
 		stepItems = append(stepItems, eventHandlingNextStepItem(step.title, step.description, step.href))
 	}
@@ -866,13 +859,13 @@ func eventHandlingNextStepsList() widget.BaseWidget {
 	)
 }
 
-func eventHandlingNextStepItem(title, description, href string) widget.BaseWidget {
+func eventHandlingNextStepItem(title, description, href string) application.BaseWidget {
 	return link.New(
 		container.New(
 			row.New(
-				[]widget.BaseWidget{
+				[]application.BaseWidget{
 					column.New(
-						[]widget.BaseWidget{
+						[]application.BaseWidget{
 							text.New(
 								title,
 								text.FontSize(16),
@@ -883,7 +876,6 @@ func eventHandlingNextStepItem(title, description, href string) widget.BaseWidge
 								description,
 								text.FontSize(14),
 								text.FontColor("#6B7280"),
-								text.FontWeight("400"),
 							),
 						},
 						column.Gap(4),
@@ -898,26 +890,26 @@ func eventHandlingNextStepItem(title, description, href string) widget.BaseWidge
 				},
 				row.Gap(12),
 				row.Flex(1),
-				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+				row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 			),
 			container.Padding(breakpoint.All(spacing.All(16))),
 			container.BackgroundColor("#FFFFFF"),
 			container.BorderRadius(8),
 			container.BorderColor("#E5E7EB"),
 			container.BorderWidth(1, 1, 1, 1),
-			container.BorderStyle(options.BorderStyleTypeSolid),
+			container.BorderStyle(theme.BorderStyleTypeSolid),
 		),
 		link.Href(href),
 	)
 }
 
-func eventHandlingNavigationButtons(previousHref, nextHref string) widget.BaseWidget {
+func eventHandlingNavigationButtons(previousHref, nextHref string) application.BaseWidget {
 	return row.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			link.New(
 				button.New(
 					row.New(
-						[]widget.BaseWidget{
+						[]application.BaseWidget{
 							icon.New(
 								icondata.ChevronLeft,
 								icon.Width(breakpoint.All(16)),
@@ -932,7 +924,7 @@ func eventHandlingNavigationButtons(previousHref, nextHref string) widget.BaseWi
 							),
 						},
 						row.Gap(8),
-						row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+						row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 					),
 					button.BackgroundColor("#6B7280"),
 					button.Width(breakpoint.All(120)),
@@ -943,7 +935,7 @@ func eventHandlingNavigationButtons(previousHref, nextHref string) widget.BaseWi
 			link.New(
 				button.New(
 					row.New(
-						[]widget.BaseWidget{
+						[]application.BaseWidget{
 							text.New(
 								"Next",
 								text.FontSize(14),
@@ -958,7 +950,7 @@ func eventHandlingNavigationButtons(previousHref, nextHref string) widget.BaseWi
 							),
 						},
 						row.Gap(8),
-						row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+						row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 					),
 					button.BackgroundColor("#2B799B"),
 					button.Width(breakpoint.All(120)),

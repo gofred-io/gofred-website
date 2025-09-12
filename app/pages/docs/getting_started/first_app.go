@@ -2,19 +2,19 @@ package getting_started
 
 import (
 	"github.com/gofred-io/gofred-website/app/components/codeblock"
+	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/column"
 	"github.com/gofred-io/gofred/foundation/container"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
 	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
 )
 
-func FirstAppContent() widget.BaseWidget {
+func FirstAppContent() application.BaseWidget {
 	return container.New(
 		column.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				firstAppPageHeader(),
 				spacer.New(spacer.Height(24)),
 				firstAppPageContent(),
@@ -27,29 +27,27 @@ func FirstAppContent() widget.BaseWidget {
 	)
 }
 
-func firstAppPageHeader() widget.BaseWidget {
+func firstAppPageHeader() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				"Your First App",
 				text.FontSize(32),
-				text.FontColor("#1F2937"),
 				text.FontWeight("700"),
 			),
 			text.New(
 				"Build a complete gofred application from scratch with step-by-step instructions.",
 				text.FontSize(18),
 				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
 			),
 		},
 		column.Gap(8),
 	)
 }
 
-func firstAppPageContent() widget.BaseWidget {
+func firstAppPageContent() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			contentSection("Project Setup", "Let's create a new gofred project and build a simple todo application:"),
 			codeblock.New(`mkdir my-gofred-app
 cd my-gofred-app
@@ -66,7 +64,7 @@ import (
     "github.com/gofred-io/gofred/foundation/container"
     "github.com/gofred-io/gofred/foundation/text"
     "github.com/gofred-io/gofred/options/spacing"
-    "github.com/gofred-io/gofred/widget"
+    "github.com/gofred-io/gofred/application"
 )
 
 func main() {
@@ -74,22 +72,20 @@ func main() {
     application.Run(app)
 }
 
-func createApp() widget.BaseWidget {
+func createApp() application.BaseWidget {
     return container.New(
         column.New(
-            []widget.BaseWidget{
+            []application.BaseWidget{
                 text.New(
                     "My First gofred App",
                     text.FontSize(24),
-                    text.FontColor("#1F2937"),
-                    text.FontWeight("700"),
+                                        text.FontWeight("700"),
                 ),
                 text.New(
                     "Welcome to gofred! This is your first application.",
                     text.FontSize(16),
                     text.FontColor("#6B7280"),
-                    text.FontWeight("400"),
-                ),
+                                    ),
             },
             column.Gap(16),
         ),
@@ -116,7 +112,7 @@ import (
     "github.com/gofred-io/gofred/hooks"
     "github.com/gofred-io/gofred/listenable"
     "github.com/gofred-io/gofred/options/spacing"
-    "github.com/gofred-io/gofred/widget"
+    "github.com/gofred-io/gofred/application"
 )
 
 var (
@@ -128,17 +124,16 @@ func main() {
     application.Run(app)
 }
 
-func createApp() widget.BaseWidget {
+func createApp() application.BaseWidget {
     return container.New(
         column.New(
-            []widget.BaseWidget{
+            []application.BaseWidget{
                 text.New(
                     "Counter App",
                     text.FontSize(24),
-                    text.FontColor("#1F2937"),
-                    text.FontWeight("700"),
+                                        text.FontWeight("700"),
                 ),
-                listenable.Builder(count, func() widget.BaseWidget {
+                listenable.Builder(count, func() application.BaseWidget {
                     return text.New(
                         fmt.Sprintf("Count: %d", count.Value()),
                         text.FontSize(18),
@@ -148,7 +143,7 @@ func createApp() widget.BaseWidget {
                 }),
                 spacer.New(spacer.Height(16)),
                 row.New(
-                    []widget.BaseWidget{
+                    []application.BaseWidget{
                         button.New(
                             text.New("Decrease", text.FontColor("#FFFFFF")),
                             button.BackgroundColor("#EF4444"),
@@ -171,11 +166,11 @@ func createApp() widget.BaseWidget {
     )
 }
 
-func increaseCount(this widget.BaseWidget, e widget.Event) {
+func increaseCount(this application.BaseWidget, e application.Event) {
     setCount(count.Value() + 1)
 }
 
-func decreaseCount(this widget.BaseWidget, e widget.Event) {
+func decreaseCount(this application.BaseWidget, e application.Event) {
     setCount(count.Value() - 1)
 }`),
 			spacer.New(spacer.Height(24)),
@@ -198,7 +193,7 @@ func decreaseCount(this widget.BaseWidget, e widget.Event) {
 	)
 }
 
-func firstAppNextStepsList() widget.BaseWidget {
+func firstAppNextStepsList() application.BaseWidget {
 	steps := []struct {
 		title       string
 		description string
@@ -231,7 +226,7 @@ func firstAppNextStepsList() widget.BaseWidget {
 		// },
 	}
 
-	var stepItems []widget.BaseWidget
+	var stepItems []application.BaseWidget
 	for _, step := range steps {
 		stepItems = append(stepItems, nextStepItem(step.title, step.description, step.href))
 	}

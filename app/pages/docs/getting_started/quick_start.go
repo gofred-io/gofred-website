@@ -2,19 +2,19 @@ package getting_started
 
 import (
 	"github.com/gofred-io/gofred-website/app/components/codeblock"
+	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/column"
 	"github.com/gofred-io/gofred/foundation/container"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
 	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
 )
 
-func QuickStartContent() widget.BaseWidget {
+func QuickStartContent() application.BaseWidget {
 	return container.New(
 		column.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				quickStartPageHeader(),
 				spacer.New(spacer.Height(24)),
 				quickStartPageContent(),
@@ -27,29 +27,27 @@ func QuickStartContent() widget.BaseWidget {
 	)
 }
 
-func quickStartPageHeader() widget.BaseWidget {
+func quickStartPageHeader() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				"Quick Start",
 				text.FontSize(32),
-				text.FontColor("#1F2937"),
 				text.FontWeight("700"),
 			),
 			text.New(
 				"Get started with gofred by creating your first application.",
 				text.FontSize(18),
 				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
 			),
 		},
 		column.Gap(8),
 	)
 }
 
-func quickStartPageContent() widget.BaseWidget {
+func quickStartPageContent() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			contentSection("Hello, gofred!", "Let's start with a simple hello world application:"),
 			codeblock.New(`package main
 
@@ -72,7 +70,7 @@ func main() {
 	)
 }
 
-func quickStartNextStepsList() widget.BaseWidget {
+func quickStartNextStepsList() application.BaseWidget {
 	steps := []struct {
 		title       string
 		description string
@@ -90,7 +88,7 @@ func quickStartNextStepsList() widget.BaseWidget {
 		},
 	}
 
-	var stepItems []widget.BaseWidget
+	var stepItems []application.BaseWidget
 	for _, step := range steps {
 		stepItems = append(stepItems, nextStepItem(step.title, step.description, step.href))
 	}
