@@ -89,7 +89,7 @@ func comingSoonIcon() application.BaseWidget {
 		container.BackgroundColor("#F9FAFB"),
 		container.BorderRadius(40),
 		container.BorderColor("#E5E7EB"),
-		container.BorderWidth(1, 1, 1, 1),
+		container.BorderWidth(spacing.All(1)),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
 }
@@ -126,7 +126,7 @@ func comingSoonMessage() application.BaseWidget {
 				container.BackgroundColor("#EFF6FF"),
 				container.BorderRadius(8),
 				container.BorderColor("#DBEAFE"),
-				container.BorderWidth(1, 1, 1, 1),
+				container.BorderWidth(spacing.All(1)),
 				container.BorderStyle(theme.BorderStyleTypeSolid),
 			),
 		},
@@ -221,7 +221,7 @@ func suggestionCard(suggestion Suggestion) application.BaseWidget {
 			container.BackgroundColor("#FFFFFF"),
 			container.BorderRadius(8),
 			container.BorderColor("#E5E7EB"),
-			container.BorderWidth(1, 1, 1, 1),
+			container.BorderWidth(spacing.All(1)),
 			container.BorderStyle(theme.BorderStyleTypeSolid),
 			container.Width(breakpoint.All(400)),
 		),

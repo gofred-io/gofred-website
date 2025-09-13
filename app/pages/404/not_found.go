@@ -65,7 +65,7 @@ func errorIcon() application.BaseWidget {
 		container.BorderRadius(48),
 		container.Padding(breakpoint.All(spacing.All(20))),
 		container.BorderColor("#E74C3C"),
-		container.BorderWidth(3, 3, 3, 3),
+		container.BorderWidth(spacing.All(3)),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
 }

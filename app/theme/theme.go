@@ -11,5 +11,5 @@ const (
 
 func init() {
 	_, setThemeData := hooks.UseTheme()
-	setThemeData(&lightTheme)
+	setThemeData(lightTheme)
 }

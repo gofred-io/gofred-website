@@ -250,7 +250,7 @@ column.New(
 container.New(
     content,
     container.BorderColor("#E5E7EB"),
-    container.BorderWidth(1, 1, 1, 1),      // top, right, bottom, left
+    container.BorderWidth(spacing.All(1)),      // top, right, bottom, left
     container.BorderStyle(theme.BorderStyleTypeSolid),
 )
 
@@ -356,7 +356,7 @@ func responsiveCard() application.BaseWidget {
         container.BackgroundColor("#FFFFFF"),
         container.BorderRadius(8),
         container.BorderColor("#E5E7EB"),
-        container.BorderWidth(1, 1, 1, 1),
+        container.BorderWidth(spacing.All(1)),
         
         // Enhanced styles for larger screens
         container.Padding(
@@ -416,7 +416,7 @@ func basicCard(content application.BaseWidget) application.BaseWidget {
         container.BackgroundColor("#FFFFFF"),
         container.BorderRadius(8),
         container.BorderColor("#E5E7EB"),
-        container.BorderWidth(1, 1, 1, 1),
+        container.BorderWidth(spacing.All(1)),
         container.Padding(breakpoint.All(spacing.All(16))),
     )
 }
@@ -428,7 +428,7 @@ func elevatedCard(content application.BaseWidget) application.BaseWidget {
         container.BackgroundColor("#FFFFFF"),
         container.BorderRadius(12),
         container.BorderColor("#E5E7EB"),
-        container.BorderWidth(1, 1, 1, 1),
+        container.BorderWidth(spacing.All(1)),
         container.Padding(breakpoint.All(spacing.All(20))),
     )
 }
@@ -467,7 +467,7 @@ func formContainer(children []application.BaseWidget) application.BaseWidget {
         container.BorderRadius(8),
         container.Padding(breakpoint.All(spacing.All(24))),
         container.BorderColor("#E5E7EB"),
-        container.BorderWidth(1, 1, 1, 1),
+        container.BorderWidth(spacing.All(1)),
     )
 }
 
@@ -781,7 +781,7 @@ func stylingNextStepItem(title, description, href string) application.BaseWidget
 			container.BackgroundColor("#FFFFFF"),
 			container.BorderRadius(8),
 			container.BorderColor("#E5E7EB"),
-			container.BorderWidth(1, 1, 1, 1),
+			container.BorderWidth(spacing.All(1)),
 			container.BorderStyle(theme.BorderStyleTypeSolid),
 		),
 		link.Href(href),

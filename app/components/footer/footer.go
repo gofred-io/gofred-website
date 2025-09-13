@@ -13,11 +13,14 @@ import (
 	"github.com/gofred-io/gofred/foundation/row"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
+	"github.com/gofred-io/gofred/hooks"
 	"github.com/gofred-io/gofred/options/spacing"
 	"github.com/gofred-io/gofred/theme"
 )
 
 func Get() application.BaseWidget {
+	themeHook, _ := hooks.UseTheme()
+
 	return container.New(
 		column.New(
 			[]application.BaseWidget{
@@ -42,6 +45,7 @@ func Get() application.BaseWidget {
 								},
 								column.Gap(0),
 							),
+							container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Tertiary),
 							container.MaxWidth(breakpoint.All(1200)),
 							container.Padding(
 								breakpoint.All(spacing.All(32)),
@@ -50,6 +54,7 @@ func Get() application.BaseWidget {
 							),
 						),
 					),
+					container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Tertiary),
 					container.Visible(
 						breakpoint.All(true),
 						breakpoint.XS(false),
@@ -65,12 +70,13 @@ func Get() application.BaseWidget {
 						breakpoint.XS(true),
 						breakpoint.SM(true),
 					),
+					container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Tertiary),
 				),
 			},
 			column.Gap(0),
 			column.Flex(1),
 		),
-		container.BackgroundColor("#1F2937"),
+		container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Tertiary),
 	)
 }
 
@@ -125,6 +131,8 @@ type FooterLink struct {
 
 // Brand section with logo and description
 func footerBrandSection() application.BaseWidget {
+	themeHook, _ := hooks.UseTheme()
+
 	return column.New(
 		[]application.BaseWidget{
 			// Logo and brand name
@@ -136,8 +144,8 @@ func footerBrandSection() application.BaseWidget {
 					),
 					text.New(
 						"gofred",
+						text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary),
 						text.FontSize(24),
-						text.FontColor("#FFFFFF"),
 						text.FontWeight("700"),
 					),
 				},
@@ -150,8 +158,9 @@ func footerBrandSection() application.BaseWidget {
 			// Description
 			text.New(
 				"Build responsive web applications using only Go. No JavaScript required - just pure Go code that compiles to WebAssembly.",
+				text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary),
+				text.Opacity(0.6),
 				text.FontSize(14),
-				text.FontColor("#9CA3AF"),
 				text.LineHeight(1.6),
 			),
 
@@ -164,6 +173,8 @@ func footerBrandSection() application.BaseWidget {
 
 // Links section with title and list of links
 func footerLinksSection(title string, links []FooterLink) application.BaseWidget {
+	themeHook, _ := hooks.UseTheme()
+
 	var linkWidgets []application.BaseWidget
 
 	for _, link := range links {
@@ -175,8 +186,8 @@ func footerLinksSection(title string, links []FooterLink) application.BaseWidget
 			// Section title
 			text.New(
 				title,
+				text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary),
 				text.FontSize(16),
-				text.FontColor("#FFFFFF"),
 				text.FontWeight("600"),
 			),
 
@@ -195,11 +206,14 @@ func footerLinksSection(title string, links []FooterLink) application.BaseWidget
 
 // Individual footer link
 func footerLink(title, href string, newTab bool) application.BaseWidget {
+	themeHook, _ := hooks.UseTheme()
+
 	return link.New(
 		text.New(
 			title,
+			text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary),
 			text.FontSize(14),
-			text.FontColor("#9CA3AF"),
+			text.Opacity(0.6),
 		),
 		link.Href(href),
 		link.NewTab(newTab),
@@ -223,6 +237,8 @@ func socialLinks() application.BaseWidget {
 
 // Individual social icon
 func socialIcon(iconData icondata.IconData, tooltip, href string) application.BaseWidget {
+	themeHook, _ := hooks.UseTheme()
+
 	return link.New(
 		container.New(
 			icon.New(
@@ -232,6 +248,7 @@ func socialIcon(iconData icondata.IconData, tooltip, href string) application.Ba
 				icon.Fill("#9CA3AF"),
 			),
 			container.Padding(breakpoint.All(spacing.All(8))),
+			container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Tertiary),
 		),
 		link.Href(href),
 		link.NewTab(true),
@@ -240,6 +257,8 @@ func socialIcon(iconData icondata.IconData, tooltip, href string) application.Ba
 
 // Footer bottom section with copyright and additional info
 func footerBottom() application.BaseWidget {
+	themeHook, _ := hooks.UseTheme()
+
 	return container.New(
 		row.New(
 			[]application.BaseWidget{
@@ -248,8 +267,9 @@ func footerBottom() application.BaseWidget {
 					[]application.BaseWidget{
 						text.New(
 							"© 2025 gofred. All rights reserved.",
+							text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary),
+							text.Opacity(0.4),
 							text.FontSize(14),
-							text.FontColor("#6B7280"),
 						),
 
 						spacer.New(spacer.Height(8)),
@@ -258,9 +278,9 @@ func footerBottom() application.BaseWidget {
 						row.New(
 							[]application.BaseWidget{
 								footerLink("Privacy Policy", "/privacy", false),
-								text.New("•", text.FontSize(14), text.FontColor("#6B7280")),
+								text.New("•", text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary), text.FontSize(14)),
 								footerLink("Terms of Service", "/terms", false),
-								text.New("•", text.FontSize(14), text.FontColor("#6B7280")),
+								text.New("•", text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary), text.FontSize(14)),
 								footerLink("License", "/license", false),
 							},
 							row.Gap(8),
@@ -278,8 +298,9 @@ func footerBottom() application.BaseWidget {
 					[]application.BaseWidget{
 						text.New(
 							"Built with",
+							text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary),
 							text.FontSize(14),
-							text.FontColor("#6B7280"),
+							text.Opacity(0.4),
 						),
 						icon.New(
 							icondata.Heart,
@@ -289,8 +310,9 @@ func footerBottom() application.BaseWidget {
 						),
 						text.New(
 							"using gofred",
+							text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary),
 							text.FontSize(14),
-							text.FontColor("#6B7280"),
+							text.Opacity(0.4),
 						),
 					},
 					row.Gap(8),
@@ -303,14 +325,16 @@ func footerBottom() application.BaseWidget {
 		container.Padding(
 			breakpoint.All(spacing.All(24)),
 		),
-		container.BorderColor("#374151"),
-		container.BorderWidth(1, 0, 0, 0),
+		container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Tertiary),
+		container.BorderWidth(spacing.Top(1)),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
 }
 
 // Mobile-optimized footer for smaller screens
 func mobileFooter() application.BaseWidget {
+	themeHook, _ := hooks.UseTheme()
+
 	return container.New(
 		center.New(
 			column.New(
@@ -328,8 +352,8 @@ func mobileFooter() application.BaseWidget {
 										),
 										text.New(
 											"gofred",
+											text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary),
 											text.FontSize(20),
-											text.FontColor("#FFFFFF"),
 											text.FontWeight("700"),
 										),
 									},
@@ -343,9 +367,10 @@ func mobileFooter() application.BaseWidget {
 								container.New(
 									text.New(
 										"Build responsive web applications using only Go.",
+										text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary),
 										text.FontSize(14),
-										text.FontColor("#9CA3AF"),
 									),
+									container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Tertiary),
 									container.MaxWidth(breakpoint.All(300)),
 								),
 
@@ -379,8 +404,8 @@ func mobileFooter() application.BaseWidget {
 							[]application.BaseWidget{
 								text.New(
 									"© 2025 gofred",
+									text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary),
 									text.FontSize(14),
-									text.FontColor("#6B7280"),
 								),
 
 								spacer.New(spacer.Height(8)),
@@ -389,8 +414,8 @@ func mobileFooter() application.BaseWidget {
 									[]application.BaseWidget{
 										text.New(
 											"Built with",
+											text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary),
 											text.FontSize(12),
-											text.FontColor("#6B7280"),
 										),
 										icon.New(
 											icondata.Heart,
@@ -400,8 +425,8 @@ func mobileFooter() application.BaseWidget {
 										),
 										text.New(
 											"using gofred",
+											text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary),
 											text.FontSize(12),
-											text.FontColor("#6B7280"),
 										),
 									},
 									row.Gap(6),
@@ -419,17 +444,20 @@ func mobileFooter() application.BaseWidget {
 		),
 		container.Flex(1),
 		container.Padding(breakpoint.All(spacing.All(24))),
+		container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Tertiary),
 	)
 }
 
 // Mobile footer section
 func mobileFooterSection(title string, links []string) application.BaseWidget {
+	themeHook, _ := hooks.UseTheme()
+
 	var linkWidgets []application.BaseWidget
 	for _, link := range links {
 		linkWidgets = append(linkWidgets, text.New(
 			link,
+			text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary),
 			text.FontSize(14),
-			text.FontColor("#9CA3AF"),
 		))
 	}
 
@@ -437,8 +465,8 @@ func mobileFooterSection(title string, links []string) application.BaseWidget {
 		[]application.BaseWidget{
 			text.New(
 				title,
+				text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary),
 				text.FontSize(16),
-				text.FontColor("#FFFFFF"),
 				text.FontWeight("600"),
 			),
 

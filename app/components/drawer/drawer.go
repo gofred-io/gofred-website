@@ -67,7 +67,7 @@ func drawerHeader() application.BaseWidget {
 		),
 		container.Padding(breakpoint.All(spacing.LRTB(24, 12, 18, 14))),
 		container.BorderColor("#E5E7EB"),
-		container.BorderWidth(0, 0, 1, 0),
+		container.BorderWidth(spacing.Bottom(1)),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
 }
@@ -217,7 +217,7 @@ func navItem(title, href string, iconData icondata.IconData, isExternal bool) ap
 		container.Padding(breakpoint.All(spacing.LRTB(12, 12, 12, 12))),
 		container.BorderRadius(8),
 		container.BackgroundColor("transparent"),
-		container.BorderWidth(1, 1, 1, 1),
+		container.BorderWidth(spacing.All(1)),
 		container.BorderColor("transparent"),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
@@ -260,7 +260,7 @@ func externalNavItem(title, href string, iconData icondata.IconData) application
 		container.Padding(breakpoint.All(spacing.LRTB(12, 12, 12, 12))),
 		container.BorderRadius(8),
 		container.BackgroundColor("transparent"),
-		container.BorderWidth(1, 1, 1, 1),
+		container.BorderWidth(spacing.All(1)),
 		container.BorderColor("transparent"),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)

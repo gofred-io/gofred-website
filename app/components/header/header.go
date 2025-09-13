@@ -22,6 +22,7 @@ import (
 )
 
 func Get() application.BaseWidget {
+	themeHook, _ := hooks.UseTheme()
 	return container.New(
 		row.New(
 			[]application.BaseWidget{
@@ -47,7 +48,6 @@ func Get() application.BaseWidget {
 			row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 		),
 		container.Height(breakpoint.All(72)),
-		container.BackgroundColor("#FFFFFF"),
 		container.Padding(
 			breakpoint.All(spacing.Axis(32, 0)),
 			breakpoint.XS(spacing.Axis(0, 0)),
@@ -55,11 +55,9 @@ func Get() application.BaseWidget {
 			breakpoint.MD(spacing.Axis(16, 0)),
 			breakpoint.LG(spacing.Axis(24, 0)),
 		),
-		container.BorderColor("#E5E7EB"),
-		container.BorderWidth(0, 0, 1, 0),
+		container.BorderWidth(spacing.Bottom(1)),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
-		// Add subtle shadow for depth
-		container.BoxShadow("0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)"),
+		container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Primary),
 	)
 }
 
@@ -159,8 +157,8 @@ func desktopNavigation() application.BaseWidget {
 func headerActions() application.BaseWidget {
 	return row.New(
 		[]application.BaseWidget{
-			githubButton(),
-			spacer.New(spacer.Width(12)),
+			//githubButton(),
+			//spacer.New(spacer.Width(12)),
 			themeToggleButton(),
 		},
 		row.Gap(0),
@@ -170,14 +168,16 @@ func headerActions() application.BaseWidget {
 
 // Modern navigation link
 func navigationLink(label, href string, external bool) application.BaseWidget {
+	themeHook, _ := hooks.UseTheme()
+
 	linkWidget := row.New(
 		[]application.BaseWidget{
 			text.New(
 				label,
 				text.FontSize(16),
-				text.FontColor("#4B5563"),
 				text.FontWeight("500"),
 				text.UserSelect(theme.UserSelectTypeNone),
+				text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Primary),
 			),
 		},
 		row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
@@ -189,9 +189,9 @@ func navigationLink(label, href string, external bool) application.BaseWidget {
 				text.New(
 					label,
 					text.FontSize(16),
-					text.FontColor("#4B5563"),
 					text.FontWeight("500"),
 					text.UserSelect(theme.UserSelectTypeNone),
+					text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Primary),
 				),
 				spacer.New(spacer.Width(4)),
 				icon.New(
@@ -217,6 +217,8 @@ func navigationLink(label, href string, external bool) application.BaseWidget {
 
 // GitHub button with icon
 func githubButton() application.BaseWidget {
+	themeHook, _ := hooks.UseTheme()
+
 	return container.New(
 		link.New(
 			row.New(
@@ -231,10 +233,11 @@ func githubButton() application.BaseWidget {
 						text.New(
 							"GitHub",
 							text.FontSize(14),
-							text.FontColor("#374151"),
 							text.FontWeight("600"),
 							text.UserSelect(theme.UserSelectTypeNone),
+							text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Primary),
 						),
+						container.BackgroundColor("#00000000"),
 						container.Visible(
 							breakpoint.All(true),
 							breakpoint.XS(false),
@@ -253,9 +256,8 @@ func githubButton() application.BaseWidget {
 			breakpoint.All(spacing.All(0)),
 			breakpoint.XS(spacing.Right(8)),
 		),
-		container.BackgroundColor("#F9FAFB"),
-		container.BorderColor("#E5E7EB"),
-		container.BorderWidth(1, 1, 1, 1),
+		container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Secondary),
+		container.BorderWidth(spacing.All(1)),
 		container.BorderRadius(8),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
@@ -267,7 +269,7 @@ func themeToggleButton() application.BaseWidget {
 		themeIcon := icondata.WhiteBalanceSunny
 		themeTooltip := "Switch to dark mode"
 		themeData := themeHook.ThemeData()
-		if themeData.Name() == string(webtheme.ThemeDark) {
+		if themeData.Name == string(webtheme.ThemeDark) {
 			themeIcon = icondata.MoonWaningCrescent
 			themeTooltip = "Switch to light mode"
 		}
@@ -277,7 +279,7 @@ func themeToggleButton() application.BaseWidget {
 				themeIcon,
 				iconbutton.Fill("#6B7280"),
 				iconbutton.OnClick(func(this application.BaseWidget, e application.Event) {
-					if themeData.Name() == string(webtheme.ThemeLight) {
+					if themeData.Name == string(webtheme.ThemeLight) {
 						setThemeData(webtheme.DarkTheme())
 					} else {
 						setThemeData(webtheme.LightTheme())

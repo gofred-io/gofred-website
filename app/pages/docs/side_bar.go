@@ -29,7 +29,7 @@ func docsSidebar() application.BaseWidget {
 		container.BackgroundColor("#FFFFFF"),
 		container.Padding(breakpoint.All(spacing.All(24))),
 		container.BorderColor("#E5E7EB"),
-		container.BorderWidth(0, 1, 0, 0),
+		container.BorderWidth(spacing.Right(1)),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
 		container.Visible(
 			breakpoint.LG(true),

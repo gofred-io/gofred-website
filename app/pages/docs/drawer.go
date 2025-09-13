@@ -68,7 +68,7 @@ func drawerHeader() application.BaseWidget {
 		),
 		container.Padding(breakpoint.All(spacing.LRTB(20, 20, 16, 8))),
 		container.BorderColor("#E5E7EB"),
-		container.BorderWidth(0, 0, 1, 0),
+		container.BorderWidth(spacing.Bottom(1)),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
 }

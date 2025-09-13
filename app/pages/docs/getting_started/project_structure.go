@@ -176,7 +176,7 @@ func projectStructureFileItem(path, description string) application.BaseWidget {
 		container.BackgroundColor("#FFFFFF"),
 		container.BorderRadius(8),
 		container.BorderColor("#E5E7EB"),
-		container.BorderWidth(1, 1, 1, 1),
+		container.BorderWidth(spacing.All(1)),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
 }

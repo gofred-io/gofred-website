@@ -231,7 +231,7 @@ func featureCard(iconData icondata.IconData, title, description, color string, h
 							container.BorderRadius(12),
 							container.Padding(breakpoint.All(spacing.All(16))),
 							container.BorderColor("#E5E7EB"),
-							container.BorderWidth(1, 1, 1, 1),
+							container.BorderWidth(spacing.All(1)),
 							container.BorderStyle(theme.BorderStyleTypeSolid),
 						),
 						spacer.New(spacer.Height(16)),
@@ -264,7 +264,7 @@ func featureCard(iconData icondata.IconData, title, description, color string, h
 		container.BackgroundColor("#FFFFFF"),
 		container.BorderRadius(12),
 		container.BorderColor("#E5E7EB"),
-		container.BorderWidth(1, 1, 1, 1),
+		container.BorderWidth(spacing.All(1)),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
 }

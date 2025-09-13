@@ -63,6 +63,7 @@ func snackbarContent(message string) application.BaseWidget {
 			text.FontColor("#FFFFFF"),
 			text.FontWeight("500"),
 		),
+		container.BackgroundColor("#00000000"),
 		container.Flex(1),
 	)
 }

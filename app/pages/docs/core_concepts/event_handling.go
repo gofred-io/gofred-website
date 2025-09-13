@@ -426,7 +426,7 @@ func todoItemWidget(item TodoItem) application.BaseWidget {
         ),
         container.Padding(breakpoint.All(spacing.All(12))),
         container.BorderColor("#E5E7EB"),
-        container.BorderWidth(1, 1, 1, 1),
+        container.BorderWidth(spacing.All(1)),
         container.BorderRadius(6),
     )
 }
@@ -896,7 +896,7 @@ func eventHandlingNextStepItem(title, description, href string) application.Base
 			container.BackgroundColor("#FFFFFF"),
 			container.BorderRadius(8),
 			container.BorderColor("#E5E7EB"),
-			container.BorderWidth(1, 1, 1, 1),
+			container.BorderWidth(spacing.All(1)),
 			container.BorderStyle(theme.BorderStyleTypeSolid),
 		),
 		link.Href(href),

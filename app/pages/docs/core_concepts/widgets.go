@@ -68,7 +68,7 @@ func widgetsPageContent() application.BaseWidget {
     container.BackgroundColor("#F3F4F6"),
     container.BorderRadius(8),
     container.BorderColor("#E5E7EB"),
-    container.BorderWidth(1, 1, 1, 1),
+    container.BorderWidth(spacing.All(1)),
 )`),
 			spacer.New(spacer.Height(16)),
 
@@ -269,7 +269,7 @@ func handleButtonClick(this application.BaseWidget, e application.Event) {
         container.BackgroundColor("#FFFFFF"),
         container.BorderRadius(8),
         container.BorderColor("#E5E7EB"),
-        container.BorderWidth(1, 1, 1, 1),
+        container.BorderWidth(spacing.All(1)),
         container.BorderStyle(theme.BorderStyleTypeSolid),
     )
 }`),
@@ -445,7 +445,7 @@ func nextStepItem(title, description, href string) application.BaseWidget {
 			container.BackgroundColor("#FFFFFF"),
 			container.BorderRadius(8),
 			container.BorderColor("#E5E7EB"),
-			container.BorderWidth(1, 1, 1, 1),
+			container.BorderWidth(spacing.All(1)),
 			container.BorderStyle(theme.BorderStyleTypeSolid),
 		),
 		link.Href(href),
