@@ -62,13 +62,15 @@ func Get() application.BaseWidget {
 }
 
 func menuButton() application.BaseWidget {
+	themeHook, _ := hooks.UseTheme()
+
 	return container.New(
 		iconbutton.New(
 			icondata.Menu,
+			iconbutton.ButtonStyle(themeHook.ThemeData().ButtonTheme.IconButtonStyle.Primary),
 			iconbutton.OnClick(func(this application.BaseWidget, e application.Event) {
 				drawer.Get().Show()
 			}),
-			iconbutton.Fill("#1F2937"),
 			iconbutton.Tooltip("Open menu"),
 		),
 		container.Padding(breakpoint.All(spacing.All(8))),
@@ -277,7 +279,7 @@ func themeToggleButton() application.BaseWidget {
 		return container.New(
 			iconbutton.New(
 				themeIcon,
-				iconbutton.Fill("#6B7280"),
+				iconbutton.ButtonStyle(themeHook.ThemeData().ButtonTheme.IconButtonStyle.Secondary),
 				iconbutton.OnClick(func(this application.BaseWidget, e application.Event) {
 					if themeData.Name == string(webtheme.ThemeLight) {
 						setThemeData(webtheme.DarkTheme())

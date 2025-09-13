@@ -6,6 +6,7 @@ import (
 	"github.com/gofred-io/gofred-website/app/components/header"
 	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
+	"github.com/gofred-io/gofred/foundation/button"
 	"github.com/gofred-io/gofred/foundation/center"
 	"github.com/gofred-io/gofred/foundation/column"
 	"github.com/gofred-io/gofred/foundation/container"
@@ -147,18 +148,20 @@ func heroDescription() application.BaseWidget {
 }
 
 func heroCTAButtons() application.BaseWidget {
+	themeHook, _ := hooks.UseTheme()
+
 	return grid.New(
 		[]application.BaseWidget{
 			// Primary CTA
 			link.New(
-				container.New(
+				button.New(
 					center.New(
 						row.New(
 							[]application.BaseWidget{
 								text.New(
 									"Get Started",
+									text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary),
 									text.FontSize(16),
-									text.FontColor("#FFFFFF"),
 									text.FontWeight("600"),
 								),
 								icon.New(
@@ -172,17 +175,16 @@ func heroCTAButtons() application.BaseWidget {
 							row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 						),
 					),
-					container.Padding(breakpoint.All(spacing.All(20))),
-					container.BackgroundColor("#2B799B"),
-					container.BorderRadius(8),
-					container.Width(breakpoint.All(182)),
+					button.BorderRadius(8),
+					button.Width(breakpoint.All(182)),
+					button.Padding(breakpoint.All(spacing.All(20))),
 				),
 				link.Href("/docs"),
 			),
 
 			// Secondary CTA
 			link.New(
-				container.New(
+				button.New(
 					center.New(
 						row.New(
 							[]application.BaseWidget{
@@ -194,8 +196,8 @@ func heroCTAButtons() application.BaseWidget {
 								),
 								text.New(
 									"View on GitHub",
+									text.TextStyle(themeHook.ThemeData().ButtonTheme.ButtonStyle.Secondary.TextStyle),
 									text.FontSize(16),
-									text.FontColor("#374151"),
 									text.FontWeight("500"),
 								),
 							},
@@ -203,13 +205,10 @@ func heroCTAButtons() application.BaseWidget {
 							row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 						),
 					),
-					container.Width(breakpoint.All(182)),
-					container.Padding(breakpoint.All(spacing.All(20))),
-					container.BackgroundColor("#FFFFFF"),
-					container.BorderColor("#E5E7EB"),
-					container.BorderWidth(spacing.All(1)),
-					container.BorderRadius(8),
-					container.BorderStyle(theme.BorderStyleTypeSolid),
+					button.ButtonStyle(themeHook.ThemeData().ButtonTheme.ButtonStyle.Secondary),
+					button.Width(breakpoint.All(182)),
+					button.Padding(breakpoint.All(spacing.All(20))),
+					button.BorderRadius(8),
 				),
 				link.Href("https://github.com/gofred-io/gofred"),
 				link.NewTab(true),
@@ -504,7 +503,7 @@ func gettingStartedSection() application.BaseWidget {
 
 						// CTA
 						link.New(
-							container.New(
+							button.New(
 								row.New(
 									[]application.BaseWidget{
 										text.New(
@@ -524,9 +523,7 @@ func gettingStartedSection() application.BaseWidget {
 									row.Gap(8),
 									row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 								),
-								container.Padding(breakpoint.All(spacing.All(20))),
-								container.BackgroundColor("#2B799B"),
-								container.BorderRadius(8),
+								button.Padding(breakpoint.All(spacing.All(20))),
 							),
 							link.Href("/docs/first-app"),
 						),
@@ -570,7 +567,7 @@ func gettingStartedStep(number, title, description, code string) application.Bas
 				),
 				container.Width(breakpoint.All(40)),
 				container.Height(breakpoint.All(40)),
-				container.BackgroundColor("#2B799B"),
+				container.BackgroundColor("#1976d2"),
 				container.BorderRadius(20),
 				container.Visible(
 					breakpoint.All(true),
