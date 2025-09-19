@@ -98,10 +98,8 @@ body {
 }
   
 .gf-code-block-copy-button {
-    fill: #F3F4F6;
     background: transparent;
-    color: #F3F4F6;
-    border-radius: 50%;
+    border-radius: 50% !important;
     padding: 2px !important;
     font-size: 12px;
     cursor: pointer;
@@ -109,6 +107,10 @@ body {
     height: 28px;
     opacity: 0.25;
     z-index: 10;
+}
+
+.gf-code-block-copy-button > svg {
+    fill: #F3F4F6;
 }
   
 .gf-code-block-copy-button:hover {
