@@ -1,6 +1,7 @@
 package drawer
 
 import (
+	appTheme "github.com/gofred-io/gofred-website/app/theme"
 	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/center"
@@ -13,34 +14,32 @@ import (
 	"github.com/gofred-io/gofred/foundation/image"
 	"github.com/gofred-io/gofred/foundation/link"
 	"github.com/gofred-io/gofred/foundation/row"
+	"github.com/gofred-io/gofred/foundation/scaffold"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
 	"github.com/gofred-io/gofred/options/spacing"
 	"github.com/gofred-io/gofred/theme"
 )
 
-var leftDrawer drawer.IDrawer
+const (
+	Name = "main"
+)
 
-func Get() drawer.IDrawer {
-	if leftDrawer == nil {
-		leftDrawer = buildLeftDrawer()
-	}
-	return leftDrawer
-}
-
-func buildLeftDrawer() drawer.IDrawer {
-	return drawer.New(
-		container.New(
-			column.New(
-				[]application.BaseWidget{
-					drawerHeader(),
-					drawerContent(),
-				},
-				column.Gap(0),
-				column.Flex(1),
-			),
-			container.Flex(1),
-		),
+func New() (string, *drawer.Drawer) {
+	return Name, drawer.New(
+		func() application.BaseWidget {
+			return container.New(
+				column.New(
+					[]application.BaseWidget{
+						drawerHeader(),
+						drawerContent(),
+					},
+					column.Gap(0),
+					column.Flex(1),
+				),
+				container.Flex(1),
+			)
+		},
 		drawer.ID("root-left-drawer"),
 		drawer.Width(breakpoint.All(320)),
 		drawer.Transition(0.3),
@@ -57,7 +56,7 @@ func drawerHeader() application.BaseWidget {
 					icondata.Close,
 					iconbutton.Fill("#6B7280"),
 					iconbutton.OnClick(func(this application.BaseWidget, e application.Event) {
-						leftDrawer.Hide()
+						scaffold.Get().Drawer(Name).Hide()
 					}),
 				),
 			},
@@ -65,8 +64,8 @@ func drawerHeader() application.BaseWidget {
 			row.Flex(1),
 			row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 		),
+		container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Primary),
 		container.Padding(breakpoint.All(spacing.LRTB(24, 12, 18, 14))),
-		container.BorderColor("#E5E7EB"),
 		container.BorderWidth(spacing.Bottom(1)),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
@@ -104,6 +103,7 @@ func drawerContent() application.BaseWidget {
 			column.Gap(24),
 			column.Flex(1),
 		),
+		container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Secondary),
 		container.Flex(1),
 		container.Padding(breakpoint.All(spacing.LRTB(24, 24, 24, 24))),
 	)
@@ -146,20 +146,21 @@ func drawerFooter() application.BaseWidget {
 				[]application.BaseWidget{
 					text.New(
 						"Built with gofred",
+						text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 						text.FontSize(12),
-						text.FontColor("#9CA3AF"),
 					),
 					spacer.New(spacer.Height(4)),
 					text.New(
 						"v1.0.0",
+						text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 						text.FontSize(11),
-						text.FontColor("#D1D5DB"),
 					),
 				},
 				column.Gap(0),
 				column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 			),
 		),
+		container.BackgroundColor("transparent"),
 		container.Padding(breakpoint.All(spacing.LRTB(0, 0, 0, 0))),
 	)
 }
@@ -167,8 +168,8 @@ func drawerFooter() application.BaseWidget {
 func sectionTitle(title string) application.BaseWidget {
 	return text.New(
 		title,
+		text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 		text.FontSize(12),
-		text.FontColor("#6B7280"),
 		text.FontWeight("600"),
 		text.UserSelect(theme.UserSelectTypeNone),
 	)
@@ -187,8 +188,8 @@ func navItem(title, href string, iconData icondata.IconData, isExternal bool) ap
 					),
 					text.New(
 						title,
+						text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 						text.FontSize(14),
-						text.FontColor("#374151"),
 						text.FontWeight("500"),
 						text.UserSelect(theme.UserSelectTypeNone),
 					),
@@ -211,7 +212,7 @@ func navItem(title, href string, iconData icondata.IconData, isExternal bool) ap
 			),
 			link.Href(href),
 			link.OnClick(func(this application.BaseWidget, e application.Event) {
-				Get().Hide()
+				scaffold.Get().Drawer(Name).Hide()
 			}),
 		),
 		container.Padding(breakpoint.All(spacing.LRTB(12, 12, 12, 12))),
@@ -236,8 +237,8 @@ func externalNavItem(title, href string, iconData icondata.IconData) application
 					),
 					text.New(
 						title,
+						text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 						text.FontSize(14),
-						text.FontColor("#374151"),
 						text.FontWeight("500"),
 						text.UserSelect(theme.UserSelectTypeNone),
 					),

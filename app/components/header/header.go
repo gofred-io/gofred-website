@@ -13,6 +13,7 @@ import (
 	"github.com/gofred-io/gofred/foundation/image"
 	"github.com/gofred-io/gofred/foundation/link"
 	"github.com/gofred-io/gofred/foundation/row"
+	"github.com/gofred-io/gofred/foundation/scaffold"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
 	"github.com/gofred-io/gofred/hooks"
@@ -67,7 +68,7 @@ func menuButton() application.BaseWidget {
 			icondata.Menu,
 			iconbutton.ButtonStyle(appTheme.Data().ButtonTheme.IconButtonStyle.Primary),
 			iconbutton.OnClick(func(this application.BaseWidget, e application.Event) {
-				drawer.Get().Show()
+				scaffold.Get().Drawer(drawer.Name).Show()
 			}),
 			iconbutton.Tooltip("Open menu"),
 		),

@@ -6,6 +6,7 @@ import (
 	"github.com/gofred-io/gofred-website/app/components/header"
 	notfound "github.com/gofred-io/gofred-website/app/pages/404"
 	"github.com/gofred-io/gofred-website/app/pages/docs/core_concepts"
+	"github.com/gofred-io/gofred-website/app/pages/docs/drawer"
 	"github.com/gofred-io/gofred-website/app/pages/docs/getting_started"
 
 	"github.com/gofred-io/gofred/application"
@@ -19,6 +20,7 @@ import (
 	"github.com/gofred-io/gofred/foundation/link"
 	"github.com/gofred-io/gofred/foundation/router"
 	"github.com/gofred-io/gofred/foundation/row"
+	"github.com/gofred-io/gofred/foundation/scaffold"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
 	"github.com/gofred-io/gofred/options/spacing"
@@ -117,7 +119,7 @@ func docsMobileMenuButton() application.BaseWidget {
 		iconbutton.Width(breakpoint.All(42)),
 		iconbutton.Height(breakpoint.All(42)),
 		iconbutton.OnClick(func(this application.BaseWidget, e application.Event) {
-			docsDrawer.Show()
+			scaffold.Get().Drawer(drawer.Name).Show()
 		}),
 	)
 }
@@ -130,35 +132,6 @@ func docsPageContent() application.BaseWidget {
 			featuresSection(),
 		},
 		column.Gap(48),
-		column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
-	)
-}
-
-func heroSection() application.BaseWidget {
-	return column.New(
-		[]application.BaseWidget{
-			text.New(
-				"Documentation",
-				text.FontSize(48),
-				text.FontWeight("700"),
-				text.UserSelect(theme.UserSelectTypeNone),
-			),
-			spacer.New(spacer.Height(16)),
-			text.New(
-				"Learn how to build modern web applications with gofred",
-				text.FontSize(20),
-				text.FontColor("#6B7280"),
-				text.UserSelect(theme.UserSelectTypeNone),
-			),
-			spacer.New(spacer.Height(8)),
-			text.New(
-				"Write Go code, get WebAssembly apps. No JavaScript required.",
-				text.FontSize(16),
-				text.FontColor("#9CA3AF"),
-				text.UserSelect(theme.UserSelectTypeNone),
-			),
-		},
-		column.Gap(8),
 		column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 	)
 }
@@ -257,7 +230,7 @@ func featureCard(iconData icondata.IconData, title, description, color string, h
 			),
 			link.Href(href),
 			link.OnClick(func(this application.BaseWidget, e application.Event) {
-				docsDrawer.Hide()
+				scaffold.Get().Drawer(drawer.Name).Hide()
 			}),
 		),
 		container.Flex(1),

@@ -1,4 +1,4 @@
-package docs
+package drawer
 
 import (
 	"github.com/gofred-io/gofred/application"
@@ -11,6 +11,7 @@ import (
 	iconbutton "github.com/gofred-io/gofred/foundation/icon_button"
 	"github.com/gofred-io/gofred/foundation/link"
 	"github.com/gofred-io/gofred/foundation/row"
+	"github.com/gofred-io/gofred/foundation/scaffold"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
 	"github.com/gofred-io/gofred/hooks"
@@ -19,29 +20,22 @@ import (
 	"github.com/gofred-io/gofred/theme"
 )
 
-var (
-	docsDrawer drawer.IDrawer
+const (
+	Name = "docs"
 )
 
-func Get() drawer.IDrawer {
-	if docsDrawer == nil {
-		docsDrawer = buildDocsDrawer()
-	}
-	return docsDrawer
-}
-
-func buildDocsDrawer() drawer.IDrawer {
-	return drawer.New(
-		container.New(
-			column.New(
-				[]application.BaseWidget{
-					drawerHeader(),
-					drawerNavigation(),
-				},
-				column.Gap(8),
-				column.Flex(1),
-			),
-		),
+func New() (string, *drawer.Drawer) {
+	return Name, drawer.New(
+		func() application.BaseWidget {
+			return container.New(
+				column.New(
+					[]application.BaseWidget{
+						drawerHeader(),
+						drawerNavigation(),
+					},
+				),
+			)
+		},
 		drawer.ID("docs-left-drawer"),
 		drawer.Width(breakpoint.All(320)),
 		drawer.Transition(0.3),
@@ -58,7 +52,7 @@ func drawerHeader() application.BaseWidget {
 					icondata.Close,
 					iconbutton.Fill("#6B7280"),
 					iconbutton.OnClick(func(this application.BaseWidget, e application.Event) {
-						Get().Hide()
+						scaffold.Get().Drawer(Name).Hide()
 					}),
 				),
 			},
@@ -220,7 +214,7 @@ func drawerNavItemWidget(item drawerNavItem, activeHref string) application.Base
 		),
 		link.Href(item.href),
 		link.OnClick(func(this application.BaseWidget, e application.Event) {
-			docsDrawer.Hide()
+			scaffold.Get().Drawer(Name).Hide()
 		}),
 	)
 }
