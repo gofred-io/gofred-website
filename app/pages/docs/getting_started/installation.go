@@ -2,6 +2,8 @@ package getting_started
 
 import (
 	"github.com/gofred-io/gofred-website/app/components/codeblock"
+	appTheme "github.com/gofred-io/gofred-website/app/theme"
+
 	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/button"
@@ -43,8 +45,8 @@ func installationPageHeader() application.BaseWidget {
 			),
 			text.New(
 				"Install the gofred CLI tool and set up your development environment for Go WebAssembly applications.",
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(18),
-				text.FontColor("#6B7280"),
 			),
 		},
 		column.Gap(8),
@@ -61,8 +63,8 @@ func installationPageContent() application.BaseWidget {
 			codeblock.New(`curl -fsSL https://raw.githubusercontent.com/gofred-io/gofred-cli/refs/heads/master/install.sh | bash`),
 			text.New(
 				"This script will detect your operating system and architecture, download the appropriate binary, and install it to ~/.local/bin (or ~/AppData/Local/bin on Windows).",
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(14),
-				text.FontColor("#6B7280"),
 			),
 			spacer.New(spacer.Height(16)),
 			contentSection("Verify Installation", "Check that gofred is installed correctly:"),
@@ -72,8 +74,8 @@ func installationPageContent() application.BaseWidget {
 			codeblock.New(`gofred app create my-app --package my-app`),
 			text.New(
 				"This will create a complete project structure with main.go, web assets, and VS Code configuration.",
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(14),
-				text.FontColor("#6B7280"),
 			),
 			spacer.New(spacer.Height(16)),
 			contentSection("Run Your Application", "Navigate to your app directory and start the development server:"),
@@ -81,8 +83,8 @@ func installationPageContent() application.BaseWidget {
 gofred app run`),
 			text.New(
 				"This will compile your Go code to WebAssembly, start a development server, and automatically open your browser with hot reload enabled.",
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(14),
-				text.FontColor("#6B7280"),
 			),
 			spacer.New(spacer.Height(24)),
 			contentSection("Next Steps", "Now that you have gofred installed, you can:"),
@@ -104,8 +106,8 @@ func contentSection(title, description string) application.BaseWidget {
 			),
 			text.New(
 				description,
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(16),
-				text.FontColor("#6B7280"),
 			),
 		},
 		column.Gap(8),
@@ -143,8 +145,8 @@ func listItem(itemText string) application.BaseWidget {
 			spacer.New(spacer.Width(8)),
 			text.New(
 				itemText,
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 				text.FontSize(16),
-				text.FontColor("#374151"),
 			),
 		},
 		row.Gap(8),
@@ -195,14 +197,14 @@ func nextStepItem(title, description, href string) application.BaseWidget {
 						[]application.BaseWidget{
 							text.New(
 								title,
+								text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 								text.FontSize(16),
-								text.FontColor("#2B799B"),
 								text.FontWeight("500"),
 							),
 							text.New(
 								description,
+								text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 								text.FontSize(14),
-								text.FontColor("#6B7280"),
 							),
 						},
 						column.Gap(4),
@@ -219,10 +221,9 @@ func nextStepItem(title, description, href string) application.BaseWidget {
 				row.Flex(1),
 				row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 			),
+			container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Primary),
 			container.Padding(breakpoint.All(spacing.All(16))),
-			container.BackgroundColor("#FFFFFF"),
 			container.BorderRadius(8),
-			container.BorderColor("#E5E7EB"),
 			container.BorderWidth(spacing.All(1)),
 			container.BorderStyle(theme.BorderStyleTypeSolid),
 		),
@@ -245,15 +246,14 @@ func navigationButtons(previousHref, nextHref string) application.BaseWidget {
 							),
 							text.New(
 								"Previous",
+								text.TextStyle(appTheme.Data().ButtonTheme.ButtonStyle.Primary.TextStyle),
 								text.FontSize(14),
-								text.FontColor("#FFFFFF"),
 								text.FontWeight("500"),
 							),
 						},
 						row.Gap(8),
 						row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 					),
-					button.BackgroundColor("#6B7280"),
 					button.Width(breakpoint.All(120)),
 				),
 				link.Href(previousHref),
@@ -265,8 +265,8 @@ func navigationButtons(previousHref, nextHref string) application.BaseWidget {
 						[]application.BaseWidget{
 							text.New(
 								"Next",
+								text.TextStyle(appTheme.Data().ButtonTheme.ButtonStyle.Primary.TextStyle),
 								text.FontSize(14),
-								text.FontColor("#FFFFFF"),
 								text.FontWeight("500"),
 							),
 							icon.New(
@@ -279,7 +279,6 @@ func navigationButtons(previousHref, nextHref string) application.BaseWidget {
 						row.Gap(8),
 						row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 					),
-					button.BackgroundColor("#2B799B"),
 					button.Width(breakpoint.All(120)),
 				),
 				link.Href(nextHref),

@@ -1,6 +1,8 @@
 package comingsoon
 
 import (
+	appTheme "github.com/gofred-io/gofred-website/app/theme"
+
 	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/button"
@@ -68,8 +70,8 @@ func comingSoonHeader(title string) application.BaseWidget {
 			spacer.New(spacer.Height(8)),
 			text.New(
 				"This documentation page is currently under development",
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(18),
-				text.FontColor("#6B7280"),
 			),
 		},
 		column.Gap(0),
@@ -99,8 +101,8 @@ func comingSoonMessage() application.BaseWidget {
 		[]application.BaseWidget{
 			text.New(
 				"We're working hard to bring you comprehensive documentation for this topic. In the meantime, you can explore the available sections or check back soon for updates.",
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(16),
-				text.FontColor("#6B7280"),
 				text.LineHeight(1.6),
 			),
 			spacer.New(spacer.Height(16)),
@@ -115,8 +117,8 @@ func comingSoonMessage() application.BaseWidget {
 						),
 						text.New(
 							"Want to contribute? This documentation is open source and we welcome contributions!",
+							text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 							text.FontSize(14),
-							text.FontColor("#3B82F6"),
 						),
 					},
 					row.Gap(8),
@@ -192,14 +194,14 @@ func suggestionCard(suggestion Suggestion) application.BaseWidget {
 						[]application.BaseWidget{
 							text.New(
 								suggestion.Title,
+								text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 								text.FontSize(16),
-								text.FontColor("#2B799B"),
 								text.FontWeight("500"),
 							),
 							text.New(
 								suggestion.Description,
+								text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 								text.FontSize(14),
-								text.FontColor("#6B7280"),
 								text.LineHeight(1.4),
 							),
 						},
@@ -218,9 +220,7 @@ func suggestionCard(suggestion Suggestion) application.BaseWidget {
 				row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 			),
 			container.Padding(breakpoint.All(spacing.All(16))),
-			container.BackgroundColor("#FFFFFF"),
 			container.BorderRadius(8),
-			container.BorderColor("#E5E7EB"),
 			container.BorderWidth(spacing.All(1)),
 			container.BorderStyle(theme.BorderStyleTypeSolid),
 			container.Width(breakpoint.All(400)),
@@ -252,15 +252,14 @@ func comingSoonActions() application.BaseWidget {
 									),
 									text.New(
 										"Back to Docs",
+										text.TextStyle(appTheme.Data().ButtonTheme.ButtonStyle.Primary.TextStyle),
 										text.FontSize(14),
-										text.FontColor("#FFFFFF"),
 										text.FontWeight("500"),
 									),
 								},
 								row.Gap(8),
 								row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 							),
-							button.BackgroundColor("#2B799B"),
 							button.BorderRadius(6),
 						),
 						link.Href("/docs"),
@@ -277,15 +276,14 @@ func comingSoonActions() application.BaseWidget {
 									),
 									text.New(
 										"GitHub Discussions",
+										text.TextStyle(appTheme.Data().ButtonTheme.ButtonStyle.Primary.TextStyle),
 										text.FontSize(14),
-										text.FontColor("#FFFFFF"),
 										text.FontWeight("500"),
 									),
 								},
 								row.Gap(8),
 								row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 							),
-							button.BackgroundColor("#2B799B"),
 							button.BorderRadius(6),
 						),
 						link.Href("https://github.com/orgs/gofred-io/discussions"),

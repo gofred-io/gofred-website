@@ -1,6 +1,8 @@
 package docs
 
 import (
+	appTheme "github.com/gofred-io/gofred-website/app/theme"
+
 	comingsoon "github.com/gofred-io/gofred-website/app/components/coming_soon"
 	"github.com/gofred-io/gofred-website/app/components/footer"
 	"github.com/gofred-io/gofred-website/app/components/header"
@@ -87,7 +89,6 @@ func docsMainContent(content application.BaseWidget) application.BaseWidget {
 			row.Flex(1),
 		),
 		container.Flex(1),
-		container.BackgroundColor("#F8F9FA"),
 	)
 }
 
@@ -109,7 +110,6 @@ func contentArea(content application.BaseWidget) application.BaseWidget {
 func docsMobileMenuButton() application.BaseWidget {
 	return iconbutton.New(
 		icondata.Menu,
-		iconbutton.Fill("#6B7280"),
 		iconbutton.Tooltip("Open documentation menu"),
 		iconbutton.Visible(
 			breakpoint.XS(true),
@@ -200,10 +200,8 @@ func featureCard(iconData icondata.IconData, title, description, color string, h
 								icon.Height(breakpoint.All(32)),
 								icon.Fill(color),
 							),
-							container.BackgroundColor("#FFFFFF"),
 							container.BorderRadius(12),
 							container.Padding(breakpoint.All(spacing.All(16))),
-							container.BorderColor("#E5E7EB"),
 							container.BorderWidth(spacing.All(1)),
 							container.BorderStyle(theme.BorderStyleTypeSolid),
 						),
@@ -217,8 +215,8 @@ func featureCard(iconData icondata.IconData, title, description, color string, h
 						spacer.New(spacer.Height(8)),
 						text.New(
 							description,
+							text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 							text.FontSize(14),
-							text.FontColor("#6B7280"),
 							text.UserSelect(theme.UserSelectTypeNone),
 							text.LineHeight(1.5),
 						),
@@ -227,6 +225,9 @@ func featureCard(iconData icondata.IconData, title, description, color string, h
 					column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 				),
 				container.Padding(breakpoint.All(spacing.Axis(24, 48))),
+				container.BorderRadius(12),
+				container.BorderWidth(spacing.All(1)),
+				container.BorderStyle(theme.BorderStyleTypeSolid),
 			),
 			link.Href(href),
 			link.OnClick(func(this application.BaseWidget, e application.Event) {
@@ -234,11 +235,6 @@ func featureCard(iconData icondata.IconData, title, description, color string, h
 			}),
 		),
 		container.Flex(1),
-		container.BackgroundColor("#FFFFFF"),
-		container.BorderRadius(12),
-		container.BorderColor("#E5E7EB"),
-		container.BorderWidth(spacing.All(1)),
-		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
 }
 

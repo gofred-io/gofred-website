@@ -1,6 +1,8 @@
 package notfound
 
 import (
+	appTheme "github.com/gofred-io/gofred-website/app/theme"
+
 	"github.com/gofred-io/gofred-website/app/components/footer"
 	"github.com/gofred-io/gofred-website/app/components/header"
 	"github.com/gofred-io/gofred/application"
@@ -47,7 +49,6 @@ func mainContent() application.BaseWidget {
 			column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 			column.MainAxisAlignment(theme.AxisAlignmentTypeCenter),
 		),
-		container.BackgroundColor("#F8F9FA"),
 		container.Flex(1),
 		container.Padding(breakpoint.All(spacing.All(32))),
 	)
@@ -61,7 +62,6 @@ func errorIcon() application.BaseWidget {
 			icon.Height(breakpoint.All(120)),
 			icon.Fill("#E74C3C"),
 		),
-		container.BackgroundColor("#FFFFFF"),
 		container.BorderRadius(48),
 		container.Padding(breakpoint.All(spacing.All(20))),
 		container.BorderColor("#E74C3C"),
@@ -74,7 +74,6 @@ func errorTitle() application.BaseWidget {
 	return text.New(
 		"404",
 		text.FontSize(72),
-		text.FontColor("#2C3E50"),
 		text.FontWeight("700"),
 		text.UserSelect(theme.UserSelectTypeNone),
 	)
@@ -85,16 +84,16 @@ func errorDescription() application.BaseWidget {
 		[]application.BaseWidget{
 			text.New(
 				"Oops! The page you're looking for doesn't exist.",
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(24),
-				text.FontColor("#34495E"),
 				text.FontWeight("500"),
 				text.UserSelect(theme.UserSelectTypeNone),
 			),
 			spacer.New(spacer.Height(8)),
 			text.New(
 				"It might have been moved, deleted, or you entered the wrong URL.",
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(16),
-				text.FontColor("#7F8C8D"),
 				text.UserSelect(theme.UserSelectTypeNone),
 			),
 		},
@@ -127,8 +126,8 @@ func backButton() application.BaseWidget {
 					),
 					text.New(
 						"Go Back",
+						text.TextStyle(appTheme.Data().ButtonTheme.ButtonStyle.Primary.TextStyle),
 						text.FontSize(16),
-						text.FontColor("#FFFFFF"),
 						text.FontWeight("500"),
 						text.UserSelect(theme.UserSelectTypeNone),
 					),
@@ -136,6 +135,7 @@ func backButton() application.BaseWidget {
 				row.Gap(8),
 				row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 			),
+			container.BackgroundColor("transparent"),
 			container.Padding(breakpoint.All(spacing.Right(4))),
 		),
 		button.OnClick(func(this application.BaseWidget, e application.Event) {
@@ -158,8 +158,8 @@ func homeButton() application.BaseWidget {
 						),
 						text.New(
 							"Go Home",
+							text.TextStyle(appTheme.Data().ButtonTheme.ButtonStyle.Primary.TextStyle),
 							text.FontSize(16),
-							text.FontColor("#FFFFFF"),
 							text.FontWeight("500"),
 							text.UserSelect(theme.UserSelectTypeNone),
 						),
@@ -167,6 +167,7 @@ func homeButton() application.BaseWidget {
 					row.Gap(8),
 					row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 				),
+				container.BackgroundColor("transparent"),
 				container.Padding(breakpoint.All(spacing.Right(4))),
 			),
 		),

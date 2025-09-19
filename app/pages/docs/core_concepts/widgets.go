@@ -1,6 +1,8 @@
 package core_concepts
 
 import (
+	appTheme "github.com/gofred-io/gofred-website/app/theme"
+
 	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/button"
@@ -43,8 +45,8 @@ func widgetsPageHeader() application.BaseWidget {
 			),
 			text.New(
 				"Learn about the core building blocks of gofred applications and how to use them effectively.",
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(18),
-				text.FontColor("#6B7280"),
 			),
 		},
 		column.Gap(8),
@@ -299,8 +301,8 @@ func contentSection(title, description string) application.BaseWidget {
 			),
 			text.New(
 				description,
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(16),
-				text.FontColor("#6B7280"),
 			),
 		},
 		column.Gap(8),
@@ -317,8 +319,8 @@ func widgetSubsection(title, description string) application.BaseWidget {
 			),
 			text.New(
 				description,
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(14),
-				text.FontColor("#6B7280"),
 			),
 		},
 		column.Gap(4),
@@ -360,8 +362,8 @@ func listItem(itemText string) application.BaseWidget {
 			spacer.New(spacer.Width(8)),
 			text.New(
 				itemText,
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 				text.FontSize(16),
-				text.FontColor("#374151"),
 			),
 		},
 		row.Gap(8),
@@ -417,14 +419,14 @@ func nextStepItem(title, description, href string) application.BaseWidget {
 						[]application.BaseWidget{
 							text.New(
 								title,
+								text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 								text.FontSize(16),
-								text.FontColor("#2B799B"),
 								text.FontWeight("500"),
 							),
 							text.New(
 								description,
+								text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 								text.FontSize(14),
-								text.FontColor("#6B7280"),
 							),
 						},
 						column.Gap(4),
@@ -442,9 +444,7 @@ func nextStepItem(title, description, href string) application.BaseWidget {
 				row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 			),
 			container.Padding(breakpoint.All(spacing.All(16))),
-			container.BackgroundColor("#FFFFFF"),
 			container.BorderRadius(8),
-			container.BorderColor("#E5E7EB"),
 			container.BorderWidth(spacing.All(1)),
 			container.BorderStyle(theme.BorderStyleTypeSolid),
 		),
@@ -467,15 +467,14 @@ func navigationButtons(previousHref, nextHref string) application.BaseWidget {
 							),
 							text.New(
 								"Previous",
+								text.TextStyle(appTheme.Data().ButtonTheme.ButtonStyle.Primary.TextStyle),
 								text.FontSize(14),
-								text.FontColor("#FFFFFF"),
 								text.FontWeight("500"),
 							),
 						},
 						row.Gap(8),
 						row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 					),
-					button.BackgroundColor("#6B7280"),
 					button.Width(breakpoint.All(120)),
 				),
 				link.Href(previousHref),
@@ -487,8 +486,8 @@ func navigationButtons(previousHref, nextHref string) application.BaseWidget {
 						[]application.BaseWidget{
 							text.New(
 								"Next",
+								text.TextStyle(appTheme.Data().ButtonTheme.ButtonStyle.Primary.TextStyle),
 								text.FontSize(14),
-								text.FontColor("#FFFFFF"),
 								text.FontWeight("500"),
 							),
 							icon.New(
@@ -501,7 +500,6 @@ func navigationButtons(previousHref, nextHref string) application.BaseWidget {
 						row.Gap(8),
 						row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 					),
-					button.BackgroundColor("#2B799B"),
 					button.Width(breakpoint.All(120)),
 				),
 				link.Href(nextHref),

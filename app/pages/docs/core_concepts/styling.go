@@ -2,14 +2,14 @@ package core_concepts
 
 import (
 	"github.com/gofred-io/gofred-website/app/components/codeblock"
+	appTheme "github.com/gofred-io/gofred-website/app/theme"
+
 	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
-	"github.com/gofred-io/gofred/foundation/button"
 	"github.com/gofred-io/gofred/foundation/column"
 	"github.com/gofred-io/gofred/foundation/container"
 	"github.com/gofred-io/gofred/foundation/icon"
 	icondata "github.com/gofred-io/gofred/foundation/icon/icon_data"
-	"github.com/gofred-io/gofred/foundation/link"
 	"github.com/gofred-io/gofred/foundation/row"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
@@ -43,8 +43,8 @@ func stylingPageHeader() application.BaseWidget {
 			),
 			text.New(
 				"Master the art of styling gofred widgets with colors, typography, spacing, borders, and responsive design principles.",
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(18),
-				text.FontColor("#6B7280"),
 			),
 		},
 		column.Gap(8),
@@ -625,7 +625,7 @@ container.New(
 			stylingContentSection("What's Next?", "Now that you understand styling, explore these related topics:"),
 			stylingNextStepsList(),
 			spacer.New(spacer.Height(32)),
-			stylingNavigationButtons("/docs/layouts", "/docs/state"),
+			navigationButtons("/docs/layouts", "/docs/state"),
 		},
 		column.Gap(16),
 	)
@@ -641,8 +641,8 @@ func stylingContentSection(title, description string) application.BaseWidget {
 			),
 			text.New(
 				description,
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(16),
-				text.FontColor("#6B7280"),
 			),
 		},
 		column.Gap(8),
@@ -659,8 +659,8 @@ func stylingSubsection(title, description string) application.BaseWidget {
 			),
 			text.New(
 				description,
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(14),
-				text.FontColor("#6B7280"),
 			),
 		},
 		column.Gap(4),
@@ -706,8 +706,8 @@ func stylingListItem(itemText string) application.BaseWidget {
 			spacer.New(spacer.Width(8)),
 			text.New(
 				itemText,
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 				text.FontSize(16),
-				text.FontColor("#374151"),
 			),
 		},
 		row.Gap(8),
@@ -735,114 +735,11 @@ func stylingNextStepsList() application.BaseWidget {
 
 	var stepItems []application.BaseWidget
 	for _, step := range steps {
-		stepItems = append(stepItems, stylingNextStepItem(step.title, step.description, step.href))
+		stepItems = append(stepItems, nextStepItem(step.title, step.description, step.href))
 	}
 
 	return column.New(
 		stepItems,
 		column.Gap(12),
-	)
-}
-
-func stylingNextStepItem(title, description, href string) application.BaseWidget {
-	return link.New(
-		container.New(
-			row.New(
-				[]application.BaseWidget{
-					column.New(
-						[]application.BaseWidget{
-							text.New(
-								title,
-								text.FontSize(16),
-								text.FontColor("#2B799B"),
-								text.FontWeight("500"),
-							),
-							text.New(
-								description,
-								text.FontSize(14),
-								text.FontColor("#6B7280"),
-							),
-						},
-						column.Gap(4),
-						column.Flex(1),
-					),
-					icon.New(
-						icondata.ChevronRight,
-						icon.Width(breakpoint.All(20)),
-						icon.Height(breakpoint.All(20)),
-						icon.Fill("#9CA3AF"),
-					),
-				},
-				row.Gap(12),
-				row.Flex(1),
-				row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
-			),
-			container.Padding(breakpoint.All(spacing.All(16))),
-			container.BackgroundColor("#FFFFFF"),
-			container.BorderRadius(8),
-			container.BorderColor("#E5E7EB"),
-			container.BorderWidth(spacing.All(1)),
-			container.BorderStyle(theme.BorderStyleTypeSolid),
-		),
-		link.Href(href),
-	)
-}
-
-func stylingNavigationButtons(previousHref, nextHref string) application.BaseWidget {
-	return row.New(
-		[]application.BaseWidget{
-			link.New(
-				button.New(
-					row.New(
-						[]application.BaseWidget{
-							icon.New(
-								icondata.ChevronLeft,
-								icon.Width(breakpoint.All(16)),
-								icon.Height(breakpoint.All(16)),
-								icon.Fill("#FFFFFF"),
-							),
-							text.New(
-								"Previous",
-								text.FontSize(14),
-								text.FontColor("#FFFFFF"),
-								text.FontWeight("500"),
-							),
-						},
-						row.Gap(8),
-						row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
-					),
-					button.BackgroundColor("#6B7280"),
-					button.Width(breakpoint.All(120)),
-				),
-				link.Href(previousHref),
-			),
-			spacer.New(),
-			link.New(
-				button.New(
-					row.New(
-						[]application.BaseWidget{
-							text.New(
-								"Next",
-								text.FontSize(14),
-								text.FontColor("#FFFFFF"),
-								text.FontWeight("500"),
-							),
-							icon.New(
-								icondata.ChevronRight,
-								icon.Width(breakpoint.All(16)),
-								icon.Height(breakpoint.All(16)),
-								icon.Fill("#FFFFFF"),
-							),
-						},
-						row.Gap(8),
-						row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
-					),
-					button.BackgroundColor("#2B799B"),
-					button.Width(breakpoint.All(120)),
-				),
-				link.Href(nextHref),
-			),
-		},
-		row.Flex(1),
 	)
 }

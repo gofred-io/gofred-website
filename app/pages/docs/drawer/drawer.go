@@ -1,6 +1,8 @@
 package drawer
 
 import (
+	appTheme "github.com/gofred-io/gofred-website/app/theme"
+
 	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/column"
@@ -18,6 +20,7 @@ import (
 	"github.com/gofred-io/gofred/listenable"
 	"github.com/gofred-io/gofred/options/spacing"
 	"github.com/gofred-io/gofred/theme"
+	"github.com/gofred-io/gofred/theme/theme_style"
 )
 
 const (
@@ -33,7 +36,10 @@ func New() (string, *drawer.Drawer) {
 						drawerHeader(),
 						drawerNavigation(),
 					},
+					column.Gap(0),
+					column.Flex(1),
 				),
+				container.Flex(1),
 			)
 		},
 		drawer.ID("docs-left-drawer"),
@@ -60,8 +66,7 @@ func drawerHeader() application.BaseWidget {
 			row.Flex(1),
 			row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 		),
-		container.Padding(breakpoint.All(spacing.LRTB(20, 20, 16, 8))),
-		container.BorderColor("#E5E7EB"),
+		container.Padding(breakpoint.All(spacing.LRTB(24, 12, 18, 14))),
 		container.BorderWidth(spacing.Bottom(1)),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
@@ -78,8 +83,8 @@ func drawerTitle() application.BaseWidget {
 			),
 			text.New(
 				"Learn how to build with gofred",
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(12),
-				text.FontColor("#6B7280"),
 				text.UserSelect(theme.UserSelectTypeNone),
 			),
 		},
@@ -155,8 +160,8 @@ func drawerNavSection(title string, items []drawerNavItem, activeHref string) ap
 	// Section title
 	sectionItems = append(sectionItems, text.New(
 		title,
+		text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 		text.FontSize(12),
-		text.FontColor("#6B7280"),
 		text.FontWeight("600"),
 		text.UserSelect(theme.UserSelectTypeNone),
 	))
@@ -173,18 +178,15 @@ func drawerNavSection(title string, items []drawerNavItem, activeHref string) ap
 }
 
 func drawerNavItemWidget(item drawerNavItem, activeHref string) application.BaseWidget {
-	var textColor string
-	var backgroundColor string
-	var iconColor string
+	var containerStyle theme_style.ContainerStyle
+	var textStyle theme_style.TextStyle
 
 	if item.href == activeHref {
-		textColor = "#2B799B"
-		backgroundColor = "#EBF8FF"
-		iconColor = "#2B799B"
+		containerStyle = appTheme.Data().BoxTheme.ContainerStyle.Tertiary
+		textStyle = appTheme.Data().TextTheme.TextStyle.Tertiary
 	} else {
-		textColor = "#374151"
-		backgroundColor = "transparent"
-		iconColor = "#9CA3AF"
+		containerStyle = appTheme.Data().BoxTheme.ContainerStyle.Primary
+		textStyle = appTheme.Data().TextTheme.TextStyle.Primary
 	}
 
 	return link.New(
@@ -195,21 +197,21 @@ func drawerNavItemWidget(item drawerNavItem, activeHref string) application.Base
 						item.icon,
 						icon.Width(breakpoint.All(20)),
 						icon.Height(breakpoint.All(20)),
-						icon.Fill(iconColor),
+						icon.Fill("#9CA3AF"),
 					),
 					spacer.New(spacer.Width(6)),
 					text.New(
 						item.title,
+						text.TextStyle(textStyle),
 						text.FontSize(14),
-						text.FontColor(textColor),
 						text.UserSelect(theme.UserSelectTypeNone),
 					),
 				},
 				row.Gap(8),
 				row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 			),
+			container.ContainerStyle(containerStyle),
 			container.Padding(breakpoint.All(spacing.Axis(8, 12))),
-			container.BackgroundColor(backgroundColor),
 			container.BorderRadius(6),
 		),
 		link.Href(item.href),

@@ -1,6 +1,8 @@
 package docs
 
 import (
+	appTheme "github.com/gofred-io/gofred-website/app/theme"
+
 	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/column"
@@ -12,6 +14,7 @@ import (
 	"github.com/gofred-io/gofred/listenable"
 	"github.com/gofred-io/gofred/options/spacing"
 	"github.com/gofred-io/gofred/theme"
+	"github.com/gofred-io/gofred/theme/theme_style"
 )
 
 func docsSidebar() application.BaseWidget {
@@ -26,9 +29,7 @@ func docsSidebar() application.BaseWidget {
 			column.Flex(1),
 		),
 		container.Width(breakpoint.All(280)),
-		container.BackgroundColor("#FFFFFF"),
 		container.Padding(breakpoint.All(spacing.All(24))),
-		container.BorderColor("#E5E7EB"),
 		container.BorderWidth(spacing.Right(1)),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
 		container.Visible(
@@ -49,8 +50,8 @@ func docsSidebarHeader() application.BaseWidget {
 			),
 			text.New(
 				"Learn how to build with gofred",
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(14),
-				text.FontColor("#6B7280"),
 			),
 		},
 		column.Gap(4),
@@ -139,8 +140,8 @@ func navSection(title string, items []navItem, activeHref string) application.Ba
 	// Section title
 	sectionItems = append(sectionItems, text.New(
 		title,
+		text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 		text.FontSize(14),
-		text.FontColor("#374151"),
 		text.FontWeight("600"),
 	))
 
@@ -156,27 +157,27 @@ func navSection(title string, items []navItem, activeHref string) application.Ba
 }
 
 func navItemWidget(item navItem, activeHref string) application.BaseWidget {
-	var textColor string
-	var backgroundColor string
+	var containerStyle theme_style.ContainerStyle
+	var textStyle theme_style.TextStyle
 
 	if item.href == activeHref {
-		textColor = "#2B799B"
-		backgroundColor = "#EBF8FF"
+		containerStyle = appTheme.Data().BoxTheme.ContainerStyle.Tertiary
+		textStyle = appTheme.Data().TextTheme.TextStyle.Tertiary
 	} else {
-		textColor = "#6B7280"
-		backgroundColor = "transparent"
+		containerStyle = appTheme.Data().BoxTheme.ContainerStyle.Primary
+		textStyle = appTheme.Data().TextTheme.TextStyle.Primary
 	}
 
 	return link.New(
 		container.New(
 			text.New(
 				item.title,
+				text.TextStyle(textStyle),
 				text.FontSize(14),
-				text.FontColor(textColor),
 				text.UserSelect(theme.UserSelectTypeNone),
 			),
+			container.ContainerStyle(containerStyle),
 			container.Padding(breakpoint.All(spacing.Axis(8, 12))),
-			container.BackgroundColor(backgroundColor),
 			container.BorderRadius(6),
 		),
 		link.Href(item.href),

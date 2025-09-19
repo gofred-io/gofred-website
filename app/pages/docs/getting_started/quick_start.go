@@ -2,6 +2,8 @@ package getting_started
 
 import (
 	"github.com/gofred-io/gofred-website/app/components/codeblock"
+	appTheme "github.com/gofred-io/gofred-website/app/theme"
+
 	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/column"
@@ -37,8 +39,8 @@ func quickStartPageHeader() application.BaseWidget {
 			),
 			text.New(
 				"Get started with gofred by creating your first application.",
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(18),
-				text.FontColor("#6B7280"),
 			),
 		},
 		column.Gap(8),

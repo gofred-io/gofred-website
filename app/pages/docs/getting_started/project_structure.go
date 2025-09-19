@@ -2,6 +2,8 @@ package getting_started
 
 import (
 	"github.com/gofred-io/gofred-website/app/components/codeblock"
+	appTheme "github.com/gofred-io/gofred-website/app/theme"
+
 	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/column"
@@ -41,8 +43,8 @@ func projectStructurePageHeader() application.BaseWidget {
 			),
 			text.New(
 				"Understand the recommended project structure for gofred applications.",
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(18),
-				text.FontColor("#6B7280"),
 			),
 		},
 		column.Gap(8),
@@ -160,8 +162,8 @@ func projectStructureFileItem(path, description string) application.BaseWidget {
 						),
 						text.New(
 							description,
+							text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 							text.FontSize(14),
-							text.FontColor("#6B7280"),
 							text.LineHeight(1.5),
 						),
 					},
@@ -173,9 +175,7 @@ func projectStructureFileItem(path, description string) application.BaseWidget {
 			row.CrossAxisAlignment(theme.AxisAlignmentTypeStart),
 		),
 		container.Padding(breakpoint.All(spacing.All(16))),
-		container.BackgroundColor("#FFFFFF"),
 		container.BorderRadius(8),
-		container.BorderColor("#E5E7EB"),
 		container.BorderWidth(spacing.All(1)),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
