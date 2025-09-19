@@ -4,8 +4,11 @@ import (
 	"github.com/gofred-io/gofred-website/app/components/codeblock"
 	"github.com/gofred-io/gofred-website/app/components/footer"
 	"github.com/gofred-io/gofred-website/app/components/header"
-	"github.com/gofred-io/gofred/basic/pre"
+	appTheme "github.com/gofred-io/gofred-website/app/theme"
+
+	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
+	"github.com/gofred-io/gofred/foundation/button"
 	"github.com/gofred-io/gofred/foundation/center"
 	"github.com/gofred-io/gofred/foundation/column"
 	"github.com/gofred-io/gofred/foundation/container"
@@ -17,14 +20,13 @@ import (
 	"github.com/gofred-io/gofred/foundation/row"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	"github.com/gofred-io/gofred/theme"
 )
 
-func New(params router.RouteParams) widget.BaseWidget {
+func New(params router.RouteParams) application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			// Header - fixed at top
 			header.Get(),
 
@@ -47,12 +49,13 @@ func New(params router.RouteParams) widget.BaseWidget {
 }
 
 // Enhanced Hero Section
-func heroSection() widget.BaseWidget {
+func heroSection() application.BaseWidget {
+
 	return container.New(
 		center.New(
 			container.New(
 				column.New(
-					[]widget.BaseWidget{
+					[]application.BaseWidget{
 						// Badge
 						heroBadge(),
 						spacer.New(spacer.Height(24)),
@@ -72,7 +75,7 @@ func heroSection() widget.BaseWidget {
 						// Code preview
 						heroCodePreview(),
 					},
-					column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+					column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 					column.Gap(0),
 				),
 				container.MaxWidth(breakpoint.All(1200)),
@@ -82,18 +85,18 @@ func heroSection() widget.BaseWidget {
 					breakpoint.SM(spacing.All(24)),
 					breakpoint.MD(spacing.All(32)),
 				),
+				container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Secondary),
 			),
 		),
-
-		container.BackgroundColor("#FAFBFC"),
+		container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Secondary),
 		container.Flex(1),
 	)
 }
 
-func heroBadge() widget.BaseWidget {
+func heroBadge() application.BaseWidget {
 	return container.New(
 		row.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				icon.New(
 					icondata.RocketLaunchOutline,
 					icon.Width(breakpoint.All(16)),
@@ -108,54 +111,55 @@ func heroBadge() widget.BaseWidget {
 				),
 			},
 			row.Gap(8),
-			row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+			row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 		),
 		container.Padding(breakpoint.All(spacing.All(12))),
 		container.BackgroundColor("#EFF6FF"),
 		container.BorderColor("#2B799B"),
-		container.BorderWidth(1, 1, 1, 1),
+		container.BorderWidth(spacing.All(1)),
 		container.BorderRadius(20),
-		container.BorderStyle(options.BorderStyleTypeSolid),
+		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
 }
 
-func heroHeadline() widget.BaseWidget {
+func heroHeadline() application.BaseWidget {
 	return text.New(
 		"Build responsive web apps in Go – no JavaScript required",
 		text.FontSize(48),
-		text.FontColor("#1F2937"),
 		text.FontWeight("700"),
 		text.LineHeight(1.2),
-		text.Align(options.TextAlignTypeCenter),
+		text.Align(theme.TextAlignTypeCenter),
 	)
 }
 
-func heroDescription() widget.BaseWidget {
+func heroDescription() application.BaseWidget {
+
 	return container.New(
 		text.New(
 			"gofred is a modern web framework that lets you build interactive, responsive web applications using only Go. Create beautiful UIs with a widget-based architecture that compiles to WebAssembly.",
+			text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 			text.FontSize(18),
-			text.FontColor("#6B7280"),
-			text.FontWeight("400"),
 			text.LineHeight(1.6),
 		),
 		container.MaxWidth(breakpoint.All(700)),
+		container.BackgroundColor("#00000000"),
 	)
 }
 
-func heroCTAButtons() widget.BaseWidget {
+func heroCTAButtons() application.BaseWidget {
+
 	return grid.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			// Primary CTA
 			link.New(
-				container.New(
+				button.New(
 					center.New(
 						row.New(
-							[]widget.BaseWidget{
+							[]application.BaseWidget{
 								text.New(
 									"Get Started",
+									text.TextStyle(appTheme.Data().TextTheme.TextStyle.Tertiary),
 									text.FontSize(16),
-									text.FontColor("#FFFFFF"),
 									text.FontWeight("600"),
 								),
 								icon.New(
@@ -166,23 +170,22 @@ func heroCTAButtons() widget.BaseWidget {
 								),
 							},
 							row.Gap(8),
-							row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+							row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 						),
 					),
-					container.Padding(breakpoint.All(spacing.All(20))),
-					container.BackgroundColor("#2B799B"),
-					container.BorderRadius(8),
-					container.Width(breakpoint.All(182)),
+					button.BorderRadius(8),
+					button.Width(breakpoint.All(182)),
+					button.Padding(breakpoint.All(spacing.All(20))),
 				),
 				link.Href("/docs"),
 			),
 
 			// Secondary CTA
 			link.New(
-				container.New(
+				button.New(
 					center.New(
 						row.New(
-							[]widget.BaseWidget{
+							[]application.BaseWidget{
 								icon.New(
 									icondata.Github,
 									icon.Width(breakpoint.All(16)),
@@ -191,22 +194,19 @@ func heroCTAButtons() widget.BaseWidget {
 								),
 								text.New(
 									"View on GitHub",
+									text.TextStyle(appTheme.Data().ButtonTheme.ButtonStyle.Secondary.TextStyle),
 									text.FontSize(16),
-									text.FontColor("#374151"),
 									text.FontWeight("500"),
 								),
 							},
 							row.Gap(8),
-							row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+							row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 						),
 					),
-					container.Width(breakpoint.All(182)),
-					container.Padding(breakpoint.All(spacing.All(20))),
-					container.BackgroundColor("#FFFFFF"),
-					container.BorderColor("#E5E7EB"),
-					container.BorderWidth(1, 1, 1, 1),
-					container.BorderRadius(8),
-					container.BorderStyle(options.BorderStyleTypeSolid),
+					button.ButtonStyle(appTheme.Data().ButtonTheme.ButtonStyle.Secondary),
+					button.Width(breakpoint.All(182)),
+					button.Padding(breakpoint.All(spacing.All(20))),
+					button.BorderRadius(8),
 				),
 				link.Href("https://github.com/gofred-io/gofred"),
 				link.NewTab(true),
@@ -221,14 +221,15 @@ func heroCTAButtons() widget.BaseWidget {
 	)
 }
 
-func heroCodePreview() widget.BaseWidget {
+func heroCodePreview() application.BaseWidget {
+
 	return container.New(
 		column.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				// Code header
 				container.New(
 					row.New(
-						[]widget.BaseWidget{
+						[]application.BaseWidget{
 							container.New(
 								spacer.New(),
 								container.Width(breakpoint.All(12)),
@@ -253,19 +254,18 @@ func heroCodePreview() widget.BaseWidget {
 							spacer.New(),
 							text.New(
 								"main.go",
+								text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 								text.FontSize(14),
-								text.FontColor("#6B7280"),
 								text.FontWeight("500"),
 							),
 						},
 						row.Gap(8),
-						row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+						row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 					),
 					container.Padding(breakpoint.All(spacing.All(16))),
-					container.BackgroundColor("#F9FAFB"),
-					container.BorderColor("#E5E7EB"),
-					container.BorderWidth(0, 0, 1, 0),
-					container.BorderStyle(options.BorderStyleTypeSolid),
+					container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Primary),
+					container.BorderWidth(spacing.Bottom(1)),
+					container.BorderStyle(theme.BorderStyleTypeSolid),
 				),
 
 				// Code content
@@ -286,77 +286,43 @@ func main() {
 			column.Gap(0),
 		),
 		container.BorderRadius(12),
-		container.BorderColor("#E5E7EB"),
-		container.BackgroundColor("#1F2937"),
-		container.BorderWidth(1, 1, 1, 1),
-		container.BorderStyle(options.BorderStyleTypeSolid),
+		container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Primary),
+		container.BorderWidth(spacing.All(1)),
+		container.BorderStyle(theme.BorderStyleTypeSolid),
 		container.MaxWidth(breakpoint.All(500)),
-		container.Overflow(options.OverflowTypeHidden),
+		container.Overflow(theme.OverflowTypeHidden),
 	)
-}
-
-func codeLine(content, color string) widget.BaseWidget {
-	return pre.New(
-		text.New(
-			content,
-			text.FontSize(14),
-			text.FontColor(color),
-			text.FontWeight("400"),
-		),
-	)
-}
-
-func codeLineIndented(content, color string) widget.BaseWidget {
-	return pre.New(
-		row.New(
-			[]widget.BaseWidget{
-				text.New("  ", text.FontSize(14), text.FontColor("#E5E7EB")),
-				text.New(
-					content,
-					text.FontSize(14),
-					text.FontColor(color),
-					text.FontWeight("400"),
-				),
-			},
-			row.Gap(0),
-		),
-	)
-}
-
-func codeLineEmpty() widget.BaseWidget {
-	return spacer.New(spacer.Height(4))
 }
 
 // Modern Features Section
-func modernFeaturesSection() widget.BaseWidget {
+func modernFeaturesSection() application.BaseWidget {
+
 	return container.New(
 		center.New(
 			column.New(
-				[]widget.BaseWidget{
+				[]application.BaseWidget{
 					// Section header
 					center.New(
 						column.New(
-							[]widget.BaseWidget{
+							[]application.BaseWidget{
 								text.New(
 									"Why Choose gofred?",
 									text.FontSize(36),
-									text.FontColor("#1F2937"),
 									text.FontWeight("700"),
-									text.Align(options.TextAlignTypeCenter),
+									text.Align(theme.TextAlignTypeCenter),
 								),
 								spacer.New(spacer.Height(16)),
 								container.New(
 									text.New(
 										"Build modern web applications with the power of Go. No JavaScript, no complex build tools – just pure Go code that runs everywhere.",
+										text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 										text.FontSize(18),
-										text.FontColor("#6B7280"),
-										text.FontWeight("400"),
 										text.LineHeight(1.6),
 									),
 									container.MaxWidth(breakpoint.All(600)),
 								),
 							},
-							column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+							column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 						),
 					),
 
@@ -366,7 +332,7 @@ func modernFeaturesSection() widget.BaseWidget {
 					center.New(
 						container.New(
 							grid.New(
-								[]widget.BaseWidget{
+								[]application.BaseWidget{
 									modernFeatureCard(
 										icondata.RocketLaunchOutline,
 										"Fast Development",
@@ -418,10 +384,9 @@ func modernFeaturesSection() widget.BaseWidget {
 					),
 				},
 				column.Gap(0),
-				column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+				column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 			),
 		),
-		container.BackgroundColor("#FFFFFF"),
 		container.Padding(
 			breakpoint.All(spacing.All(64)),
 			breakpoint.XS(spacing.Axis(16, 24)),
@@ -432,10 +397,11 @@ func modernFeaturesSection() widget.BaseWidget {
 	)
 }
 
-func modernFeatureCard(iconData icondata.IconData, title, description, color string) widget.BaseWidget {
+func modernFeatureCard(iconData icondata.IconData, title, description, color string) application.BaseWidget {
+
 	return container.New(
 		column.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				// Icon
 				container.New(
 					center.New(
@@ -447,10 +413,12 @@ func modernFeatureCard(iconData icondata.IconData, title, description, color str
 						),
 					),
 					container.Padding(breakpoint.All(spacing.All(16))),
-					container.BackgroundColor("#F9FAFB"),
 					container.BorderRadius(12),
+					container.BorderWidth(spacing.All(1)),
+					container.BorderStyle(theme.BorderStyleTypeSolid),
 					container.Width(breakpoint.All(64)),
 					container.Height(breakpoint.All(64)),
+					container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Secondary),
 				),
 
 				spacer.New(spacer.Height(24)),
@@ -459,7 +427,6 @@ func modernFeatureCard(iconData icondata.IconData, title, description, color str
 				text.New(
 					title,
 					text.FontSize(20),
-					text.FontColor("#1F2937"),
 					text.FontWeight("600"),
 				),
 
@@ -469,58 +436,55 @@ func modernFeatureCard(iconData icondata.IconData, title, description, color str
 				text.New(
 					description,
 					text.FontSize(16),
-					text.FontColor("#6B7280"),
-					text.FontWeight("400"),
 					text.LineHeight(1.6),
+					text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				),
 			},
 			column.Gap(0),
 		),
 		container.Padding(breakpoint.All(spacing.All(24))),
-		container.BackgroundColor("#FFFFFF"),
-		container.BorderColor("#E5E7EB"),
-		container.BorderWidth(1, 1, 1, 1),
+		container.BorderWidth(spacing.All(1)),
 		container.BorderRadius(12),
-		container.BorderStyle(options.BorderStyleTypeSolid),
+		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
 }
 
 // Getting Started Section
-func gettingStartedSection() widget.BaseWidget {
+func gettingStartedSection() application.BaseWidget {
+
 	return container.New(
 		center.New(
 			container.New(
 				column.New(
-					[]widget.BaseWidget{
+					[]application.BaseWidget{
 						// Section header
 						column.New(
-							[]widget.BaseWidget{
+							[]application.BaseWidget{
 								text.New(
 									"Get Started in Minutes",
 									text.FontSize(36),
-									text.FontColor("#1F2937"),
 									text.FontWeight("700"),
-									text.Align(options.TextAlignTypeCenter),
+									text.Align(theme.TextAlignTypeCenter),
 								),
 								spacer.New(spacer.Height(16)),
 								container.New(
 									text.New(
 										"Follow these simple steps to create your first gofred application.",
+										text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 										text.FontSize(18),
-										text.FontColor("#6B7280"),
-										text.FontWeight("400"),
 									),
 									container.MaxWidth(breakpoint.All(600)),
+									container.BackgroundColor("#00000000"),
 								),
 							},
-							column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+							column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 						),
 
 						spacer.New(spacer.Height(48)),
 
 						// Steps
 						column.New(
-							[]widget.BaseWidget{
+							[]application.BaseWidget{
 								gettingStartedStep("1", "Install gofred CLI", "Install the gofred CLI tool", "curl -fsSL https://raw.githubusercontent.com/gofred-io/gofred-cli/refs/heads/master/install.sh | bash"),
 								gettingStartedStep("2", "Create your first app", "Create a new Go WebAssembly application", "gofred app create my-app --package my-app"),
 								gettingStartedStep("3", "Write your first application", "Write your first application", "func main() {\n   app := text.New(\"Hello!\") \n   application.Run(app) \n}"),
@@ -533,15 +497,15 @@ func gettingStartedSection() widget.BaseWidget {
 
 						// CTA
 						link.New(
-							container.New(
+							button.New(
 								row.New(
-									[]widget.BaseWidget{
+									[]application.BaseWidget{
 										text.New(
 											"View Full Tutorial",
 											text.FontSize(16),
 											text.FontColor("#FFFFFF"),
 											text.FontWeight("600"),
-											text.Align(options.TextAlignTypeCenter),
+											text.Align(theme.TextAlignTypeCenter),
 										),
 										icon.New(
 											icondata.ChevronRight,
@@ -551,18 +515,17 @@ func gettingStartedSection() widget.BaseWidget {
 										),
 									},
 									row.Gap(8),
-									row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+									row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 								),
-								container.Padding(breakpoint.All(spacing.All(20))),
-								container.BackgroundColor("#2B799B"),
-								container.BorderRadius(8),
+								button.Padding(breakpoint.All(spacing.All(20))),
 							),
 							link.Href("/docs/first-app"),
 						),
 					},
 					column.Gap(0),
-					column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+					column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 				),
+				container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Secondary),
 				container.MaxWidth(breakpoint.All(800)),
 				container.Padding(
 					breakpoint.XS(spacing.All(16)),
@@ -571,7 +534,7 @@ func gettingStartedSection() widget.BaseWidget {
 				),
 			),
 		),
-		container.BackgroundColor("#F9FAFB"),
+		container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Secondary),
 		container.Padding(
 			breakpoint.All(spacing.All(64)),
 			breakpoint.XS(spacing.All(12)),
@@ -581,9 +544,10 @@ func gettingStartedSection() widget.BaseWidget {
 	)
 }
 
-func gettingStartedStep(number, title, description, code string) widget.BaseWidget {
+func gettingStartedStep(number, title, description, code string) application.BaseWidget {
+
 	return row.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			// Step number
 			container.New(
 				center.New(
@@ -596,7 +560,7 @@ func gettingStartedStep(number, title, description, code string) widget.BaseWidg
 				),
 				container.Width(breakpoint.All(40)),
 				container.Height(breakpoint.All(40)),
-				container.BackgroundColor("#2B799B"),
+				container.BackgroundColor("#1976d2"),
 				container.BorderRadius(20),
 				container.Visible(
 					breakpoint.All(true),
@@ -607,19 +571,17 @@ func gettingStartedStep(number, title, description, code string) widget.BaseWidg
 
 			// Content
 			column.New(
-				[]widget.BaseWidget{
+				[]application.BaseWidget{
 					text.New(
 						title,
 						text.FontSize(20),
-						text.FontColor("#1F2937"),
 						text.FontWeight("600"),
 					),
 					spacer.New(spacer.Height(8)),
 					text.New(
 						description,
+						text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 						text.FontSize(16),
-						text.FontColor("#6B7280"),
-						text.FontWeight("400"),
 					),
 					spacer.New(spacer.Height(12)),
 					codeblock.New(
@@ -631,46 +593,45 @@ func gettingStartedStep(number, title, description, code string) widget.BaseWidg
 			),
 		},
 		row.Gap(24),
-		row.CrossAxisAlignment(options.AxisAlignmentTypeStart),
+		row.CrossAxisAlignment(theme.AxisAlignmentTypeStart),
 	)
 }
 
 // Community Section
-func communitySection() widget.BaseWidget {
+func communitySection() application.BaseWidget {
+
 	return container.New(
 		center.New(
 			container.New(
 				column.New(
-					[]widget.BaseWidget{
+					[]application.BaseWidget{
 						// Section header
 						column.New(
-							[]widget.BaseWidget{
+							[]application.BaseWidget{
 								text.New(
 									"Join the Community",
 									text.FontSize(36),
-									text.FontColor("#1F2937"),
 									text.FontWeight("700"),
-									text.Align(options.TextAlignTypeCenter),
+									text.Align(theme.TextAlignTypeCenter),
 								),
 								spacer.New(spacer.Height(16)),
 								container.New(
 									text.New(
 										"Connect with other gofred developers, get help, and contribute to the future of Go web development.",
+										text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 										text.FontSize(18),
-										text.FontColor("#6B7280"),
-										text.FontWeight("400"),
 									),
 									container.MaxWidth(breakpoint.All(600)),
 								),
 							},
-							column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+							column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 						),
 
 						spacer.New(spacer.Height(48)),
 
 						// Community links
 						grid.New(
-							[]widget.BaseWidget{
+							[]application.BaseWidget{
 								communityLink(
 									icondata.Github,
 									"GitHub",
@@ -703,7 +664,7 @@ func communitySection() widget.BaseWidget {
 						),
 					},
 					column.Gap(0),
-					column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+					column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 				),
 				container.MaxWidth(breakpoint.All(1000)),
 				container.Padding(
@@ -713,7 +674,6 @@ func communitySection() widget.BaseWidget {
 				),
 			),
 		),
-		container.BackgroundColor("#FFFFFF"),
 		container.Padding(
 			breakpoint.All(spacing.All(64)),
 			breakpoint.XS(spacing.All(8)),
@@ -724,14 +684,15 @@ func communitySection() widget.BaseWidget {
 	)
 }
 
-func communityLink(iconData icondata.IconData, title, description, href string, newTab bool) widget.BaseWidget {
+func communityLink(iconData icondata.IconData, title, description, href string, newTab bool) application.BaseWidget {
+
 	return container.New(
 		center.New(
 			link.New(
 				center.New(
 					container.New(
 						column.New(
-							[]widget.BaseWidget{
+							[]application.BaseWidget{
 								// Icon
 								container.New(
 									center.New(
@@ -743,8 +704,10 @@ func communityLink(iconData icondata.IconData, title, description, href string, 
 										),
 									),
 									container.Padding(breakpoint.All(spacing.All(12))),
-									container.BackgroundColor("#EFF6FF"),
+									container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Secondary),
 									container.BorderRadius(8),
+									container.BorderWidth(spacing.All(1)),
+									container.BorderStyle(theme.BorderStyleTypeSolid),
 									container.Width(breakpoint.All(48)),
 									container.Height(breakpoint.All(48)),
 								),
@@ -755,7 +718,6 @@ func communityLink(iconData icondata.IconData, title, description, href string, 
 								text.New(
 									title,
 									text.FontSize(18),
-									text.FontColor("#1F2937"),
 									text.FontWeight("600"),
 								),
 
@@ -764,17 +726,15 @@ func communityLink(iconData icondata.IconData, title, description, href string, 
 								// Description
 								text.New(
 									description,
+									text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 									text.FontSize(14),
-									text.FontColor("#6B7280"),
-									text.FontWeight("400"),
 									text.LineHeight(1.5),
 								),
 							},
 							column.Gap(0),
 							column.Flex(1),
-							column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+							column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 						),
-						container.Padding(breakpoint.All(spacing.All(24))),
 						container.Flex(1),
 					),
 				),
@@ -782,11 +742,10 @@ func communityLink(iconData icondata.IconData, title, description, href string, 
 				link.NewTab(newTab),
 			),
 		),
-		container.BackgroundColor("#FFFFFF"),
-		container.BorderColor("#E5E7EB"),
-		container.BorderWidth(1, 1, 1, 1),
+		container.BorderWidth(spacing.All(1)),
 		container.BorderRadius(8),
-		container.BorderStyle(options.BorderStyleTypeSolid),
+		container.BorderStyle(theme.BorderStyleTypeSolid),
 		container.Flex(1),
+		container.Padding(breakpoint.All(spacing.All(24))),
 	)
 }

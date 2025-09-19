@@ -1,6 +1,9 @@
 package docs
 
 import (
+	appTheme "github.com/gofred-io/gofred-website/app/theme"
+
+	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/column"
 	"github.com/gofred-io/gofred/foundation/container"
@@ -9,15 +12,15 @@ import (
 	"github.com/gofred-io/gofred/foundation/text"
 	"github.com/gofred-io/gofred/hooks"
 	"github.com/gofred-io/gofred/listenable"
-	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	"github.com/gofred-io/gofred/theme"
+	"github.com/gofred-io/gofred/theme/theme_style"
 )
 
-func docsSidebar() widget.BaseWidget {
+func docsSidebar() application.BaseWidget {
 	return container.New(
 		column.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				docsSidebarHeader(),
 				spacer.New(spacer.Height(16)),
 				navigationMenu(),
@@ -26,11 +29,9 @@ func docsSidebar() widget.BaseWidget {
 			column.Flex(1),
 		),
 		container.Width(breakpoint.All(280)),
-		container.BackgroundColor("#FFFFFF"),
 		container.Padding(breakpoint.All(spacing.All(24))),
-		container.BorderColor("#E5E7EB"),
-		container.BorderWidth(0, 1, 0, 0),
-		container.BorderStyle(options.BorderStyleTypeSolid),
+		container.BorderWidth(spacing.Right(1)),
+		container.BorderStyle(theme.BorderStyleTypeSolid),
 		container.Visible(
 			breakpoint.LG(true),
 			breakpoint.XL(true),
@@ -39,34 +40,32 @@ func docsSidebar() widget.BaseWidget {
 	)
 }
 
-func docsSidebarHeader() widget.BaseWidget {
+func docsSidebarHeader() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				"Documentation",
 				text.FontSize(20),
-				text.FontColor("#1F2937"),
 				text.FontWeight("600"),
 			),
 			text.New(
 				"Learn how to build with gofred",
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(14),
-				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
 			),
 		},
 		column.Gap(4),
 	)
 }
 
-func navigationMenu() widget.BaseWidget {
+func navigationMenu() application.BaseWidget {
 	navigate := hooks.UseNavigate()
 
-	return listenable.Builder(navigate, func() widget.BaseWidget {
+	return listenable.Builder(navigate, func() application.BaseWidget {
 		activeHref := navigate.Path()
 
 		return column.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				navSection(
 					"Getting Started",
 					[]navItem{
@@ -135,14 +134,14 @@ type navItem struct {
 	href  string
 }
 
-func navSection(title string, items []navItem, activeHref string) widget.BaseWidget {
-	var sectionItems []widget.BaseWidget
+func navSection(title string, items []navItem, activeHref string) application.BaseWidget {
+	var sectionItems []application.BaseWidget
 
 	// Section title
 	sectionItems = append(sectionItems, text.New(
 		title,
+		text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 		text.FontSize(14),
-		text.FontColor("#374151"),
 		text.FontWeight("600"),
 	))
 
@@ -157,29 +156,28 @@ func navSection(title string, items []navItem, activeHref string) widget.BaseWid
 	)
 }
 
-func navItemWidget(item navItem, activeHref string) widget.BaseWidget {
-	var textColor string
-	var backgroundColor string
+func navItemWidget(item navItem, activeHref string) application.BaseWidget {
+	var containerStyle theme_style.ContainerStyle
+	var textStyle theme_style.TextStyle
 
 	if item.href == activeHref {
-		textColor = "#2B799B"
-		backgroundColor = "#EBF8FF"
+		containerStyle = appTheme.Data().BoxTheme.ContainerStyle.Tertiary
+		textStyle = appTheme.Data().TextTheme.TextStyle.Tertiary
 	} else {
-		textColor = "#6B7280"
-		backgroundColor = "transparent"
+		containerStyle = appTheme.Data().BoxTheme.ContainerStyle.Primary
+		textStyle = appTheme.Data().TextTheme.TextStyle.Primary
 	}
 
 	return link.New(
 		container.New(
 			text.New(
 				item.title,
+				text.TextStyle(textStyle),
 				text.FontSize(14),
-				text.FontColor(textColor),
-				text.FontWeight("400"),
-				text.UserSelect(options.UserSelectTypeNone),
+				text.UserSelect(theme.UserSelectTypeNone),
 			),
+			container.ContainerStyle(containerStyle),
 			container.Padding(breakpoint.All(spacing.Axis(8, 12))),
-			container.BackgroundColor(backgroundColor),
 			container.BorderRadius(6),
 		),
 		link.Href(item.href),

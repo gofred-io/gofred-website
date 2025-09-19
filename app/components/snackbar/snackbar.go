@@ -2,6 +2,7 @@ package snackbar
 
 import (
 	"github.com/gofred-io/gofred-website/app/constant"
+	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/container"
 	"github.com/gofred-io/gofred/foundation/icon"
@@ -9,9 +10,8 @@ import (
 	"github.com/gofred-io/gofred/foundation/row"
 	foundationSnackbar "github.com/gofred-io/gofred/foundation/snackbar"
 	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	"github.com/gofred-io/gofred/theme"
 )
 
 var (
@@ -28,7 +28,7 @@ func Get() foundationSnackbar.ISnackbar {
 func buildSnackbar() foundationSnackbar.ISnackbar {
 	return foundationSnackbar.New(
 		foundationSnackbar.Transition(0.3),
-		foundationSnackbar.Position(options.PositionTypeBottomLeft),
+		foundationSnackbar.Position(theme.PositionTypeBottomLeft),
 	)
 }
 
@@ -37,15 +37,15 @@ func Show(message string, snackbarType constant.SnackbarType) {
 	Get().Show(snackbarContainer(message, snackbarType))
 }
 
-func snackbarContainer(message string, snackbarType constant.SnackbarType) widget.BaseWidget {
+func snackbarContainer(message string, snackbarType constant.SnackbarType) application.BaseWidget {
 	return container.New(
 		row.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				snackbarIcon(snackbarType),
 				snackbarContent(message),
 			},
 			row.Gap(12),
-			row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+			row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 		),
 		container.BackgroundColor(getBackgroundColor(snackbarType)),
 		container.BorderRadius(8),
@@ -55,7 +55,7 @@ func snackbarContainer(message string, snackbarType constant.SnackbarType) widge
 	)
 }
 
-func snackbarContent(message string) widget.BaseWidget {
+func snackbarContent(message string) application.BaseWidget {
 	return container.New(
 		text.New(
 			message,
@@ -63,11 +63,12 @@ func snackbarContent(message string) widget.BaseWidget {
 			text.FontColor("#FFFFFF"),
 			text.FontWeight("500"),
 		),
+		container.BackgroundColor("#00000000"),
 		container.Flex(1),
 	)
 }
 
-func snackbarIcon(snackbarType constant.SnackbarType) widget.BaseWidget {
+func snackbarIcon(snackbarType constant.SnackbarType) application.BaseWidget {
 	iconColor := "#FFFFFF"
 	iconData := getIconData(snackbarType)
 

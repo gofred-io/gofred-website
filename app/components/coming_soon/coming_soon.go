@@ -1,6 +1,9 @@
 package comingsoon
 
 import (
+	appTheme "github.com/gofred-io/gofred-website/app/theme"
+
+	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/button"
 	"github.com/gofred-io/gofred/foundation/center"
@@ -12,18 +15,17 @@ import (
 	"github.com/gofred-io/gofred/foundation/row"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	"github.com/gofred-io/gofred/theme"
 )
 
 // ComingSoonContent creates a coming soon page with optional title and suggestions
-func ComingSoonContent(title string, suggestions []Suggestion) widget.BaseWidget {
+func ComingSoonContent(title string, suggestions []Suggestion) application.BaseWidget {
 	return container.New(
 		center.New(
 			container.New(
 				column.New(
-					[]widget.BaseWidget{
+					[]application.BaseWidget{
 						comingSoonHeader(title),
 						spacer.New(spacer.Height(32)),
 						comingSoonIcon(),
@@ -35,7 +37,7 @@ func ComingSoonContent(title string, suggestions []Suggestion) widget.BaseWidget
 						comingSoonActions(),
 					},
 					column.Gap(0),
-					column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+					column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 				),
 				container.MaxWidth(breakpoint.All(600)),
 				container.Padding(breakpoint.All(spacing.All(32))),
@@ -52,34 +54,32 @@ type Suggestion struct {
 	Href        string
 }
 
-func comingSoonHeader(title string) widget.BaseWidget {
+func comingSoonHeader(title string) application.BaseWidget {
 	pageTitle := title
 	if pageTitle == "" {
 		pageTitle = "Coming Soon"
 	}
 
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				pageTitle,
 				text.FontSize(32),
-				text.FontColor("#1F2937"),
 				text.FontWeight("700"),
 			),
 			spacer.New(spacer.Height(8)),
 			text.New(
 				"This documentation page is currently under development",
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(18),
-				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
 			),
 		},
 		column.Gap(0),
-		column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 	)
 }
 
-func comingSoonIcon() widget.BaseWidget {
+func comingSoonIcon() application.BaseWidget {
 	return container.New(
 		icon.New(
 			icondata.Clock,
@@ -91,25 +91,24 @@ func comingSoonIcon() widget.BaseWidget {
 		container.BackgroundColor("#F9FAFB"),
 		container.BorderRadius(40),
 		container.BorderColor("#E5E7EB"),
-		container.BorderWidth(1, 1, 1, 1),
-		container.BorderStyle(options.BorderStyleTypeSolid),
+		container.BorderWidth(spacing.All(1)),
+		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
 }
 
-func comingSoonMessage() widget.BaseWidget {
+func comingSoonMessage() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				"We're working hard to bring you comprehensive documentation for this topic. In the meantime, you can explore the available sections or check back soon for updates.",
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				text.FontSize(16),
-				text.FontColor("#6B7280"),
-				text.FontWeight("400"),
 				text.LineHeight(1.6),
 			),
 			spacer.New(spacer.Height(16)),
 			container.New(
 				row.New(
-					[]widget.BaseWidget{
+					[]application.BaseWidget{
 						icon.New(
 							icondata.Alert,
 							icon.Width(breakpoint.All(16)),
@@ -118,28 +117,27 @@ func comingSoonMessage() widget.BaseWidget {
 						),
 						text.New(
 							"Want to contribute? This documentation is open source and we welcome contributions!",
+							text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 							text.FontSize(14),
-							text.FontColor("#3B82F6"),
-							text.FontWeight("400"),
 						),
 					},
 					row.Gap(8),
-					row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+					row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 				),
 				container.Padding(breakpoint.All(spacing.All(12))),
 				container.BackgroundColor("#EFF6FF"),
 				container.BorderRadius(8),
 				container.BorderColor("#DBEAFE"),
-				container.BorderWidth(1, 1, 1, 1),
-				container.BorderStyle(options.BorderStyleTypeSolid),
+				container.BorderWidth(spacing.All(1)),
+				container.BorderStyle(theme.BorderStyleTypeSolid),
 			),
 		},
 		column.Gap(0),
-		column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 	)
 }
 
-func comingSoonSuggestions(suggestions []Suggestion) widget.BaseWidget {
+func comingSoonSuggestions(suggestions []Suggestion) application.BaseWidget {
 	if len(suggestions) == 0 {
 		// Default suggestions if none provided
 		suggestions = []Suggestion{
@@ -166,12 +164,11 @@ func comingSoonSuggestions(suggestions []Suggestion) widget.BaseWidget {
 		}
 	}
 
-	var suggestionWidgets []widget.BaseWidget
+	var suggestionWidgets []application.BaseWidget
 	suggestionWidgets = append(suggestionWidgets,
 		text.New(
 			"While you're here, check out these available topics:",
 			text.FontSize(18),
-			text.FontColor("#1F2937"),
 			text.FontWeight("600"),
 		),
 	)
@@ -184,28 +181,27 @@ func comingSoonSuggestions(suggestions []Suggestion) widget.BaseWidget {
 	return column.New(
 		suggestionWidgets,
 		column.Gap(12),
-		column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 	)
 }
 
-func suggestionCard(suggestion Suggestion) widget.BaseWidget {
+func suggestionCard(suggestion Suggestion) application.BaseWidget {
 	return link.New(
 		container.New(
 			row.New(
-				[]widget.BaseWidget{
+				[]application.BaseWidget{
 					column.New(
-						[]widget.BaseWidget{
+						[]application.BaseWidget{
 							text.New(
 								suggestion.Title,
+								text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 								text.FontSize(16),
-								text.FontColor("#2B799B"),
 								text.FontWeight("500"),
 							),
 							text.New(
 								suggestion.Description,
+								text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 								text.FontSize(14),
-								text.FontColor("#6B7280"),
-								text.FontWeight("400"),
 								text.LineHeight(1.4),
 							),
 						},
@@ -221,36 +217,33 @@ func suggestionCard(suggestion Suggestion) widget.BaseWidget {
 				},
 				row.Gap(12),
 				row.Flex(1),
-				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+				row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 			),
 			container.Padding(breakpoint.All(spacing.All(16))),
-			container.BackgroundColor("#FFFFFF"),
 			container.BorderRadius(8),
-			container.BorderColor("#E5E7EB"),
-			container.BorderWidth(1, 1, 1, 1),
-			container.BorderStyle(options.BorderStyleTypeSolid),
+			container.BorderWidth(spacing.All(1)),
+			container.BorderStyle(theme.BorderStyleTypeSolid),
 			container.Width(breakpoint.All(400)),
 		),
 		link.Href(suggestion.Href),
 	)
 }
 
-func comingSoonActions() widget.BaseWidget {
+func comingSoonActions() application.BaseWidget {
 	return column.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				"Need help or have questions?",
 				text.FontSize(16),
-				text.FontColor("#1F2937"),
 				text.FontWeight("500"),
 			),
 			spacer.New(spacer.Height(16)),
 			row.New(
-				[]widget.BaseWidget{
+				[]application.BaseWidget{
 					link.New(
 						button.New(
 							row.New(
-								[]widget.BaseWidget{
+								[]application.BaseWidget{
 									icon.New(
 										icondata.Home,
 										icon.Width(breakpoint.All(16)),
@@ -259,15 +252,14 @@ func comingSoonActions() widget.BaseWidget {
 									),
 									text.New(
 										"Back to Docs",
+										text.TextStyle(appTheme.Data().ButtonTheme.ButtonStyle.Primary.TextStyle),
 										text.FontSize(14),
-										text.FontColor("#FFFFFF"),
 										text.FontWeight("500"),
 									),
 								},
 								row.Gap(8),
-								row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+								row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 							),
-							button.BackgroundColor("#2B799B"),
 							button.BorderRadius(6),
 						),
 						link.Href("/docs"),
@@ -275,7 +267,7 @@ func comingSoonActions() widget.BaseWidget {
 					link.New(
 						button.New(
 							row.New(
-								[]widget.BaseWidget{
+								[]application.BaseWidget{
 									icon.New(
 										icondata.AccountGroup,
 										icon.Width(breakpoint.All(16)),
@@ -284,15 +276,14 @@ func comingSoonActions() widget.BaseWidget {
 									),
 									text.New(
 										"GitHub Discussions",
+										text.TextStyle(appTheme.Data().ButtonTheme.ButtonStyle.Primary.TextStyle),
 										text.FontSize(14),
-										text.FontColor("#FFFFFF"),
 										text.FontWeight("500"),
 									),
 								},
 								row.Gap(8),
-								row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+								row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 							),
-							button.BackgroundColor("#2B799B"),
 							button.BorderRadius(6),
 						),
 						link.Href("https://github.com/orgs/gofred-io/discussions"),
@@ -300,25 +291,25 @@ func comingSoonActions() widget.BaseWidget {
 					),
 				},
 				row.Gap(12),
-				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+				row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 			),
 		},
 		column.Gap(0),
-		column.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 	)
 }
 
 // Simple coming soon page without custom suggestions
-func Simple(title string) widget.BaseWidget {
+func Simple(title string) application.BaseWidget {
 	return ComingSoonContent(title, nil)
 }
 
 // Coming soon page with custom suggestions
-func WithSuggestions(title string, suggestions []Suggestion) widget.BaseWidget {
+func WithSuggestions(title string, suggestions []Suggestion) application.BaseWidget {
 	return ComingSoonContent(title, suggestions)
 }
 
 // Coming soon page for a specific documentation section
-func ForDocsSection(sectionTitle string, relatedSections []Suggestion) widget.BaseWidget {
+func ForDocsSection(sectionTitle string, relatedSections []Suggestion) application.BaseWidget {
 	return WithSuggestions(sectionTitle, relatedSections)
 }

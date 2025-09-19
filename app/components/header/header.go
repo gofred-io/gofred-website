@@ -2,8 +2,9 @@ package header
 
 import (
 	"github.com/gofred-io/gofred-website/app/components/drawer"
-	"github.com/gofred-io/gofred-website/app/theme"
+	appTheme "github.com/gofred-io/gofred-website/app/theme"
 
+	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/container"
 	"github.com/gofred-io/gofred/foundation/icon"
@@ -12,18 +13,19 @@ import (
 	"github.com/gofred-io/gofred/foundation/image"
 	"github.com/gofred-io/gofred/foundation/link"
 	"github.com/gofred-io/gofred/foundation/row"
+	"github.com/gofred-io/gofred/foundation/scaffold"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
+	"github.com/gofred-io/gofred/hooks"
 	"github.com/gofred-io/gofred/listenable"
-	"github.com/gofred-io/gofred/options"
 	"github.com/gofred-io/gofred/options/spacing"
-	"github.com/gofred-io/gofred/widget"
+	"github.com/gofred-io/gofred/theme"
 )
 
-func Get() widget.BaseWidget {
+func Get() application.BaseWidget {
 	return container.New(
 		row.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				// Mobile menu button
 				menuButton(),
 
@@ -43,10 +45,9 @@ func Get() widget.BaseWidget {
 			},
 			row.Gap(0),
 			row.Flex(1),
-			row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+			row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 		),
 		container.Height(breakpoint.All(72)),
-		container.BackgroundColor("#FFFFFF"),
 		container.Padding(
 			breakpoint.All(spacing.Axis(32, 0)),
 			breakpoint.XS(spacing.Axis(0, 0)),
@@ -54,22 +55,21 @@ func Get() widget.BaseWidget {
 			breakpoint.MD(spacing.Axis(16, 0)),
 			breakpoint.LG(spacing.Axis(24, 0)),
 		),
-		container.BorderColor("#E5E7EB"),
-		container.BorderWidth(0, 0, 1, 0),
-		container.BorderStyle(options.BorderStyleTypeSolid),
-		// Add subtle shadow for depth
-		container.BoxShadow("0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)"),
+		container.BorderWidth(spacing.Bottom(1)),
+		container.BorderStyle(theme.BorderStyleTypeSolid),
+		container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Primary),
 	)
 }
 
-func menuButton() widget.BaseWidget {
+func menuButton() application.BaseWidget {
+
 	return container.New(
 		iconbutton.New(
 			icondata.Menu,
-			iconbutton.OnClick(func(this widget.BaseWidget, e widget.Event) {
-				drawer.Get().Show()
+			iconbutton.ButtonStyle(appTheme.Data().ButtonTheme.IconButtonStyle.Primary),
+			iconbutton.OnClick(func(this application.BaseWidget, e application.Event) {
+				scaffold.Get().Drawer(drawer.Name).Show()
 			}),
-			iconbutton.Fill("#1F2937"),
 			iconbutton.Tooltip("Open menu"),
 		),
 		container.Padding(breakpoint.All(spacing.All(8))),
@@ -82,16 +82,16 @@ func menuButton() widget.BaseWidget {
 	)
 }
 
-func logoTitle() widget.BaseWidget {
+func logoTitle() application.BaseWidget {
 	return container.New(
 		link.New(
 			row.New(
-				[]widget.BaseWidget{
+				[]application.BaseWidget{
 					logo(),
 					title(),
 				},
 				row.Gap(12),
-				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+				row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 			),
 			link.Href("/"),
 		),
@@ -102,7 +102,7 @@ func logoTitle() widget.BaseWidget {
 	)
 }
 
-func logo() widget.BaseWidget {
+func logo() application.BaseWidget {
 	return image.New(
 		"img/gofred.png",
 		image.Width(
@@ -118,14 +118,13 @@ func logo() widget.BaseWidget {
 	)
 }
 
-func title() widget.BaseWidget {
+func title() application.BaseWidget {
 	return container.New(
 		text.New(
 			"gofred",
 			text.FontSize(24),
-			text.FontColor("#1F2937"),
 			text.FontWeight("700"),
-			text.UserSelect(options.UserSelectTypeNone),
+			text.UserSelect(theme.UserSelectTypeNone),
 		),
 		container.Visible(
 			breakpoint.All(true),
@@ -135,16 +134,16 @@ func title() widget.BaseWidget {
 }
 
 // Desktop navigation - hidden on mobile
-func desktopNavigation() widget.BaseWidget {
+func desktopNavigation() application.BaseWidget {
 	return container.New(
 		row.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				navigationLink("Documentation", "/docs", false),
 				navigationLink("Examples", "/docs/examples", false),
 				navigationLink("Community", "https://github.com/orgs/gofred-io/discussions", true),
 			},
 			row.Gap(32),
-			row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+			row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 		),
 		container.Visible(
 			breakpoint.MD(true),
@@ -156,42 +155,43 @@ func desktopNavigation() widget.BaseWidget {
 }
 
 // Header actions section
-func headerActions() widget.BaseWidget {
+func headerActions() application.BaseWidget {
 	return row.New(
-		[]widget.BaseWidget{
-			githubButton(),
+		[]application.BaseWidget{
+			//githubButton(),
 			//spacer.New(spacer.Width(12)),
-			//themeToggleButton(),
+			themeToggleButton(),
 		},
 		row.Gap(0),
-		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 	)
 }
 
 // Modern navigation link
-func navigationLink(label, href string, external bool) widget.BaseWidget {
+func navigationLink(label, href string, external bool) application.BaseWidget {
+
 	linkWidget := row.New(
-		[]widget.BaseWidget{
+		[]application.BaseWidget{
 			text.New(
 				label,
 				text.FontSize(16),
-				text.FontColor("#4B5563"),
 				text.FontWeight("500"),
-				text.UserSelect(options.UserSelectTypeNone),
+				text.UserSelect(theme.UserSelectTypeNone),
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 			),
 		},
-		row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+		row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 	)
 
 	if external {
 		linkWidget = row.New(
-			[]widget.BaseWidget{
+			[]application.BaseWidget{
 				text.New(
 					label,
 					text.FontSize(16),
-					text.FontColor("#4B5563"),
 					text.FontWeight("500"),
-					text.UserSelect(options.UserSelectTypeNone),
+					text.UserSelect(theme.UserSelectTypeNone),
+					text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 				),
 				spacer.New(spacer.Width(4)),
 				icon.New(
@@ -201,7 +201,7 @@ func navigationLink(label, href string, external bool) widget.BaseWidget {
 					icon.Fill("#6B7280"),
 				),
 			},
-			row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+			row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 		)
 	}
 
@@ -216,11 +216,12 @@ func navigationLink(label, href string, external bool) widget.BaseWidget {
 }
 
 // GitHub button with icon
-func githubButton() widget.BaseWidget {
+func githubButton() application.BaseWidget {
+
 	return container.New(
 		link.New(
 			row.New(
-				[]widget.BaseWidget{
+				[]application.BaseWidget{
 					icon.New(
 						icondata.Github,
 						icon.Width(breakpoint.All(20)),
@@ -231,10 +232,11 @@ func githubButton() widget.BaseWidget {
 						text.New(
 							"GitHub",
 							text.FontSize(14),
-							text.FontColor("#374151"),
 							text.FontWeight("600"),
-							text.UserSelect(options.UserSelectTypeNone),
+							text.UserSelect(theme.UserSelectTypeNone),
+							text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 						),
+						container.BackgroundColor("#00000000"),
 						container.Visible(
 							breakpoint.All(true),
 							breakpoint.XS(false),
@@ -243,7 +245,7 @@ func githubButton() widget.BaseWidget {
 					),
 				},
 				row.Gap(8),
-				row.CrossAxisAlignment(options.AxisAlignmentTypeCenter),
+				row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 			),
 			link.Href("https://github.com/gofred-io/gofred"),
 			link.NewTab(true),
@@ -253,20 +255,20 @@ func githubButton() widget.BaseWidget {
 			breakpoint.All(spacing.All(0)),
 			breakpoint.XS(spacing.Right(8)),
 		),
-		container.BackgroundColor("#F9FAFB"),
-		container.BorderColor("#E5E7EB"),
-		container.BorderWidth(1, 1, 1, 1),
+		container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Secondary),
+		container.BorderWidth(spacing.All(1)),
 		container.BorderRadius(8),
-		container.BorderStyle(options.BorderStyleTypeSolid),
+		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
 }
 
-func themeToggleButton() widget.BaseWidget {
-	currentTheme := theme.Listenable()
-	return listenable.Builder(currentTheme, func() widget.BaseWidget {
+func themeToggleButton() application.BaseWidget {
+	themeHook, setThemeData := hooks.UseTheme()
+	return listenable.Builder(themeHook, func() application.BaseWidget {
 		themeIcon := icondata.WhiteBalanceSunny
 		themeTooltip := "Switch to dark mode"
-		if theme.Get() == theme.ThemeDark {
+		themeData := appTheme.Data()
+		if themeData.Name == string(appTheme.ThemeDark) {
 			themeIcon = icondata.MoonWaningCrescent
 			themeTooltip = "Switch to light mode"
 		}
@@ -274,22 +276,18 @@ func themeToggleButton() widget.BaseWidget {
 		return container.New(
 			iconbutton.New(
 				themeIcon,
-				iconbutton.Fill("#6B7280"),
-				iconbutton.OnClick(func(this widget.BaseWidget, e widget.Event) {
-					if theme.Get() == theme.ThemeLight {
-						theme.Set(theme.ThemeDark)
+				iconbutton.ButtonStyle(appTheme.Data().ButtonTheme.IconButtonStyle.Secondary),
+				iconbutton.OnClick(func(this application.BaseWidget, e application.Event) {
+					if themeData.Name == string(appTheme.ThemeLight) {
+						setThemeData(appTheme.DarkTheme())
 					} else {
-						theme.Set(theme.ThemeLight)
+						setThemeData(appTheme.LightTheme())
 					}
 				}),
 				iconbutton.Tooltip(themeTooltip),
 			),
 			container.Padding(breakpoint.All(spacing.All(8))),
-			container.BackgroundColor("#F9FAFB"),
-			container.BorderColor("#E5E7EB"),
-			container.BorderWidth(1, 1, 1, 1),
 			container.BorderRadius(8),
-			container.BorderStyle(options.BorderStyleTypeSolid),
 		)
 	})
 }

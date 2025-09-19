@@ -2,7 +2,7 @@ package theme
 
 import (
 	"github.com/gofred-io/gofred/hooks"
-	"github.com/gofred-io/gofred/listenable"
+	"github.com/gofred-io/gofred/theme/theme_data"
 )
 
 type Theme string
@@ -13,17 +13,13 @@ const (
 )
 
 var (
-	currentTheme, setCurrentTheme = hooks.UseState(ThemeLight)
+	themeHook, setThemeData = hooks.UseTheme()
 )
 
-func Get() Theme {
-	return currentTheme.Value()
+func init() {
+	setThemeData(lightTheme)
 }
 
-func Listenable() listenable.Listenable[Theme] {
-	return currentTheme
-}
-
-func Set(theme Theme) {
-	setCurrentTheme(theme)
+func Data() *theme_data.ThemeData {
+	return themeHook.ThemeData()
 }
