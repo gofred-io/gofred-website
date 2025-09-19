@@ -4,6 +4,8 @@ import (
 	"github.com/gofred-io/gofred-website/app/components/codeblock"
 	"github.com/gofred-io/gofred-website/app/components/footer"
 	"github.com/gofred-io/gofred-website/app/components/header"
+	appTheme "github.com/gofred-io/gofred-website/app/theme"
+
 	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
 	"github.com/gofred-io/gofred/foundation/button"
@@ -18,7 +20,6 @@ import (
 	"github.com/gofred-io/gofred/foundation/row"
 	"github.com/gofred-io/gofred/foundation/spacer"
 	"github.com/gofred-io/gofred/foundation/text"
-	"github.com/gofred-io/gofred/hooks"
 	"github.com/gofred-io/gofred/options/spacing"
 	"github.com/gofred-io/gofred/theme"
 )
@@ -49,7 +50,6 @@ func New(params router.RouteParams) application.BaseWidget {
 
 // Enhanced Hero Section
 func heroSection() application.BaseWidget {
-	themeHook, _ := hooks.UseTheme()
 
 	return container.New(
 		center.New(
@@ -85,10 +85,10 @@ func heroSection() application.BaseWidget {
 					breakpoint.SM(spacing.All(24)),
 					breakpoint.MD(spacing.All(32)),
 				),
-				container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Secondary),
+				container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Secondary),
 			),
 		),
-		container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Secondary),
+		container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Secondary),
 		container.Flex(1),
 	)
 }
@@ -133,12 +133,11 @@ func heroHeadline() application.BaseWidget {
 }
 
 func heroDescription() application.BaseWidget {
-	themeHook, _ := hooks.UseTheme()
 
 	return container.New(
 		text.New(
 			"gofred is a modern web framework that lets you build interactive, responsive web applications using only Go. Create beautiful UIs with a widget-based architecture that compiles to WebAssembly.",
-			text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Secondary),
+			text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 			text.FontSize(18),
 			text.LineHeight(1.6),
 		),
@@ -148,7 +147,6 @@ func heroDescription() application.BaseWidget {
 }
 
 func heroCTAButtons() application.BaseWidget {
-	themeHook, _ := hooks.UseTheme()
 
 	return grid.New(
 		[]application.BaseWidget{
@@ -160,7 +158,7 @@ func heroCTAButtons() application.BaseWidget {
 							[]application.BaseWidget{
 								text.New(
 									"Get Started",
-									text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Tertiary),
+									text.TextStyle(appTheme.Data().TextTheme.TextStyle.Tertiary),
 									text.FontSize(16),
 									text.FontWeight("600"),
 								),
@@ -196,7 +194,7 @@ func heroCTAButtons() application.BaseWidget {
 								),
 								text.New(
 									"View on GitHub",
-									text.TextStyle(themeHook.ThemeData().ButtonTheme.ButtonStyle.Secondary.TextStyle),
+									text.TextStyle(appTheme.Data().ButtonTheme.ButtonStyle.Secondary.TextStyle),
 									text.FontSize(16),
 									text.FontWeight("500"),
 								),
@@ -205,7 +203,7 @@ func heroCTAButtons() application.BaseWidget {
 							row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 						),
 					),
-					button.ButtonStyle(themeHook.ThemeData().ButtonTheme.ButtonStyle.Secondary),
+					button.ButtonStyle(appTheme.Data().ButtonTheme.ButtonStyle.Secondary),
 					button.Width(breakpoint.All(182)),
 					button.Padding(breakpoint.All(spacing.All(20))),
 					button.BorderRadius(8),
@@ -224,7 +222,6 @@ func heroCTAButtons() application.BaseWidget {
 }
 
 func heroCodePreview() application.BaseWidget {
-	themeHook, _ := hooks.UseTheme()
 
 	return container.New(
 		column.New(
@@ -257,7 +254,7 @@ func heroCodePreview() application.BaseWidget {
 							spacer.New(),
 							text.New(
 								"main.go",
-								text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Secondary),
+								text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 								text.FontSize(14),
 								text.FontWeight("500"),
 							),
@@ -266,7 +263,7 @@ func heroCodePreview() application.BaseWidget {
 						row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 					),
 					container.Padding(breakpoint.All(spacing.All(16))),
-					container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Primary),
+					container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Primary),
 					container.BorderWidth(spacing.Bottom(1)),
 					container.BorderStyle(theme.BorderStyleTypeSolid),
 				),
@@ -289,7 +286,7 @@ func main() {
 			column.Gap(0),
 		),
 		container.BorderRadius(12),
-		container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Primary),
+		container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Primary),
 		container.BorderWidth(spacing.All(1)),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
 		container.MaxWidth(breakpoint.All(500)),
@@ -299,7 +296,6 @@ func main() {
 
 // Modern Features Section
 func modernFeaturesSection() application.BaseWidget {
-	themeHook, _ := hooks.UseTheme()
 
 	return container.New(
 		center.New(
@@ -319,7 +315,7 @@ func modernFeaturesSection() application.BaseWidget {
 								container.New(
 									text.New(
 										"Build modern web applications with the power of Go. No JavaScript, no complex build tools – just pure Go code that runs everywhere.",
-										text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Secondary),
+										text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 										text.FontSize(18),
 										text.LineHeight(1.6),
 									),
@@ -402,7 +398,6 @@ func modernFeaturesSection() application.BaseWidget {
 }
 
 func modernFeatureCard(iconData icondata.IconData, title, description, color string) application.BaseWidget {
-	themeHook, _ := hooks.UseTheme()
 
 	return container.New(
 		column.New(
@@ -423,7 +418,7 @@ func modernFeatureCard(iconData icondata.IconData, title, description, color str
 					container.BorderStyle(theme.BorderStyleTypeSolid),
 					container.Width(breakpoint.All(64)),
 					container.Height(breakpoint.All(64)),
-					container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Secondary),
+					container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Secondary),
 				),
 
 				spacer.New(spacer.Height(24)),
@@ -442,7 +437,7 @@ func modernFeatureCard(iconData icondata.IconData, title, description, color str
 					description,
 					text.FontSize(16),
 					text.LineHeight(1.6),
-					text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Secondary),
+					text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 				),
 			},
 			column.Gap(0),
@@ -456,7 +451,6 @@ func modernFeatureCard(iconData icondata.IconData, title, description, color str
 
 // Getting Started Section
 func gettingStartedSection() application.BaseWidget {
-	themeHook, _ := hooks.UseTheme()
 
 	return container.New(
 		center.New(
@@ -476,7 +470,7 @@ func gettingStartedSection() application.BaseWidget {
 								container.New(
 									text.New(
 										"Follow these simple steps to create your first gofred application.",
-										text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Secondary),
+										text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 										text.FontSize(18),
 									),
 									container.MaxWidth(breakpoint.All(600)),
@@ -531,7 +525,7 @@ func gettingStartedSection() application.BaseWidget {
 					column.Gap(0),
 					column.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 				),
-				container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Secondary),
+				container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Secondary),
 				container.MaxWidth(breakpoint.All(800)),
 				container.Padding(
 					breakpoint.XS(spacing.All(16)),
@@ -540,7 +534,7 @@ func gettingStartedSection() application.BaseWidget {
 				),
 			),
 		),
-		container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Secondary),
+		container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Secondary),
 		container.Padding(
 			breakpoint.All(spacing.All(64)),
 			breakpoint.XS(spacing.All(12)),
@@ -551,7 +545,6 @@ func gettingStartedSection() application.BaseWidget {
 }
 
 func gettingStartedStep(number, title, description, code string) application.BaseWidget {
-	themeHook, _ := hooks.UseTheme()
 
 	return row.New(
 		[]application.BaseWidget{
@@ -587,7 +580,7 @@ func gettingStartedStep(number, title, description, code string) application.Bas
 					spacer.New(spacer.Height(8)),
 					text.New(
 						description,
-						text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Secondary),
+						text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 						text.FontSize(16),
 					),
 					spacer.New(spacer.Height(12)),
@@ -606,7 +599,6 @@ func gettingStartedStep(number, title, description, code string) application.Bas
 
 // Community Section
 func communitySection() application.BaseWidget {
-	themeHook, _ := hooks.UseTheme()
 
 	return container.New(
 		center.New(
@@ -626,7 +618,7 @@ func communitySection() application.BaseWidget {
 								container.New(
 									text.New(
 										"Connect with other gofred developers, get help, and contribute to the future of Go web development.",
-										text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Secondary),
+										text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 										text.FontSize(18),
 									),
 									container.MaxWidth(breakpoint.All(600)),
@@ -693,7 +685,6 @@ func communitySection() application.BaseWidget {
 }
 
 func communityLink(iconData icondata.IconData, title, description, href string, newTab bool) application.BaseWidget {
-	themeHook, _ := hooks.UseTheme()
 
 	return container.New(
 		center.New(
@@ -713,7 +704,7 @@ func communityLink(iconData icondata.IconData, title, description, href string, 
 										),
 									),
 									container.Padding(breakpoint.All(spacing.All(12))),
-									container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Secondary),
+									container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Secondary),
 									container.BorderRadius(8),
 									container.BorderWidth(spacing.All(1)),
 									container.BorderStyle(theme.BorderStyleTypeSolid),
@@ -735,7 +726,7 @@ func communityLink(iconData icondata.IconData, title, description, href string, 
 								// Description
 								text.New(
 									description,
-									text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Secondary),
+									text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 									text.FontSize(14),
 									text.LineHeight(1.5),
 								),

@@ -2,7 +2,7 @@ package header
 
 import (
 	"github.com/gofred-io/gofred-website/app/components/drawer"
-	webtheme "github.com/gofred-io/gofred-website/app/theme"
+	appTheme "github.com/gofred-io/gofred-website/app/theme"
 
 	"github.com/gofred-io/gofred/application"
 	"github.com/gofred-io/gofred/breakpoint"
@@ -22,7 +22,6 @@ import (
 )
 
 func Get() application.BaseWidget {
-	themeHook, _ := hooks.UseTheme()
 	return container.New(
 		row.New(
 			[]application.BaseWidget{
@@ -57,17 +56,16 @@ func Get() application.BaseWidget {
 		),
 		container.BorderWidth(spacing.Bottom(1)),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
-		container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Primary),
+		container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Primary),
 	)
 }
 
 func menuButton() application.BaseWidget {
-	themeHook, _ := hooks.UseTheme()
 
 	return container.New(
 		iconbutton.New(
 			icondata.Menu,
-			iconbutton.ButtonStyle(themeHook.ThemeData().ButtonTheme.IconButtonStyle.Primary),
+			iconbutton.ButtonStyle(appTheme.Data().ButtonTheme.IconButtonStyle.Primary),
 			iconbutton.OnClick(func(this application.BaseWidget, e application.Event) {
 				drawer.Get().Show()
 			}),
@@ -170,7 +168,6 @@ func headerActions() application.BaseWidget {
 
 // Modern navigation link
 func navigationLink(label, href string, external bool) application.BaseWidget {
-	themeHook, _ := hooks.UseTheme()
 
 	linkWidget := row.New(
 		[]application.BaseWidget{
@@ -179,7 +176,7 @@ func navigationLink(label, href string, external bool) application.BaseWidget {
 				text.FontSize(16),
 				text.FontWeight("500"),
 				text.UserSelect(theme.UserSelectTypeNone),
-				text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Primary),
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 			),
 		},
 		row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
@@ -193,7 +190,7 @@ func navigationLink(label, href string, external bool) application.BaseWidget {
 					text.FontSize(16),
 					text.FontWeight("500"),
 					text.UserSelect(theme.UserSelectTypeNone),
-					text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Primary),
+					text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 				),
 				spacer.New(spacer.Width(4)),
 				icon.New(
@@ -219,7 +216,6 @@ func navigationLink(label, href string, external bool) application.BaseWidget {
 
 // GitHub button with icon
 func githubButton() application.BaseWidget {
-	themeHook, _ := hooks.UseTheme()
 
 	return container.New(
 		link.New(
@@ -237,7 +233,7 @@ func githubButton() application.BaseWidget {
 							text.FontSize(14),
 							text.FontWeight("600"),
 							text.UserSelect(theme.UserSelectTypeNone),
-							text.TextStyle(themeHook.ThemeData().TextTheme.TextStyle.Primary),
+							text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 						),
 						container.BackgroundColor("#00000000"),
 						container.Visible(
@@ -258,7 +254,7 @@ func githubButton() application.BaseWidget {
 			breakpoint.All(spacing.All(0)),
 			breakpoint.XS(spacing.Right(8)),
 		),
-		container.ContainerStyle(themeHook.ThemeData().BoxTheme.ContainerStyle.Secondary),
+		container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Secondary),
 		container.BorderWidth(spacing.All(1)),
 		container.BorderRadius(8),
 		container.BorderStyle(theme.BorderStyleTypeSolid),
@@ -270,8 +266,8 @@ func themeToggleButton() application.BaseWidget {
 	return listenable.Builder(themeHook, func() application.BaseWidget {
 		themeIcon := icondata.WhiteBalanceSunny
 		themeTooltip := "Switch to dark mode"
-		themeData := themeHook.ThemeData()
-		if themeData.Name == string(webtheme.ThemeDark) {
+		themeData := appTheme.Data()
+		if themeData.Name == string(appTheme.ThemeDark) {
 			themeIcon = icondata.MoonWaningCrescent
 			themeTooltip = "Switch to light mode"
 		}
@@ -279,12 +275,12 @@ func themeToggleButton() application.BaseWidget {
 		return container.New(
 			iconbutton.New(
 				themeIcon,
-				iconbutton.ButtonStyle(themeHook.ThemeData().ButtonTheme.IconButtonStyle.Secondary),
+				iconbutton.ButtonStyle(appTheme.Data().ButtonTheme.IconButtonStyle.Secondary),
 				iconbutton.OnClick(func(this application.BaseWidget, e application.Event) {
-					if themeData.Name == string(webtheme.ThemeLight) {
-						setThemeData(webtheme.DarkTheme())
+					if themeData.Name == string(appTheme.ThemeLight) {
+						setThemeData(appTheme.DarkTheme())
 					} else {
-						setThemeData(webtheme.LightTheme())
+						setThemeData(appTheme.LightTheme())
 					}
 				}),
 				iconbutton.Tooltip(themeTooltip),

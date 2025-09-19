@@ -1,6 +1,9 @@
 package theme
 
-import "github.com/gofred-io/gofred/hooks"
+import (
+	"github.com/gofred-io/gofred/hooks"
+	"github.com/gofred-io/gofred/theme/theme_data"
+)
 
 type Theme string
 
@@ -9,7 +12,14 @@ const (
 	ThemeDark  Theme = "dark"
 )
 
+var (
+	themeHook, setThemeData = hooks.UseTheme()
+)
+
 func init() {
-	_, setThemeData := hooks.UseTheme()
 	setThemeData(lightTheme)
+}
+
+func Data() *theme_data.ThemeData {
+	return themeHook.ThemeData()
 }
