@@ -64,7 +64,7 @@ func layoutsPageContent() application.BaseWidget {
 			layoutSubsection("Basic Column", "The foundation of vertical layouts."),
 			codeblock.New(`column.New(
     []application.BaseWidget{
-        text.New("Header", text.FontSize(24), text.FontWeight("600")),
+        text.New("Header", text.FontSize(24), text.FontWeight("700")),
         text.New("Subtitle", text.FontSize(16), text.FontColor("#6B7280")),
         text.New("Content goes here..."),
         button.New(text.New("Action Button")),
@@ -218,7 +218,7 @@ grid.New(
 			codeblock.New(`container.New(
     column.New(
         []application.BaseWidget{
-            text.New("Card Title", text.FontWeight("600")),
+            text.New("Card Title", text.FontWeight("700")),
             text.New("Card content goes here..."),
         },
         column.Gap(8),
@@ -397,7 +397,7 @@ func navigationBar() application.BaseWidget {
                         text.New(
                             title,
                             text.FontSize(18),
-                            text.FontWeight("600"),
+                            text.FontWeight("700"),
                                                     ),
                         spacer.New(),
                         // Optional header actions
@@ -503,7 +503,7 @@ func layoutContentSection(title, description string) application.BaseWidget {
 			text.New(
 				title,
 				text.FontSize(24),
-				text.FontWeight("600"),
+				text.FontWeight("700"),
 			),
 			text.New(
 				description,
@@ -521,7 +521,7 @@ func layoutSubsection(title, description string) application.BaseWidget {
 			text.New(
 				title,
 				text.FontSize(20),
-				text.FontWeight("600"),
+				text.FontWeight("700"),
 			),
 			text.New(
 				description,

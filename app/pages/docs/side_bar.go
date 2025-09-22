@@ -46,7 +46,7 @@ func docsSidebarHeader() application.BaseWidget {
 			text.New(
 				"Documentation",
 				text.FontSize(20),
-				text.FontWeight("600"),
+				text.FontWeight("700"),
 			),
 			text.New(
 				"Learn how to build with gofred",
@@ -142,7 +142,7 @@ func navSection(title string, items []navItem, activeHref string) application.Ba
 		title,
 		text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 		text.FontSize(14),
-		text.FontWeight("600"),
+		text.FontWeight("700"),
 	))
 
 	// Section items

@@ -209,7 +209,7 @@ func featureCard(iconData icondata.IconData, title, description, color string, h
 						text.New(
 							title,
 							text.FontSize(18),
-							text.FontWeight("600"),
+							text.FontWeight("700"),
 							text.UserSelect(theme.UserSelectTypeNone),
 						),
 						spacer.New(spacer.Height(8)),
@@ -244,7 +244,7 @@ func featuresTitle() application.BaseWidget {
 			text.New(
 				"Ready to get started?",
 				text.FontSize(24),
-				text.FontWeight("600"),
+				text.FontWeight("700"),
 				text.UserSelect(theme.UserSelectTypeNone),
 				text.Align(theme.TextAlignTypeCenter),
 			),

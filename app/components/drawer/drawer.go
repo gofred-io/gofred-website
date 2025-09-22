@@ -170,7 +170,7 @@ func sectionTitle(title string) application.BaseWidget {
 		title,
 		text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 		text.FontSize(12),
-		text.FontWeight("600"),
+		text.FontWeight("700"),
 		text.UserSelect(theme.UserSelectTypeNone),
 	)
 }

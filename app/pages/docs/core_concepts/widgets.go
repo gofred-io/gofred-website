@@ -121,7 +121,7 @@ func widgetsPageContent() application.BaseWidget {
     text.New(
         "Centered Content",
         text.FontSize(24),
-        text.FontWeight("600"),
+        text.FontWeight("700"),
     ),
 )`),
 			spacer.New(spacer.Height(16)),
@@ -143,7 +143,7 @@ spacer.New()`),
 			codeblock.New(`text.New(
     "Hello, gofred!",
     text.FontSize(18),
-        text.FontWeight("600"),
+        text.FontWeight("700"),
     text.TextAlign(theme.TextAlignTypeCenter),
     text.LineHeight(1.5),
 )`),
@@ -243,7 +243,7 @@ func handleButtonClick(this application.BaseWidget, e application.Event) {
                 text.New(
                     title,
                     text.FontSize(18),
-                    text.FontWeight("600"),
+                    text.FontWeight("700"),
                                     ),
                 spacer.New(spacer.Height(8)),
                 text.New(
@@ -297,7 +297,7 @@ func contentSection(title, description string) application.BaseWidget {
 			text.New(
 				title,
 				text.FontSize(24),
-				text.FontWeight("600"),
+				text.FontWeight("700"),
 			),
 			text.New(
 				description,
@@ -315,7 +315,7 @@ func widgetSubsection(title, description string) application.BaseWidget {
 			text.New(
 				title,
 				text.FontSize(20),
-				text.FontWeight("600"),
+				text.FontWeight("700"),
 			),
 			text.New(
 				description,

@@ -78,7 +78,7 @@ func drawerTitle() application.BaseWidget {
 			text.New(
 				"Documentation",
 				text.FontSize(18),
-				text.FontWeight("600"),
+				text.FontWeight("700"),
 				text.UserSelect(theme.UserSelectTypeNone),
 			),
 			text.New(
@@ -162,7 +162,7 @@ func drawerNavSection(title string, items []drawerNavItem, activeHref string) ap
 		title,
 		text.TextStyle(appTheme.Data().TextTheme.TextStyle.Secondary),
 		text.FontSize(12),
-		text.FontWeight("600"),
+		text.FontWeight("700"),
 		text.UserSelect(theme.UserSelectTypeNone),
 	))
 

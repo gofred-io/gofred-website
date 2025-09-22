@@ -158,7 +158,7 @@ func projectStructureFileItem(path, description string) application.BaseWidget {
 						text.New(
 							path,
 							text.FontSize(16),
-							text.FontWeight("600"),
+							text.FontWeight("700"),
 						),
 						text.New(
 							description,

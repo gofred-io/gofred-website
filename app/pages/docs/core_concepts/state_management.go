@@ -88,7 +88,7 @@ func counterWidget() application.BaseWidget {
                 return text.New(
                     fmt.Sprintf("Count: %d", count.Value()),
                     text.FontSize(18),
-                    text.FontWeight("600"),
+                    text.FontWeight("700"),
                 )
             }),
             
@@ -250,7 +250,7 @@ func userProfileWidget() application.BaseWidget {
                         text.New(
                             fmt.Sprintf("Welcome, %s!", currentUser.Name),
                             text.FontSize(24),
-                            text.FontWeight("600"),
+                            text.FontWeight("700"),
                         ),
                         text.New(
                             fmt.Sprintf("Email: %s", currentUser.Email),
@@ -518,7 +518,7 @@ func userProfileAsyncWidget() application.BaseWidget {
                 text.New(
                     fmt.Sprintf("Welcome, %s!", user.Name),
                     text.FontSize(24),
-                    text.FontWeight("600"),
+                    text.FontWeight("700"),
                 ),
                 text.New(user.Email, text.FontColor("#6B7280")),
             },
@@ -841,7 +841,7 @@ func stateContentSection(title, description string) application.BaseWidget {
 			text.New(
 				title,
 				text.FontSize(24),
-				text.FontWeight("600"),
+				text.FontWeight("700"),
 			),
 			text.New(
 				description,
@@ -859,7 +859,7 @@ func stateSubsection(title, description string) application.BaseWidget {
 			text.New(
 				title,
 				text.FontSize(20),
-				text.FontWeight("600"),
+				text.FontWeight("700"),
 			),
 			text.New(
 				description,

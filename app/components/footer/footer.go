@@ -185,7 +185,7 @@ func footerLinksSection(title string, links []FooterLink) application.BaseWidget
 				title,
 				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Tertiary),
 				text.FontSize(16),
-				text.FontWeight("600"),
+				text.FontWeight("700"),
 			),
 
 			spacer.New(spacer.Height(16)),
@@ -459,7 +459,7 @@ func mobileFooterSection(title string, links []string) application.BaseWidget {
 				title,
 				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Tertiary),
 				text.FontSize(16),
-				text.FontWeight("600"),
+				text.FontWeight("700"),
 			),
 
 			spacer.New(spacer.Height(12)),

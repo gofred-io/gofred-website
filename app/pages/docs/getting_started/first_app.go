@@ -140,7 +140,7 @@ func createApp() application.BaseWidget {
                         fmt.Sprintf("Count: %d", count.Value()),
                         text.FontSize(18),
                         text.FontColor("#2B799B"),
-                        text.FontWeight("600"),
+                        text.FontWeight("700"),
                     )
                 }),
                 spacer.New(spacer.Height(16)),

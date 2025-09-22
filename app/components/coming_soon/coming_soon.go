@@ -169,7 +169,7 @@ func comingSoonSuggestions(suggestions []Suggestion) application.BaseWidget {
 		text.New(
 			"While you're here, check out these available topics:",
 			text.FontSize(18),
-			text.FontWeight("600"),
+			text.FontWeight("700"),
 		),
 	)
 	suggestionWidgets = append(suggestionWidgets, spacer.New(spacer.Height(16)))

@@ -102,7 +102,7 @@ func contentSection(title, description string) application.BaseWidget {
 			text.New(
 				title,
 				text.FontSize(24),
-				text.FontWeight("600"),
+				text.FontWeight("700"),
 			),
 			text.New(
 				description,

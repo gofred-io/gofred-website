@@ -167,7 +167,7 @@ func counterWidget() application.BaseWidget {
                 return text.New(
                     fmt.Sprintf("Count: %d", count.Value()),
                     text.FontSize(18),
-                    text.FontWeight("600"),
+                    text.FontWeight("700"),
                 )
             }),
             
@@ -511,7 +511,7 @@ func userProfile() application.BaseWidget {
                     []application.BaseWidget{
                         text.New(
                             fmt.Sprintf("Name: %s", user.Name),
-                            text.FontWeight("600"),
+                            text.FontWeight("700"),
                         ),
                         text.New(
                             fmt.Sprintf("Email: %s", user.Email),
@@ -757,7 +757,7 @@ func eventContentSection(title, description string) application.BaseWidget {
 			text.New(
 				title,
 				text.FontSize(24),
-				text.FontWeight("600"),
+				text.FontWeight("700"),
 			),
 			text.New(
 				description,
@@ -775,7 +775,7 @@ func eventSubsection(title, description string) application.BaseWidget {
 			text.New(
 				title,
 				text.FontSize(20),
-				text.FontWeight("600"),
+				text.FontWeight("700"),
 			),
 			text.New(
 				description,

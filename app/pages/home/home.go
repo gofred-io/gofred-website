@@ -160,7 +160,7 @@ func heroCTAButtons() application.BaseWidget {
 									"Get Started",
 									text.TextStyle(appTheme.Data().TextTheme.TextStyle.Tertiary),
 									text.FontSize(16),
-									text.FontWeight("600"),
+									text.FontWeight("700"),
 								),
 								icon.New(
 									icondata.ChevronRight,
@@ -427,7 +427,7 @@ func modernFeatureCard(iconData icondata.IconData, title, description, color str
 				text.New(
 					title,
 					text.FontSize(20),
-					text.FontWeight("600"),
+					text.FontWeight("700"),
 				),
 
 				spacer.New(spacer.Height(12)),
@@ -504,7 +504,7 @@ func gettingStartedSection() application.BaseWidget {
 											"View Full Tutorial",
 											text.FontSize(16),
 											text.FontColor("#FFFFFF"),
-											text.FontWeight("600"),
+											text.FontWeight("700"),
 											text.Align(theme.TextAlignTypeCenter),
 										),
 										icon.New(
@@ -575,7 +575,7 @@ func gettingStartedStep(number, title, description, code string) application.Bas
 					text.New(
 						title,
 						text.FontSize(20),
-						text.FontWeight("600"),
+						text.FontWeight("700"),
 					),
 					spacer.New(spacer.Height(8)),
 					text.New(
@@ -718,7 +718,7 @@ func communityLink(iconData icondata.IconData, title, description, href string, 
 								text.New(
 									title,
 									text.FontSize(18),
-									text.FontWeight("600"),
+									text.FontWeight("700"),
 								),
 
 								spacer.New(spacer.Height(8)),

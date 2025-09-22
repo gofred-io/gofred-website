@@ -174,10 +174,10 @@ func navigationLink(label, href string, external bool) application.BaseWidget {
 		[]application.BaseWidget{
 			text.New(
 				label,
+				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 				text.FontSize(16),
 				text.FontWeight("500"),
 				text.UserSelect(theme.UserSelectTypeNone),
-				text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 			),
 		},
 		row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
@@ -188,10 +188,10 @@ func navigationLink(label, href string, external bool) application.BaseWidget {
 			[]application.BaseWidget{
 				text.New(
 					label,
+					text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 					text.FontSize(16),
 					text.FontWeight("500"),
 					text.UserSelect(theme.UserSelectTypeNone),
-					text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
 				),
 				spacer.New(spacer.Width(4)),
 				icon.New(
@@ -231,10 +231,10 @@ func githubButton() application.BaseWidget {
 					container.New(
 						text.New(
 							"GitHub",
-							text.FontSize(14),
-							text.FontWeight("600"),
-							text.UserSelect(theme.UserSelectTypeNone),
 							text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
+							text.FontSize(14),
+							text.FontWeight("700"),
+							text.UserSelect(theme.UserSelectTypeNone),
 						),
 						container.BackgroundColor("#00000000"),
 						container.Visible(

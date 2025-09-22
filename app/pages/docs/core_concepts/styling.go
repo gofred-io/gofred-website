@@ -141,7 +141,7 @@ text.New("Caption", text.FontSize(10))            // 10px`),
 text.New("Light Text", text.FontWeight("300"))
 text.New("Normal Text", text.FontWeight("400"))     // Default
 text.New("Medium Text", text.FontWeight("500"))
-text.New("Semibold Text", text.FontWeight("600"))
+text.New("Semibold Text", text.FontWeight("700"))
 text.New("Bold Text", text.FontWeight("700"))
 text.New("Extra Bold", text.FontWeight("800"))
 text.New("Black Text", text.FontWeight("900"))`),
@@ -637,7 +637,7 @@ func stylingContentSection(title, description string) application.BaseWidget {
 			text.New(
 				title,
 				text.FontSize(24),
-				text.FontWeight("600"),
+				text.FontWeight("700"),
 			),
 			text.New(
 				description,
@@ -655,7 +655,7 @@ func stylingSubsection(title, description string) application.BaseWidget {
 			text.New(
 				title,
 				text.FontSize(20),
-				text.FontWeight("600"),
+				text.FontWeight("700"),
 			),
 			text.New(
 				description,
