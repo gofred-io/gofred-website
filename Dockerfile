@@ -20,6 +20,9 @@ COPY . .
 # Build the WebAssembly binary
 RUN GOOS=js GOARCH=wasm go build -ldflags="-s -w" -o web/main.wasm .
 
+# List the scripts
+RUN ls -la scripts/
+
 # Run the upload-wasm.sh script
 RUN ./scripts/upload-wasm.sh
 
