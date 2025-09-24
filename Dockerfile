@@ -20,6 +20,9 @@ COPY . .
 # Build the WebAssembly binary
 RUN GOOS=js GOARCH=wasm go build -ldflags="-s -w" -o web/main.wasm .
 
+# Run the upload-wasm.sh script
+RUN ./scripts/upload-wasm.sh
+
 # Verify the wasm file was created
 RUN ls -la web/main.wasm
 
@@ -39,7 +42,7 @@ RUN mkdir -p /usr/share/nginx/html
 COPY --from=builder /app/web/ /usr/share/nginx/html/
 
 # Create env.js file with empty window.env object for production
-RUN echo "window.env = {}" > /usr/share/nginx/html/env.js
+RUN echo "window.env = {WASM_URL: 'https://cdn.gofred.io/web/main.wasm'}" > /usr/share/nginx/html/env.js
 
 # Create nginx user and set permissions
 RUN chown -R nginx:nginx /usr/share/nginx/html && \

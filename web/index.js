@@ -2,7 +2,7 @@
 // Modified from https://tinygo.org/docs/guides/webassembly/
 
 const go = new Go(); // Defined in wasm_exec.js
-const WASM_URL = 'main.wasm';
+const WASM_URL = window.env.WASM_URL;
 var wasm;
 
 function createWebsocketClient() {
