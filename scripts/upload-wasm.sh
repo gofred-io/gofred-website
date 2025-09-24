@@ -12,7 +12,7 @@ SPACES_BUCKET="${DO_SPACES_BUCKET:-gofred}"
 SPACES_ENDPOINT="${DO_SPACES_ENDPOINT:-https://${SPACES_REGION}.digitaloceanspaces.com}"
 ACCESS_KEY="${DO_SPACES_ACCESS_KEY}"
 SECRET_KEY="${DO_SPACES_SECRET_KEY}"
-WASM_FILE="web/main.wasm"
+WASM_FILE="${WASM_FILE:-web/main.wasm}"
 WASM_KEY="web/main.wasm"  # Key in the bucket (can be different from filename)
 CONTENT_TYPE="application/wasm"
 

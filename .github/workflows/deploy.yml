@@ -30,6 +30,7 @@ jobs:
           export DO_API_TOKEN="${{ secrets.DO_API_TOKEN }}"
           export DO_CDN_ENDPOINT_ID="${{ secrets.DO_CDN_ENDPOINT_ID }}"
           export DO_PURGE_CACHE="${{ secrets.DO_PURGE_CACHE }}"
+          export WASM_FILE="${{ secrets.PROD_REPO_PATH }}/web/main.wasm"
           
           # Make deployment script executable
           chmod +x ${{ secrets.PROD_REPO_PATH }}/scripts/deploy.sh
