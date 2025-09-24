@@ -2,16 +2,6 @@
 # Stage 1: Build WebAssembly
 FROM golang:1.25.0-alpine AS builder
 
-# Environment variables for DigitalOcean Spaces upload
-# These are set by the deploy.sh script
-ENV DO_SPACES_REGION=${DO_SPACES_REGION}
-ENV DO_SPACES_BUCKET=${DO_SPACES_BUCKET}
-ENV DO_SPACES_ACCESS_KEY=${DO_SPACES_ACCESS_KEY}
-ENV DO_SPACES_SECRET_KEY=${DO_SPACES_SECRET_KEY}
-ENV DO_API_TOKEN=${DO_API_TOKEN}
-ENV DO_CDN_ENDPOINT_ID=${DO_CDN_ENDPOINT_ID}
-ENV DO_PURGE_CACHE=${DO_PURGE_CACHE}
-
 # Install necessary packages
 RUN apk add --no-cache git ca-certificates tzdata curl jq
 
@@ -29,12 +19,6 @@ COPY . .
 
 # Build the WebAssembly binary
 RUN GOOS=js GOARCH=wasm go build -ldflags="-s -w" -o web/main.wasm .
-
-# List the scripts
-RUN ls -la scripts/
-
-# Run the upload-wasm.sh script
-RUN sh scripts/upload-wasm.sh
 
 # Verify the wasm file was created
 RUN ls -la web/main.wasm

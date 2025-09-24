@@ -33,6 +33,12 @@ jobs:
           
           # Make deployment script executable
           chmod +x ${{ secrets.PROD_REPO_PATH }}/scripts/deploy.sh
+
+          # Make upload-wasm.sh executable
+          chmod +x ${{ secrets.PROD_REPO_PATH }}/scripts/upload-wasm.sh
           
           # Run deployment script
           ${{ secrets.PROD_REPO_PATH }}/scripts/deploy.sh
+
+          # Run upload-wasm.sh script
+          ${{ secrets.PROD_REPO_PATH }}/scripts/upload-wasm.sh
