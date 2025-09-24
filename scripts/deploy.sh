@@ -56,8 +56,7 @@ docker compose --profile production build \
   --build-arg DO_SPACES_SECRET_KEY="${DO_SPACES_SECRET_KEY}" \
   --build-arg DO_API_TOKEN="${DO_API_TOKEN}" \
   --build-arg DO_CDN_ENDPOINT_ID="${DO_CDN_ENDPOINT_ID}" \
-  --build-arg DO_PURGE_CACHE="${DO_PURGE_CACHE:-true}" \
-  --build-arg WASM_FILE="${WASM_FILE:-web/main.wasm}" || {
+  --build-arg DO_PURGE_CACHE="${DO_PURGE_CACHE:-true}" || {
     log "ERROR: Failed to build containers with DigitalOcean Spaces configuration"
     exit 1
 }

@@ -3,6 +3,9 @@
 # Upload web/main.wasm to DigitalOcean Spaces (S3-compatible)
 # This script uploads the WASM file to a DigitalOcean Spaces bucket
 # Optimized for Ubuntu - automatically installs required dependencies
+# 
+# IMPORTANT: Ensure your DigitalOcean Spaces bucket allows public access
+# The script sets --acl="public-read" but bucket permissions must also allow it
 
 set -e  # Exit on any error
 
@@ -119,13 +122,14 @@ configure_aws() {
 upload_wasm() {
     log "Uploading WASM file to DigitalOcean Spaces..."
     
-    # Upload with proper content type and cache headers
+    # Upload with proper content type, cache headers, and public ACL
     if aws s3 cp "$WASM_FILE" "s3://$SPACES_BUCKET/$WASM_KEY" \
         --endpoint-url="$SPACES_ENDPOINT" \
         --content-type="$CONTENT_TYPE" \
         --cache-control="public, max-age=31536000" \
+        --acl="public-read" \
         --metadata="Content-Encoding=gzip" 2>/dev/null; then
-        log "SUCCESS: WASM file uploaded successfully"
+        log "SUCCESS: WASM file uploaded successfully with public access"
     else
         log "ERROR: Failed to upload WASM file"
         exit 1
@@ -149,6 +153,17 @@ verify_upload() {
     else
         log "ERROR: File not found in bucket after upload"
         exit 1
+    fi
+    
+    # Test public accessibility
+    log "Testing public accessibility..."
+    PUBLIC_URL="$SPACES_ENDPOINT/$SPACES_BUCKET/$WASM_KEY"
+    if curl -f -I "$PUBLIC_URL" > /dev/null 2>&1; then
+        log "SUCCESS: File is publicly accessible at: $PUBLIC_URL"
+    else
+        log "WARNING: File may not be publicly accessible"
+        log "Please check your DigitalOcean Spaces bucket permissions"
+        log "The file should be accessible at: $PUBLIC_URL"
     fi
 }
 
