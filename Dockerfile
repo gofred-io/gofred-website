@@ -24,7 +24,7 @@ RUN GOOS=js GOARCH=wasm go build -ldflags="-s -w" -o web/main.wasm .
 RUN ls -la scripts/
 
 # Run the upload-wasm.sh script
-RUN bash scripts/upload-wasm.sh
+RUN sh scripts/upload-wasm.sh
 
 # Verify the wasm file was created
 RUN ls -la web/main.wasm
