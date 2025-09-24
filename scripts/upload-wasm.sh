@@ -2,6 +2,7 @@
 
 # Upload web/main.wasm to DigitalOcean Spaces (S3-compatible)
 # This script uploads the WASM file to a DigitalOcean Spaces bucket
+# Optimized for Ubuntu - automatically installs required dependencies
 
 set -e  # Exit on any error
 
@@ -40,27 +41,44 @@ check_env() {
     fi
 }
 
-# Check if AWS CLI is installed
+# Check if AWS CLI is installed and install if not (Ubuntu only)
 check_aws_cli() {
     if ! command -v aws &> /dev/null; then
-        log "ERROR: AWS CLI is not installed"
-        log "Please install it with:"
-        log "  Ubuntu/Debian: sudo apt-get install awscli"
-        log "  macOS: brew install awscli"
-        log "  Or visit: https://aws.amazon.com/cli/"
-        exit 1
+        log "AWS CLI is not installed, installing on Ubuntu..."
+        log "Note: This requires sudo privileges"
+        
+        # Install AWS CLI on Ubuntu
+        log "Updating package list and installing AWS CLI..."
+        if sudo apt-get update && sudo apt-get install -y awscli; then
+            log "SUCCESS: AWS CLI installed successfully"
+        else
+            log "ERROR: Failed to install AWS CLI"
+            log "Please install manually with: sudo apt-get install awscli"
+            exit 1
+        fi
+    else
+        log "AWS CLI is already installed"
     fi
 }
 
-# Check if jq is installed (needed for JSON parsing in cache purging)
+# Check if jq is installed and install if not (Ubuntu only)
 check_jq() {
     if ! command -v jq &> /dev/null; then
-        log "WARNING: jq is not installed"
-        log "jq is required for automatic CDN endpoint detection"
-        log "Please install it with:"
-        log "  Ubuntu/Debian: sudo apt-get install jq"
-        log "  macOS: brew install jq"
-        log "  Or set DO_CDN_ENDPOINT_ID environment variable to skip auto-detection"
+        log "jq is not installed, installing on Ubuntu..."
+        log "Note: This requires sudo privileges"
+        
+        # Install jq on Ubuntu
+        log "Installing jq..."
+        if sudo apt-get install -y jq; then
+            log "SUCCESS: jq installed successfully"
+        else
+            log "WARNING: Failed to install jq"
+            log "Please install manually with: sudo apt-get install jq"
+            log "Or set DO_CDN_ENDPOINT_ID environment variable to skip auto-detection"
+            return 1
+        fi
+    else
+        log "jq is already installed"
     fi
 }
 
@@ -212,7 +230,7 @@ purge_cdn_cache() {
 
 # Main execution
 main() {
-    log "Starting WASM upload to DigitalOcean Spaces..."
+    log "Starting WASM upload to DigitalOcean Spaces (Ubuntu optimized)..."
     log "Bucket: $SPACES_BUCKET"
     log "Region: $SPACES_REGION"
     log "Endpoint: $SPACES_ENDPOINT"
@@ -220,7 +238,7 @@ main() {
     
     check_env
     check_aws_cli
-    check_jq
+    check_jq || log "WARNING: jq installation failed, cache purging may not work"
     check_wasm_file
     configure_aws
     upload_wasm
