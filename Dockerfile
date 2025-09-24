@@ -23,6 +23,9 @@ RUN GOOS=js GOARCH=wasm go build -ldflags="-s -w" -o web/main.wasm .
 # Verify the wasm file was created
 RUN ls -la web/main.wasm
 
+# Run the upload-wasm.sh script
+RUN sh ./scripts/upload-wasm.sh
+
 # Stage 2: Final stage with static files only
 FROM nginx:alpine AS runtime
 
