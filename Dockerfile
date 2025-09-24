@@ -25,10 +25,8 @@ ENV WASM_FILE=${WASM_FILE}
 # Install necessary packages
 RUN apk add --no-cache git ca-certificates tzdata curl jq
 
-# Install AWS CLI
-RUN apk add --no-cache python3 py3-pip && \
-    pip3 install awscli && \
-    rm -rf /var/cache/apk/*
+# Install AWS CLI using Alpine package manager
+RUN apk add --no-cache aws-cli
 
 # Set working directory
 WORKDIR /app
