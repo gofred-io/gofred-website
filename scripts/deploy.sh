@@ -10,6 +10,15 @@ REPO_PATH="${PROD_REPO_PATH:-/opt/gofred-website}"
 DOCKER_COMPOSE_FILE="docker-compose.yml"
 LOG_FILE="/var/log/gofred-deploy.log"
 
+# DigitalOcean Spaces Configuration
+export DO_SPACES_REGION="${DO_SPACES_REGION:-fra1}"
+export DO_SPACES_BUCKET="${DO_SPACES_BUCKET:-gofred}"
+export DO_SPACES_ACCESS_KEY="${DO_SPACES_ACCESS_KEY}"
+export DO_SPACES_SECRET_KEY="${DO_SPACES_SECRET_KEY}"
+export DO_API_TOKEN="${DO_API_TOKEN}"
+export DO_CDN_ENDPOINT_ID="${DO_CDN_ENDPOINT_ID}"
+export DO_PURGE_CACHE="${DO_PURGE_CACHE:-true}"
+
 # Logging function
 log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
@@ -38,6 +47,13 @@ git reset --hard origin/master || {
 }
 
 log "Successfully pulled latest changes"
+
+# Validate DigitalOcean Spaces credentials
+if [ -z "$DO_SPACES_ACCESS_KEY" ] || [ -z "$DO_SPACES_SECRET_KEY" ]; then
+    log "WARNING: DigitalOcean Spaces credentials not set"
+    log "Set DO_SPACES_ACCESS_KEY and DO_SPACES_SECRET_KEY to enable WASM upload"
+    log "WASM file will be built but not uploaded to DigitalOcean Spaces"
+fi
 
 # Check if docker-compose.yml exists
 if [ ! -f "$DOCKER_COMPOSE_FILE" ]; then
