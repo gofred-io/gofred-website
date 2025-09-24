@@ -213,6 +213,7 @@ func footerLink(title, href string, newTab bool) application.BaseWidget {
 		),
 		link.Href(href),
 		link.NewTab(newTab),
+		link.Label(title),
 	)
 }
 
@@ -233,7 +234,6 @@ func socialLinks() application.BaseWidget {
 
 // Individual social icon
 func socialIcon(iconData icondata.IconData, tooltip, href string) application.BaseWidget {
-
 	return link.New(
 		container.New(
 			icon.New(
@@ -247,6 +247,7 @@ func socialIcon(iconData icondata.IconData, tooltip, href string) application.Ba
 		),
 		link.Href(href),
 		link.NewTab(true),
+		link.Label(tooltip),
 	)
 }
 

@@ -71,6 +71,7 @@ func menuButton() application.BaseWidget {
 				scaffold.Get().Drawer(drawer.Name).Show()
 			}),
 			iconbutton.Tooltip("Open menu"),
+			iconbutton.Label("Open menu"),
 		),
 		container.Padding(breakpoint.All(spacing.All(8))),
 		container.Visible(
@@ -94,6 +95,7 @@ func logoTitle() application.BaseWidget {
 				row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 			),
 			link.Href("/"),
+			link.Label("home page"),
 		),
 		container.Padding(
 			breakpoint.All(spacing.All(8)),
@@ -115,6 +117,7 @@ func logo() application.BaseWidget {
 			breakpoint.XS(36),
 			breakpoint.SM(38),
 		),
+		image.Alt("gofred logo"),
 	)
 }
 
@@ -210,55 +213,9 @@ func navigationLink(label, href string, external bool) application.BaseWidget {
 			linkWidget,
 			link.Href(href),
 			link.NewTab(external),
+			link.Label(label),
 		),
 		container.Padding(breakpoint.All(spacing.All(8))),
-	)
-}
-
-// GitHub button with icon
-func githubButton() application.BaseWidget {
-
-	return container.New(
-		link.New(
-			row.New(
-				[]application.BaseWidget{
-					icon.New(
-						icondata.Github,
-						icon.Width(breakpoint.All(20)),
-						icon.Height(breakpoint.All(20)),
-						icon.Fill("#374151"),
-					),
-					container.New(
-						text.New(
-							"GitHub",
-							text.TextStyle(appTheme.Data().TextTheme.TextStyle.Primary),
-							text.FontSize(14),
-							text.FontWeight("700"),
-							text.UserSelect(theme.UserSelectTypeNone),
-						),
-						container.BackgroundColor("#00000000"),
-						container.Visible(
-							breakpoint.All(true),
-							breakpoint.XS(false),
-							breakpoint.SM(false),
-						),
-					),
-				},
-				row.Gap(8),
-				row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
-			),
-			link.Href("https://github.com/gofred-io/gofred"),
-			link.NewTab(true),
-		),
-		container.Padding(breakpoint.All(spacing.All(12))),
-		container.Margin(
-			breakpoint.All(spacing.All(0)),
-			breakpoint.XS(spacing.Right(8)),
-		),
-		container.ContainerStyle(appTheme.Data().BoxTheme.ContainerStyle.Secondary),
-		container.BorderWidth(spacing.All(1)),
-		container.BorderRadius(8),
-		container.BorderStyle(theme.BorderStyleTypeSolid),
 	)
 }
 
@@ -285,6 +242,7 @@ func themeToggleButton() application.BaseWidget {
 					}
 				}),
 				iconbutton.Tooltip(themeTooltip),
+				iconbutton.Label("Switch theme"),
 			),
 			container.Padding(breakpoint.All(spacing.All(8))),
 			container.BorderRadius(8),

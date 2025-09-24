@@ -226,6 +226,7 @@ func suggestionCard(suggestion Suggestion) application.BaseWidget {
 			container.Width(breakpoint.All(400)),
 		),
 		link.Href(suggestion.Href),
+		link.Label(suggestion.Title),
 	)
 }
 
@@ -261,8 +262,10 @@ func comingSoonActions() application.BaseWidget {
 								row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 							),
 							button.BorderRadius(6),
+							button.Label("Back to Docs"),
 						),
 						link.Href("/docs"),
+						link.Label("docs page"),
 					),
 					link.New(
 						button.New(
@@ -285,9 +288,11 @@ func comingSoonActions() application.BaseWidget {
 								row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 							),
 							button.BorderRadius(6),
+							button.Label("GitHub Discussions"),
 						),
 						link.Href("https://github.com/orgs/gofred-io/discussions"),
 						link.NewTab(true),
+						link.Label("discussions page"),
 					),
 				},
 				row.Gap(12),

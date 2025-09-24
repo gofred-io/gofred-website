@@ -60,6 +60,7 @@ func drawerHeader() application.BaseWidget {
 					iconbutton.OnClick(func(this application.BaseWidget, e application.Event) {
 						scaffold.Get().Drawer(Name).Hide()
 					}),
+					iconbutton.Label("Close Drawer"),
 				),
 			},
 			row.Gap(8),
@@ -218,5 +219,6 @@ func drawerNavItemWidget(item drawerNavItem, activeHref string) application.Base
 		link.OnClick(func(this application.BaseWidget, e application.Event) {
 			scaffold.Get().Drawer(Name).Hide()
 		}),
+		link.Label(item.title),
 	)
 }

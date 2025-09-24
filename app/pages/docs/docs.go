@@ -121,6 +121,7 @@ func docsMobileMenuButton() application.BaseWidget {
 		iconbutton.OnClick(func(this application.BaseWidget, e application.Event) {
 			scaffold.Get().Drawer(drawer.Name).Show()
 		}),
+		iconbutton.Label("Open documentation menu"),
 	)
 }
 
@@ -233,6 +234,7 @@ func featureCard(iconData icondata.IconData, title, description, color string, h
 			link.OnClick(func(this application.BaseWidget, e application.Event) {
 				scaffold.Get().Drawer(drawer.Name).Hide()
 			}),
+			link.Label(title),
 		),
 		container.Flex(1),
 	)

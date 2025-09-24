@@ -141,6 +141,7 @@ func backButton() application.BaseWidget {
 		button.OnClick(func(this application.BaseWidget, e application.Event) {
 			application.Context().GoBack()
 		}),
+		button.Label("Go Back"),
 	)
 }
 
@@ -170,7 +171,9 @@ func homeButton() application.BaseWidget {
 				container.BackgroundColor("transparent"),
 				container.Padding(breakpoint.All(spacing.Right(4))),
 			),
+			button.Label("Go Home"),
 		),
 		link.Href("/"),
+		link.Label("home page"),
 	)
 }

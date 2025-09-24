@@ -449,6 +449,7 @@ func nextStepItem(title, description, href string) application.BaseWidget {
 			container.BorderStyle(theme.BorderStyleTypeSolid),
 		),
 		link.Href(href),
+		link.Label(title),
 	)
 }
 
@@ -476,8 +477,10 @@ func navigationButtons(previousHref, nextHref string) application.BaseWidget {
 						row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 					),
 					button.Width(breakpoint.All(120)),
+					button.Label("Previous"),
 				),
 				link.Href(previousHref),
+				link.Label("previous page"),
 			),
 			spacer.New(),
 			link.New(
@@ -501,8 +504,10 @@ func navigationButtons(previousHref, nextHref string) application.BaseWidget {
 						row.CrossAxisAlignment(theme.AxisAlignmentTypeCenter),
 					),
 					button.Width(breakpoint.All(120)),
+					button.Label("Next"),
 				),
 				link.Href(nextHref),
+				link.Label("next page"),
 			),
 		},
 		row.Flex(1),

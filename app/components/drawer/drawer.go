@@ -58,6 +58,7 @@ func drawerHeader() application.BaseWidget {
 					iconbutton.OnClick(func(this application.BaseWidget, e application.Event) {
 						scaffold.Get().Drawer(Name).Hide()
 					}),
+					iconbutton.Label("Close Drawer"),
 				),
 			},
 			row.Gap(12),
@@ -78,6 +79,7 @@ func drawerLogo() application.BaseWidget {
 				"img/gofred.png",
 				image.Width(breakpoint.All(32)),
 				image.Height(breakpoint.All(32)),
+				image.Alt("gofred logo"),
 			),
 			text.New(
 				"gofred",
@@ -214,6 +216,7 @@ func navItem(title, href string, iconData icondata.IconData, isExternal bool) ap
 			link.OnClick(func(this application.BaseWidget, e application.Event) {
 				scaffold.Get().Drawer(Name).Hide()
 			}),
+			link.Label(title),
 		),
 		container.Padding(breakpoint.All(spacing.LRTB(12, 12, 12, 12))),
 		container.BorderRadius(8),
@@ -257,6 +260,7 @@ func externalNavItem(title, href string, iconData icondata.IconData) application
 			link.Flex(1),
 			link.Href(href),
 			link.NewTab(true),
+			link.Label(title),
 		),
 		container.Padding(breakpoint.All(spacing.LRTB(12, 12, 12, 12))),
 		container.BorderRadius(8),

@@ -181,5 +181,6 @@ func navItemWidget(item navItem, activeHref string) application.BaseWidget {
 			container.BorderRadius(6),
 		),
 		link.Href(item.href),
+		link.Label(item.title),
 	)
 }
