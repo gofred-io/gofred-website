@@ -47,8 +47,24 @@ fi
 
 # Build and start new containers with production profile
 log "Building and starting new containers with production profile..."
-docker compose --profile production up --build -d || {
-    log "ERROR: Failed to build and start containers with production profile"
+
+# Build with DigitalOcean Spaces build arguments
+docker compose --profile production build \
+  --build-arg DO_SPACES_REGION="${DO_SPACES_REGION:-fra1}" \
+  --build-arg DO_SPACES_BUCKET="${DO_SPACES_BUCKET:-gofred}" \
+  --build-arg DO_SPACES_ACCESS_KEY="${DO_SPACES_ACCESS_KEY}" \
+  --build-arg DO_SPACES_SECRET_KEY="${DO_SPACES_SECRET_KEY}" \
+  --build-arg DO_API_TOKEN="${DO_API_TOKEN}" \
+  --build-arg DO_CDN_ENDPOINT_ID="${DO_CDN_ENDPOINT_ID}" \
+  --build-arg DO_PURGE_CACHE="${DO_PURGE_CACHE:-true}" \
+  --build-arg WASM_FILE="${WASM_FILE:-web/main.wasm}" || {
+    log "ERROR: Failed to build containers with DigitalOcean Spaces configuration"
+    exit 1
+}
+
+# Start the containers
+docker compose --profile production up -d || {
+    log "ERROR: Failed to start containers with production profile"
     exit 1
 }
 
